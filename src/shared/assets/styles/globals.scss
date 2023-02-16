@@ -1,0 +1,184 @@
+@import "colors";
+
+:root {
+  //--iconColor1: inherit;
+  //--iconColor2: inherit;
+  --iconColor1: #FFF;
+  --iconColor2: #FFF;
+}
+
+div::-webkit-scrollbar {
+  width: 5px; /* ширина scrollbar */
+}
+
+div::-webkit-scrollbar-track {
+  background: transparent; /* цвет дорожки */
+}
+
+div::-webkit-scrollbar-thumb {
+  background-color: $white-70; /* цвет плашки */
+  border-radius: 20px; /* закругления плашки */
+}
+
+div {
+  scrollbar-width: thin;
+  scrollbar-color: $white-70 transparent;
+}
+
+.h1 {
+  font-weight: 600;
+  font-size: 21px;
+  line-height: 26 + 'px';
+  text-align: left;
+}
+
+// Оглавление блоков, большие кнопки
+.h2 {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+// Сопровождение к элементам
+.subHeadersBold {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.subHeadersMedium {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.subHeadersRegular {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.link {
+  color: $blueHigh;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  text-decoration: underline;
+}
+
+.download {
+  color: $blueHigh;
+  font-weight: 600;
+  font-size: 21px;
+  line-height: 26px;
+}
+
+.white-100 {
+  color: $white-100;
+  fill: $greenHigh;
+}
+
+.white-90 {
+  color: $white-90;
+  fill: $greenHigh;
+}
+
+.white-80 {
+  color: $white-80;
+  fill: $greenHigh;
+}
+
+.white-70 {
+  color: $white-70;
+  fill: $greenHigh;
+}
+
+.white-60 {
+  color: $white-60;
+  fill: $greenHigh;
+}
+
+.green {
+  color: $greenHigh;
+  fill: $greenHigh;
+}
+
+.red {
+  color: $redHigh;
+  fill: $redHigh;
+}
+
+.purple {
+  color: $purpleHigh;
+  fill: $purpleHigh;
+}
+
+.pink {
+  color: $pinkHigh;
+  fill: $pinkHigh;
+}
+
+.blue {
+  color: $blueHigh;
+  fill: $blueHigh;
+}
+
+.yellow {
+  color: $yellowHigh;
+  fill: $yellowHigh;
+}
+
+.orange {
+  color: $orangeHigh;
+  fill: $orangeHigh;
+}
+
+.navigationYellow {
+  a {
+    svg {
+      --iconColor1: #F2C94C;
+      --iconColor2: #F2994A;
+    }
+  }
+
+  &:before {
+    background: $grNavigationYellow;
+  }
+}
+
+.navigationGreen {
+  --iconColor1: #6FCF97;
+  --iconColor2: #27AE60;
+
+  &:before {
+    background: $grNavigationGreen;
+  }
+}
+
+.navigationPurple {
+  --iconColor1: #BB6BD9;
+  --iconColor2: #56CCF2;
+
+  &:before {
+    background: $grNavigationPurple;
+  }
+}
+
+.navigationRed {
+  --iconColor1: #EB5757;
+  --iconColor2: #F2994A;
+
+  &:before {
+    background: $grNavigationPurple;
+  }
+}
+
+.navigationWhite {
+  --iconColor1: #DAF6FF;
+  --iconColor2: #333333;
+
+  &:before {
+    background: $grNavigationPurple;
+  }
+}
+
