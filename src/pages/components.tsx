@@ -12,10 +12,10 @@ import {
     SelectChangeEvent,
     Stack, Switch, TextareaAutosize, TextField, Typography
 } from "@mui/material";
-import MainLayout from "../widgets/layout/mainLayout";
+import MainLayout from "../widgets/mainLayout";
 import CustomInput from "../shared/UI/customInput/customInput";
 import IconSearch from "../shared/assets/images/icons/iconSearch";
-import HeaderSidebar from "../entities/headerSidebar/headerSidebar";
+import HeaderSidebar from "../entities/components/headerSidebar";
 import {
     BarChart,
     Area,
@@ -85,8 +85,8 @@ const Components = () => {
             <Container maxWidth="lg">
                 {/*<ResponsiveContainer width="100%" height="100%">*/}
                 <AreaChart
-                    width={730}
-                    height={250}
+                    width={460}
+                    height={205}
                     data={chartData}
                     margin={{
                         top: 20, right: 20, bottom: 20, left: 20,
@@ -132,7 +132,7 @@ const Components = () => {
                     placeholder="Default"
                 />
 
-                <HeaderSidebar name="Remy Sharp" images="" account="2" many="10 000 000"/>
+                <HeaderSidebar name="Remy Sharp" images="" account="2" balance="10 000 000"/>
                 <Stack direction="row" spacing={1}>
                     <Chip label="primary" color="primary"/>
                     <Chip label="success" color="success"/>
@@ -188,7 +188,7 @@ const Components = () => {
                 </Stack>
                 <Switch defaultChecked/>
 
-                <CustomInput typeInput="search"/>
+                {/*<CustomInput typeInput="search"/>*/}
                 {/*<TextField*/}
 
                 {/*    fullWidth*/}

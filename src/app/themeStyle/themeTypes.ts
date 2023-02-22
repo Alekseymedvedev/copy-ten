@@ -1,6 +1,8 @@
 import Button from '@mui/material/Button';
+import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
 import styles from '@mui/material/styles';
+import {customChip} from "./components/customChip";
 
 
 declare module '@mui/material/styles' {
@@ -18,6 +20,11 @@ declare module '@mui/material/Button' {
         neutral: true;
     }
 }
+declare module '@mui/material/Chip' {
+    interface ChipPropsColorOverrides {
+        neutral: true;
+    }
+}
 
 declare module '@mui/material/TextField' {
     interface TextFieldPropsColorOverrides {
@@ -25,10 +32,9 @@ declare module '@mui/material/TextField' {
     }
 }
 
-declare module '@mui/material/Stack' {
-    interface StackPropsColorOverrides {
-        variant?: true;
-        size?: string;
-    }
-}
+// declare module '@mui/material/Stack' {
+//     interface StackPropsVariantsOverrides {
+//         variant?: true;
+//     }
+// }
 

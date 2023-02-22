@@ -1,10 +1,10 @@
 import React from 'react';
-import cls from './sidebar.module.scss'
-import MenuList from "../../entities/menuList/menuList";
-import HeaderSidebar from "../../entities/headerSidebar/headerSidebar";
+import cls from './styles/sidebar.module.scss'
+import MenuList from "../entities/components/menuList";
+import HeaderSidebar from "../entities/components/headerSidebar";
 import {Stack} from "@mui/material";
-import IconAccount from "../../shared/assets/images/icons/iconAccount";
-import MenuItem from "../../shared/assets/components/menuItem/menuItem";
+import MenuItem from "../shared/components/menuItem";
+import IconProducts from "../shared/assets/images/icons/iconProducts";
 
 
 const Sidebar = () => {
@@ -12,10 +12,10 @@ const Sidebar = () => {
         <section className={cls.section}>
             <Stack spacing={21}>
                 <Stack spacing={7}>
-                    <HeaderSidebar name="Remy Sharp" images="" account="2" many="10 000 000"/>
+                    <HeaderSidebar name="Remy Sharp" images="" account="2" balance="10 000 000"/>
                    <ul>
                        <MenuItem path='/' name="Продукты" navigateClass="navigationYellow">
-                           <IconAccount/>
+                           <IconProducts active={true}/>
                        </MenuItem>
                    </ul>
                 </Stack>

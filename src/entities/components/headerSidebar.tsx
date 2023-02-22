@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import cls from './headerSidebar.module.scss'
+import cls from '../headerSidebar/headerSidebar.module.scss'
 import {Avatar, Chip, Stack} from "@mui/material";
 import IconDollar from "../../shared/assets/images/icons/iconDollar";
 import IconAccount from "../../shared/assets/images/icons/iconAccount";
@@ -7,11 +7,12 @@ import IconAccount from "../../shared/assets/images/icons/iconAccount";
 interface T {
     name: string;
     images?: string;
-    many: string;
+    balance: string;
     account: string;
 }
 
-const HeaderSidebar: FC<T> = ({name, images, many, account}) => {
+
+const HeaderSidebar: FC<T> = ({name, images, balance, account}) => {
     return (
         <Stack direction="row" spacing={7}>
             <Avatar
@@ -26,7 +27,7 @@ const HeaderSidebar: FC<T> = ({name, images, many, account}) => {
                 </Stack>
                 <Stack direction="row" spacing={2}>
                     <Chip label={account} variant="filled" icon={<IconAccount/>}/>
-                    <Chip label={many} color="warning" variant="filled" icon={<IconDollar/>}/>
+                    <Chip label={balance} color="warning" variant="filled" icon={<IconDollar/>}/>
                 </Stack>
             </Stack>
         </Stack>

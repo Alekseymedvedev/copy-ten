@@ -1,9 +1,6 @@
-import React, {FC} from 'react';
-import {ThemeProvider} from "@mui/material/styles";
-import {darkTheme} from "../../app/themeStyle/themeStyle";
-import {Container, CssBaseline, Stack} from "@mui/material";
-import Sidebar from "../sidebar/sidebar";
-import Header from "../header/header";
+import React, {FC} from 'react';import {Container, CssBaseline, Stack} from "@mui/material";
+import Sidebar from "./sidebar";
+import Header from "./header";
 
 
 interface MainLayoutProps {
@@ -17,7 +14,7 @@ const MainLayout: FC<MainLayoutProps> = ({children}) => {
             <Stack direction="row" spacing={4}>
                 <Sidebar/>
 
-                <Stack spacing={7 }>
+                <Stack spacing={7 } flexGrow={1}>
                     <Header/>
                     <main className="main">
                         {children}

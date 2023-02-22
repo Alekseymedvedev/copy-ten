@@ -28,7 +28,7 @@ div {
 .h1 {
   font-weight: 600;
   font-size: 21px;
-  line-height: 26 + 'px';
+  line-height: 26px;
   text-align: left;
 }
 
@@ -40,14 +40,14 @@ div {
 }
 
 // Сопровождение к элементам
-.subHeadersBold {
-  font-weight: 600;
+.subHeaders {
+  font-weight: 500;
   font-size: 12px;
   line-height: 15px;
 }
 
-.subHeadersMedium {
-  font-weight: 500;
+.subHeadersBold {
+  font-weight: 600;
   font-size: 12px;
   line-height: 15px;
 }
@@ -103,9 +103,17 @@ div {
   fill: $greenHigh;
 }
 
+.greenBg {
+  background-color: $greenLow;
+}
+
 .red {
   color: $redHigh;
   fill: $redHigh;
+}
+
+.redBg {
+  background-color: $redLow;
 }
 
 .purple {
@@ -113,9 +121,17 @@ div {
   fill: $purpleHigh;
 }
 
+.purpleBg {
+  background-color: $purpleLow;
+}
+
 .pink {
   color: $pinkHigh;
   fill: $pinkHigh;
+}
+
+.pinkBg {
+  background-color: $pinkLow;
 }
 
 .blue {
@@ -123,9 +139,17 @@ div {
   fill: $blueHigh;
 }
 
+.blueBg {
+  background-color: $blueLow;
+}
+
 .yellow {
   color: $yellowHigh;
   fill: $yellowHigh;
+}
+
+.yellowBg {
+  background-color: $yellowLow;
 }
 
 .orange {
@@ -133,52 +157,37 @@ div {
   fill: $orangeHigh;
 }
 
-.navigationYellow {
-  a {
-    svg {
-      --iconColor1: #F2C94C;
-      --iconColor2: #F2994A;
-    }
-  }
+.orangeBg {
+  background-color: $orangeLow;
+}
 
+.navigationYellow {
   &:before {
     background: $grNavigationYellow;
   }
 }
 
 .navigationGreen {
-  --iconColor1: #6FCF97;
-  --iconColor2: #27AE60;
-
   &:before {
     background: $grNavigationGreen;
   }
 }
 
 .navigationPurple {
-  --iconColor1: #BB6BD9;
-  --iconColor2: #56CCF2;
-
   &:before {
     background: $grNavigationPurple;
   }
 }
 
 .navigationRed {
-  --iconColor1: #EB5757;
-  --iconColor2: #F2994A;
-
   &:before {
-    background: $grNavigationPurple;
+    background: $grNavigationRed;
   }
 }
 
 .navigationWhite {
-  --iconColor1: #DAF6FF;
-  --iconColor2: #333333;
-
   &:before {
-    background: $grNavigationPurple;
+    background: $grNavigationWhite;
   }
 }
 

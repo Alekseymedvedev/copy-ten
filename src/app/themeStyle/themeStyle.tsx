@@ -18,18 +18,17 @@ export const darkTheme = createTheme({
         primary: {
             main: themeColors.greenLight,
             dark: themeColors.greenDark,
-            contrastText: themeColors.greenLight,
+            contrastText: themeColors.white100,
         },
         text: {
             primary: themeColors.white100,
             secondary: themeColors.white80,
-
         },
-
-        // secondary: {
-        //     main: themeColors.blueLight,
-        //     dark: themeColors.blueDark,
-        // },
+        secondary: {
+            main: themeColors.pinkLight,
+            dark: themeColors.pinkDark,
+            contrastText: themeColors.pinkLight,
+        },
         success: {
             main: themeColors.greenLight,
             dark: themeColors.greenDark,
@@ -46,16 +45,16 @@ export const darkTheme = createTheme({
             contrastText: themeColors.yellowLight,
         },
         neutral: {
-            light: themeColors.white100,
+            light: themeColors.white70,
             main: themeColors.white80,
             dark: themeColors.black50,
+            contrastText: themeColors.white90,
+        },
+        info: {
+            main: themeColors.blueLight,
+            dark: themeColors.blueDark,
             contrastText: themeColors.white100,
         },
-        // info: {
-        //     main: themeColors.blueLight,
-        //     dark: themeColors.blueDark,
-        //     contrastText: themeColors.blueLight,
-        // },
 
     },
 
@@ -135,31 +134,44 @@ export const darkTheme = createTheme({
                 }
             }
         },
-        MuiSwitch: {
-            styleOverrides: {
-                root: {},
-            }
-        },
+        // MuiSwitch: {
+        //     styleOverrides: {
+        //
+        //         track: {
+        //             backgroundColor: themeColors.white70
+        //         },
+        //     }
+        // },
         MuiContainer: {
             styleOverrides: {
                 root: {
-                    padding: `28px 14px`
+
+                    "@media (min-width: 600px)":{
+                        maxWidth:1280,
+                        padding: `28px 14px`,
+                    }
                 },
             }
         },
-        MuiStack: {
-            variants: [
-                {
-                    props: {variant: 'outlined'} as object,
-                    style: {
-                        maxWidth: 'max-content',
-                        padding: 10,
-                        border: `0.5px solid #3C3C3C`,
-                        borderRadius: 5,
-                    },
+        MuiCard: {
+            styleOverrides: {
+                root: {
+                    border: `0.5px solid #3c3c3c`,
+                    borderRadius: 10
                 },
+            }
+        },
+        MuiAccordion: {
+            styleOverrides: {
+                root: {
+                    border: `0.5px solid #3c3c3c`,
+                    borderRadius: 10,
+                    "&:first-of-type":{
+                        borderRadius: 10,
 
-            ],
+                    }
+                },
+            }
         },
     },
 });

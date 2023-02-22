@@ -1,13 +1,12 @@
 import React, {FC} from 'react';
-import Sidebar from "../widgets/sidebar/sidebar";
-import MainLayout from "../widgets/layout/mainLayout";
-import {Container} from "@mui/material";
+import MainLayout from "../widgets/mainLayout";
+import AccountCardList from "../widgets/accountCardList";
 
 
 const Home = () => {
     return (
         <MainLayout>
-
+            <AccountCardList/>
         </MainLayout>
     );
 };

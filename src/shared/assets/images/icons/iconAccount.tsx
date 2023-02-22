@@ -1,11 +1,33 @@
-const IconAccount = (icon: any) => {
+const IconAccount = ({icon, active}: any) => {
 
     return (
-        <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="M16.2 15H1.8C0.805887 15 0 14.1605 0 13.125V1.875C0 0.839466 0.805887 0 1.8 0H16.2C17.1941 0 18 0.839466 18 1.875V13.125C18 14.1605 17.1941 15 16.2 15ZM1.8 7.5V13.125H16.2V7.5H1.8ZM1.8 1.875V3.75H16.2V1.875H1.8Z"
-                fill="#828282"/>
-        </svg>
+        <>
+            {
+                active ?
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M32 32H16C14.8954 32 14 31.1046 14 30V18C14 16.8954 14.8954 16 16 16H32C33.1046 16 34 16.8954 34 18V30C34 31.1046 33.1046 32 32 32ZM16 24V30H32V24H16ZM16 18V20H32V18H16Z"
+                            fill="url(#paint0_linear_722_55206)"/>
+                        <defs>
+                            <linearGradient id="paint0_linear_722_55206" x1="24" y1="16" x2="24" y2="32"
+                                            gradientUnits="userSpaceOnUse">
+                                <stop stopColor="#6FCF97"/>
+                                <stop offset="1" stopColor="#27AE60"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+
+                    :
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M32 32H16C14.8954 32 14 31.1046 14 30V18C14 16.8954 14.8954 16 16 16H32C33.1046 16 34 16.8954 34 18V30C34 31.1046 33.1046 32 32 32ZM16 24V30H32V24H16ZM16 18V20H32V18H16Z"
+                            fill="#828282"/>
+                    </svg>
+
+            }
+
+        </>
+
     );
 };
 
