@@ -6,6 +6,7 @@ import CopyTrading from "../../pages/copyTrading";
 import Partner from "../../pages/partner";
 import Support from "../../pages/support";
 import Settings from "../../pages/settings";
+import TraderDashboard from "../../pages/trader-dashboard";
 
 
 
@@ -17,5 +18,6 @@ export const routes = [
     {path: "/partner", element: <Partner/>},
     {path: "/settings", element: <Settings/>},
     {path: "/support", element: <Support/>},
+    {path: "/trader-dashboard", element: <TraderDashboard/>},
     {path: "/components", element: <Components/>},
 ]

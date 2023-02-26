@@ -2,12 +2,12 @@ import MainLayout from "../widgets/mainLayout";
 import CopyTradingTabs from "../widgets/copyTradingTabs";
 
 
-const CopyTrading = () => {
+const TraderDashboard = () => {
     return (
         <MainLayout>
-            <CopyTradingTabs/>
+            TraderDashboard
         </MainLayout>
     );
 };
 
-export default CopyTrading;
+export default TraderDashboard;

@@ -3,26 +3,36 @@ import {Stack} from "@mui/material";
 import {Area, AreaChart, ResponsiveContainer} from "recharts";
 
 
-interface IdataArea{
-    dataKey:string;
-    stroke:string;
-    fill:string;
+interface IdataArea {
+    dataKey: string;
+    stroke: string;
+    fill: string;
 }
+
 interface IType {
     height: number;
     data: {}[];
-    dataArea:IdataArea[];
+    dataArea: IdataArea[];
 
 }
 
-const CustomAreaChart: FC<IType> = ({height,data,dataArea}) => {
+const CustomAreaChart: FC<IType> = ({height, data, dataArea}) => {
     return (
-        <Stack sx={{width: '100%', height: {height}}}>
+        <Stack sx={{width: '100%', height: {height}}} overflow="hidden">
             <ResponsiveContainer>
-                <AreaChart data={data} >
+                <AreaChart
+                    data={data}
+                    margin={{
+                        top: -5,
+                        right: -5,
+                        left: -5,
+                        bottom: -5,
+                    }}
+                >
                     {
-                        dataArea && dataArea.map(item=>
-                            <Area key={item.dataKey+item.dataKey} dataKey={item.dataKey} stroke={item.stroke} fill={item.fill}/>
+                        dataArea && dataArea.map(item =>
+                            <Area key={item.dataKey + item.dataKey} dataKey={item.dataKey} stroke={item.stroke}
+                                  fill={item.fill}/>
                         )
                     }
                 </AreaChart>

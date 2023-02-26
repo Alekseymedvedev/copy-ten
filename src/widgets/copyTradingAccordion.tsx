@@ -1,58 +1,14 @@
 import React, {FC, useState} from 'react';
-
-
-import {styled} from '@mui/material/styles';
-import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
-import MuiAccordion, {AccordionProps} from '@mui/material/Accordion';
-import MuiAccordionSummary, {
-    AccordionSummaryProps,
-} from '@mui/material/AccordionSummary';
-import MuiAccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
 import {Accordion, AccordionDetails, AccordionSummary, Button, Grid, Stack} from "@mui/material";
-import NickName from "./shared/components/nickName";
-import CustomAreaChart from "./entities/components/chart/customAreaChart";
-import {chartData} from "./data/chart";
-import CurrentValues from "./entities/components/currentValues";
-import IconConnected from "./shared/assets/images/icons/iconConnected";
-import HeaderChart from "./shared/components/headerChart";
-import Chart from "./entities/components/chart/chart";
+import NickName from "../shared/components/nickName";
+import CustomAreaChart from "../entities/components/chart/customAreaChart";
+import {chartData} from "../data/chart";
+import CurrentValues from "../entities/components/currentValues";
+import IconConnected from "../shared/assets/images/icons/iconConnected";
+import HeaderChart from "../shared/components/headerChart";
+import CopyTradingModal from "../entities/components/modal/copyTradingModal";
+import {Link} from "react-router-dom";
 
-// const Accordion = styled((props: AccordionProps) => (
-//     <MuiAccordion disableGutters elevation={0} square {...props} />
-// ))(({ theme }) => ({
-//     border: `1px solid ${theme.palette.divider}`,
-//     '&:not(:last-child)': {
-//         borderBottom: 0,
-//     },
-//     '&:before': {
-//         display: 'none',
-//     },
-// }));
-//
-// const AccordionSummary = styled((props: AccordionSummaryProps) => (
-//     <MuiAccordionSummary
-//         expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />}
-//         {...props}
-//     />
-// ))(({ theme }) => ({
-//     backgroundColor:
-//         theme.palette.mode === 'dark'
-//             ? 'rgba(255, 255, 255, .05)'
-//             : 'rgba(0, 0, 0, .03)',
-//     flexDirection: 'row-reverse',
-//     '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
-//         transform: 'rotate(90deg)',
-//     },
-//     '& .MuiAccordionSummary-content': {
-//         marginLeft: theme.spacing(1),
-//     },
-// }));
-//
-// const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-//     padding: theme.spacing(2),
-//     borderTop: '1px solid rgba(0, 0, 0, .125)',
-// }));
 
 interface IType {
     children?: any
@@ -60,16 +16,21 @@ interface IType {
 
 const CopyTradingAccordion: FC<IType> = ({children}) => {
     const [expanded, setExpanded] = useState<string | false>('panel1');
+    const [openModal, setOpenModal] = useState(false);
 
     const handleChange =
         (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
             setExpanded(newExpanded ? panel : false);
         };
+    const handleOpenModal = (event: React.SyntheticEvent) => {
+        event.stopPropagation()
+        setOpenModal(true)
+    };
 
     return (
         <div>
             <Accordion
-                sx={{p: `0 28px`, }}
+                sx={{p: `0 28px`,mb: 7}}
                 expanded={expanded === 'panel1'}
                 onChange={handleChange('panel1')}
             >
@@ -80,33 +41,46 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                         </Grid>
                         <Grid item xs={5}>
                             {
-                                expanded ==='panel1'?
+                                expanded === 'panel1' ?
                                     null
-                                    : <CustomAreaChart height={64} data={chartData}
-                                                       dataArea={[{
-                                                           dataKey: "uv",
-                                                           stroke: "#6FCF97",
-                                                           fill: "#29312C"
-                                                       },]}/>
+                                    : <CustomAreaChart
+                                        height={64}
+                                        data={chartData}
+                                        dataArea={[{
+                                            dataKey: "uv",
+                                            stroke: "#6FCF97",
+                                            fill: "#29312C"
+                                        },]}/>
                             }
 
                         </Grid>
                         <Grid item xs={4} flexDirection="row">
                             {
-                                expanded ==='panel1' ?
-                                    null
+                                expanded === 'panel1' ?
+                                    <Stack width='100%' direction="row" alignItems="center"
+                                           justifyContent="space-between">
+                                        <Button
+                                            onClick={(e) => handleOpenModal(e)}
+                                            variant="gardient"
+                                            color="warning"
+                                            startIcon={<IconConnected/>}
+                                            sx={{ml: 'auto'}}
+                                        >
+                                            Подключение
+                                        </Button>
+                                    </Stack>
                                     :
-                                    <Stack width='100%' direction="row" alignItems="center" justifyContent="space-between">
+                                    <Stack width='100%' direction="row" alignItems="center"
+                                           justifyContent="space-between">
                                         <CurrentValues/>
                                         <IconConnected/>
                                     </Stack>
                             }
 
-
                         </Grid>
                     </Grid>
                 </AccordionSummary>
-                <AccordionDetails>
+                <AccordionDetails sx={{mb: 7}}>
                     <Grid container spacing={10} columns={12} wrap="wrap">
                         <Grid item xs={4}>
                             <Stack
@@ -159,7 +133,7 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                                         </Stack>
                                     </Stack>
                                 </Stack>
-                                <Button className="h1" color="neutral">Подробнее</Button>
+                                <Button className="h1" color="neutral" component={Link} to="/trader-dashboard">Подробнее</Button>
                             </Stack>
                         </Grid>
                     </Grid>
@@ -174,6 +148,7 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
 
                 </AccordionDetails>
             </Accordion>
+            <CopyTradingModal openModal={openModal} closeModal={setOpenModal}/>
         </div>
     );
 }

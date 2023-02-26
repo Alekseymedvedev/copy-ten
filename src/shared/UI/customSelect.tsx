@@ -3,26 +3,26 @@ import {Checkbox, FormControl, ListItemText, MenuItem, Select, SelectChangeEvent
 
 interface T {
     title?: string;
+    multiple?: boolean;
+    defaultValue?: string;
 }
 
 const names = [
     'Вариант 1',
     'Вариант 2',
 ];
-const CustomSelect: FC<T> = ({title}) => {
+const CustomSelect: FC<T> = ({title,multiple,defaultValue}) => {
     const [variantName, setVariantName] = React.useState<string[]>([]);
     useEffect((() => {
-        if (names.length) {
-            setVariantName(['Выбор счета'])
-        } else {
-            setVariantName(['Нет счетов'])
+        if (defaultValue) {
+            setVariantName([defaultValue])
         }
     }), [])
     const handleChange = (event: SelectChangeEvent<typeof variantName>) => {
-
         const {
-            target: {value},
+            target: { value },
         } = event;
+        setVariantName([''])
         setVariantName(
             typeof value === 'string' ? value.split(',') : value,
         );
@@ -34,11 +34,10 @@ const CustomSelect: FC<T> = ({title}) => {
 
             <FormControl>
                 <Select
-                    labelId="demo-multiple-checkbox-label"
-                    id="demo-multiple-checkbox"
+                    multiple={multiple && true}
                     value={variantName}
                     onChange={handleChange}
-                    renderValue={(selected) => selected}
+                    renderValue={(selected) => selected.join(', ')}
                 >
                     {
                         (names !== undefined && names?.length > 0)

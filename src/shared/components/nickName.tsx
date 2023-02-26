@@ -1,5 +1,7 @@
 import React, {FC} from 'react';
-import {Avatar, Stack} from "@mui/material";
+import {Avatar, Stack, Tooltip} from "@mui/material";
+import CustomTooltip from "./customTooltip";
+import {NavLink} from "react-router-dom";
 
 interface IType {
     name: string;
@@ -9,7 +11,7 @@ interface IType {
     justifyContent?: string;
 }
 
-const NickName: FC<IType> = ({name,number,avatar,direction,justifyContent}) => {
+const NickName: FC<IType> = ({name, number, avatar, direction, justifyContent}) => {
     return (
         <Stack
             mb={7}
@@ -22,11 +24,21 @@ const NickName: FC<IType> = ({name,number,avatar,direction,justifyContent}) => {
                 <span className="subHeaders white-80">{number}</span>
                 <span className="subHeadersBold">{name}</span>
             </Stack>
-            <Avatar
-                alt={name}
-                src={avatar}
-                sx={{width: 34, height: 34}}
-            />
+            <CustomTooltip title={
+                <>
+                    <span>{'Стратегия “Стопами”'}</span>
+                   <br/>
+                    <NavLink className="link" to="/">{'Что это?'}</NavLink>
+                </>
+            }
+
+            >
+                <Avatar
+                    alt={name}
+                    src={avatar}
+                    sx={{width: 34, height: 34}}
+                />
+            </CustomTooltip>
         </Stack>
     );
 };

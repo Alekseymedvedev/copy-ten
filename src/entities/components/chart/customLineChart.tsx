@@ -2,6 +2,7 @@ import React, {FC} from 'react';
 import {Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {Stack} from "@mui/material";
 import CustomAxisTick from "./customAxisTick";
+
 const data = [
     {
         name: 'Page A',
@@ -40,6 +41,60 @@ const data = [
         amt: 2500,
     },
     {
+        name: 'Page F',
+        uv: 2390,
+        pv: 3800,
+        amt: 2500,
+    },
+    {
+        name: 'Page F',
+        uv: 2390,
+        pv: 3800,
+        amt: 2500,
+    },
+    {
+        name: 'Page F',
+        uv: 2390,
+        pv: 3800,
+        amt: 2500,
+    },
+    {
+        name: 'Page F',
+        uv: 2390,
+        pv: 3800,
+        amt: 2500,
+    },
+    {
+        name: 'Page F',
+        uv: 2390,
+        pv: 3800,
+        amt: 2500,
+    },
+    {
+        name: 'Page F',
+        uv: 2390,
+        pv: 3800,
+        amt: 2500,
+    },
+    {
+        name: 'Page F',
+        uv: 2390,
+        pv: 3800,
+        amt: 2500,
+    },
+    {
+        name: 'Page F',
+        uv: 2390,
+        pv: 3800,
+        amt: 2500,
+    },
+    {
+        name: 'Page F',
+        uv: 2390,
+        pv: 3800,
+        amt: 2500,
+    },
+    {
         name: 'Page G',
         uv: 3490,
         pv: 4300,
@@ -49,24 +104,25 @@ const data = [
 
 interface T {
     children?: any
+    height?: number
 }
 
 
-const CustomLineChart: FC<T> = ({children}) => {
+const CustomLineChart: FC<T> = ({children, height}) => {
     return (
-        <Stack sx={{width: '100%', height: 230}}>
+        <Stack sx={{width: '100%', height: height ? height : 230}}>
             <ResponsiveContainer>
                 <LineChart
                     data={data}
                     margin={{
-                        top: 5,
-                        right: 30,
-                        left: 20,
-                        bottom:10,
+                        top: 15,
+                        right: -40,
+                        left: -40,
+                        bottom: 15,
                     }}
                 >
                     <XAxis dataKey="name" tick={<CustomAxisTick/>}/>
-                    <YAxis dataKey="pv" tick={<CustomAxisTick/>} />
+                    <YAxis dataKey="pv" tick={<CustomAxisTick/>}/>
                     <YAxis dataKey="uv" yAxisId="right" orientation="right" tick={<CustomAxisTick/>}/>
                     <Tooltip/>
                     <Line dataKey="pv" stroke="#6FCF97" activeDot={{width: 0}}/>

@@ -13,7 +13,7 @@ import {
     Stack, Switch, TextareaAutosize, TextField, Typography
 } from "@mui/material";
 import MainLayout from "../widgets/mainLayout";
-import CustomInput from "../shared/UI/customInput/customInput";
+import CustomInput from "../shared/UI/customInput";
 import IconSearch from "../shared/assets/images/icons/iconSearch";
 import HeaderSidebar from "../entities/components/headerSidebar";
 import {

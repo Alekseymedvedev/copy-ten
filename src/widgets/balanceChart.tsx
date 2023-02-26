@@ -16,7 +16,7 @@ interface IType {
 const BalanceChart: FC<IType> = ({children,  description}) => {
     return (
         <Stack>
-            <Stack sx={{width: '100%', height: 230}}>
+            <Stack sx={{width: '100%'}}>
 
                 <CustomLineChart/>
 

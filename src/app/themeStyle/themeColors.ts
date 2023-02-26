@@ -44,4 +44,7 @@ export const themeColors = {
     navyblueMedum: '#3D445C',
     navyblueDark: '#22273A',
 
+    greenGr:`linear-gradient(0deg, rgba(111, 207, 151, 0.1) 0%, rgba(111, 207, 151, 0) 100%)`,
+    yellowGr:`linear-gradient(0deg, rgba(242, 201, 76, 0.05) 0%, rgba(242, 201, 76, 0) 100%)`
+
 }

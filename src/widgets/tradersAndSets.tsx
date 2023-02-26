@@ -8,6 +8,10 @@ import {Area, AreaChart, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, Y
 import CustomAxisTick from "../entities/components/chart/customAxisTick";
 import {chartData} from "../data/chart";
 import NickName from "../shared/components/nickName";
+import TabsHeader from "../entities/components/tabsHeader";
+import IconAccount from "../shared/assets/images/icons/iconAccount";
+import IconTraders from "../shared/assets/images/icons/iconTraders";
+import IconSet from "../shared/assets/images/icons/iconSet";
 
 interface IType {
     name?: string;
@@ -38,12 +42,14 @@ const TradersAndSets: FC<IType> = ({name,}) => {
                 borderRadius: 2.5,
                 flexGrow: 1
             }}>
-                <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-                    <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                        <Tab label="Трейдеры" {...a11yProps(0)} />
-                        <Tab label="Сеты" {...a11yProps(1)} />
-                    </Tabs>
-                </Box>
+                <TabsHeader
+                    variant="fullWidth"
+                    size="sizeSmall"
+                    tabsName={[{name:'Дашборд'}, {name:'История'}]}
+                    tabsValue={value}
+                    onTabsChange={setValue}
+                />
+
                 <Divider/>
                 <Stack className="subHeadersBold white-80">7/15</Stack>
                 <TabsItem value={value} index={0}>
@@ -59,7 +65,7 @@ const TradersAndSets: FC<IType> = ({name,}) => {
                         <NickName name="NICKNAME_NICKNAME" number="18050009" avatar="" justifyContent="space-between"/>
 
 
-                        <Stack sx={{width: '100%', height: 54, mb:8}}>
+                        <Stack sx={{width: '100%', height: 54, mb: 8}}>
                             <ResponsiveContainer>
                                 <AreaChart data={chartData}>
                                     <Area dataKey="pv" stroke="#6FCF97" fill="#29312C"/>
@@ -82,7 +88,7 @@ const TradersAndSets: FC<IType> = ({name,}) => {
                                 <span className="subHeadersBold green">+22.49%</span>
                             </Stack>
                         </Stack>
-                        <Button sx={{mb:4}} fullWidth variant="outlined" color="neutral">Настройки</Button>
+                        <Button sx={{mb: 4}} fullWidth variant="outlined" color="neutral">Настройки</Button>
                         <Button fullWidth variant="contained" color="error">Отключить</Button>
                     </Stack>
 

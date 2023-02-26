@@ -1,10 +1,11 @@
 import MainLayout from "../widgets/mainLayout";
+import PersonalSetting from "../widgets/personalSetting";
 
 
 const Settings = () => {
     return (
         <MainLayout>
-            Settings
+            <PersonalSetting/>
         </MainLayout>
     );
 };

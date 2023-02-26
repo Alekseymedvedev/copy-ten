@@ -4,8 +4,8 @@ import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import {Divider, IconButton, Snackbar, Stack, TextField} from "@mui/material";
 import {FC, useEffect, useState} from "react";
-import IconClose from "../assets/images/icons/iconClose";
-import CustomInput from "../UI/customInput/customInput";
+import IconClose from "../../../shared/assets/images/icons/iconClose";
+import CustomInput from "../../../shared/UI/customInput";
 
 
 const style = {
@@ -30,7 +30,7 @@ interface ICustomModal {
     isError?: boolean
 }
 
-const CustomModal: FC<ICustomModal> = ({children, openModal, closeModal, isOPenBtn, isError}) => {
+const AccountModal: FC<ICustomModal> = ({children, openModal, closeModal, isOPenBtn, isError}) => {
     const [open, setOpen] = useState(false);
     const [step, setStep] = useState(1);
 
@@ -134,4 +134,4 @@ const CustomModal: FC<ICustomModal> = ({children, openModal, closeModal, isOPenB
 }
 
 
-export default CustomModal
+export default AccountModal

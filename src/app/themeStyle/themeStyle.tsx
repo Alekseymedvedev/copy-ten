@@ -12,7 +12,7 @@ export const darkTheme = createTheme({
 
     palette: {
         background: {
-            default: ' #242424'
+            default: ' #1C1B1A'
         },
         mode: "dark",
         primary: {
@@ -168,9 +168,62 @@ export const darkTheme = createTheme({
                     borderRadius: 10,
                     "&:first-of-type":{
                         borderRadius: 10,
-
-                    }
+                    },
+                    "&:before":{
+                        content:'none'
+                    },
                 },
+            }
+        },
+        MuiSlider: {
+            styleOverrides: {
+                markLabel: {
+                    top: -15,
+                    color: '#828282'
+                },
+            }
+        },
+        MuiBackdrop: {
+            styleOverrides: {
+               root:{
+                   backdropFilter: `blur(1.5px)`
+               }
+            }
+        },
+        MuiTabs: {
+            styleOverrides: {
+               root:{
+                  minHeight: 'unset',
+                   gap: `14px`
+               },
+                flexContainer:{
+                   gap:14
+                },
+                indicator:{
+                   display:'none'
+                },
+            }
+        },
+        MuiTab: {
+            styleOverrides: {
+               root:{
+                  minHeight: 'unset',
+
+                   borderRadius: 10,
+                   '&.MuiButtonBase-root':{
+                       padding:`14px 28px`,
+                   }
+               }
+            }
+        },
+        MuiPaper: {
+            styleOverrides: {
+               root:{
+                   borderRadius: 10,
+                   padding:`14px 28px`,
+                   boxShadow: "none",
+                   border: ` 0.5px solid #3C3C3C`,
+               }
             }
         },
     },

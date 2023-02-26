@@ -1,6 +1,6 @@
 import React, {FC, useState} from 'react';
 import {IconButton, TextField} from "@mui/material";
-import IconPassword from "../../assets/images/icons/iconPassword";
+import IconPassword from "../assets/images/icons/iconPassword";
 
 interface T {
     label?: string;

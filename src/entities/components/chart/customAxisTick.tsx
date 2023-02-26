@@ -19,4 +19,5 @@ const CustomAxisTick = ({payload, x, y}: any) => {
     );
 }
 
+
 export default CustomAxisTick;

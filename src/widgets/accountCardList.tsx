@@ -2,7 +2,7 @@ import React, {FC, useState} from 'react';
 import AccountCard from "../entities/components/accountCard";
 import {Grid, Card, Stack} from "@mui/material";
 import IconPlus from "../shared/assets/images/icons/iconPlus";
-import CustomModal from "../shared/components/customModal";
+import AccountModal from "../entities/components/modal/accountModal";
 import {NavLink} from "react-router-dom";
 
 interface T {
@@ -36,7 +36,7 @@ const AccountCardList: FC<T> = ({children}) => {
                     </Card>
                 </Grid>
             </Grid>
-            <CustomModal openModal={openModal} closeModal={setOpenModal}/>
+            <AccountModal openModal={openModal} closeModal={setOpenModal}/>
         </>
     );
 };

@@ -1,5 +1,5 @@
 import MainLayout from "../widgets/mainLayout";
-import CustomTabs from "../widgets/customTabs";
+import ExchangeAccountTabs from "../widgets/exchangeAccountTabs";
 
 
 const Tariff = () => {

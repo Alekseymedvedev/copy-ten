@@ -20,6 +20,11 @@ declare module '@mui/material/Button' {
         neutral: true;
     }
 }
+declare module '@mui/material/Button' {
+    interface ButtonPropsVariantOverrides {
+        gardient: true;
+    }
+}
 declare module '@mui/material/Chip' {
     interface ChipPropsColorOverrides {
         neutral: true;

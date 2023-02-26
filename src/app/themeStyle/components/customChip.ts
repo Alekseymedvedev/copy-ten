@@ -33,7 +33,6 @@ export const customChip = {
     ],
     styleOverrides: {
         root: {
-            padding: 10,
             fontWeight: 600,
             fontSize: 12,
             lineHeight: `15px`,

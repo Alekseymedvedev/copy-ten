@@ -142,17 +142,17 @@ const CustomBarChart: FC<T> = ({children}) => {
                     data={data}
                     stackOffset="sign"
                     margin={{
-                        top: 5,
-                        right: 5,
-                        left: 5,
-                        bottom: 5,
+                        top: 15,
+                        right: 0,
+                        left: -40,
+                        bottom: 15,
                     }}
                 >
-                    <CartesianGrid strokeDasharray="3 3" stroke="#8884d8" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#3c3c3c" />
                     <XAxis dataKey="name" tick={<CustomAxisTick/>} />
                     <YAxis tick={<CustomAxisTick/>} />
                     <Tooltip />
-                    <ReferenceLine y={0} stroke="red" alwaysShow={true} isFront={true}/>
+                    <ReferenceLine y={0} stroke="#3c3c3c" alwaysShow={true} isFront={true}/>
                     <Bar dataKey="pv" stackId="a" fill="#27AE60" />
                     <Bar dataKey="amt" stackId="a" fill="#82ca9d" />
                     <Bar dataKey="uv" stackId="a" fill="#56CCF2" />
