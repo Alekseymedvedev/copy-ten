@@ -1,6 +1,6 @@
 import {Button, Divider, Stack} from "@mui/material";
 import CustomInput from "../../shared/UI/customInput";
-import SettingsItem from "../settingsItem";
+import SettingsItem from "./settingsItem";
 import React from "react";
 
 

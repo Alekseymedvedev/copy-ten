@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import SettingsItem from "../settingsItem";
+import SettingsItem from "./settingsItem";
 import {Button, Stack} from "@mui/material";
 import CopyTradingModal from "./modal/copyTradingModal";
 import SettingsModak from "./modal/settingsModak";

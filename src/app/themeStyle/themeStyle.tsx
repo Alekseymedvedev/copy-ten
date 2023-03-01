@@ -5,14 +5,28 @@ import {themeColors} from "./themeColors";
 import {customInput} from "./components/customInput";
 import {customChip} from "./components/customChip";
 import {customSelect} from "./components/customSelect";
+import {customMuiFormLabel} from "./components/customMuiFormLabell";
+import {customMuiCheckbox} from "./components/customMuiCheckbox";
+import {customMuiContainer} from "./components/customMuiContainer";
+import {customMuiCard} from "./components/customMuiCard";
+import {customMuiAccordion} from "./components/customMuiAccordion";
+import {customMuiSlider} from "./components/customMuiSlider";
+import {customMuiBackdrop} from "./components/customMuiBackdrop";
+import {customMuiModal} from "./components/customMuiModal";
+import {customMuiTabs} from "./components/customMuiTabs";
+import {customMuiTab} from "./components/customMuiTab";
+import {customMuiPaper} from "./components/customMuiPaper";
+import {customMuiDivider} from "./components/customMuiDivider";
 
 
 export const darkTheme = createTheme({
     spacing: 2,
 
     palette: {
+
         background: {
-            default: ' #1C1B1A'
+            default: ' #1C1B1A',
+            // paper: `background:linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))`
         },
         mode: "dark",
         primary: {
@@ -119,112 +133,18 @@ export const darkTheme = createTheme({
         MuiOutlinedInput: customInput,
         MuiChip: customChip,
         MuiMenuItem: customSelect,
-        MuiFormLabel: {
-            styleOverrides: {
-                root: {
-                    fontSize: 12,
-                }
-            }
+        MuiFormLabel: customMuiFormLabel,
+        MuiCheckbox: customMuiCheckbox,
 
-        },
-        MuiCheckbox: {
-            styleOverrides: {
-                root: {
-                    padding: 0,
-                }
-            }
-        },
-        // MuiSwitch: {
-        //     styleOverrides: {
-        //
-        //         track: {
-        //             backgroundColor: themeColors.white70
-        //         },
-        //     }
-        // },
-        MuiContainer: {
-            styleOverrides: {
-                root: {
-
-                    "@media (min-width: 600px)":{
-                        maxWidth:1280,
-                        padding: `28px 14px`,
-                    }
-                },
-            }
-        },
-        MuiCard: {
-            styleOverrides: {
-                root: {
-                    border: `0.5px solid #3c3c3c`,
-                    borderRadius: 10
-                },
-            }
-        },
-        MuiAccordion: {
-            styleOverrides: {
-                root: {
-                    border: `0.5px solid #3c3c3c`,
-                    borderRadius: 10,
-                    "&:first-of-type":{
-                        borderRadius: 10,
-                    },
-                    "&:before":{
-                        content:'none'
-                    },
-                },
-            }
-        },
-        MuiSlider: {
-            styleOverrides: {
-                markLabel: {
-                    top: -15,
-                    color: '#828282'
-                },
-            }
-        },
-        MuiBackdrop: {
-            styleOverrides: {
-               root:{
-                   backdropFilter: `blur(1.5px)`
-               }
-            }
-        },
-        MuiTabs: {
-            styleOverrides: {
-               root:{
-                  minHeight: 'unset',
-                   gap: `14px`
-               },
-                flexContainer:{
-                   gap:14
-                },
-                indicator:{
-                   display:'none'
-                },
-            }
-        },
-        MuiTab: {
-            styleOverrides: {
-               root:{
-                  minHeight: 'unset',
-
-                   borderRadius: 10,
-                   '&.MuiButtonBase-root':{
-                       padding:`14px 28px`,
-                   }
-               }
-            }
-        },
-        MuiPaper: {
-            styleOverrides: {
-               root:{
-                   borderRadius: 10,
-                   padding:`14px 28px`,
-                   boxShadow: "none",
-                   border: ` 0.5px solid #3C3C3C`,
-               }
-            }
-        },
+        MuiContainer: customMuiContainer,
+        MuiCard: customMuiCard,
+        MuiAccordion: customMuiAccordion,
+        MuiSlider: customMuiSlider,
+        MuiBackdrop: customMuiBackdrop,
+        MuiModal: customMuiModal,
+        MuiTabs: customMuiTabs,
+        MuiTab: customMuiTab,
+        MuiPaper: customMuiPaper,
+        MuiDivider: customMuiDivider,
     },
 });

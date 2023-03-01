@@ -3,19 +3,7 @@ import {FC, useEffect, useState} from "react";
 import * as React from "react";
 import IconClose from "../../../shared/assets/images/icons/iconClose";
 
-const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    widths: `100%`,
-    maxWidth: 620,
-    width: `100%`,
-    bgcolor: '#1F1F1F',
-    border: `0.5px solid #3c3c3c`,
-    borderRadius: 1,
-    p: 14
-};
+
 
 interface IType {
     children?: any;
@@ -27,20 +15,11 @@ interface IType {
 
 const CopyTradingModalChild: FC<IType> = ({children, openModal, closeModal, step, setStep,}) => {
     const [open, setOpen] = useState(false);
-    const action = (
-        <React.Fragment>
-            <Button color="secondary" size="small">
-                UNDO
-            </Button>
 
-        </React.Fragment>
-    );
     useEffect((() => {
         setOpen(openModal)
     }), [open, openModal])
-    const handleOpen = () => {
-        setOpen(true);
-    };
+
     const handleClose = () => {
         closeModal(false)
         setOpen(false);
@@ -48,20 +27,19 @@ const CopyTradingModalChild: FC<IType> = ({children, openModal, closeModal, step
 
     return (
         <>
-            <Snackbar
-                open={open}
-                autoHideDuration={6000}
-                message="Note archived"
-                action={action}
-            />
+            {/*<Snackbar*/}
+            {/*    open={open}*/}
+            {/*    autoHideDuration={6000}*/}
+            {/*    message="Note archived"*/}
+            {/*    action={action}*/}
+            {/*/>*/}
             <Modal
-                // hideBackdrop
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="child-modal-title"
                 aria-describedby="child-modal-description"
             >
-                <Box sx={{...style}}>
+                <Box>
                     <Stack onClick={handleClose} sx={{position: "absolute", top: 14, right: 28, cursor: "pointer"}}>
                         <IconClose/>
                     </Stack>

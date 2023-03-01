@@ -8,19 +8,6 @@ import IconClose from "../../../shared/assets/images/icons/iconClose";
 import CustomInput from "../../../shared/UI/customInput";
 
 
-const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    maxWidth: 620,
-    width: `100%`,
-    bgcolor: '#1F1F1F',
-    border: `0.5px solid #3c3c3c`,
-    borderRadius: 1,
-    p: 14
-};
-
 
 interface ICustomModal {
     children?: any;
@@ -64,7 +51,7 @@ const AccountModal: FC<ICustomModal> = ({children, openModal, closeModal, isOPen
                 // sx={{  filter: `blur(10px)`   }}
             >
 
-                <Box sx={{...style,}}>
+                <Box>
                     <Stack onClick={handleClose} sx={{position: "absolute", top: 14, right: 28, cursor: "pointer"}}>
                         <IconClose/>
                     </Stack>

@@ -1,11 +1,13 @@
 import MainLayout from "../widgets/mainLayout";
-import ExchangeAccountTabs from "../widgets/exchangeAccountTabs";
+import TarrifItem from "../entities/components/tarrifItem";
+import MyProductsList from "../widgets/myProductsList";
 
 
 const Tariff = () => {
     return (
         <MainLayout>
-          Tariff
+            <TarrifItem/>
+            <MyProductsList/>
         </MainLayout>
     );
 };

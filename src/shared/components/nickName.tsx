@@ -5,7 +5,7 @@ import {NavLink} from "react-router-dom";
 
 interface IType {
     name: string;
-    number: number | string;
+    number?: number | string;
     avatar?: string;
     direction?: 'row-reverse' | 'row';
     justifyContent?: string;

@@ -19,7 +19,7 @@ interface IType {
     isOPenBtn?: boolean
 }
 
-const CopyTradingModal: FC<IType> = ({children, openModal, closeModal, isOPenBtn}) => {
+const WithdrawalFundsModal: FC<IType> = ({children, openModal, closeModal, isOPenBtn}) => {
     const [open, setOpen] = useState(false);
     const [openModalChild, setOpenModalChild] = useState(false);
     const [step, setStep] = useState(1);
@@ -50,15 +50,13 @@ const CopyTradingModal: FC<IType> = ({children, openModal, closeModal, isOPenBtn
                 onClose={handleClose}
                 aria-labelledby="parent-modal-title"
                 aria-describedby="parent-modal-description"
-                // sx={{  filter: `blur(10px)`   }}
             >
 
                 <Box>
                     <Stack onClick={handleClose} sx={{position: "absolute", top: 14, right: 28, cursor: "pointer"}}>
                         <IconClose/>
                     </Stack>
-                    <Stack className="h2 white-90" sx={{mb: 7}}>Подключение трейдера</Stack>
-
+                    <Stack className="h2 white-90" sx={{mb: 7}}>Вывод средств</Stack>
                     <Divider variant="fullWidth" sx={{mb: 7}}/>
                     {
                         (step === 1) ?
@@ -137,4 +135,4 @@ const CopyTradingModal: FC<IType> = ({children, openModal, closeModal, isOPenBtn
         </>
     );
 }
-export default CopyTradingModal;
+export default WithdrawalFundsModal;
