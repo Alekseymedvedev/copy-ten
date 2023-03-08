@@ -6,7 +6,9 @@
   --iconColor1: #FFF;
   --iconColor2: #FFF;
 }
-
+main{
+  margin-bottom: 185px;
+}
 div::-webkit-scrollbar {
   width: 5px; /* ширина scrollbar */
 }
@@ -72,7 +74,9 @@ div {
   font-size: 21px;
   line-height: 26px;
 }
-
+.header{
+  margin-bottom: 14px;
+}
 .white-100 {
   color: $white-100;
   fill: $greenHigh;

@@ -18,7 +18,7 @@ const CustomSwitch: FC<T> = ({children}) => {
         }}
         >
             <span className="subHeaders">
-                <span className="white-100">EURUSD </span>
+                <span className="white-100">EURUSD</span>
                 <span className="green">&nbsp;+5.12%</span>
             </span>
             <Switch defaultChecked size="small"/>

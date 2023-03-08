@@ -16,10 +16,10 @@ const settingsBtn = (variantBtn: string, colorBtn: string) => {
                             (variantBtn === 'contained' && colorBtn === 'warning') ? theme.palette.warning.dark :
                                 null,
             color:
-                (colorBtn === 'neutral') ? theme.palette.neutral.main :
+                (colorBtn === 'neutral') ? theme.palette.neutral.contrastText :
                     (variantBtn === 'gardient' && colorBtn === 'warning') ? theme.palette.warning.main :
                         (variantBtn === 'gardient' && colorBtn === 'success') ? theme.palette.success.main :
-                    null,
+                            null,
             "&:hover": {
                 color: (colorBtn === 'neutral') ? theme.palette.neutral.light : null,
                 borderColor: (colorBtn === 'neutral') ? theme.palette.neutral.main : null,
@@ -55,8 +55,11 @@ export const customMuiButton = {
             props: {variant: 'gardient'} as object,
             style: (({theme}: any) => ({
 
-                padding: `14px 76px`,
+                padding: `10px 30px`,
                 gap: `10px`,
+                fontWeight: 600,
+                fontSize: 16,
+                lineHeight: `20px`
             }))
         },
 

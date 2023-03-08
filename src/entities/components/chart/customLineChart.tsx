@@ -103,14 +103,27 @@ const data = [
 ];
 
 interface T {
-    children?: any
-    height?: number
+    colorYAxis?: string;
+    colorYAxisRight?: string;
+    colorXAxis?: string;
+    height?: number;
+}
+const wrapperTooltipStyle={
+    padding:`8px 14px`,
+    background:'#1F1F1F',
+    border: `0.5px solid #3C3C3C`,
+    borderRadius: `10px`,
+    outline:'none'
+}
+const contentTooltipStyle={
+    background:'#1F1F1F',
+    padding:0,
+    border:'none'
 }
 
-
-const CustomLineChart: FC<T> = ({children, height}) => {
+const CustomLineChart: FC<T> = ({colorYAxis,colorYAxisRight,colorXAxis, height}) => {
     return (
-        <Stack sx={{width: '100%', height: height ? height : 230}}>
+        <Stack sx={{width: '100%', height: height ? height : 230, mb:20}}>
             <ResponsiveContainer>
                 <LineChart
                     data={data}
@@ -121,10 +134,10 @@ const CustomLineChart: FC<T> = ({children, height}) => {
                         bottom: 15,
                     }}
                 >
-                    <XAxis dataKey="name" tick={<CustomAxisTick/>}/>
-                    <YAxis dataKey="pv" tick={<CustomAxisTick/>}/>
-                    <YAxis dataKey="uv" yAxisId="right" orientation="right" tick={<CustomAxisTick/>}/>
-                    <Tooltip/>
+                    <XAxis dataKey="name"/>
+                    <YAxis dataKey="pv" tick={<CustomAxisTick color={colorYAxis} />}/>
+                    <YAxis dataKey="uv" yAxisId="right" orientation="right" tick={<CustomAxisTick color={colorYAxis} />}/>
+                    <Tooltip  contentStyle={contentTooltipStyle} wrapperStyle={wrapperTooltipStyle} offset={-60}/>
                     <Line dataKey="pv" stroke="#6FCF97" activeDot={{width: 0}}/>
                     <Line dataKey="uv" stroke="#56CCF2"/>
                 </LineChart>

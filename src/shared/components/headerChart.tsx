@@ -8,8 +8,9 @@ interface T {
     date?: boolean;
     select?: boolean;
     selectTitle?: string;
+    defaultValue?: string;
     number?: string;
-    icon?: string;
+    icon?: 'bad' | 'good';
 }
 
 const HeaderChart: FC<T> = ({
@@ -19,6 +20,7 @@ const HeaderChart: FC<T> = ({
                                 selectTitle,
                                 number,
                                 icon,
+                                defaultValue
                             }) => {
     return (
         <Stack
@@ -28,6 +30,7 @@ const HeaderChart: FC<T> = ({
             alignItems="center"
             justifyContent="space-between"
             spacing={4}
+            sx={{pl:14,}}
         >
             <Stack className="h2 white-90" direction="row" alignItems="center" spacing={4}>
                 <span>{title}</span>
@@ -49,14 +52,14 @@ const HeaderChart: FC<T> = ({
             {
                 date &&
                 <Stack direction="row" alignItems="center" spacing={4}>
-                    <Chip label="Январь" variant="filled" color="neutral"/>
-                    <Chip label="Февраль" variant="outlined" color="neutral"/>
-                    <Chip label="365 дней" variant="outlined" color="neutral"/>
+                    <Chip label="Январь" variant="filled" color="neutral" sx={{pl:0,pr:0}}/>
+                    <Chip label="Февраль" variant="outlined" color="neutral" sx={{pl:0,pr:0}}/>
+                    <Chip label="365 дней" variant="outlined" color="neutral" sx={{pl:0,pr:0}}/>
                 </Stack>
             }
             {
                 select &&
-                <CustomSelect title={selectTitle}/>
+                <CustomSelect title={selectTitle} defaultValue={defaultValue}/>
             }
             {number && <span className="green">{number}</span>}
         </Stack>

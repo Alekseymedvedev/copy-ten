@@ -3,7 +3,8 @@
 export const customMuiContainer={
     styleOverrides: {
         root: {
-            "@media (min-width: 600px)":{
+            padding: `0px 10px`,
+            "@media (min-width: 900px)":{
                 maxWidth:1280,
                 padding: `28px 14px`,
             }

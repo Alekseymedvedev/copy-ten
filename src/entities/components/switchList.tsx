@@ -14,7 +14,10 @@ const SwitchList: FC<T> = ({children}) => {
             border: `0.5px solid #3C3C3C`,
             borderRadius: 2.5,
             flexGrow: 1,
+            maxWidth:220,
+            width:`100%`,
             maxHeight: 315,
+            overflow:'hidden',
             overflowY: 'scroll'
         }}
         >

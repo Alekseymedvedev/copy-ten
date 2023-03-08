@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import {Bar, CartesianGrid, Legend, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis,BarChart} from 'recharts';
 import {Stack} from "@mui/material";
 import CustomAxisTick from "./customAxisTick";
+import CustomTooltip from "./customTooltip";
 
 const data = [
     {
@@ -129,10 +130,22 @@ const data = [
         amt: 2100,
     },
 ];
+
 interface T {
     children?: any
 }
-
+const wrapperTooltipStyle={
+    padding:`8px 14px`,
+    background:'#1F1F1F',
+    border: `0.5px solid #3C3C3C`,
+    borderRadius: `10px`,
+    outline:'none'
+}
+const contentTooltipStyle={
+    background:'#1F1F1F',
+    padding:0,
+    border:'none'
+}
 const CustomBarChart: FC<T> = ({children}) => {
 
     return (
@@ -150,12 +163,12 @@ const CustomBarChart: FC<T> = ({children}) => {
                 >
                     <CartesianGrid strokeDasharray="3 3" stroke="#3c3c3c" />
                     <XAxis dataKey="name" tick={<CustomAxisTick/>} />
-                    <YAxis tick={<CustomAxisTick/>} />
-                    <Tooltip />
+                    <YAxis  tick={<CustomAxisTick/>} />
+                    <Tooltip contentStyle={contentTooltipStyle} wrapperStyle={wrapperTooltipStyle} offset={-60}/>
                     <ReferenceLine y={0} stroke="#3c3c3c" alwaysShow={true} isFront={true}/>
                     <Bar dataKey="pv" stackId="a" fill="#27AE60" />
                     <Bar dataKey="amt" stackId="a" fill="#82ca9d" />
-                    <Bar dataKey="uv" stackId="a" fill="#56CCF2" />
+                    {/*<Bar dataKey="uv" stackId="a" fill="#56CCF2" />*/}
                 </BarChart>
             </ResponsiveContainer>
         </Stack>

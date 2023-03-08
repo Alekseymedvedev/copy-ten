@@ -4,7 +4,7 @@ import CopyTradingTabs from "../widgets/copyTradingTabs";
 
 const CopyTrading = () => {
     return (
-        <MainLayout>
+        <MainLayout >
             <CopyTradingTabs/>
         </MainLayout>
     );

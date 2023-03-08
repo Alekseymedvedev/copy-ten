@@ -1,5 +1,6 @@
 import React, {FC, useEffect} from 'react';
 import {Checkbox, FormControl, ListItemText, MenuItem, Select, SelectChangeEvent, Stack} from "@mui/material";
+import IconSelect from "../assets/images/icons/iconSelect";
 
 interface T {
     title?: string;
@@ -22,21 +23,21 @@ const CustomSelect: FC<T> = ({title,multiple,defaultValue}) => {
         const {
             target: { value },
         } = event;
-        setVariantName([''])
         setVariantName(
             typeof value === 'string' ? value.split(',') : value,
         );
     };
     return (
         <Stack direction="row" spacing={4} alignItems="center">
-            {title && <span className="white-80">{title}</span> }
+            {title && <span className="subHeaders white-80">{title}</span> }
 
 
-            <FormControl>
                 <Select
+                    // IconComponent={<IconSelect/>}
                     multiple={multiple && true}
                     value={variantName}
                     onChange={handleChange}
+                    displayEmpty={!!defaultValue}
                     renderValue={(selected) => selected.join(', ')}
                 >
                     {
@@ -51,7 +52,6 @@ const CustomSelect: FC<T> = ({title,multiple,defaultValue}) => {
                             : null
                     }
                 </Select>
-            </FormControl>
         </Stack>
     );
 };

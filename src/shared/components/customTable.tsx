@@ -5,42 +5,8 @@ import TableCell, {tableCellClasses} from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import {styled} from "@mui/material";
 
-const StyledTableContainer = styled(TableContainer)(({theme}) => ({
-    overflow: 'hidden',
-    border: ` 0.5px solid #828282`,
-    borderRadius: 10,
-}));
-const StyledTableCell = styled(TableCell)(({theme}) => ({
-    [`&.${tableCellClasses.head}`]: {
-        color: '#828282'
-    },
-    [`&.${tableCellClasses.body}`]: {
-        color: '#fff'
-    },
-    color: '#828282',
-    fontWeight: 500,
-    fontSize: 8,
-    padding: 10,
-    border: ` 0.5px solid #828282`,
 
-    textAlign: 'center',
-    "&.red": {
-        backgroundColor: theme.palette.error.dark,
-        color: theme.palette.error.light,
-    },
-    "&.green": {
-        backgroundColor: theme.palette.success.dark,
-        color: theme.palette.success.light,
-    }
-}));
-const StyledTableRow = styled(TableRow)(({theme}) => ({
-    'table &:last-child td, &:last-child th': {
-        border: ` 0.5px solid #828282`,
-    },
-}));
 
 
 function createData(
@@ -69,48 +35,79 @@ interface T {
 
 const CustomTable: FC<T> = ({children}) => {
     return (
-        <StyledTableContainer >
-            <Table sx={{minWidth: 650}} aria-label="a dense table">
+        <TableContainer>
+            <Table aria-label="simple table">
                 <TableHead>
-                    <StyledTableRow>
-                        <StyledTableCell align="center">Год</StyledTableCell>
-                        <StyledTableCell align="center">Янв</StyledTableCell>
-                        <StyledTableCell align="center">Янв</StyledTableCell>
-                        <StyledTableCell align="center">Янв</StyledTableCell>
-                        <StyledTableCell align="center">Янв</StyledTableCell>
-                        <StyledTableCell align="center">Янв</StyledTableCell>
-                        <StyledTableCell align="center">Янв</StyledTableCell>
-                        <StyledTableCell align="center">Янв</StyledTableCell>
-                        <StyledTableCell align="center">Янв</StyledTableCell>
-                    </StyledTableRow>
+                    <TableRow>
+                        <TableCell>Год</TableCell>
+                        <TableCell align="right">Янв</TableCell>
+                        <TableCell align="right">Янв</TableCell>
+                        <TableCell align="right">Янв</TableCell>
+                        <TableCell align="right">Янв</TableCell>
+                        <TableCell align="right">Янв</TableCell>
+                        <TableCell align="right">Янв</TableCell>
+                        <TableCell align="right">Янв</TableCell>
+                    </TableRow>
                 </TableHead>
                 <TableBody>
                     {rows.map((row) => (
-                        <StyledTableRow key={row.name}>
-                            <StyledTableCell component="th" scope="row">
+                        <TableRow key={row.name}
+                            // sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                            <TableCell component="th" scope="row">
                                 {row.name}
-                            </StyledTableCell>
-                            <StyledTableCell className={row.calories < 0 ? 'red' : 'green'}
-                                             align="center">{row.calories}</StyledTableCell>
-                            <StyledTableCell className={row.calories < 0 ? 'red' : 'green'} scope="row"
-                                             align="center">{row.fat}</StyledTableCell>
-                            <StyledTableCell className={row.calories < 0 ? 'red' : 'green'}
-                                             align="center">{row.carbs}</StyledTableCell>
-                            <StyledTableCell className={row.calories < 0 ? 'red' : 'green'}
-                                             align="center">{row.protein}</StyledTableCell>
-                            <StyledTableCell className={row.calories < 0 ? 'red' : 'green'}
-                                             align="center">{row.protein1}</StyledTableCell>
-                            <StyledTableCell className={row.calories < 0 ? 'red' : 'green'}
-                                             align="center">{row.protein2}</StyledTableCell>
-                            <StyledTableCell className={row.calories < 0 ? 'red' : 'green'}
-                                             align="center">{row.protein3}</StyledTableCell>
-                            <StyledTableCell className={row.calories < 0 ? 'red' : 'green'}
-                                             align="center">{row.protein4}</StyledTableCell>
-                        </StyledTableRow>
+                            </TableCell>
+                            <TableCell className="red" align="right">{row.calories}</TableCell>
+                            <TableCell align="right">{row.fat}</TableCell>
+                            <TableCell align="right">{row.carbs}</TableCell>
+                            <TableCell align="right">{row.protein}</TableCell>
+                            <TableCell align="right">{row.protein}</TableCell>
+                            <TableCell align="right">{row.protein}</TableCell>
+                            <TableCell align="right">{row.protein}</TableCell>
+                        </TableRow>
                     ))}
                 </TableBody>
             </Table>
-        </StyledTableContainer>
+         </TableContainer>
+        // <StyledTableContainer >
+        //     <Table sx={{minWidth: 650}} aria-label="a dense table">
+        //         <TableHead>
+        //             <StyledTableRow>
+        //                 <StyledTableCell align="center">Год</StyledTableCell>
+        //                 <StyledTableCell align="center">Янв</StyledTableCell>
+        //                 <StyledTableCell align="center">Янв</StyledTableCell>
+        //                 <StyledTableCell align="center">Янв</StyledTableCell>
+        //                 <StyledTableCell align="center">Янв</StyledTableCell>
+        //                 <StyledTableCell align="center">Янв</StyledTableCell>
+        //                 <StyledTableCell align="center">Янв</StyledTableCell>
+        //                 <StyledTableCell align="center">Янв</StyledTableCell>
+        //             </StyledTableRow>
+        //         </TableHead>
+        //         <TableBody>
+        //             {rows.map((row) => (
+        //                 <StyledTableRow key={row.name}>
+        //                     <StyledTableCell component="th" scope="row">
+        //                         {row.name}
+        //                     </StyledTableCell>
+        //                     <StyledTableCell className={row.calories < 0 ? 'red' : 'green'}
+        //                                      align="center">{row.calories}</StyledTableCell>
+        //                     <StyledTableCell className={row.calories < 0 ? 'red' : 'green'} scope="row"
+        //                                      align="center">{row.fat}</StyledTableCell>
+        //                     <StyledTableCell className={row.calories < 0 ? 'red' : 'green'}
+        //                                      align="center">{row.carbs}</StyledTableCell>
+        //                     <StyledTableCell className={row.calories < 0 ? 'red' : 'green'}
+        //                                      align="center">{row.protein}</StyledTableCell>
+        //                     <StyledTableCell className={row.calories < 0 ? 'red' : 'green'}
+        //                                      align="center">{row.protein1}</StyledTableCell>
+        //                     <StyledTableCell className={row.calories < 0 ? 'red' : 'green'}
+        //                                      align="center">{row.protein2}</StyledTableCell>
+        //                     <StyledTableCell className={row.calories < 0 ? 'red' : 'green'}
+        //                                      align="center">{row.protein3}</StyledTableCell>
+        //                 </StyledTableRow>
+        //             ))}
+        //         </TableBody>
+        //     </Table>
+        // </StyledTableContainer>
     );
 };
 

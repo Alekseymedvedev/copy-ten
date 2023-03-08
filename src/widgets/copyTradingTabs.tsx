@@ -20,7 +20,7 @@ const CopyTradingTabs: FC<IType> = ({children}) => {
             <Box sx={{width: '100%'}}>
 
                 <TabsHeader
-                    tabsName={[{name:'Дашборд',icon:<IconTraders/>}, {name:'История',icon:<IconSet/>}]}
+                    tabsName={[{name:'Трейдеры',icon:<IconTraders/>}, {name:'Сеты',icon:<IconSet/>}]}
                     tabsValue={value}
                     onTabsChange={setValue}
                 />

@@ -2,6 +2,7 @@ import React, {FC} from 'react';
 import Paper from "@mui/material/Paper";
 import {Avatar, Divider, Stack} from "@mui/material";
 import {NavLink} from "react-router-dom";
+import Button from "@mui/material/Button";
 
 interface IType {
     name?: string;
@@ -29,11 +30,15 @@ const MyProductItem: FC<IType> = ({name,avatar}) => {
                         <span className="subHeaders white-90">Статус</span>
                         <span className="subHeadersBold green">Активен</span>
                     </Stack>
-                    <Divider orientation="vertical"/>
+                    <Divider orientation="vertical" flexItem/>
                     <Stack alignItems="center" spacing={2}>
                         <span className="subHeaders white-90">Дата валидности</span>
                         <span className="subHeadersBold">13.03.2023 (0 дней)</span>
                     </Stack>
+                </Stack>
+                <Stack direction="row" alignItems="center" spacing={7}>
+                    <Button color="neutral">Продлить</Button>
+                    <Button color="neutral">Настройки</Button>
                 </Stack>
             </Stack>
         </Paper>

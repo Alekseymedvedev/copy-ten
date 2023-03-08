@@ -1,7 +1,7 @@
 import React from "react";
 
 
-const CustomAxisTick = ({payload, x, y}: any) => {
+const CustomAxisTick = ({payload, x, y, color,rotate}: any) => {
     return (
         <g transform={`translate(${x},${y})`}>
             <text
@@ -9,7 +9,7 @@ const CustomAxisTick = ({payload, x, y}: any) => {
                 y={0}
                 dy={16}
                 textAnchor="end"
-                fill="#56CCF2"
+                fill={color ? color : "#56CCF2"}
                 transform="rotate(-35)"
                 fontSize="8px"
             >

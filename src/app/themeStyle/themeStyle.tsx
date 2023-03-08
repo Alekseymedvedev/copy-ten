@@ -1,10 +1,9 @@
 import {createTheme} from "@mui/material/styles";
-
 import {customMuiButton} from "./components/customMuiButton";
 import {themeColors} from "./themeColors";
 import {customInput} from "./components/customInput";
-import {customChip} from "./components/customChip";
-import {customSelect} from "./components/customSelect";
+import {customMuiChip} from "./components/customMuiChip";
+import {customMuiSelect} from "./components/customMuiSelect";
 import {customMuiFormLabel} from "./components/customMuiFormLabell";
 import {customMuiCheckbox} from "./components/customMuiCheckbox";
 import {customMuiContainer} from "./components/customMuiContainer";
@@ -26,7 +25,6 @@ export const darkTheme = createTheme({
 
         background: {
             default: ' #1C1B1A',
-            // paper: `background:linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))`
         },
         mode: "dark",
         primary: {
@@ -58,17 +56,18 @@ export const darkTheme = createTheme({
             dark: themeColors.yellowDark,
             contrastText: themeColors.yellowLight,
         },
+        info: {
+            main: themeColors.blueLight,
+            dark: themeColors.blueDark,
+            contrastText: themeColors.white100,
+        },
         neutral: {
             light: themeColors.white70,
             main: themeColors.white80,
             dark: themeColors.black50,
             contrastText: themeColors.white90,
         },
-        info: {
-            main: themeColors.blueLight,
-            dark: themeColors.blueDark,
-            contrastText: themeColors.white100,
-        },
+
 
     },
 
@@ -131,11 +130,11 @@ export const darkTheme = createTheme({
     components: {
         MuiButton: customMuiButton,
         MuiOutlinedInput: customInput,
-        MuiChip: customChip,
-        MuiMenuItem: customSelect,
+        MuiChip: customMuiChip,
+        MuiSelect: customMuiSelect,
+        MuiMenuItem: customMuiSelect,
         MuiFormLabel: customMuiFormLabel,
         MuiCheckbox: customMuiCheckbox,
-
         MuiContainer: customMuiContainer,
         MuiCard: customMuiCard,
         MuiAccordion: customMuiAccordion,
@@ -146,5 +145,53 @@ export const darkTheme = createTheme({
         MuiTab: customMuiTab,
         MuiPaper: customMuiPaper,
         MuiDivider: customMuiDivider,
+        MuiTableContainer: {
+            styleOverrides: {
+                root: {
+                    border: ` 0.5px solid #828282`,
+                    borderRadius: 10,
+                }
+            }
+        },
+        MuiTableCell: {
+            styleOverrides: {
+                root: (({theme}: any) => ({
+                    color: '#828282',
+                    fontWeight: 500,
+                    fontSize: 8,
+                    padding: `10px 0`,
+                    borderRight: ` 0.5px solid #828282`,
+                    textAlign: 'center',
+                    lineHeight: `10px`,
+                    ' &:last-child': {
+                        borderRight: `none`,
+                    },
+
+                     "&.red": {
+                        backgroundColor: theme.palette.error.dark,
+                        color: theme.palette.error.light,
+                    },
+                    "&.green": {
+                        backgroundColor: theme.palette.success.dark,
+                        color: theme.palette.success.light,
+                    }
+                }))
+
+            }
+        },
+        MuiTableRow: {
+            styleOverrides: {
+                root: {
+                    'table &:last-child td, &:last-child th': {
+                        borderBottom: `none`,
+                    },
+                    'table &:first-of-type td, &:first-of-type th': {
+                        borderBottom: ` 0.5px solid #828282`,
+                    },
+
+                }
+            }
+        },
+
     },
 });

@@ -31,7 +31,6 @@ const NickName: FC<IType> = ({name, number, avatar, direction, justifyContent}) 
                     <NavLink className="link" to="/">{'Что это?'}</NavLink>
                 </>
             }
-
             >
                 <Avatar
                     alt={name}

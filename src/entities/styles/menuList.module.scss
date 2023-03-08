@@ -1,4 +1,5 @@
 @import "../../shared/assets/styles/globals";
+
 .list {
   display: flex;
   flex-direction: column;
@@ -7,7 +8,8 @@
 
 .item {
   @extend .h2;
-  padding-left: 14px;
+  padding: 14px;
+  padding-right: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -25,8 +27,15 @@
     color: $white-100;
   }
 
+  &:first-child {
+    margin-bottom: 26px;
+  }
+
   &:last-child {
-    margin-top: auto;
+    margin-top: 165px;
+    &:before {
+      background: $blueHigh;
+    }
   }
 
 

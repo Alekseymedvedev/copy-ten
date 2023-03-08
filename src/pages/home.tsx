@@ -5,10 +5,9 @@ import AccountCardList from "../widgets/accountCardList";
 
 const Home = () => {
     return (
-        <MainLayout>
+        <MainLayout heading="Мои счета">
             <AccountCardList/>
         </MainLayout>
     );
 };
-
 export default Home;

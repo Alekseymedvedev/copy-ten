@@ -1,15 +1,18 @@
 import React, {FC} from 'react';
 import CustomSelect from "../../shared/UI/customSelect";
-import {Stack, Switch} from "@mui/material";
+import {Stack, Switch, useMediaQuery} from "@mui/material";
 
 interface IType {
     children?: any
 }
 
 const Filter: FC<IType> = ({children}) => {
+    const mediaQuery = useMediaQuery('(min-width:900px)');
     return (
-        <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{mb:7}}>
-            <CustomSelect multiple={true}/>
+        <Stack direction={mediaQuery ? "row" : "column"} alignItems="center" justifyContent="space-between"
+               spacing={7}
+               sx={{mb: 7}}>
+            <CustomSelect defaultValue="Фильтры" multiple={true}/>
             <Stack
                 direction="row"
                 alignItems="center"

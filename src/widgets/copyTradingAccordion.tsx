@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import {Accordion, AccordionDetails, AccordionSummary, Button, Grid, Stack} from "@mui/material";
+import {Accordion, AccordionDetails, AccordionSummary, Button, Chip, Grid, Stack, useMediaQuery} from "@mui/material";
 import NickName from "../shared/components/nickName";
 import CustomAreaChart from "../entities/components/chart/customAreaChart";
 import {chartData} from "../data/chart";
@@ -15,6 +15,7 @@ interface IType {
 }
 
 const CopyTradingAccordion: FC<IType> = ({children}) => {
+    const mediaQuery = useMediaQuery('(min-width:900px)');
     const [expanded, setExpanded] = useState<string | false>('panel1');
     const [openModal, setOpenModal] = useState(false);
 
@@ -36,10 +37,10 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
             >
                 <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
                     <Grid container spacing={10} columns={12} wrap="wrap" alignItems="center">
-                        <Grid item xs={3}>
-                            <NickName name="NICKNAME_NICKNAME" number="18050009" direction="row-reverse"/>
+                        <Grid item xs={16} md={3}>
+                            <NickName name="NICKNAME_NICKNAME" number="18050009" direction="row-reverse" justifyContent="flex-end" />
                         </Grid>
-                        <Grid item xs={5}>
+                        <Grid item xs={16} md={5}>
                             {
                                 expanded === 'panel1' ?
                                     null
@@ -54,9 +55,10 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                             }
 
                         </Grid>
-                        <Grid item xs={4} flexDirection="row">
+
+                        <Grid item xs={16} md={4} flexDirection="row">
                             {
-                                expanded === 'panel1' ?
+                                (expanded === 'panel1') ?
                                     <Stack width='100%' direction="row" alignItems="center"
                                            justifyContent="space-between">
                                         <Button
@@ -72,6 +74,7 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                                     :
                                     <Stack width='100%' direction="row" alignItems="center"
                                            justifyContent="space-between">
+                                        {/*<Chip label="10%" color="warning"/>*/}
                                         <CurrentValues/>
                                         <IconConnected/>
                                     </Stack>
@@ -102,38 +105,45 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                                     <Stack spacing={7}
                                            sx={{p: `14px`, border: `0.5px solid #3C3C3C`, borderRadius: 2.5}}>
                                         <Stack direction="row" alignItems="center" justifyContent="space-between">
-                                            <span className="white-90">Начало торгов</span>
+                                            <span className="subHeaders white-90">Начало торгов</span>
                                             <span className="subHeadersBold">24.12.2019</span>
                                         </Stack>
                                         <Stack direction="row" alignItems="center" justifyContent="space-between">
-                                            <span className="white-90">Сделок за неделю</span>
+                                            <span className="subHeaders white-90">Сделок за неделю</span>
                                             <span className="subHeadersBold">1 075</span>
                                         </Stack>
                                         <Stack flexWrap="wrap" direction="row" alignItems="center"
                                                justifyContent="space-between">
-                                            <span className="white-90">Время последней сделки:</span>
+                                            <span className="subHeaders white-90">Время последней сделки:</span>
                                             <span className="subHeadersBold">2022-12-24 10:58:48</span>
                                         </Stack>
                                     </Stack>
                                     <Stack spacing={7}
                                            sx={{p: `14px`, border: `0.5px solid #3C3C3C`, borderRadius: 2.5}}>
                                         <Stack direction="row" alignItems="center" justifyContent="space-between">
-                                            <span className="white-90">Начало торгов</span>
+                                            <span className="subHeaders white-90">Начало торгов</span>
                                             <span className="subHeadersBold">24.12.2019</span>
                                         </Stack>
                                         <Stack flexWrap="wrap" direction="row" alignItems="center"
                                                justifyContent="space-between">
-                                            <span className="white-90">Сделок за неделю</span>
+                                            <span className="subHeaders white-90">Сделок за неделю</span>
                                             <span className="subHeadersBold">1 075</span>
                                         </Stack>
                                         <Stack flexWrap="wrap" direction="row" alignItems="center"
                                                justifyContent="space-between">
-                                            <span className="white-90">Время последней сделки:</span>
+                                            <span className="subHeaders white-90">Время последней сделки:</span>
                                             <span className="subHeadersBold">2022-12-24 10:58:48</span>
                                         </Stack>
                                     </Stack>
                                 </Stack>
-                                <Button className="h1" color="neutral" component={Link} to="/trader-dashboard">Подробнее</Button>
+                                <Button
+                                    className="h1"
+                                    color="neutral"
+                                    component={Link}
+                                    to="/trader-dashboard"
+                                >
+                                    <span className="h2">Подробнее</span>
+                                </Button>
                             </Stack>
                         </Grid>
                     </Grid>
@@ -141,13 +151,13 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
             </Accordion>
 
 
-            <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-                <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-                </AccordionSummary>
-                <AccordionDetails>
+            {/*<Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>*/}
+            {/*    <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">*/}
+            {/*    </AccordionSummary>*/}
+            {/*    <AccordionDetails>*/}
 
-                </AccordionDetails>
-            </Accordion>
+            {/*    </AccordionDetails>*/}
+            {/*</Accordion>*/}
             <CopyTradingModal openModal={openModal} closeModal={setOpenModal}/>
         </div>
     );

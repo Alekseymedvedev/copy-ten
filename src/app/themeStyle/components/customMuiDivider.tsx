@@ -15,7 +15,7 @@ export const customMuiDivider={
             props: {orientation:'vertical'} as object,
             style: {
                 position: 'relative',
-                right: 0,
+                right: 'unset',
                 width: 1,
             },
         },

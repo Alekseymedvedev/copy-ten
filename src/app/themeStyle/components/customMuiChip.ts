@@ -6,10 +6,11 @@ const settingsChip = (colorBtn: string, variantBtn?: string) => {
         style: (({theme}: any) => ({
             backgroundColor:
                 (variantBtn === 'outlined') ? 'transparent' :
-                    (variantBtn === 'filled' && colorBtn === 'success') ? theme.palette.success.main :
+                    (variantBtn === 'filled' && colorBtn === 'success') ? theme.palette.success.dark :
+                    (variantBtn === 'filled' && colorBtn === 'warning') ? theme.palette.warning.dark :
                         (variantBtn === 'filled' && colorBtn === 'info') ? theme.palette.info.main :
                         (variantBtn === 'filled' && colorBtn === 'error') ? theme.palette.error.main :
-                            (variantBtn === 'filled' && colorBtn === 'neutral') ? theme.palette.neutral.light :
+                            (variantBtn === 'filled' && colorBtn === 'neutral') ? theme.palette.neutral.dark :
                                 null,
             color: (colorBtn === 'secondary') ? theme.palette.secondary.main :
                 (variantBtn === 'filled' && colorBtn === 'neutral') ? theme.palette.neutral.contrastText :
@@ -21,9 +22,10 @@ const settingsChip = (colorBtn: string, variantBtn?: string) => {
     return colorType
 
 }
-export const customChip = {
+export const customMuiChip = {
     variants: [
         settingsChip('success', 'filled'),
+        settingsChip('warning', 'filled'),
         settingsChip('info', 'filled'),
         settingsChip('error', 'filled'),
         settingsChip('secondary'),
@@ -33,6 +35,7 @@ export const customChip = {
     ],
     styleOverrides: {
         root: {
+            padding:`8px 14px`,
             fontWeight: 600,
             fontSize: 12,
             lineHeight: `15px`,

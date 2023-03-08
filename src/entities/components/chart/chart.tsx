@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
 import HeaderChart from "../../../shared/components/headerChart";
 import {Stack} from "@mui/material";
+import Paper from "@mui/material/Paper";
 
 interface T {
     children?: any;
@@ -8,8 +9,9 @@ interface T {
     date?: boolean;
     select?: boolean;
     selectTitle?: string;
+    defaultValue?: string;
     number?: string;
-    icon?: string;
+    icon?: 'bad' | 'good';
 }
 
 const Chart: FC<T> = ({
@@ -18,20 +20,15 @@ const Chart: FC<T> = ({
                           date,
                           select,
                           selectTitle,
+                          defaultValue,
                           number,
                           icon
                       }) => {
     return (
-        <Stack sx={{
-            padding: `20px 28px`,
-            background: `linear-gradient(180deg, rgba(31, 31, 31, 0) 0%, #1F1F1F 100%)`,
-            border: `0.5px solid #3C3C3C`,
-            borderRadius: 2.5,
-            flexGrow: 1
-        }}>
-            <HeaderChart title={title} icon={icon} selectTitle={selectTitle} select={select} number={number}/>
+        <Paper sx={{flexGrow :1,pr:4,pl:4}}>
+            <HeaderChart title={title} icon={icon} selectTitle={selectTitle} defaultValue={defaultValue} date={date} select={select} number={number}/>
             {children}
-        </Stack>
+        </Paper>
     );
 };
 

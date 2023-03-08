@@ -1,6 +1,6 @@
 import React, {FC, useState} from 'react';
 import Box from "@mui/material/Box";
-import {styled, Tabs} from "@mui/material";
+import {styled, Tabs, useMediaQuery} from "@mui/material";
 import IconAccount from "../../shared/assets/images/icons/iconAccount";
 import Tab from "@mui/material/Tab";
 
@@ -20,7 +20,7 @@ interface IType {
 const AntTab = styled((props: any) => <Tab disableRipple {...props} />)(
     ({theme}) => ({
         flexDirection: 'row',
-        gap: 8,
+        gap: 22,
         padding:`14px 28px`,
         border: ` 0.5px solid #3C3C3C`,
         borderRadius: 10,
@@ -43,7 +43,7 @@ const AntTab = styled((props: any) => <Tab disableRipple {...props} />)(
 );
 const TabsHeader: FC<IType> = ({tabsName,onTabsChange,variant,size}) => {
     const [value, setValue] = useState(0);
-
+    const mediaQuery = useMediaQuery('(min-width:900px)');
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
         onTabsChange(newValue)
@@ -57,7 +57,7 @@ const TabsHeader: FC<IType> = ({tabsName,onTabsChange,variant,size}) => {
     }
     return (
         <Box sx={{ mb:7}}>
-            <Tabs value={value} onChange={handleChange} variant={ variant && variant}>
+            <Tabs value={value} onChange={handleChange} variant={ variant && variant} >
                 {
                     tabsName && tabsName.map((item, index) =>
                         <AntTab className={size && size} key={item.name} icon={item.icon && item.icon} label={item.name} {...a11yProps(index)} />

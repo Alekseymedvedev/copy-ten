@@ -1,18 +1,20 @@
 import React, {FC, useState} from 'react';
 import BalanceChart from "./balanceChart";
 import Chart from "../entities/components/chart/chart";
-import {Grid, Stack} from "@mui/material";
+import {Divider, Grid, Stack, useMediaQuery} from "@mui/material";
 import Button from "@mui/material/Button";
 import IconConnected from "../shared/assets/images/icons/iconConnected";
 import SimpleModal from "../entities/components/modal/simpleModal";
 import IconTraders from "../shared/assets/images/icons/iconTraders";
 import IconSet from "../shared/assets/images/icons/iconSet";
+import Paper from "@mui/material/Paper";
 
 interface IType {
     children?: any
 }
 
 const CopyTradingSet: FC<IType> = ({children}) => {
+    const mediaQuery = useMediaQuery('(min-width:900px)');
     const [openModal, setOpenModal] = useState(false);
 
     const handleOpenModal = (event: React.SyntheticEvent) => {
@@ -21,19 +23,26 @@ const CopyTradingSet: FC<IType> = ({children}) => {
     };
     return (
         <>
-            <Stack spacing={7} sx={{p:`14px 28px`, border: `0.5px solid #3C3C3C`, borderRadius: 2.5}}>
-                <Stack direction="row" spacing={7} alignItems="center">
+            <Paper>
+                <Stack direction="row" spacing={7} alignItems="center"  sx={{mb:7}}>
                     <IconSet/>
                     <span className="h2 white-90">Сет EZMONEY</span>
-
                 </Stack>
-                <Grid container spacing={10} columns={12} wrap="wrap">
-                    <Grid item xs={5}>
-                        <Chart title="Доходность" select={true}>
+                <Divider  variant="fullWidth" sx={{mb: 7, width: `103%`}}/>
+                <Grid
+                    direction={!mediaQuery ? "column-reverse": "row" }
+                    container
+                    spacing={10}
+                    columns={12}
+                    wrap="wrap"
+                    sx={{mb:7}}
+                >
+                    <Grid item xs={12} md={5}>
+                        <Chart title="Доходность" icon="bad" select={true} defaultValue="Январь">
                             <BalanceChart/>
                         </Chart>
                     </Grid>
-                    <Grid item xs={7}>
+                    <Grid item xs={12} md={7}>
                         <Stack className="subHeaders white-80" spacing={7}>
                             <p>
                                 Velit nunc ultrices sit est et varius. Tellus accumsan pretium sollicitudin elit purus
@@ -62,17 +71,18 @@ const CopyTradingSet: FC<IType> = ({children}) => {
                         </Stack>
                     </Grid>
                 </Grid>
-                <Grid container spacing={10} columns={12} wrap="wrap">
-                    <Grid item xs={5}>
+                <Grid container spacing={10} columns={12} wrap="wrap" alignItems="stretch">
+                    <Grid item xs={16} md={5}>
                         <Button
                             onClick={()=>setOpenModal(true)}
                             fullWidth
                             variant="gardient"
                             color="warning"
                             startIcon={<IconConnected/>}
+                            sx={{height: 48}}
                         >Подключиться</Button>
                     </Grid>
-                    <Grid item xs={7}>
+                    <Grid item xs={16} md={7}>
                         <Button
                             sx={{height: 48}}
                             fullWidth
@@ -94,7 +104,7 @@ const CopyTradingSet: FC<IType> = ({children}) => {
                         <span>?</span>
                     </div>
                 </SimpleModal>
-            </Stack>
+            </Paper>
         </>
     );
 };

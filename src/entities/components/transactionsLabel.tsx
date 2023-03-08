@@ -38,7 +38,7 @@ const data = [
 const TransactionsLabel: FC<T> = ({title, value, colorText, colorBg}) => {
     return (
         <>
-            <Stack direction="row"  justifyContent="space-between">
+            <Stack direction="row" flexWrap="wrap" gap={7} justifyContent="space-between">
                 {
                     data && data.map((item) => (
                             <Stack
@@ -53,7 +53,7 @@ const TransactionsLabel: FC<T> = ({title, value, colorText, colorBg}) => {
                                 }}
                                 justifyContent="space-between"
                             >
-                                <span className="white-90">{item.title}</span>
+                                <span className="h2 white-90">{item.title}</span>
                                 <span className={item.colorText}>{item.value}</span>
                             </Stack>
                     ))

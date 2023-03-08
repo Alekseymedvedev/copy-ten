@@ -2,7 +2,7 @@ import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
 import styles from '@mui/material/styles';
-import {customChip} from "./components/customChip";
+import {customMuiChip} from "./components/customMuiChip";
 
 
 declare module '@mui/material/styles' {

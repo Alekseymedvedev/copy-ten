@@ -1,7 +1,7 @@
 import React, {FC, useState} from 'react';
 import {Button, Stack} from "@mui/material";
 import Paper from "@mui/material/Paper";
-import WithdrawalFundsModal from "./modal/withdrawalFundsModal";
+import TransactionModal from "./modal/transactionModal";
 
 interface IType {
     children?: any
@@ -28,7 +28,7 @@ const PartnerBalance: FC<IType> = ({children}) => {
                     </Stack>
                 </Stack>
             </Paper>
-            <WithdrawalFundsModal openModal={openModal} closeModal={setOpenModal}/>
+            <TransactionModal openModal={openModal} closeModal={setOpenModal}/>
         </>
 
     );
