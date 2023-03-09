@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import Paper from "@mui/material/Paper";
-import {Avatar, Divider, Stack} from "@mui/material";
+import {Avatar, Divider, Stack, useMediaQuery} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import Button from "@mui/material/Button";
 
@@ -10,9 +10,14 @@ interface IType {
 }
 
 const MyProductItem: FC<IType> = ({name,avatar}) => {
+    const mediaQuery = useMediaQuery('(min-width:900px)');
     return (
         <Paper>
-            <Stack direction="row" alignItems="center" justifyContent="space-between">
+            <Stack
+                direction={mediaQuery ? "row" : "column"}
+                alignItems={mediaQuery ? "center" : "flex-start"}
+                justifyContent="space-between"
+                spacing={7}>
                 <Stack direction="row" alignItems="center" spacing={7}>
                     <Avatar
                         variant="rounded"

@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import NickName from "../../shared/components/nickName";
 import Paper from "@mui/material/Paper";
-import {Avatar, Divider, Stack} from "@mui/material";
+import {Avatar, Divider, Stack, useMediaQuery} from "@mui/material";
 
 
 interface IType {
@@ -13,9 +13,10 @@ interface IType {
 }
 
 const Referrals: FC<IType> = ({name, link, avatar, registrationDate, lastPayment}) => {
+    const mediaQuery = useMediaQuery('(min-width:900px)');
     return (
         <Paper>
-            <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={7}>
+            <Stack direction={mediaQuery ? "row": "column"} alignItems={mediaQuery ? "center": "flex-start"} justifyContent="space-between" spacing={7}>
                 <Stack direction="row" alignItems="center" spacing={7}>
                     <Avatar
                         alt={name}
@@ -23,7 +24,7 @@ const Referrals: FC<IType> = ({name, link, avatar, registrationDate, lastPayment
                         sx={{width: 34, height: 34}}
                     />
                     <Stack spacing={2}>
-                        <span className="subHeaders white-80">{link}</span>
+                        <span className="subHeaders link">{link}</span>
                         <span className="subHeadersBold">{name}</span>
                     </Stack>
                 </Stack>

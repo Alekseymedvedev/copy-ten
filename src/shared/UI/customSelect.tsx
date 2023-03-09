@@ -1,5 +1,14 @@
 import React, {FC, useEffect} from 'react';
-import {Checkbox, FormControl, ListItemText, MenuItem, Select, SelectChangeEvent, Stack} from "@mui/material";
+import {
+    Checkbox,
+    FormControl,
+    ListItemText,
+    MenuItem,
+    Select,
+    SelectChangeEvent,
+    Stack,
+    useMediaQuery
+} from "@mui/material";
 import IconSelect from "../assets/images/icons/iconSelect";
 
 interface T {
@@ -13,6 +22,7 @@ const names = [
     'Вариант 2',
 ];
 const CustomSelect: FC<T> = ({title,multiple,defaultValue}) => {
+    const mediaQuery = useMediaQuery('(min-width:900px)');
     const [variantName, setVariantName] = React.useState<string[]>([]);
     useEffect((() => {
         if (defaultValue) {
@@ -28,12 +38,13 @@ const CustomSelect: FC<T> = ({title,multiple,defaultValue}) => {
         );
     };
     return (
-        <Stack direction="row" spacing={4} alignItems="center">
+        <Stack direction="row" spacing={4} alignItems="center" sx={ {width:!mediaQuery ?`100%` : 'unset'}}>
             {title && <span className="subHeaders white-80">{title}</span> }
 
 
                 <Select
                     // IconComponent={<IconSelect/>}
+                    fullWidth={!mediaQuery && true }
                     multiple={multiple && true}
                     value={variantName}
                     onChange={handleChange}

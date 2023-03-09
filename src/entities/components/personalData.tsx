@@ -8,7 +8,7 @@ const PersonalData = () => {
     return (
        <SettingsItem>
            <Stack direction="row" alignItems="center" justifyContent="space-between">
-               <span className="subHeadersBold">Привязка Telegram</span>
+               <span className="subHeadersBold white-90">Привязка Telegram</span>
                <Stack direction="row" alignItems="center" spacing={11}>
                    <span className="subHeaders white-80">@ryabishin</span>
                    <Button variant="contained" color="success">Привязано</Button>

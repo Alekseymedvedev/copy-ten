@@ -4,7 +4,7 @@ import PersonalSetting from "../widgets/personalSetting";
 
 const Settings = () => {
     return (
-        <MainLayout>
+        <MainLayout heading="Настройки">
             <PersonalSetting/>
         </MainLayout>
     );

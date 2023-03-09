@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Divider, Stack} from "@mui/material";
+import {Divider, Stack, useMediaQuery} from "@mui/material";
 import CustomSwitch from "../../shared/components/customSwitch";
 
 interface T {
@@ -7,6 +7,7 @@ interface T {
 }
 
 const SwitchList: FC<T> = ({children}) => {
+    const mediaQuery = useMediaQuery('(min-width:900px)');
     return (
         <Stack sx={{
             padding: `20px 14px`,
@@ -14,7 +15,7 @@ const SwitchList: FC<T> = ({children}) => {
             border: `0.5px solid #3C3C3C`,
             borderRadius: 2.5,
             flexGrow: 1,
-            maxWidth:220,
+            maxWidth:mediaQuery ? 220: `100%`,
             width:`100%`,
             maxHeight: 315,
             overflow:'hidden',

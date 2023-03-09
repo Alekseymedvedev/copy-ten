@@ -1,11 +1,11 @@
 import MainLayout from "../widgets/mainLayout";
-import CopyTradingTabs from "../widgets/copyTradingTabs";
+import DashboardTabs from "../widgets/dashboardTabs";
 
 
 const TraderDashboard = () => {
     return (
         <MainLayout>
-            TraderDashboard
+            <DashboardTabs traderDashboard />
         </MainLayout>
     );
 };

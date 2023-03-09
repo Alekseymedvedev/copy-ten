@@ -17,7 +17,7 @@ const Filter: FC<IType> = ({children}) => {
                 direction="row"
                 alignItems="center"
                 justifyContent="space-between"
-                sx={{width: 310, p: `8px 14px`, border: `0.5px solid #3C3C3C`, borderRadius: 2.5}}
+                sx={{width: mediaQuery ? 310 : `100%`, p: `8px 14px`, border: `0.5px solid #3C3C3C`, borderRadius: 2.5}}
             >
                 <span className="subHeaders white-90">Показать подключенных</span>
                 <Switch defaultChecked size="small"/>

@@ -31,18 +31,19 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
     return (
         <div>
             <Accordion
-                sx={{p: `0 28px`,mb: 7}}
-                expanded={expanded === 'panel1'}
+                sx={{p: `0 28px`, mb: 7}}
+                expanded={mediaQuery ? expanded === 'panel1' : false}
                 onChange={handleChange('panel1')}
             >
                 <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
                     <Grid container spacing={10} columns={12} wrap="wrap" alignItems="center">
-                        <Grid item xs={16} md={3}>
-                            <NickName name="NICKNAME_NICKNAME" number="18050009" direction="row-reverse" justifyContent="flex-end" />
+                        <Grid item xs={12} md={3}>
+                            <NickName name="NICKNAME_NICKNAME" number="18050009" direction="row-reverse"
+                                      justifyContent="flex-end"/>
                         </Grid>
-                        <Grid item xs={16} md={5}>
+                        <Grid item xs={12} md={5}>
                             {
-                                expanded === 'panel1' ?
+                                (mediaQuery && expanded === 'panel1') ?
                                     null
                                     : <CustomAreaChart
                                         height={64}
@@ -56,21 +57,34 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
 
                         </Grid>
 
-                        <Grid item xs={16} md={4} flexDirection="row">
+                        <Grid item xs={12} md={4} flexDirection="row" justifyContent="flex-end">
                             {
-                                (expanded === 'panel1') ?
-                                    <Stack width='100%' direction="row" alignItems="center"
-                                           justifyContent="space-between">
+                                (expanded === 'panel1' || !mediaQuery) ?
+
+                                    <>
                                         <Button
+                                            fullWidth={!mediaQuery}
                                             onClick={(e) => handleOpenModal(e)}
                                             variant="gardient"
                                             color="warning"
                                             startIcon={<IconConnected/>}
-                                            sx={{ml: 'auto'}}
+                                            sx={{ml: 'auto',mb:7}}
                                         >
                                             Подключение
                                         </Button>
-                                    </Stack>
+                                        {
+                                            !mediaQuery &&
+                                            <Button
+                                                className="h1"
+                                                fullWidth={!mediaQuery}
+                                                color="neutral"
+                                                component={Link}
+                                                to="/trader-dashboard"
+                                            >
+                                                <span className="h2">Подробнее</span>
+                                            </Button>
+                                        }
+                                    </>
                                     :
                                     <Stack width='100%' direction="row" alignItems="center"
                                            justifyContent="space-between">
@@ -97,7 +111,6 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                                 <CustomAreaChart height={64} data={chartData}
                                                  dataArea={[{dataKey: "uv", stroke: "#6FCF97", fill: "#29312C"},]}/>
                             </Stack>
-
                         </Grid>
                         <Grid item xs={8}>
                             <Stack spacing={7}>
@@ -151,13 +164,13 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
             </Accordion>
 
 
-            {/*<Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>*/}
-            {/*    <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">*/}
-            {/*    </AccordionSummary>*/}
-            {/*    <AccordionDetails>*/}
+            <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+                <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
+                </AccordionSummary>
+                <AccordionDetails>
 
-            {/*    </AccordionDetails>*/}
-            {/*</Accordion>*/}
+                </AccordionDetails>
+            </Accordion>
             <CopyTradingModal openModal={openModal} closeModal={setOpenModal}/>
         </div>
     );
