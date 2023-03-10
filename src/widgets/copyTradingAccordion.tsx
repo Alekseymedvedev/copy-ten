@@ -41,11 +41,10 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                             <NickName name="NICKNAME_NICKNAME" number="18050009" direction="row-reverse"
                                       justifyContent="flex-end"/>
                         </Grid>
-                        <Grid item xs={12} md={5}>
+                        <Grid item xs={12} md={3}>
                             {
-                                (mediaQuery && expanded === 'panel1') ?
-                                    null
-                                    : <CustomAreaChart
+                                (expanded !== 'panel1' || !mediaQuery) ?
+                                    <CustomAreaChart
                                         height={64}
                                         data={chartData}
                                         dataArea={[{
@@ -53,47 +52,49 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                                             stroke: "#6FCF97",
                                             fill: "#29312C"
                                         },]}/>
+                                    : null
                             }
-
                         </Grid>
 
-                        <Grid item xs={12} md={4} flexDirection="row" justifyContent="flex-end">
-                            {
-                                (expanded === 'panel1' || !mediaQuery) ?
-
-                                    <>
+                        <Grid item xs={12} md={6} flexDirection="row" justifyContent="flex-end">
+                            <Stack width='100%' direction={mediaQuery ?"row": "column"} alignItems="center"
+                                   justifyContent="flex-end" spacing={7}>
+                                <Stack
+                                    className="subHeaders yellow"
+                                    alignItems="center"
+                                    justifyContent="center"
+                                    sx={{
+                                        width: 34,
+                                        height: 34,
+                                        border: ` 0.5px solid #3C3C3C`,
+                                        borderRadius: `50%`,
+                                        position: !mediaQuery ?'absolute':'static',
+                                        right:14,
+                                        top:14,
+                                    }}
+                                >10%</Stack>
+                                {(expanded !== 'panel1' || !mediaQuery) ? <CurrentValues/> : null}
+                                {
+                                    (expanded === 'panel1' || !mediaQuery) ?
                                         <Button
                                             fullWidth={!mediaQuery}
                                             onClick={(e) => handleOpenModal(e)}
                                             variant="gardient"
                                             color="warning"
                                             startIcon={<IconConnected/>}
-                                            sx={{ml: 'auto',mb:7}}
+                                            sx={{ml: 'auto', mb: 7}}
                                         >
                                             Подключение
                                         </Button>
-                                        {
-                                            !mediaQuery &&
-                                            <Button
-                                                className="h1"
-                                                fullWidth={!mediaQuery}
-                                                color="neutral"
-                                                component={Link}
-                                                to="/trader-dashboard"
-                                            >
-                                                <span className="h2">Подробнее</span>
-                                            </Button>
-                                        }
-                                    </>
-                                    :
-                                    <Stack width='100%' direction="row" alignItems="center"
-                                           justifyContent="space-between">
-                                        {/*<Chip label="10%" color="warning"/>*/}
-                                        <CurrentValues/>
-                                        <IconConnected/>
-                                    </Stack>
-                            }
-
+                                        : <IconConnected/>
+                                }
+                                {
+                                    !mediaQuery &&
+                                    <Button fullWidth={!mediaQuery} color="neutral" component={Link} to="/trader-dashboard">
+                                        <span className="h2">Подробнее</span>
+                                    </Button>
+                                }
+                            </Stack>
                         </Grid>
                     </Grid>
                 </AccordionSummary>
@@ -149,12 +150,7 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                                         </Stack>
                                     </Stack>
                                 </Stack>
-                                <Button
-                                    className="h1"
-                                    color="neutral"
-                                    component={Link}
-                                    to="/trader-dashboard"
-                                >
+                                <Button color="neutral" component={Link} to="/trader-dashboard">
                                     <span className="h2">Подробнее</span>
                                 </Button>
                             </Stack>
