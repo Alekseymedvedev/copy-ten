@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import {Chip, Slider, Stack, Switch} from "@mui/material";
+import {Chip, Paper, Slider, Stack, Switch} from "@mui/material";
 
 interface IType {
     title?: string;
@@ -8,7 +8,8 @@ interface IType {
     maxValue?: number;
     defaultValue?: number;
     step?: number;
-    swift?: boolean;
+    isSwitch?: boolean;
+    isSliderRange?: boolean;
 }
 
 const CustomRange: FC<IType> = ({
@@ -16,9 +17,10 @@ const CustomRange: FC<IType> = ({
                                     required,
                                     minValue,
                                     maxValue,
-                                    swift,
+                                    isSwitch,
                                     step,
-                                    defaultValue
+                                    defaultValue,
+                                    isSliderRange
                                 }) => {
     const [marks, setMarks] = useState([
         {value: minValue!==undefined ? minValue : 0, label: minValue ? minValue : 0},
@@ -39,36 +41,39 @@ const CustomRange: FC<IType> = ({
 
     return (
 
-        <Stack sx={{p: `12px 8px`, border: `0.5px solid #3C3C3C`, borderRadius: 2.5}}>
+        <Paper sx={{p: 4,borderRadius: `5px`}}>
             <Stack direction="row" alignItems="center" justifyContent="space-between" >
                 <span className="subHeaders">{title} {required && <span className="red">*</span>}</span>
                 <Stack direction="row" alignItems="center" justifyContent="space-between">
-                    <Chip label={value} variant="filled" color="neutral"/>
+                    {isSliderRange && <Chip label={value} variant="filled" color="neutral" sx={{height:23}}/>}
+
                     {
-                        swift &&
+                        isSwitch &&
                         <Switch
                             defaultChecked
                             size="small"
-                            checked={!invisible}
                             onChange={handleBadgeVisibility}
                         />
                     }
                 </Stack>
             </Stack>
-            <Stack sx={{m: 7, mb:0}}>
-                <Slider
-                    size="small"
-                    defaultValue={defaultValue ? defaultValue : 0}
-                    min={minValue ?minValue :0}
-                    max={maxValue ? maxValue :1}
-                    step={step ?step : 0.01}
-                    onChange={handleChange}
-                    valueLabelDisplay="off"
-                    marks={marks}
-                    disabled={invisible}
-                />
-            </Stack>
-        </Stack>
+            {
+                isSliderRange &&
+                <Stack sx={{m: 7, mb:0}}>
+                    <Slider
+                        size="small"
+                        defaultValue={defaultValue ? defaultValue : 0}
+                        min={minValue ?minValue :0}
+                        max={maxValue ? maxValue :1}
+                        step={step ?step : 0.01}
+                        onChange={handleChange}
+                        valueLabelDisplay="off"
+                        marks={marks}
+                        disabled={invisible}
+                    />
+                </Stack>
+            }
+        </Paper>
     );
 };
 

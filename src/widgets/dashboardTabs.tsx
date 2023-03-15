@@ -14,6 +14,7 @@ import TabsHeader from "../entities/components/tabsHeader";
 import IconAccount from "../shared/assets/images/icons/iconAccount";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
+import DashboardTradersSidebar from "./dashboardTradersSidebar";
 
 interface IType {
     traderDashboard?: boolean;
@@ -33,7 +34,7 @@ const DashboardTabs: FC<IType> = ({traderDashboard}) => {
         <>
             <Box sx={{width: '100%'}}>
                 <TabsHeader
-                    tabsName={[{name: 'Дашборд', icon: <IconAccount/>}, {name: 'История', icon: <IconAccount/>}]}
+                    tabsName={[{name: 'Дашборд', icon: <IconAccount/>}, {name: 'История', icon: <IconAccount/>},{name: 'Открытые позиции', icon: <IconAccount/>}]}
                     tabsValue={value} onTabsChange={setValue}/>
 
                 <TabsItem value={value} index={0}>
@@ -105,7 +106,13 @@ const DashboardTabs: FC<IType> = ({traderDashboard}) => {
                         {
                             sidebarVisible &&
                             <Grid item md={4} xs={16}>
-                                <TradersAndSets/>
+                                {
+                                    traderDashboard ?
+                                        <DashboardTradersSidebar/>
+                                        : <TradersAndSets/>
+                                }
+
+
                             </Grid>
                         }
                     </Grid>
@@ -117,15 +124,13 @@ const DashboardTabs: FC<IType> = ({traderDashboard}) => {
                             color="warning"
                             sx={{height: 48, position: 'fixed', right: 20, left: 20, bottom: 40}}
                         >Настройки</Button>
-                        // <Stack direction="row" justifyContent="center" spacing={7}
-                        //        sx={{width: `100%`, position: 'fixed', bottom: 40}}>
-                        //     <Button onClick={() => setSidebarVisible(false)} variant="outlined" color="neutral">Дашборд</Button>
-                        //     <Button onClick={() => setSidebarVisible(true)} variant="contained"
-                        //             color="neutral">Настройки</Button>
-                        // </Stack>
+
                     }
                 </TabsItem>
                 <TabsItem value={value} index={1}>
+                    <CustomTable/>
+                </TabsItem>
+                <TabsItem value={value} index={2}>
                     <CustomTable/>
                 </TabsItem>
             </Box>

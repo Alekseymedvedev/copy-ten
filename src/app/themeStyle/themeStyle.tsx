@@ -1,7 +1,7 @@
 import {createTheme} from "@mui/material/styles";
 import {customMuiButton} from "./components/customMuiButton";
 import {themeColors} from "./themeColors";
-import {customInput} from "./components/customInput";
+import {customMuiInput} from "./components/customMuiInput";
 import {customMuiChip} from "./components/customMuiChip";
 import {customMuiSelect} from "./components/customMuiSelect";
 import {customMuiFormLabel} from "./components/customMuiFormLabell";
@@ -24,7 +24,7 @@ export const darkTheme = createTheme({
     palette: {
 
         background: {
-            default: ' #1C1B1A',
+            default: `#1C1B1A`,
         },
         mode: "dark",
         primary: {
@@ -59,7 +59,7 @@ export const darkTheme = createTheme({
         info: {
             main: themeColors.blueLight,
             dark: themeColors.blueDark,
-            contrastText: themeColors.white100,
+            contrastText: themeColors.blueLight,
         },
         neutral: {
             light: themeColors.white70,
@@ -129,7 +129,7 @@ export const darkTheme = createTheme({
     },
     components: {
         MuiButton: customMuiButton,
-        MuiOutlinedInput: customInput,
+        MuiOutlinedInput: customMuiInput,
         MuiChip: customMuiChip,
         MuiSelect: customMuiSelect,
         MuiMenuItem: customMuiSelect,
@@ -145,6 +145,39 @@ export const darkTheme = createTheme({
         MuiTab: customMuiTab,
         MuiPaper: customMuiPaper,
         MuiDivider: customMuiDivider,
+        MuiAlert: {
+            variants:[
+                {
+                    props: {severity:"success"} ,
+                    style: (({theme}: any) => ({
+                        background:theme.palette.success.dark,
+                        color:theme.palette.success.main
+
+                    }))
+                },
+                {
+                    props: {severity:"error"} ,
+                    style: (({theme}: any) => ({
+                        background:theme.palette.error.dark,
+                        color:theme.palette.error.main
+
+                    }))
+                },
+            ],
+            styleOverrides: {
+                root: {
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: 286,
+                    height: 99,
+                    border: ` 0.5px solid #828282`,
+                    borderRadius: 10,
+                    fontWeight: 600,
+                    fontSize: 12,
+                }
+            }
+        },
         MuiTableContainer: {
             styleOverrides: {
                 root: {
@@ -167,7 +200,7 @@ export const darkTheme = createTheme({
                         borderRight: `none`,
                     },
 
-                     "&.red": {
+                    "&.red": {
                         backgroundColor: theme.palette.error.dark,
                         color: theme.palette.error.light,
                     },

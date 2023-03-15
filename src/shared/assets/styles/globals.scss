@@ -6,8 +6,11 @@
   --iconColor1: #FFF;
   --iconColor2: #FFF;
 }
-main{
-  margin-bottom: 185px;
+.main{
+  margin-bottom: auto;
+}
+.footer{
+  margin-top: 28px;
 }
 div::-webkit-scrollbar {
   width: 5px; /* ширина scrollbar */

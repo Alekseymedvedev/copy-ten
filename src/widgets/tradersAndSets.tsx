@@ -13,6 +13,8 @@ import IconAccount from "../shared/assets/images/icons/iconAccount";
 import IconTraders from "../shared/assets/images/icons/iconTraders";
 import IconSet from "../shared/assets/images/icons/iconSet";
 import Paper from "@mui/material/Paper";
+import {Link} from "react-router-dom";
+import IconSettings from "../shared/assets/images/icons/iconSettings";
 
 interface IType {
     name?: string;
@@ -80,7 +82,12 @@ const TradersAndSets: FC<IType> = ({name,}) => {
                             <span className="subHeadersBold green">+22.49%</span>
                         </Stack>
                     </Stack>
-                    <Button sx={{mb: 4}} fullWidth variant="outlined" color="neutral">Настройки</Button>
+                    <Stack direction="row" spacing={7} sx={{mb:7}}>
+                        <Button color="neutral">
+                            <IconSettings/>
+                        </Button>
+                        <Button fullWidth color="neutral" component={Link} to="/trader-dashboard">Дашборд трейдера</Button>
+                    </Stack>
                     <Button fullWidth variant="contained" color="error">Отключить</Button>
                 </Paper>
             </Paper>

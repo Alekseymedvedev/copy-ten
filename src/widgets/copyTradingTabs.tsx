@@ -3,7 +3,7 @@ import TabsHeader from "../entities/components/tabsHeader";
 import TabsItem from "../entities/components/tabsItem";
 import Box from "@mui/material/Box";
 import CopyTradingAccordion from "./copyTradingAccordion";
-import CopyTradingSet from "./copyTradingSet";
+import Set from "./set";
 import IconTraders from "../shared/assets/images/icons/iconTraders";
 import IconSet from "../shared/assets/images/icons/iconSet";
 import Filter from "../entities/components/filter";
@@ -18,7 +18,6 @@ const CopyTradingTabs: FC<IType> = ({children}) => {
     return (
         <>
             <Box sx={{width: '100%'}}>
-
                 <TabsHeader
                     tabsName={[{name:'Трейдеры',icon:<IconTraders/>}, {name:'Сеты',icon:<IconSet/>}]}
                     tabsValue={value}
@@ -30,7 +29,7 @@ const CopyTradingTabs: FC<IType> = ({children}) => {
                     <CopyTradingAccordion/>
                 </TabsItem>
                 <TabsItem value={value} index={1}>
-                    <CopyTradingSet/>
+                    <Set/>
                 </TabsItem>
             </Box>
         </>

@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import Navigation from "../entities/components/navigation";
 import HeaderSidebar from "../entities/components/headerSidebar";
 import {IconButton, Stack, useMediaQuery} from "@mui/material";
 import IconMenu from "../shared/assets/images/icons/iconMenu";
-// @ts-ignore
 import logo from '../shared/assets/images/logo.svg'
 
 
@@ -23,8 +22,10 @@ const styleMediaQuery = {
     position: 'fixed'
 }
 
-
-const Sidebar = () => {
+interface T {
+    isAdmin?: boolean;
+}
+const Sidebar: FC<T> = ({isAdmin}) => {
     const mediaQuery = useMediaQuery('(min-width:900px)');
     const [visibleMenu, setVisibleMenu] = useState(true)
     useEffect(() => {
@@ -57,9 +58,9 @@ const Sidebar = () => {
                     <Stack sx={!mediaQuery ? styleMediaQuery : style}>
                         <Stack spacing={7}>
                             <Stack spacing={7}>
-                                <HeaderSidebar name="Remy Sharp" images="" account="2" balance="10 000 000"/>
+                                <HeaderSidebar isAdmin={isAdmin} name="Remy Sharp" images="" account="2" balance="10 000 000"/>
                             </Stack>
-                            <Navigation/>
+                            <Navigation isAdmin={isAdmin}/>
                         </Stack>
                     </Stack>
                     : null

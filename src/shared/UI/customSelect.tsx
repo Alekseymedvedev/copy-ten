@@ -1,7 +1,7 @@
 import React, {FC, useEffect} from 'react';
 import {
     Checkbox,
-    FormControl,
+    FormControl, IconButton,
     ListItemText,
     MenuItem,
     Select,
@@ -10,6 +10,8 @@ import {
     useMediaQuery
 } from "@mui/material";
 import IconSelect from "../assets/images/icons/iconSelect";
+import IconConnected from "../assets/images/icons/iconConnected";
+import IconSearch from "../assets/images/icons/iconSearch";
 
 interface T {
     title?: string;
@@ -40,16 +42,15 @@ const CustomSelect: FC<T> = ({title,multiple,defaultValue}) => {
     return (
         <Stack direction="row" spacing={4} alignItems="center" sx={ {width:!mediaQuery ?`100%` : 'unset'}}>
             {title && <span className="subHeaders white-80">{title}</span> }
-
-
                 <Select
-                    // IconComponent={<IconSelect/>}
+                    IconComponent={"select"}
                     fullWidth={!mediaQuery && true }
                     multiple={multiple && true}
                     value={variantName}
                     onChange={handleChange}
                     displayEmpty={!!defaultValue}
                     renderValue={(selected) => selected.join(', ')}
+
                 >
                     {
                         (names !== undefined && names?.length > 0)

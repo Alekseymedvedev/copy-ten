@@ -1,5 +1,5 @@
 import cls from '../styles/menuList.module.scss'
-import React from "react";
+import React, {FC, useEffect, useState} from "react";
 import IconAccount from "../../shared/assets/images/icons/iconAccount";
 import {NavLink, useLocation} from "react-router-dom";
 import IconCopyTrading from "../../shared/assets/images/icons/iconCopyTrading";
@@ -10,34 +10,65 @@ import IconProducts from "../../shared/assets/images/icons/iconProducts";
 import {useMediaQuery} from "@mui/material";
 
 
-export const menuData = [
+export const menuUserData = [
     {path: "/", name: 'Мои счета', navigateClass: 'navigationGreen', icon: IconAccount},
     {path: "/copy-trading", name: 'Копитрейдинг', navigateClass: 'navigationPurple', icon: IconCopyTrading},
     {path: "/partner", name: 'Партнерская программа', navigateClass: 'navigationRed', icon: IconPartner},
     {path: "/settings", name: 'Настройки', navigateClass: 'navigationWhite', icon: IconSettings},
     {path: "/support", name: 'Тех. поддержка', navigateClass: 'supportMenuItem', icon: IconSupport},
 ]
-
-const Navigation = () => {
+export const menuAdminData = [
+    {path: "/admin", name: 'Пользователи', navigateClass: 'navigationWhite', },
+    {path: "/admin/forex", name: 'Forex счета', navigateClass: 'navigationWhite', },
+    {path: "/admin/bank-requisites", name: 'Банковские реквизиты', navigateClass: 'navigationWhite', },
+    {path: "/admin/transaction", name: 'Вывод', navigateClass: 'navigationWhite', },
+    {path: "/admin/sets", name: 'Сеты', navigateClass: 'navigationWhite', },
+    {path: "/admin/traders", name: 'Трейдеры', navigateClass: 'navigationWhite', },
+    {path: "/admin/broker-servers", name: 'Сервера брокера', navigateClass: 'navigationWhite', },
+]
+interface IMenuData{
+    path: string;
+    name:string;
+    navigateClass: string;
+    icon?: any;
+}
+interface IType {
+    isAdmin?: boolean;
+}
+const Navigation: FC<IType> = ({isAdmin}) => {
     const location = useLocation()
     const mediaQuery = useMediaQuery('(max-width:900px)');
+    const [menuData,setMenuData] = useState<IMenuData[]>()
+    useEffect(()=>{
+        if(isAdmin){
+            setMenuData(menuAdminData)
+        }else{
+            setMenuData(menuUserData)
+        }
+    },[])
     return (
         <ul className={cls.list}>
-            <li className={cls.item + ' navigationYellow'}>
-                <NavLink
-                    className={({isActive}) =>
-                        isActive ? cls.active : undefined
-                    }
-                    to="/tariff">
-                    Продукты
-                    <IconProducts active={true}/>
-                </NavLink>
-            </li>
-            <li className="h1">
-                Библиотека
-            </li>
             {
-                menuData.length && menuData.map(item =>
+                !isAdmin &&
+                <>
+                    <li className={cls.item + ' navigationYellow'}>
+                        <NavLink
+                            className={({isActive}) =>
+                                isActive ? cls.active : undefined
+                            }
+                            to="/tariff">
+                            Продукты
+                            <IconProducts active={true}/>
+                        </NavLink>
+                    </li>
+                    <li className="h1">
+                        Библиотека
+                    </li>
+                </>
+            }
+
+            {
+                menuData && menuData.map(item =>
                     <li key={item?.path} className={
                         location.pathname === item.path ?
                             cls.item + ' ' + item.navigateClass
@@ -49,7 +80,7 @@ const Navigation = () => {
                             }
                             to={item.path}>
                             {item.name}
-                            <item.icon active={location.pathname === item.path}/>
+                            {item.icon && <item.icon active={location.pathname === item.path}/>}
                         </NavLink>
                     </li>
                 )

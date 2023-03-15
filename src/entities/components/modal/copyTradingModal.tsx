@@ -2,24 +2,25 @@ import {FC, useEffect, useState} from "react";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import {Chip, Divider, IconButton, Slider, Stack} from "@mui/material";
+import {Alert, Chip, Divider, IconButton, Slider, Snackbar, Stack} from "@mui/material";
 import IconClose from "../../../shared/assets/images/icons/iconClose";
 import CustomInput from "../../../shared/UI/customInput";
 import * as React from "react";
 import CustomRange from "../../../shared/components/customRange";
 import CustomSelect from "../../../shared/UI/customSelect";
 import CopyTradingModalChild from "./copyTradingModalChild";
+import Parameters from "../parameters";
 
 
 
 interface IType {
-    children?: any;
+    maxWidth?: number;
     openModal: boolean;
     closeModal?: any;
     isOPenBtn?: boolean
 }
 
-const CopyTradingModal: FC<IType> = ({children, openModal, closeModal, isOPenBtn}) => {
+const CopyTradingModal: FC<IType> = ({maxWidth, openModal, closeModal, isOPenBtn}) => {
     const [open, setOpen] = useState(false);
     const [openModalChild, setOpenModalChild] = useState(false);
     const [step, setStep] = useState(1);
@@ -38,11 +39,14 @@ const CopyTradingModal: FC<IType> = ({children, openModal, closeModal, isOPenBtn
 
     return (
         <>
-            {/*<Snackbar*/}
-            {/*    anchorOrigin={{  vertical: 'top', horizontal: 'center',}}*/}
-            {/*    open={true}*/}
-            {/*    message="I love snacks"*/}
-            {/*/>*/}
+            <Snackbar
+                anchorOrigin={{  vertical: 'top', horizontal: 'center',}}
+                open={step===3}
+            >
+                <Alert severity="success" icon={false}>
+                    Успешно!
+                </Alert>
+            </Snackbar>
             {isOPenBtn && <Button onClick={handleOpen}>Open modal</Button>}
 
             <Modal
@@ -50,10 +54,9 @@ const CopyTradingModal: FC<IType> = ({children, openModal, closeModal, isOPenBtn
                 onClose={handleClose}
                 aria-labelledby="parent-modal-title"
                 aria-describedby="parent-modal-description"
-                // sx={{  filter: `blur(10px)`   }}
             >
 
-                <Box>
+                <Box sx={{maxWidth:maxWidth ? maxWidth :620}}>
                     <Stack onClick={handleClose} sx={{position: "absolute", top: 14, right: 28, cursor: "pointer"}}>
                         <IconClose/>
                     </Stack>
@@ -72,27 +75,14 @@ const CopyTradingModal: FC<IType> = ({children, openModal, closeModal, isOPenBtn
                             :
                             (step === 2) ?
                                 <Stack spacing={7}>
-                                    <CustomRange title="Риск в процентах" required={true}/>
-                                    <CustomRange title="Макс. лот" required={true} swift={true}/>
-                                    <CustomRange title="Мин. лот" required={true} swift={true}/>
-                                    <Stack spacing={4}
-                                           sx={{p: `12px 8px`, border: `0.5px solid #3C3C3C`, borderRadius: 2.5}}>
-                                        <Stack direction="row" alignItems="center" justifyContent="space-between">
-                                            <Stack direction="row" alignItems="center" spacing={4}>
-                                                <IconButton
-                                                    className="red"
-                                                    size="small"
-                                                    sx={{p: 4, border: `0.5px solid #3C3C3C`, borderRadius: 1}}
-                                                >
-                                                    <IconClose/>
-                                                </IconButton>
-                                                <span className="subHeaders white-90">Символы</span>
-                                            </Stack>
-                                            <CustomSelect multiple={true}/>
-                                        </Stack>
-                                        <Button color="success">Оптимизировать</Button>
-                                        <Button color="error">Сброс</Button>
-                                    </Stack>
+                                <Stack className="h2 yellowBg" justifyContent="space-between" sx={{height:122,p:7,borderRadius: `10px`}}>
+                                    <span>Используемый <br/> депозит</span>
+                                    <span className="yellow">1239$</span>
+                                </Stack>
+                                    <CustomRange title="Риск в процентах" required isSwitch isSliderRange/>
+                                    <CustomRange title="Макс. лот" required isSwitch isSliderRange/>
+                                    <CustomRange title="Мин. лот" required isSwitch/>
+                                   <Parameters/>
                                 </Stack>
                                 :
                                 (step === 3) ?

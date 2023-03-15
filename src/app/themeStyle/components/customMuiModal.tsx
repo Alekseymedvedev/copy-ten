@@ -8,12 +8,14 @@ export const customMuiModal={
                 top: '50%',
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
-                maxWidth: 620,
                 width: `100%`,
                 backgroundColor: '#1F1F1F',
                 border: `0.5px solid #3c3c3c`,
                 borderRadius: 10,
-                padding: 14
+                padding: 14,
+                maxHeight: `90%`,
+                overflow:'hidden',
+                overflowY: 'scroll'
             }
 
         }

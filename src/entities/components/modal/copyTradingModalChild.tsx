@@ -6,14 +6,14 @@ import IconClose from "../../../shared/assets/images/icons/iconClose";
 
 
 interface IType {
-    children?: any;
+    maxWidth?: number;
     closeModal: any;
     openModal: boolean;
     step: number;
     setStep: (number: number) => void;
 }
 
-const CopyTradingModalChild: FC<IType> = ({children, openModal, closeModal, step, setStep,}) => {
+const CopyTradingModalChild: FC<IType> = ({maxWidth, openModal, closeModal, step, setStep,}) => {
     const [open, setOpen] = useState(false);
 
     useEffect((() => {
@@ -39,7 +39,7 @@ const CopyTradingModalChild: FC<IType> = ({children, openModal, closeModal, step
                 aria-labelledby="child-modal-title"
                 aria-describedby="child-modal-description"
             >
-                <Box>
+                <Box sx={{maxWidth:maxWidth ? maxWidth :620}}>
                     <Stack onClick={handleClose} sx={{position: "absolute", top: 14, right: 28, cursor: "pointer"}}>
                         <IconClose/>
                     </Stack>

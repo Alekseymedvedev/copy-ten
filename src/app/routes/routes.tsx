@@ -6,11 +6,21 @@ import Partner from "../../pages/partner";
 import Support from "../../pages/support";
 import Settings from "../../pages/settings";
 import TraderDashboard from "../../pages/traderDashboard";
+import Auth from "../../pages/auth";
+import Admin from "../../pages/admin";
+import AdminForex from "../../pages/adminForex";
+import AdminBankRequisites from "../../pages/adminBankRequisites";
+import IconAccount from "../../shared/assets/images/icons/iconAccount";
+import AminSets from "../../pages/aminSets";
+import AdminTraders from "../../pages/adminTraders";
+import AdminBrokerServers from "../../pages/adminBrokerServers";
+import AdminTransaction from "../../pages/adminTransaction";
 
 
 
 export const routes = [
     {path: "/", element: <Home/>},
+    {path: "/auth", element: <Auth/>},
     {path: "/copy-trading", element: <CopyTrading/>},
     {path: "/tariff", element: <Tariff/>},
     {path: "/exchange-account/:id", element: <AccountDashboard/>},
@@ -18,4 +28,11 @@ export const routes = [
     {path: "/settings", element: <Settings/>},
     {path: "/support", element: <Support/>},
     {path: "/trader-dashboard", element: <TraderDashboard/>},
+    {path: "/admin", element: <Admin/>},
+    {path: "/admin/forex", element: <AdminForex/>},
+    {path: "/admin/bank-requisites", element: <AdminBankRequisites/>},
+    {path: "/admin/sets", element: <AminSets/>},
+    {path: "/admin/transaction", element: <AdminTransaction/>},
+    {path: "/admin/traders", element: <AdminTraders/>},
+    {path: "/admin/broker-servers", element: <AdminBrokerServers/>},
 ]

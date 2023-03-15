@@ -8,12 +8,14 @@ const settingsBtn = (variantBtn: string, colorBtn: string) => {
             background:
                 (variantBtn === 'gardient' && colorBtn === 'warning') ? themeColors.yellowGr :
                     (variantBtn === 'gardient' && colorBtn === 'success') ? themeColors.greenGr :
+                    (variantBtn === 'gardient' && colorBtn === 'info') ? themeColors.blueGr :
                         undefined,
             backgroundColor:
                 (variantBtn === 'outlined') ? 'transparent' :
                     (variantBtn === 'contained' && colorBtn === 'success') ? theme.palette.success.dark :
                         (variantBtn === 'contained' && colorBtn === 'error') ? theme.palette.error.dark :
                             (variantBtn === 'contained' && colorBtn === 'warning') ? theme.palette.warning.dark :
+                            (variantBtn === 'contained' && colorBtn === 'info') ? theme.palette.info.dark :
                                 null,
             color:
                 (colorBtn === 'neutral') ? theme.palette.neutral.contrastText :
@@ -48,9 +50,11 @@ export const customMuiButton = {
         settingsBtn("outlined", 'error'),
         settingsBtn("contained", 'warning'),
         settingsBtn("outlined", 'warning'),
+        settingsBtn("contained", 'info'),
         settingsBtn("outlined", 'neutral'),
         settingsBtn("gardient", 'warning'),
         settingsBtn("gardient", 'success'),
+        settingsBtn("gardient", 'info'),
         {
             props: {variant: 'gardient'} as object,
             style: (({theme}: any) => ({

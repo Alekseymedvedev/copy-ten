@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
-import {Divider, IconButton, Snackbar, Stack, TextField} from "@mui/material";
+import {Alert, Divider, Snackbar, Stack} from "@mui/material";
 import {FC, useEffect, useState} from "react";
 import IconClose from "../../../shared/assets/images/icons/iconClose";
 import CustomInput from "../../../shared/UI/customInput";
@@ -10,14 +10,14 @@ import CustomInput from "../../../shared/UI/customInput";
 
 
 interface ICustomModal {
-    children?: any;
+    maxWidth?: number;
     openModal: boolean;
-    closeModal?: any;
+    closeModal: any;
     isOPenBtn?: boolean
     isError?: boolean
 }
 
-const AccountModal: FC<ICustomModal> = ({children, openModal, closeModal, isOPenBtn, isError}) => {
+const AccountModal: FC<ICustomModal> = ({maxWidth, openModal, closeModal, isOPenBtn, isError}) => {
     const [open, setOpen] = useState(false);
     const [step, setStep] = useState(1);
 
@@ -26,21 +26,23 @@ const AccountModal: FC<ICustomModal> = ({children, openModal, closeModal, isOPen
     }), [open, openModal])
     const handleOpen = () => {
         setOpen(true);
-        console.log(openModal)
-        console.log(open)
     };
     const handleClose = () => {
         closeModal(false)
         setOpen(false);
+        setStep(1)
     };
 
     return (
         <>
-            {/*<Snackbar*/}
-            {/*    anchorOrigin={{  vertical: 'top', horizontal: 'center',}}*/}
-            {/*    open={true}*/}
-            {/*    message="I love snacks"*/}
-            {/*/>*/}
+            <Snackbar
+                anchorOrigin={{  vertical: 'top', horizontal: 'center',}}
+                open={step===4}
+            >
+                <Alert severity="error" icon={false}>
+                    Успешно!
+                </Alert>
+            </Snackbar>
             {isOPenBtn && <Button onClick={handleOpen}>Open modal</Button>}
 
             <Modal
@@ -48,10 +50,9 @@ const AccountModal: FC<ICustomModal> = ({children, openModal, closeModal, isOPen
                 onClose={handleClose}
                 aria-labelledby="parent-modal-title"
                 aria-describedby="parent-modal-description"
-                // sx={{  filter: `blur(10px)`   }}
             >
 
-                <Box>
+                <Box sx={{maxWidth:maxWidth ? maxWidth :620}}>
                     <Stack onClick={handleClose} sx={{position: "absolute", top: 14, right: 28, cursor: "pointer"}}>
                         <IconClose/>
                     </Stack>

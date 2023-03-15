@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 
 const Footer = () => {
     return (
-        <footer>
+        <footer className="footer">
             <Stack spacing={4} sx={{mb: 10}}>
                 <span className="h2 white-80">CopyTen System</span>
                 <span className="subHeaders white-70">

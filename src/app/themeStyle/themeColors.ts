@@ -25,7 +25,7 @@ export const themeColors = {
     purpleDark: '#22223A',
 
     pinkLight: '#BB6BD9',
-    pinkMedum: '#533D5C',
+    pinkMedium: '#533D5C',
     pinkDark: '#33223A',
 
     blueLight: '#56CCF2',
@@ -45,6 +45,7 @@ export const themeColors = {
     navyblueDark: '#22273A',
 
     greenGr:`linear-gradient(0deg, rgba(111, 207, 151, 0.1) 0%, rgba(111, 207, 151, 0) 100%)`,
-    yellowGr:`linear-gradient(0deg, rgba(242, 201, 76, 0.05) 0%, rgba(242, 201, 76, 0) 100%)`
+    yellowGr:`linear-gradient(0deg, rgba(242, 201, 76, 0.05) 0%, rgba(242, 201, 76, 0) 100%)`,
+    blueGr:`linear-gradient(0deg, rgba(86, 204, 242, 0.05) 0%, rgba(86, 204, 242, 0) 100%);`,
 
 }

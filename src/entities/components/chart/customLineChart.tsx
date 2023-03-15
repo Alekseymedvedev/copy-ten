@@ -134,12 +134,12 @@ const CustomLineChart: FC<T> = ({colorYAxis,colorYAxisRight,colorXAxis, height})
                         bottom: 15,
                     }}
                 >
-                    <XAxis dataKey="name"/>
-                    <YAxis dataKey="pv" tick={<CustomAxisTick color={colorYAxis} />}/>
-                    <YAxis dataKey="uv" yAxisId="right" orientation="right" tick={<CustomAxisTick color={colorYAxis} />}/>
-                    <Tooltip  contentStyle={contentTooltipStyle} wrapperStyle={wrapperTooltipStyle} offset={-60}/>
-                    <Line dataKey="pv" stroke="#6FCF97" activeDot={{width: 0}}/>
-                    <Line dataKey="uv" stroke="#56CCF2"/>
+                    <XAxis dataKey="name"tick={<CustomAxisTick color={colorYAxis} />}/>
+                    <YAxis dataKey="pv" tick={<CustomAxisTick color={colorYAxis} rotate={-35}/>}/>
+                    <YAxis dataKey="uv" yAxisId="right" orientation="right" tick={<CustomAxisTick color={colorYAxis} rotate={-35} x={5}/>}/>
+                    <Tooltip  contentStyle={contentTooltipStyle} wrapperStyle={wrapperTooltipStyle} offset={-50}/>
+                    <Line dataKey="pv" stroke="#6FCF97" dot={{r: 0}}/>
+                    <Line dataKey="uv" stroke="#56CCF2" dot={{r: 0}}/>
                 </LineChart>
             </ResponsiveContainer>
         </Stack>

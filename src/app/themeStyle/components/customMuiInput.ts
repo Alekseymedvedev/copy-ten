@@ -1,11 +1,12 @@
 import {themeColors} from "../themeColors";
 
 
-export const customInput = {
+export const customMuiInput = {
     variants: [
         {
             props: {size: 'small'} as object,
             style: {
+                height:31,
                 padding: `7px 16px`,
                 width: `100%`,
             },

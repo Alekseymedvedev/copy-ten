@@ -14,13 +14,13 @@ import CustomInput from "../../../shared/UI/customInput";
 
 
 interface IType {
-    children?: any;
+    maxWidth?: number;
     openModal: boolean;
     closeModal?: any;
     isOPenBtn?: boolean
 }
 
-const SettingsModak: FC<IType> = ({children, openModal, closeModal, isOPenBtn}) => {
+const SettingsModak: FC<IType> = ({maxWidth, openModal, closeModal, isOPenBtn}) => {
     const [open, setOpen] = useState(false);
     const [openModalChild, setOpenModalChild] = useState(false);
     const [step, setStep] = useState(1);
@@ -53,7 +53,7 @@ const SettingsModak: FC<IType> = ({children, openModal, closeModal, isOPenBtn}) 
                 aria-describedby="parent-modal-description"
             >
 
-                <Box>
+                <Box sx={{maxWidth:maxWidth ? maxWidth :620}}>
                     <Stack onClick={handleClose} sx={{position: "absolute", top: 14, right: 28, cursor: "pointer"}}>
                         <IconClose/>
                     </Stack>

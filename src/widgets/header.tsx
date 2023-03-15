@@ -5,11 +5,12 @@ import CustomSelect from "../shared/UI/customSelect";
 interface T {
     heading?: string;
     accountNumber?: string;
+    isSelect?: boolean;
     typeAccount?: 'dollar' | 'cent' | 'copytrad' | 'robot'
 }
 
 
-const Header: FC<T> = ({heading, accountNumber, typeAccount}) => {
+const Header: FC<T> = ({heading, accountNumber,isSelect, typeAccount}) => {
     const mediaQuery = useMediaQuery('(min-width:900px)');
 
     return (
@@ -40,7 +41,7 @@ const Header: FC<T> = ({heading, accountNumber, typeAccount}) => {
                         <span className="subHeaders white-80">Загруженность счета:</span>
                         <span className="subHeaders yellow">&nbsp;67%</span>
                     </Stack>
-                    <CustomSelect title="Выбор счета" defaultValue="Нет счетов"/>
+                    { isSelect && <CustomSelect title="Выбор счета" defaultValue="Нет счетов"/> }
                 </Stack>
             </Stack>
         </header>
