@@ -10,6 +10,7 @@ interface IType {
     step?: number;
     isSwitch?: boolean;
     isSliderRange?: boolean;
+    onChange?:(value:number)=>void;
 }
 
 const CustomRange: FC<IType> = ({
@@ -20,7 +21,8 @@ const CustomRange: FC<IType> = ({
                                     isSwitch,
                                     step,
                                     defaultValue,
-                                    isSliderRange
+                                    isSliderRange,
+                                    onChange
                                 }) => {
     const [marks, setMarks] = useState([
         {value: minValue!==undefined ? minValue : 0, label: minValue ? minValue : 0},
@@ -36,7 +38,11 @@ const CustomRange: FC<IType> = ({
     const handleChange = (event: Event, newValue: number | number[]) => {
         if (typeof newValue === 'number') {
             setValue(newValue);
+            if (onChange) {
+                onChange(newValue)
+            }
         }
+
     };
 
     return (

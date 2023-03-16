@@ -3,7 +3,6 @@ import BankRequisitesItem from "../entities/components/bankRequisitesItem";
 import {Stack, useMediaQuery} from "@mui/material";
 import CustomSelect from "../shared/UI/customSelect";
 import CustomInput from "../shared/UI/customInput";
-import ForexItem from "../entities/components/ForexItem";
 
 interface IType {
     children?: any

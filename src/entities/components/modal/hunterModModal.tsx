@@ -23,6 +23,7 @@ interface IType {
 const HunterModModal: FC<IType> = ({maxWidth,openModal, closeModal, isOPenBtn, setHunterModBtn, setConnectionHunterMod}) => {
     const [open, setOpen] = useState(false);
     const [step, setStep] = useState(1);
+    const [referenceLineData, setReferenceLineData] = useState(1000);
 
     useEffect((() => {
         setOpen(openModal)
@@ -41,6 +42,12 @@ const HunterModModal: FC<IType> = ({maxWidth,openModal, closeModal, isOPenBtn, s
         setStep(1)
         setHunterModBtn('Hunter Mod - Активен')
         setConnectionHunterMod(false)
+    };
+   const handleRange = (value:any) => {
+       if (typeof value === 'number') {
+           setReferenceLineData(value)
+       }
+
     };
 
     return (
@@ -79,15 +86,15 @@ const HunterModModal: FC<IType> = ({maxWidth,openModal, closeModal, isOPenBtn, s
                             :
                             <Stack spacing={7}>
                                 <Chart title="График" icon="bad">
-                                    <CustomLineChart/>
+                                    <CustomLineChart referenceLineData={referenceLineData}/>
 
                                 </Chart>
                                 <Stack direction="row" spacing={7}>
-                                    <CustomInput label="Значения (%)"/>
+                                    <CustomInput onChange={handleRange} label="Значения (%)"/>
                                     <Button fullWidth color="neutral" startIcon={<IconSettings/>}>Автоматическая
                                         настройка</Button>
                                 </Stack>
-                                <CustomRange title="Риск в процентах" required isSwitch isSliderRange/>
+                                <CustomRange onChange={handleRange}minValue={1000} maxValue={5000} title="Риск в процентах" required isSwitch isSliderRange/>
                                 <CustomRange title="Мин. лот" required isSwitch/>
                             </Stack>
 
