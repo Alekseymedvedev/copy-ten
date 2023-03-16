@@ -4,7 +4,6 @@ import {Button, Divider, Stack} from "@mui/material";
 import IconConnected from "../shared/assets/images/icons/iconConnected";
 import CustomRange from "../shared/components/customRange";
 import Parameters from "../entities/components/parameters";
-import CopyTradingModal from "../entities/components/modal/copyTradingModal";
 import HunterModModal from "../entities/components/modal/hunterModModal";
 
 interface IType {

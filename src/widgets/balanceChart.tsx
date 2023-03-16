@@ -1,11 +1,6 @@
 import React, {FC} from 'react';
-import {PureComponent} from 'react';
-import {Area, LineChart, AreaChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
-import {chartData} from "../data/chart";
 import {Chip, Stack, Switch} from "@mui/material";
-import IconArrow from "../shared/assets/images/icons/iconArrow";
 import CustomLineChart from "../entities/components/chart/customLineChart";
-import HeaderChart from "../shared/components/headerChart";
 
 
 interface IType {

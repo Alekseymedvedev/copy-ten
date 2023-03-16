@@ -14,15 +14,15 @@ interface T {
 
 
 const HeaderSidebar: FC<T> = ({isAdmin,name, images, balance, account}) => {
-    const mediaQuery = useMediaQuery('(max-width:900px)');
+    const mediaQuery = useMediaQuery('(min-width:900px)');
     return (
         <Stack direction="row" spacing={7}>
             {
-                isAdmin ?
+                (isAdmin && mediaQuery) ?
                 <Stack>
                     <img src={img} alt="image"/>
                 </Stack>
-                    :
+                    :  (!isAdmin) ?
                     <>
                         <Avatar
                             alt={name}
@@ -42,6 +42,7 @@ const HeaderSidebar: FC<T> = ({isAdmin,name, images, balance, account}) => {
                             <Chip label={account} variant="outlined" color={"neutral"} icon={<IconAccount/>}/>
                         </Stack>
                     </>
+                    : null
             }
 
         </Stack>

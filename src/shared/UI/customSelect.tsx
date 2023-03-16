@@ -1,7 +1,6 @@
 import React, {FC, useEffect} from 'react';
 import {
     Checkbox,
-    FormControl, IconButton,
     ListItemText,
     MenuItem,
     Select,
@@ -9,9 +8,6 @@ import {
     Stack,
     useMediaQuery
 } from "@mui/material";
-import IconSelect from "../assets/images/icons/iconSelect";
-import IconConnected from "../assets/images/icons/iconConnected";
-import IconSearch from "../assets/images/icons/iconSearch";
 
 interface T {
     title?: string;
@@ -44,8 +40,8 @@ const CustomSelect: FC<T> = ({title,multiple,defaultValue}) => {
             {title && <span className="subHeaders white-80">{title}</span> }
                 <Select
                     IconComponent={"select"}
-                    fullWidth={!mediaQuery && true }
-                    multiple={multiple && true}
+                    fullWidth={!mediaQuery}
+                    multiple={multiple}
                     value={variantName}
                     onChange={handleChange}
                     displayEmpty={!!defaultValue}

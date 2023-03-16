@@ -1,7 +1,6 @@
 import React, {FC, useState} from 'react';
 import Box from "@mui/material/Box";
 import {styled, Tabs, useMediaQuery} from "@mui/material";
-import IconAccount from "../../shared/assets/images/icons/iconAccount";
 import Tab from "@mui/material/Tab";
 
 interface ITabsName{

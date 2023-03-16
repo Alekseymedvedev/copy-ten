@@ -1,6 +1,5 @@
 import React, {FC} from 'react';
 import Box from "@mui/material/Box";
-import {Typography} from "@mui/material";
 
 interface T {
     children?: any;

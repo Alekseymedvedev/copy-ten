@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import PersonalData from "../entities/components/personalData";
-import {Chip, Grid, Stack} from "@mui/material";
+import {Chip, Grid} from "@mui/material";
 import SelfEmployment from "../entities/components/selfEmployment";
 import IconAccount from "../shared/assets/images/icons/iconAccount";
 

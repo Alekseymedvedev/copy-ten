@@ -1,11 +1,6 @@
 @import "colors";
 
-:root {
-  //--iconColor1: inherit;
-  //--iconColor2: inherit;
-  --iconColor1: #FFF;
-  --iconColor2: #FFF;
-}
+
 .main{
   margin-bottom: auto;
 }
@@ -79,6 +74,58 @@ div {
 }
 .header{
   margin-bottom: 14px;
+}
+.menuList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.menuItem {
+  @extend .h2;
+  padding: 14px;
+  padding-right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+
+  &:before {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 100%;
+    background: $white-70;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: $white-100;
+  }
+
+  &.tariff {
+    margin-bottom: 26px;
+  }
+
+  &.support {
+    margin-top: 165px;
+    &:before {
+      background: $blueHigh;
+    }
+  }
+
+
+  a {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: $white-90;
+  }
+
+  a.active {
+    color: $white-100;
+  }
+
 }
 .white-100 {
   color: $white-100;

@@ -1,7 +1,7 @@
 import React, {FC, useState} from 'react';
 import BalanceChart from "./balanceChart";
 import Chart from "../entities/components/chart/chart";
-import {Chip, Divider, Grid, Stack, useMediaQuery} from "@mui/material";
+import { Divider, Grid, Stack, useMediaQuery} from "@mui/material";
 import Button from "@mui/material/Button";
 import IconConnected from "../shared/assets/images/icons/iconConnected";
 import SimpleModal from "../entities/components/modal/simpleModal";
@@ -23,10 +23,6 @@ const Set: FC<IType> = ({adminSet}) => {
     const [openModalConnection, setOpenModalConnection] = useState(false);
     const [openModal, setOpenModal] = useState(false);
 
-    const handleOpenModal = (event: React.SyntheticEvent) => {
-        event.stopPropagation()
-        setOpenModal(true)
-    };
     return (
         <>
             <Paper>

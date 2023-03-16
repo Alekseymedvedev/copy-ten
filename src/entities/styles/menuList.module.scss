@@ -27,12 +27,12 @@
     color: $white-100;
   }
 
-  &:first-child {
-    //margin-bottom: 26px;
+  &.tariff {
+    margin-bottom: 26px;
   }
 
-  &:last-child {
-    //margin-top: 165px;
+  &.support {
+    margin-top: 165px;
     &:before {
       background: $blueHigh;
     }

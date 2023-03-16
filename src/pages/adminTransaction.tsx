@@ -4,7 +4,7 @@ import TransactionAccordion from "../widgets/transactionAccordion";
 
 const AdminTransaction = () => {
     return (
-        <MainLayout heading="Трейдеры" isAdmin>
+        <MainLayout heading="Вывод" isAdmin>
             <TransactionAccordion/>
         </MainLayout>
     );

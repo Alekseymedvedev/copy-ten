@@ -1,11 +1,11 @@
 import MainLayout from "../widgets/mainLayout";
-import UsersList from "../widgets/usersList";
+import TradersList from "../widgets/tradersList";
 
 
 const AdminTraders = () => {
     return (
         <MainLayout heading="Трейдеры" isAdmin>
-            <UsersList/>
+            <TradersList/>
         </MainLayout>
     );
 };

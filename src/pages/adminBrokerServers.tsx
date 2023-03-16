@@ -1,11 +1,11 @@
 import MainLayout from "../widgets/mainLayout";
-import UsersList from "../widgets/usersList";
+import BrokerServersList from "../widgets/brokerServersList";
 
 
 const AdminBrokerServers = () => {
     return (
         <MainLayout heading="Сервера брокера" isAdmin>
-            <UsersList/>
+            <BrokerServersList/>
         </MainLayout>
     );
 };

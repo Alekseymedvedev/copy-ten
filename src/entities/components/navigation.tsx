@@ -1,4 +1,3 @@
-import cls from '../styles/menuList.module.scss'
 import React, {FC, useEffect, useState} from "react";
 import IconAccount from "../../shared/assets/images/icons/iconAccount";
 import {NavLink, useLocation} from "react-router-dom";
@@ -15,7 +14,7 @@ export const menuUserData = [
     {path: "/copy-trading", name: 'Копитрейдинг', navigateClass: 'navigationPurple', icon: IconCopyTrading},
     {path: "/partner", name: 'Партнерская программа', navigateClass: 'navigationRed', icon: IconPartner},
     {path: "/settings", name: 'Настройки', navigateClass: 'navigationWhite', icon: IconSettings},
-    {path: "/support", name: 'Тех. поддержка', navigateClass: 'supportMenuItem', icon: IconSupport},
+    {path: "/support", name: 'Тех. поддержка', navigateClass: 'supportMenuItem support', icon: IconSupport},
 ]
 export const menuAdminData = [
     {path: "/admin", name: 'Пользователи', navigateClass: 'navigationWhite', },
@@ -45,18 +44,14 @@ const Navigation: FC<IType> = ({isAdmin}) => {
         }else{
             setMenuData(menuUserData)
         }
-    },[])
+    },[menuData])
     return (
-        <ul className={cls.list}>
+        <ul className="menuList">
             {
                 !isAdmin &&
                 <>
-                    <li className={cls.item + ' navigationYellow'}>
-                        <NavLink
-                            className={({isActive}) =>
-                                isActive ? cls.active : undefined
-                            }
-                            to="/tariff">
+                    <li className="menuItem active navigationYellow">
+                        <NavLink to="/tariff">
                             Продукты
                             <IconProducts active={true}/>
                         </NavLink>
@@ -71,12 +66,12 @@ const Navigation: FC<IType> = ({isAdmin}) => {
                 menuData && menuData.map(item =>
                     <li key={item?.path} className={
                         location.pathname === item.path ?
-                            cls.item + ' ' + item.navigateClass
-                            : cls.item
+                            "menuItem" + ' ' + item.navigateClass
+                            : "menuItem"
                     }>
                         <NavLink
                             className={({isActive}) =>
-                                isActive ? cls.active : undefined
+                                isActive ? "active" : undefined
                             }
                             to={item.path}>
                             {item.name}

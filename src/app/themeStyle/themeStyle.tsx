@@ -4,7 +4,7 @@ import {themeColors} from "./themeColors";
 import {customMuiInput} from "./components/customMuiInput";
 import {customMuiChip} from "./components/customMuiChip";
 import {customMuiSelect} from "./components/customMuiSelect";
-import {customMuiFormLabel} from "./components/customMuiFormLabell";
+import { customMuiInputLabel} from "./components/customMuiInputLabel";
 import {customMuiCheckbox} from "./components/customMuiCheckbox";
 import {customMuiContainer} from "./components/customMuiContainer";
 import {customMuiCard} from "./components/customMuiCard";
@@ -16,6 +16,7 @@ import {customMuiTabs} from "./components/customMuiTabs";
 import {customMuiTab} from "./components/customMuiTab";
 import {customMuiPaper} from "./components/customMuiPaper";
 import {customMuiDivider} from "./components/customMuiDivider";
+
 
 
 export const darkTheme = createTheme({
@@ -133,7 +134,7 @@ export const darkTheme = createTheme({
         MuiChip: customMuiChip,
         MuiSelect: customMuiSelect,
         MuiMenuItem: customMuiSelect,
-        MuiFormLabel: customMuiFormLabel,
+        MuiInputLabel: customMuiInputLabel,
         MuiCheckbox: customMuiCheckbox,
         MuiContainer: customMuiContainer,
         MuiCard: customMuiCard,
@@ -145,6 +146,7 @@ export const darkTheme = createTheme({
         MuiTab: customMuiTab,
         MuiPaper: customMuiPaper,
         MuiDivider: customMuiDivider,
+
         MuiAlert: {
             variants:[
                 {

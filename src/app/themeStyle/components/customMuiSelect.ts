@@ -2,7 +2,6 @@ export const customMuiSelect = {
     styleOverrides: {
         root: (({theme}: any) => ({
             padding: `7px`,
-            maxWidth: 160,
             minHeight: 31,
             color: theme.palette.neutral.contrastText,
             fontWeight: 600,
@@ -11,6 +10,9 @@ export const customMuiSelect = {
             textOverflow: 'ellipsis',
             overflow: 'hidden',
             whiteSpace: 'nowrap',
+            "@media (min-width:900px)":{
+                maxWidth: 160,
+            }
         })),
         select: {
             "&.MuiInputBase-input": {

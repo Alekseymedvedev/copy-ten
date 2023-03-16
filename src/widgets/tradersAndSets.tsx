@@ -1,20 +1,11 @@
-import {Avatar, Button, Chip, Divider, Stack, Tabs, useMediaQuery} from "@mui/material";
-import React, {FC, useState} from "react";
-import Box from "@mui/material/Box";
-import TabsItem from "../entities/components/tabsItem";
-import Tab from "@mui/material/Tab";
-import CustomLineChart from "../entities/components/chart/customLineChart";
-import {Area, AreaChart, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
-import CustomAxisTick from "../entities/components/chart/customAxisTick";
+import {Button, Chip, Divider, Stack, useMediaQuery} from "@mui/material";
+import React, {FC} from "react";
 import {chartData} from "../data/chart";
 import NickName from "../shared/components/nickName";
-import TabsHeader from "../entities/components/tabsHeader";
-import IconAccount from "../shared/assets/images/icons/iconAccount";
-import IconTraders from "../shared/assets/images/icons/iconTraders";
-import IconSet from "../shared/assets/images/icons/iconSet";
 import Paper from "@mui/material/Paper";
 import {Link} from "react-router-dom";
 import IconSettings from "../shared/assets/images/icons/iconSettings";
+import CustomAreaChart from "../entities/components/chart/customAreaChart";
 
 interface IType {
     name?: string;
@@ -59,12 +50,8 @@ const TradersAndSets: FC<IType> = ({name,}) => {
                 <Stack className="subHeadersBold white-80" sx={{mb: 4}}>7/15</Stack>
                 <Paper sx={{padding: `14px`, flexGrow: 1}}>
                     <NickName name="NICKNAME_NICKNAME" number="18050009" avatar="" justifyContent="space-between"/>
-                    <Stack sx={{width: '100%', height: 54, mb: 8}}>
-                        <ResponsiveContainer>
-                            <AreaChart data={chartData}>
-                                <Area dataKey="pv" stroke="#6FCF97" fill="#29312C"/>
-                            </AreaChart>
-                        </ResponsiveContainer>
+                    <Stack sx={{ mb: 8}}>
+                        <CustomAreaChart data={chartData}height={54} dataArea={[{dataKey:"pv", stroke:"#6FCF97", fill:"#29312C"}]}/>
                     </Stack>
                     <Stack mb={14} direction="row" alignItems="center" justifyContent="space-between" spacing={7}>
                         <Stack>

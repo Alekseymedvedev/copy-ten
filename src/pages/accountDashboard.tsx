@@ -4,7 +4,7 @@ import {useGetProductQuery} from "../store/productApi";
 
 
 const AccountDashboard = () => {
-    const{data,error,isLoading}=useGetProductQuery('coins')
+    const{data,error,isLoading}=useGetProductQuery('/coins')
     console.log(data)
     console.log(error)
     console.log(isLoading)

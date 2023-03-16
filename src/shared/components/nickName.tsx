@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Avatar, Stack, Tooltip} from "@mui/material";
+import {Avatar, Stack} from "@mui/material";
 import CustomTooltip from "./customTooltip";
 import {NavLink} from "react-router-dom";
 

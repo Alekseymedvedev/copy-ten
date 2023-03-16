@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
 import TabsItem from "../entities/components/tabsItem";
 import Box from "@mui/material/Box";
-import {Grid, Stack, styled, Tabs, useMediaQuery} from "@mui/material";
+import {Grid, Stack, useMediaQuery} from "@mui/material";
 import DashboardLabel from "../entities/components/dashboardLabel";
 import TransactionsLabel from "../entities/components/transactionsLabel";
 import BalanceChart from "./balanceChart";

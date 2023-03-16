@@ -3,16 +3,16 @@ import {Stack} from "@mui/material";
 import {Area, AreaChart, ResponsiveContainer} from "recharts";
 
 
-interface IdataArea {
+interface IDataArea {
     dataKey: string;
     stroke: string;
     fill: string;
 }
 
 interface IType {
-    height: number;
-    data: {}[];
-    dataArea: IdataArea[];
+    height?: number;
+    data?: {}[];
+    dataArea?: IDataArea[];
 
 }
 

@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import {Accordion, AccordionDetails, AccordionSummary, Button, Chip, Grid, Stack, useMediaQuery} from "@mui/material";
+import {Accordion, AccordionDetails, AccordionSummary, Button,  Grid, Stack, useMediaQuery} from "@mui/material";
 import NickName from "../shared/components/nickName";
 import CustomAreaChart from "../entities/components/chart/customAreaChart";
 import {chartData} from "../data/chart";

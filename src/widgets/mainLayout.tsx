@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Container, CssBaseline, Grid, Stack} from "@mui/material";
+import {Container,  Grid} from "@mui/material";
 import Sidebar from "./sidebar";
 import Header from "./header";
 import Footer from "./footer";

@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import AccountType from "./accountType";
 import {Card, Divider, Stack} from "@mui/material";
-import {Area, AreaChart, ResponsiveContainer, Tooltip} from "recharts";
+import {Area, AreaChart, ResponsiveContainer} from "recharts";
 import {chartData} from "../../data/chart";
 import AccountHeader from "./accountHeader";
 import IconAddAccount from "../../shared/assets/images/icons/iconAddAccount";

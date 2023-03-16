@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import MainLayout from "../widgets/mainLayout";
 import AccountCardList from "../widgets/accountCardList";
 
