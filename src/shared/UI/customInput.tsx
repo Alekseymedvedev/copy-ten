@@ -7,10 +7,11 @@ interface T {
     label?: string;
     isRequired?: boolean;
     search?: boolean;
+    dataInput?:any;
     onChange?:(value:number | string)=>void;
 }
 
-const CustomInput: FC<T> = ({label, isRequired,search,onChange}) => {
+const CustomInput: FC<T> = ({label, isRequired,search,onChange,dataInput}) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -39,9 +40,10 @@ const CustomInput: FC<T> = ({label, isRequired,search,onChange}) => {
                     />
                     :
                     <TextField
+                        {...dataInput}
                         required={isRequired ? true : undefined}
                         fullWidth
-                        onChange={(e)=>{ onChange && onChange(+e.target.value)}}
+                        // onChange={(e)=>{ onChange && onChange(+e.target.value)}}
                         label={label}
                         type={showPassword ? 'text' : 'password'}
                         InputLabelProps={{

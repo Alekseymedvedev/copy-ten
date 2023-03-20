@@ -4,14 +4,17 @@ import {Grid, Card, Stack, useMediaQuery} from "@mui/material";
 import IconPlus from "../shared/assets/images/icons/iconPlus";
 import AccountModal from "../entities/components/modal/accountModal";
 import {NavLink} from "react-router-dom";
+import {IUserAccounts} from "../types";
 
 interface T {
-    children?: any
+    data: any;
+    isLoading: boolean;
 }
 
-const AccountCardList: FC<T> = ({children}) => {
+const AccountCardList: FC<T> = ({data, isLoading}) => {
     const mediaQuery = useMediaQuery('(min-width:900px)');
     const [openModal, setOpenModal] = useState(false);
+    console.log(data?.data[0])
     return (
         <>
             <Grid container spacing={10} columns={16} wrap="wrap">
@@ -25,15 +28,22 @@ const AccountCardList: FC<T> = ({children}) => {
                         </Stack>
                     </Card>
                 </Grid>
-                <Grid item xs={16} md={8}>
-                    <NavLink to={`/exchange-account/${111}`}>
-                        <AccountCard/>
-                    </NavLink>
-                </Grid>
+                {
+                    data?.data && data?.data.map((item: IUserAccounts) =>
+                        <Grid item xs={16} md={8} key={item.login}>
+                            <NavLink to={`/exchange-account/${item.login}`}>
+                                <AccountCard
+                                    productType={item?.product?.product_data?.title}
+                                    balance={item?.stats?.balance}
+                                    accountNumber={item.login}
+                                    accountType={item.server.type === 1 ? 'cent' : 'dollar'}
+                                />
+                            </NavLink>
+                        </Grid>
+                    )
+                }
 
-                <Grid item xs={16} md={8}>
-                    <AccountCard/>
-                </Grid>
+
                 <Grid item xs={16} md={8}>
                     <AccountCard addAccount="success"/>
                 </Grid>

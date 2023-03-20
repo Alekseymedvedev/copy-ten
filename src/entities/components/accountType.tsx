@@ -1,12 +1,15 @@
 import React, {FC} from 'react';
-import {Chip, Divider, Stack, useMediaQuery} from "@mui/material";
+import {Chip, Divider, IconButton, Stack, useMediaQuery} from "@mui/material";
+import IconEdit from "../../shared/assets/images/icons/iconEdit";
 
 interface T {
-    children?: any
+    accountType?: 'cent' | 'dollar'
+    accountNumber?: number | string;
+    productType?: string;
 }
 
 
-const AccountType: FC<T> = ({children}) => {
+const AccountType: FC<T> = ({accountType,accountNumber,productType}) => {
     const mediaQuery = useMediaQuery('(max-width:900px)');
     return (
         <Stack
@@ -16,13 +19,29 @@ const AccountType: FC<T> = ({children}) => {
             mb={4}
             sx={{padding: `8px 28px`}}
         >
-            <div>
-                <span className="h2 white-80">Счет</span>
-                <span className="h2 white-90">&nbsp;18050009</span>
-            </div>
+            <Stack spacing={2}>
+                <span className="subHeaders white-80">{accountNumber}</span>
+                <Stack direction="row">
+                    <span className="h2 white-100">Имя счета</span>
+                    <IconButton>
+                        <IconEdit/>
+                    </IconButton>
+                </Stack>
+            </Stack>
             <Stack direction="row" spacing={4}>
-                <Chip label="Робот" color="secondary"/>
-                <Chip label="Центовый" variant="filled" color="neutral"/>
+                {
+                    productType === "Копировальщик"
+                    ?<Chip label="Копировальщик" color="success"/>
+                        : <Chip label="Робот" color="secondary"/>
+                }
+                {/*<Chip label="Робот" color="secondary"/>*/}
+                {
+                    accountType === 'cent' ?
+                        <Chip label="Центовый" variant="filled" color="neutral"/>
+                        :
+                        <Chip label="Долларовый" variant="filled" color="warning"/>
+                }
+
             </Stack>
         </Stack>
     );

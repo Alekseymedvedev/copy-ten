@@ -10,12 +10,10 @@ import Auth from "../../pages/auth";
 import Admin from "../../pages/admin";
 import AdminForex from "../../pages/adminForex";
 import AdminBankRequisites from "../../pages/adminBankRequisites";
-import IconAccount from "../../shared/assets/images/icons/iconAccount";
 import AminSets from "../../pages/aminSets";
 import AdminTraders from "../../pages/adminTraders";
 import AdminBrokerServers from "../../pages/adminBrokerServers";
 import AdminTransaction from "../../pages/adminTransaction";
-
 
 
 export const routes = [

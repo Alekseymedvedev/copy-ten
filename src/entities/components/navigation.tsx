@@ -36,7 +36,7 @@ interface IType {
 }
 const Navigation: FC<IType> = ({isAdmin}) => {
     const location = useLocation()
-    const mediaQuery = useMediaQuery('(max-width:900px)');
+    const mediaQuery = useMediaQuery('(min-width:900px)');
     const [menuData,setMenuData] = useState<IMenuData[]>()
     useEffect(()=>{
         if(isAdmin){

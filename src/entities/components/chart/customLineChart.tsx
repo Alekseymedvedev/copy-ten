@@ -125,7 +125,7 @@ const contentTooltipStyle = {
 
 const CustomLineChart: FC<T> = ({colorYAxis, colorYAxisRight, colorXAxis, height, referenceLineData}) => {
     return (
-        <Stack sx={{width: '100%', height: height ? height : 230, mb: 20}}>
+        <Stack sx={{width: '100%', height: height ? height : 230, mb: 7}}>
             <ResponsiveContainer>
                 <LineChart
                     data={data}

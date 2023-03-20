@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import {Bar, CartesianGrid, Legend, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis,BarChart} from 'recharts';
 import {Stack} from "@mui/material";
 import CustomAxisTick from "./customAxisTick";
-import CustomTooltip from "./customTooltip";
 
 const data = [
     {

@@ -10,7 +10,7 @@ const CustomAxisTick = ({payload, x, y, color,rotate}: any) => {
                 dy={16}
                 textAnchor="end"
                 fill={color ? color : "#56CCF2"}
-                transform={`rotate(${rotate})`}
+                transform={`rotate(${rotate ? rotate:0})`}
                 fontSize="8px"
             >
                 {payload.value}

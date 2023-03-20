@@ -44,10 +44,7 @@ const HunterModModal: FC<IType> = ({maxWidth,openModal, closeModal, isOPenBtn, s
         setConnectionHunterMod(false)
     };
    const handleRange = (value:any) => {
-       if (typeof value === 'number') {
-           setReferenceLineData(value)
-       }
-
+       setReferenceLineData(value)
     };
 
     return (
