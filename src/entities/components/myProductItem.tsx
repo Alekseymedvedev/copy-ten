@@ -4,13 +4,10 @@ import {Avatar, Divider, Stack, useMediaQuery} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import Button from "@mui/material/Button";
 import IconProduct from "../../shared/assets/images/icons/iconProduct";
+import {IProducts} from "../../types";
 
-interface IType {
-    name?: string;
-    avatar?:string;
-}
 
-const MyProductItem: FC<IType> = ({name,avatar}) => {
+const MyProductItem: FC<IProducts> = ({status, valid_to, sub_title, title, slug}) => {
     const mediaQuery = useMediaQuery('(min-width:900px)');
     return (
         <Paper>
@@ -20,21 +17,28 @@ const MyProductItem: FC<IType> = ({name,avatar}) => {
                 justifyContent="space-between"
                 spacing={7}>
                 <Stack direction="row" alignItems="center" spacing={7}>
-                    <IconProduct />
+                    <IconProduct status={status}/>
                     <Stack>
-                        <NavLink className="link" to={'/'}>Счет 239238</NavLink>
-                        <span className="subHeadersBold green">Копировальщик до 10.000$</span>
+                        <NavLink className="link" to={'/'}>Счет {slug}</NavLink>
+                        <span className="subHeadersBold green">{sub_title}</span>
                     </Stack>
                 </Stack>
                 <Stack direction="row" alignItems="center" spacing={7}>
                     <Stack alignItems="center" spacing={2}>
                         <span className="subHeaders white-90">Статус</span>
-                        <span className="subHeadersBold green">Активен</span>
+                        <span className="subHeadersBold green">
+                            {
+                                status === 0 ? <span className="subHeadersBold red">Не активен</span> :
+                                    status === 1 ? <span className="subHeadersBold green">Активен</span> :
+                                        status === 2 ? <span className="subHeadersBold red">Требуется продление</span>
+                                            : <span className="subHeadersBold orange">Не привязан</span>
+                            }
+                        </span>
                     </Stack>
                     <Divider orientation="vertical" flexItem/>
                     <Stack alignItems="center" spacing={2}>
                         <span className="subHeaders white-90">Дата валидности</span>
-                        <span className="subHeadersBold">13.03.2023 (0 дней)</span>
+                        <span className="subHeadersBold">{valid_to}</span>
                     </Stack>
                 </Stack>
                 <Stack direction="row" alignItems="center" spacing={7}>

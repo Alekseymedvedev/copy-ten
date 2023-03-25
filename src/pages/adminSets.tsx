@@ -2,7 +2,7 @@ import MainLayout from "../widgets/mainLayout";
 import Set from "../widgets/set";
 
 
-const AminSets = () => {
+const AdminSets = () => {
     return (
         <MainLayout heading="Сеты" isAdmin>
             <Set adminSet/>
@@ -10,4 +10,4 @@ const AminSets = () => {
     );
 };
 
-export default AminSets;
+export default AdminSets;

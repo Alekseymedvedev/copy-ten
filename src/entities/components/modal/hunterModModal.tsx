@@ -87,11 +87,11 @@ const HunterModModal: FC<IType> = ({maxWidth,openModal, closeModal, isOPenBtn, s
 
                                 </Chart>
                                 <Stack direction="row" spacing={7}>
-                                    <CustomInput onChange={handleRange} label="Значения (%)"/>
+                                    {/*<CustomInput  label="Значения (%)"/>*/}
                                     <Button fullWidth color="neutral" startIcon={<IconSettings/>}>Автоматическая
                                         настройка</Button>
                                 </Stack>
-                                <CustomRange onChange={handleRange}minValue={1000} maxValue={5000} title="Риск в процентах" required isSwitch isSliderRange/>
+                                <CustomRange minValue={1000} maxValue={5000} title="Риск в процентах" required isSwitch isSliderRange/>
                                 <CustomRange title="Мин. лот" required isSwitch/>
                             </Stack>
 

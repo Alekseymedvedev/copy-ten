@@ -2,12 +2,15 @@ import React, {FC} from 'react';
 import MyProductItem from "../entities/components/myProductItem";
 import Paper from "@mui/material/Paper";
 import {Chip, Stack} from "@mui/material";
+import {useGetAllProductsQuery} from "../store/API/productApi";
 
 interface IType {
     children?: any
 }
 
 const MyProductsList: FC<IType> = ({children}) => {
+    const {data, isLoading, error} = useGetAllProductsQuery('/products')
+    console.log(data)
     return (
         <Paper>
             <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{mb:7}}>
@@ -18,7 +21,18 @@ const MyProductsList: FC<IType> = ({children}) => {
                     <Chip label="Счет 2" color="neutral"/>
                 </Stack>
             </Stack>
-            <MyProductItem/>
+            {
+                data && data.data.map(item=>
+                    <MyProductItem
+                        slug={item.slug}
+                        sub_title={item.sub_title}
+                        status={item.status}
+                        valid_to={item.valid_to}
+                        key={item.id}
+                    />
+                )
+            }
+
         </Paper>
     );
 };

@@ -18,7 +18,7 @@ const ForexList: FC<IType> = ({children}) => {
                     <CustomSelect defaultValue="Подтвержденные"/>
                 </Stack>
                 <Stack sx={{maxWidth: mediaQuery ? 240: null}}>
-                    <CustomInput search/>
+                    {/*<CustomInput search/>*/}
                 </Stack>
             </Stack>
             <ForexItem/>

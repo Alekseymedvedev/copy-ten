@@ -131,7 +131,7 @@ const data = [
 ];
 
 interface T {
-    children?: any
+    barChartData?: any
 }
 const wrapperTooltipStyle={
     padding:`8px 14px`,
@@ -145,14 +145,17 @@ const contentTooltipStyle={
     padding:0,
     border:'none'
 }
-const CustomBarChart: FC<T> = ({children}) => {
+const CustomBarChart: FC<T> = ({barChartData}) => {
 
     return (
         <Stack sx={{width: '100%', height: 230}}>
             <ResponsiveContainer>
                 <BarChart
-                    data={data}
+                    data={barChartData}
                     stackOffset="sign"
+                    maxBarSize={20}
+                    barCategoryGap={2}
+                    barGap={2}
                     margin={{
                         top: 15,
                         right: 0,
@@ -165,8 +168,8 @@ const CustomBarChart: FC<T> = ({children}) => {
                     <YAxis  tick={<CustomAxisTick/>} />
                     <Tooltip contentStyle={contentTooltipStyle} wrapperStyle={wrapperTooltipStyle} offset={-60}/>
                     <ReferenceLine y={0} stroke="#3c3c3c" alwaysShow={true} isFront={true}/>
-                    <Bar dataKey="pv" stackId="a" fill="#27AE60" />
-                    <Bar dataKey="amt" stackId="a" fill="#82ca9d" />
+                    <Bar dataKey="pv" stackId={1} fill="#27AE60" isAnimationActive={false} />
+                    {/*<Bar dataKey="uv" stackId={1} fill="#82ca9d"/>*/}
                     {/*<Bar dataKey="uv" stackId="a" fill="#56CCF2" />*/}
                 </BarChart>
             </ResponsiveContainer>

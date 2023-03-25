@@ -10,7 +10,7 @@ import Auth from "../../pages/auth";
 import Admin from "../../pages/admin";
 import AdminForex from "../../pages/adminForex";
 import AdminBankRequisites from "../../pages/adminBankRequisites";
-import AminSets from "../../pages/aminSets";
+import AdminSets from "../../pages/adminSets";
 import AdminTraders from "../../pages/adminTraders";
 import AdminBrokerServers from "../../pages/adminBrokerServers";
 import AdminTransaction from "../../pages/adminTransaction";
@@ -29,7 +29,7 @@ export const routes = [
     {path: "/admin", element: <Admin/>},
     {path: "/admin/forex", element: <AdminForex/>},
     {path: "/admin/bank-requisites", element: <AdminBankRequisites/>},
-    {path: "/admin/sets", element: <AminSets/>},
+    {path: "/admin/sets", element: <AdminSets/>},
     {path: "/admin/transaction", element: <AdminTransaction/>},
     {path: "/admin/traders", element: <AdminTraders/>},
     {path: "/admin/broker-servers", element: <AdminBrokerServers/>},

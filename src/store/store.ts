@@ -1,14 +1,28 @@
-import { configureStore } from "@reduxjs/toolkit";
-import {userApi} from "./userApi";
+import {combineReducers, configureStore} from "@reduxjs/toolkit";
+import {userApi} from "./API/userApi";
+import barChartReducer from './slice/barChartSlice'
+import {serverApi} from "./API/serverApi";
+import {productApi} from "./API/productApi";
 
-export const makeStore = () =>
+const rootReducer = combineReducers({
+    [userApi.reducerPath]: userApi.reducer,
+    [serverApi.reducerPath]: serverApi.reducer,
+    [productApi.reducerPath]: productApi.reducer,
+    barChartReducer
+})
+
+
+export const setupStore = () =>
     configureStore({
-        reducer: {
-            [userApi.reducerPath]: userApi.reducer,
-        },
-        middleware: (gDM) => gDM().concat(userApi.middleware),
+        reducer: rootReducer,
+        middleware: (gDM) => gDM().concat(
+            userApi.middleware,
+            serverApi.middleware,
+            productApi.middleware,
+            ),
     });
 
-export type AppStore = ReturnType<typeof makeStore>;
-
+export type RootState = ReturnType<typeof rootReducer>
+export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = AppStore['dispatch']
 

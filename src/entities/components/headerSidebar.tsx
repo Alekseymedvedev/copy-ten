@@ -27,13 +27,13 @@ const HeaderSidebar: FC<T> = ({isAdmin,name, images, balance, account}) => {
                         <Avatar
                             alt={name}
                             src={images}
-                            sx={{width:mediaQuery ? 34 : 74, height:mediaQuery ? 34 : 74}}
+                            sx={{width:mediaQuery ? 74 : 34, height:mediaQuery ? 74 : 34}}
                         />
                         <Stack
                             flexGrow={1}
                             spacing={2}
-                            direction={mediaQuery ? "row": "column"}
-                            justifyContent={mediaQuery ? "space-between": "flex-start"}
+                            direction={mediaQuery ? "column": "row"}
+                            justifyContent={mediaQuery ? "flex-start": "space-between"}
                         >
                             <Stack>
                                 <div className="subHeaders white-80">@ryabishin</div>

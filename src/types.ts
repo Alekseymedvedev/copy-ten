@@ -3,6 +3,9 @@ export interface Server {
     title: string;
     type: number;
 }
+export interface IServerData {
+    data:Server[]
+}
 
 export interface Graph {
     uv: number;
@@ -46,5 +49,31 @@ export interface IUserAccounts {
     product: Product;
     status: number;
 }
+export interface IUserAccountsData {
+    data: IUserAccounts[]
+}
 
 
+//Products
+export interface IAccountData{
+    login:string;
+    name:string;
+}
+export interface IForexAccount{
+    assigned:boolean;
+    accountData:IAccountData
+}
+export interface IProducts{
+    id?: string;
+    object?: string;
+    title?: string;
+    sub_title?: string;
+    slug?: string;
+    valid_to?: string | null;
+    status?:number;
+    forexAccount?:IForexAccount;
+
+}
+export interface IProductsData{
+    data:IProducts[]
+}

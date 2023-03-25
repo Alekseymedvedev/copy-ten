@@ -15,21 +15,28 @@ import IconAccount from "../shared/assets/images/icons/iconAccount";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import DashboardTradersSidebar from "./dashboardTradersSidebar";
+import {useGetAccountsQuery} from "../store/API/userApi";
+import {useAppSelector} from "../hooks/useRedux";
+import barChartReducer from "../store/slice/barChartSlice";
 
 interface IType {
     traderDashboard?: boolean;
 }
 
 const DashboardTabs: FC<IType> = ({traderDashboard}) => {
+    const {barChartData}= useAppSelector(state => state.barChartReducer)
     const mediaQuery = useMediaQuery('(min-width:900px)');
     const [sidebarVisible, setSidebarVisible] = useState(true);
     const [value, setValue] = useState(0);
+    const [data, setData] = useState<any>([]);
 
+    console.log(barChartData)
     useEffect((() => {
+        setData(barChartData)
         if (!mediaQuery) {
             setSidebarVisible(false)
         }
-    }), [mediaQuery])
+    }), [mediaQuery,data,barChartData])
     return (
         <>
             <Box sx={{width: '100%'}}>
@@ -87,15 +94,15 @@ const DashboardTabs: FC<IType> = ({traderDashboard}) => {
                                 <Stack spacing={7} direction={mediaQuery ? "row" : "column"}
                                        justifyContent="space-between">
                                     <Chart title="График" select={true}>
-                                        <CustomBarChart/>
+                                        <CustomBarChart barChartData={data}/>
                                     </Chart>
                                     <SwitchList/>
                                 </Stack>
                                 <Chart title="По дням">
-                                    <CustomBarChart/>
+                                    <CustomBarChart barChartData={data}/>
                                 </Chart>
                                 <Chart title="По часам" select={true}>
-                                    <CustomBarChart/>
+                                    <CustomBarChart barChartData={data}/>
                                 </Chart>
                                 <Paper>
                                     <Stack className="h2 white-90" sx={{mb: 7}}>По месяцам</Stack>

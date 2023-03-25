@@ -17,11 +17,9 @@ const SimpleModal: FC<IType> = ({children, maxWidth, title, openModal, closeModa
     useEffect((() => {
         setOpen(openModal)
     }), [open, openModal])
-    const handleContinue = () => {
-        closeModal(false)
-        setOpen(false)
-    };
-    const handleClose = () => {
+
+    const handleClose = (e:any) => {
+        e.preventDefault()
         closeModal(false)
         setOpen(false)
     };
@@ -41,10 +39,10 @@ const SimpleModal: FC<IType> = ({children, maxWidth, title, openModal, closeModa
                     <Stack className="h2 white-90" sx={{mb: 7}}>{title}</Stack>
                     <Divider variant="fullWidth" sx={{mb: 7}}/>
                     {children}
-                    <Stack direction="row" justifyContent="flex-end" spacing={7} sx={{mt: 7}}>
-                        <Button onClick={handleClose} color="error">Отклонить</Button>
-                        <Button onClick={handleContinue} color="success">Продожить</Button>
-                    </Stack>
+                    {/*<Stack direction="row" justifyContent="flex-end" spacing={7} sx={{mt: 7}}>*/}
+                    {/*    <Button onClick={handleClose} color="error">Отклонить</Button>*/}
+                    {/*    <Button onClick={handleContinue} color="success">Продожить</Button>*/}
+                    {/*</Stack>*/}
                 </Box>
             </Modal>
         </>

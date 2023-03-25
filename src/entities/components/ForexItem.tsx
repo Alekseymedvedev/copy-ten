@@ -12,9 +12,9 @@ const ForexItem: FC<IType> = ({children}) => {
     return (
         <Paper>
             <Stack spacing={7}>
-                <CustomInput/>
-                <CustomInput/>
-                <CustomInput/>
+                {/*<CustomInput/>*/}
+                {/*<CustomInput/>*/}
+                {/*<CustomInput/>*/}
                 <Stack direction="row" justifyContent="space-between">
                     <span className="subHeaders white-90">Сервер счета</span>
                 <Chip label="Сервер 1232" variant="outlined" color="neutral"/>

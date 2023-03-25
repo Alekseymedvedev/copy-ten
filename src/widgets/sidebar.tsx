@@ -12,6 +12,7 @@ const style = {
     borderRight: `4px solid #1F1F1F;`,
 }
 const styleMediaQuery = {
+    height:`100vh`,
     maxWidth: 'unset',
     padding: `0 10px`,
     width: `100%`,

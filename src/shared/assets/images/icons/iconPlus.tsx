@@ -2,8 +2,8 @@
 
 const IconPlus = () => {
     return (
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M11.4286 11.4286V20H8.57143V11.4286H0V8.57143H8.57143V0H11.4286V8.57143H20V11.4286H11.4286Z" fill="#3C3C3C"/>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 8.55556H8.62473V14H5.37527V8.55556H0V5.44445H5.37527V0H8.62473V5.44445H14V8.55556Z" fill="#828282"/>
         </svg>
     );
 };

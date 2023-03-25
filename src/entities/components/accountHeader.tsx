@@ -4,19 +4,19 @@ import {IBalance} from "../../types";
 
 interface T {
     balance?: IBalance;
-    accountType?: 'cent' | 'dollar'
+    accountType?: number;
 }
 
 
 const AccountHeader: FC<T> = ({balance, accountType}) => {
     const [type, setType] = useState('$')
-   useEffect(()=>{
-       if(accountType === 'cent'){
-           setType('Cent')
-       }
-   },[])
+    useEffect(() => {
+        if (accountType === 0) {
+            setType('Cent')
+        }
+    }, [])
     return (
-        <Stack sx={{mb: 14, padding: `0px 28px`}}>
+        <Stack sx={{mb: 17, padding: `0px 28px`}}>
             <Stack direction="row" alignItems="center" spacing="auto">
                 <div className="h2 white-90">Баланс счета</div>
                 <div className="h1 white-100">
@@ -46,6 +46,10 @@ const AccountHeader: FC<T> = ({balance, accountType}) => {
                         <span className="subHeaders white-90">В процентах</span>
                     </Stack>
                     <span className="subHeaders blue">{balance && balance.gain?.percent}%</span>
+                </Stack>
+                <Stack className="subHeaders" direction="row" justifyContent="flex-end">
+                    <span className="white-80">Загруженность счета:</span>
+                    <span className="yellow">&nbsp;%</span>
                 </Stack>
             </Stack>
         </Stack>

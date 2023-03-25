@@ -6,101 +6,48 @@ import CustomAxisTick from "./customAxisTick";
 const data = [
     {
         name: 'Page A',
-        uv: 4000,
-        pv: 2400,
-        amt: 2400,
+        uv: 100,
+        pv: null,
+        amt: null,
     },
     {
-        name: 'Page B',
-        uv: 3000,
-        pv: 1398,
-        amt: 2210,
+        name: 'Page A',
+        uv: 100,
+        pv: 100,
+        amt: null,
     },
     {
-        name: 'Page C',
-        uv: 2000,
-        pv: 9800,
-        amt: 2290,
+        name: 'Page A',
+        uv: null,
+        pv: 110,
+        amt: null,
     },
     {
-        name: 'Page D',
-        uv: 2780,
-        pv: 3908,
-        amt: 2000,
+
+        name: 'Page A',
+        uv: 110,
+        pv: null,
+        amt: null,
     },
     {
-        name: 'Page E',
-        uv: 1890,
-        pv: 4800,
-        amt: 2181,
+        name: 'Page A',
+        uv: 100,
+        pv: null,
+        amt: null,
     },
     {
-        name: 'Page F',
-        uv: 2390,
-        pv: 3800,
-        amt: 2500,
+        name: 'Page A',
+        uv: null,
+        pv: null,
+        amt: 100,
     },
     {
-        name: 'Page F',
-        uv: 2390,
-        pv: 3800,
-        amt: 2500,
-    },
-    {
-        name: 'Page F',
-        uv: 2390,
-        pv: 3800,
-        amt: 2500,
-    },
-    {
-        name: 'Page F',
-        uv: 2390,
-        pv: 3800,
-        amt: 2500,
-    },
-    {
-        name: 'Page F',
-        uv: 2390,
-        pv: 3800,
-        amt: 2500,
-    },
-    {
-        name: 'Page F',
-        uv: 2390,
-        pv: 3800,
-        amt: 2500,
-    },
-    {
-        name: 'Page F',
-        uv: 2390,
-        pv: 3800,
-        amt: 2500,
-    },
-    {
-        name: 'Page F',
-        uv: 2390,
-        pv: 3800,
-        amt: 2500,
-    },
-    {
-        name: 'Page F',
-        uv: 2390,
-        pv: 3800,
-        amt: 2500,
-    },
-    {
-        name: 'Page F',
-        uv: 2390,
-        pv: 3800,
-        amt: 2500,
-    },
-    {
-        name: 'Page G',
-        uv: 3490,
-        pv: 4300,
-        amt: 2100,
-    },
-];
+        name: 'Page A',
+        uv: null,
+        pv: null,
+        amt: 90,
+    }
+]
 
 interface T {
     colorYAxis?: string;
@@ -124,6 +71,8 @@ const contentTooltipStyle = {
 }
 
 const CustomLineChart: FC<T> = ({colorYAxis, colorYAxisRight, colorXAxis, height, referenceLineData}) => {
+
+
     return (
         <Stack sx={{width: '100%', height: height ? height : 230, mb: 7}}>
             <ResponsiveContainer>
@@ -145,6 +94,7 @@ const CustomLineChart: FC<T> = ({colorYAxis, colorYAxisRight, colorXAxis, height
                     <Tooltip contentStyle={contentTooltipStyle} wrapperStyle={wrapperTooltipStyle} offset={-50}/>
                     <Line dataKey="pv" stroke="#6FCF97" dot={{r: 0}}/>
                     <Line dataKey="uv" stroke="#56CCF2" dot={{r: 0}}/>
+                    <Line dataKey="amt" stroke="#FF8888" dot={{r: 0}}/>
                 </LineChart>
             </ResponsiveContainer>
         </Stack>

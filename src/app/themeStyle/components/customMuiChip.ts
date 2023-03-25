@@ -43,6 +43,6 @@ export const customMuiChip = {
             borderRadius: 5,
             border: `0.5px solid #3C3C3C`,
             textTransform: 'capitalize',
-        }
+        },
     },
 } as object

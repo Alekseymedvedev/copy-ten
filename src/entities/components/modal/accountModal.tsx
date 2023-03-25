@@ -6,10 +6,10 @@ import {Alert, Divider, Snackbar, Stack} from "@mui/material";
 import {FC, useEffect, useState} from "react";
 import IconClose from "../../../shared/assets/images/icons/iconClose";
 import CustomInput from "../../../shared/UI/customInput";
-import {useAddAccountMutation} from "../../../store/userApi";
+import {useAddAccountMutation, useGetAccountsQuery} from "../../../store/API/userApi";
 import {useInput} from "../../../hooks/useInput";
 import CustomSelect from "../../../shared/UI/customSelect";
-import {useSelect} from "../../../hooks/useSelect";
+import {useGetServersQuery} from "../../../store/API/userApi";
 
 
 interface ICustomModal {
@@ -20,38 +20,45 @@ interface ICustomModal {
     isError?: boolean
 }
 
-const AccountModal: FC<ICustomModal> = ({maxWidth, openModal, closeModal, isOPenBtn, isError}) => {
-    const [addAddAccount, {}] = useAddAccountMutation()
+const AccountModal: FC<ICustomModal> = ({maxWidth, openModal, closeModal,  isError}) => {
+    const {data:isDataServer} = useGetServersQuery('/servers')
+    const [addAccount, { error: addError, isLoading}] = useAddAccountMutation()
     const [open, setOpen] = useState(false);
     const [step, setStep] = useState(1);
     const [serverNumber, setServerNumber] = useState('');
-    const [formData, setFormData] = useState<any>({});
     const login = useInput('')
     const password = useInput('')
+
     useEffect((() => {
         setOpen(openModal)
     }), [open, openModal])
-    const handlerOpen = () => {
-        setOpen(true);
-    };
+
     const handlerClose = () => {
         closeModal(false)
         setOpen(false);
         setStep(1)
+    };
+    const handlerAddAccount = () => {
+        if (login.value !== '' && password.value !== '') {
+            addAccount({server_id: serverNumber, login: login.value, password: password.value}).then(() => {
+                    if (!isLoading && !addError) {
+                        setStep(step + 1)
+                    }
+                }
+            )
+        }
     };
 
     return (
         <>
             <Snackbar
                 anchorOrigin={{vertical: 'top', horizontal: 'center',}}
-                open={step === 4}
+                open={step === 3}
             >
-                <Alert severity="error" icon={false}>
-                    Успешно!
+                <Alert severity={addError ? "error" : "success"} icon={false}>
+                    {addError ? 'Ошибка' : 'Успешно!'}
                 </Alert>
             </Snackbar>
-            {isOPenBtn && <Button onClick={handlerOpen}>Open modal</Button>}
-
             <Modal
                 open={open}
                 onClose={handlerClose}
@@ -81,12 +88,12 @@ const AccountModal: FC<ICustomModal> = ({maxWidth, openModal, closeModal, isOPen
                                     <CustomSelect
                                         title="Сервер счета"
                                         defaultValue="Выбрать сервер"
-                                        dataOption={setServerNumber}
-                                        options={['1', '2', '3', '4']}
+                                        optionValue={setServerNumber}
+                                        options={isDataServer.data}
                                     />
                                 </Stack>
                                 :
-                                (step === 3 && !isError) ?
+                                (step === 3 && addError) ?
                                     <div className="h2">
                                         <span className="green">Успешно!</span>
                                         <span> Заявка на добавление счета отправлена</span>
@@ -106,18 +113,10 @@ const AccountModal: FC<ICustomModal> = ({maxWidth, openModal, closeModal, isOPen
 
                         {
                             (step === 2 && !isError) ?
-                                <Button onClick={() => {
-                                    setFormData({server_id:serverNumber, login: login.value, password: password.value})
-                                    setStep(step + 1)
-                                }
-                                } color="success">Продожить</Button>
+                                <Button onClick={handlerAddAccount} color="success">Продожить</Button>
                                 :
                                 (step === 3 && !isError) ?
-                                    <Button onClick={() => {
-                                        handlerClose()
-                                        addAddAccount(formData)
-                                    }
-                                    } color="success">Закрыть</Button>
+                                    <Button onClick={handlerClose} color="success">Закрыть</Button>
                                     :
                                     <Button onClick={() => setStep(step + 1)} color="success">Продожить</Button>
                         }
