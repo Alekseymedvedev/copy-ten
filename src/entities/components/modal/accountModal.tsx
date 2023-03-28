@@ -2,8 +2,8 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
-import {Alert, Divider, Snackbar, Stack} from "@mui/material";
-import {FC, useEffect, useState} from "react";
+import {Alert, Divider, MenuItem, Snackbar, Stack} from "@mui/material";
+import {FC, useEffect, useMemo, useState} from "react";
 import IconClose from "../../../shared/assets/images/icons/iconClose";
 import CustomInput from "../../../shared/UI/customInput";
 import {useAddAccountMutation, useGetAccountsQuery} from "../../../store/API/userApi";
@@ -20,14 +20,15 @@ interface ICustomModal {
     isError?: boolean
 }
 
-const AccountModal: FC<ICustomModal> = ({maxWidth, openModal, closeModal,  isError}) => {
-    const {data:isDataServer} = useGetServersQuery('/servers')
-    const [addAccount, { error: addError, isLoading}] = useAddAccountMutation()
+const AccountModal: FC<ICustomModal> = ({maxWidth, openModal, closeModal, isError}) => {
+    const {data: isDataServer, isLoading: isLoadingDataServer} = useGetServersQuery('/servers')
+    const [addAccount, {error: addError, isLoading}] = useAddAccountMutation()
     const [open, setOpen] = useState(false);
     const [step, setStep] = useState(1);
     const [serverNumber, setServerNumber] = useState('');
     const login = useInput('')
     const password = useInput('')
+
 
     useEffect((() => {
         setOpen(openModal)
@@ -48,6 +49,7 @@ const AccountModal: FC<ICustomModal> = ({maxWidth, openModal, closeModal,  isErr
             )
         }
     };
+
 
     return (
         <>
@@ -89,7 +91,7 @@ const AccountModal: FC<ICustomModal> = ({maxWidth, openModal, closeModal,  isErr
                                         title="Сервер счета"
                                         defaultValue="Выбрать сервер"
                                         optionValue={setServerNumber}
-                                        options={isDataServer.data}
+                                        options={isDataServer?.data}
                                     />
                                 </Stack>
                                 :

@@ -11,6 +11,7 @@ import CustomSelect from "../../../shared/UI/customSelect";
 import CopyTradingModalChild from "./copyTradingModalChild";
 import Paper from "@mui/material/Paper";
 import TransactionHistory from "../../transactionHistory";
+import {useInput} from "../../../hooks/useInput";
 
 
 interface IType {
@@ -24,6 +25,8 @@ const TransactionModal: FC<IType> = ({maxWidth, openModal, closeModal, isOPenBtn
     const [open, setOpen] = useState(false);
     const [openModalChild, setOpenModalChild] = useState(false);
     const [step, setStep] = useState(1);
+    const [errorInput, setErrorInput] = useState(false);
+    const input = useInput('',errorInput)
 
     useEffect((() => {
         setOpen(openModal)
@@ -62,7 +65,7 @@ const TransactionModal: FC<IType> = ({maxWidth, openModal, closeModal, isOPenBtn
                     {
                         (step === 1) ?
                             <>
-                                <CustomInput label="Сумма на вывод"/>
+                                <CustomInput label="Сумма на вывод" dataInput={input}/>
                                 <Stack direction="row" justifyContent="flex-end" sx={{mt: 7}}>
                                     <span className="subHeaders white-90">У Вас на счету 573.23₽</span>
                                 </Stack>

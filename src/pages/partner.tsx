@@ -1,12 +1,15 @@
 import MainLayout from "../widgets/mainLayout";
 import Paper from "@mui/material/Paper";
 import PartnerBalance from "../entities/components/partnerBalance";
-import {Stack} from "@mui/material";
+import {Stack, useMediaQuery} from "@mui/material";
 import PartnerLink from "../entities/components/partnerLink";
 import ReferralsList from "../widgets/referralsList";
+import {useGetReferralDataQuery} from "../store/API/referalApi";
 
 
 const Partner = () => {
+    const mediaQuery = useMediaQuery('(min-width:900px)');
+
     return (
         <MainLayout>
             <Stack spacing={7}>

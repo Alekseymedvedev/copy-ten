@@ -11,6 +11,7 @@ interface T {
     accountType?: Server;
     accountLogin?: number | string;
     accountNumber?: number | string;
+    accountName?:  string;
     productType?: string;
 }
 
@@ -19,24 +20,25 @@ const AccountType: FC<T> = ({
                                 accountType,
                                 accountLogin,
                                 accountNumber,
-                                productType
+                                productType,
+                                accountName,
                             }) => {
     const [updateAccount] = useUpdateAccountMutation()
     const mediaQuery = useMediaQuery('(max-width:900px)');
     const [openModal, setOpenModal] = useState(false);
     const nameAccount = useInput('')
-    const password = useInput('')
+
     const handlerEdit = () => {
         setOpenModal(false)
         updateAccount({
             body: {
                 name: nameAccount.value,
                 login: accountLogin,
-                password: password.value,
                 server_id: accountType?.id
             },
-            login: accountLogin
+            id: accountNumber
         })
+
     }
     return (
         <Stack
@@ -49,7 +51,7 @@ const AccountType: FC<T> = ({
             <Stack spacing={2}>
                 <span className="subHeaders white-80">{accountNumber}</span>
                 <Stack direction="row" spacing={4}>
-                    <span className="h2 white-100">Имя счета</span>
+                    <span className="h2 white-100">{accountName ?accountName : 'Имя счета'}</span>
                     <Stack
                         onClick={() => { setOpenModal(true)}}
                         sx={{zIndex: 100,cursor:'pointer'}}>

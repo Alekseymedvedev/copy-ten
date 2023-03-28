@@ -26,35 +26,45 @@ const AccountCardList: FC<T> = ({}) => {
         <>
             <Grid container spacing={10} columns={16} wrap="wrap">
                 <Grid item xs={16} md={8} onClick={() => setOpenModal(true)} sx={{cursor: "pointer"}}>
-                    <Card sx={{height: mediaQuery ? 400 : 110}}>
+                    <Paper sx={{height: mediaQuery ? 400 : 110}}>
                         <Stack justifyContent="center" alignItems="center" sx={{height: `100%`}}>
                             <Stack sx={{mb: 7}}>
                                 <IconPlus/>
                             </Stack>
                             <Stack>Добавить счет</Stack>
                         </Stack>
-                    </Card>
+                    </Paper>
                 </Grid>
                 {
-                    data?.data.map((item: IUserAccounts) =>
-                        <Grid item xs={16} md={8} key={item.login}>
+                    isLoading ?
+                        <Grid item xs={16} md={8}>
+                            <Stack sx={{
+                                height: 400,
+                                border: ` 0.5px solid #3C3C3C`,
+                                borderRadius: 2.5,
+                                overflow: 'hidden'
+                            }}
+                                   spacing={7}>
+                                <Skeleton variant="rounded" width={`100%`} height={`100%`}/>
+                            </Stack>
+                        </Grid>
+                        :
+                        data?.data.map((item: IUserAccounts) =>
+                            <Grid item xs={16} md={8} key={item.login}>
                                 <AccountCard
                                     isLoading={isLoading}
                                     accountLogin={item.login}
+                                    accountName={item.name}
                                     status={item.status}
                                     productType={item?.product?.product_data?.title}
                                     balance={item?.stats?.balance}
-                                    accountNumber={item.login}
+                                    accountNumber={item.id}
                                     accountType={item.server}
+                                    addRepeat={setOpenModal}
                                 />
-                        </Grid>
-                    )
+                            </Grid>
+                        )
                 }
-
-
-                {/*<Grid item xs={16} md={8}>*/}
-                {/*    <AccountCard addAccount="success"/>*/}
-                {/*</Grid>*/}
             </Grid>
             <AccountModal openModal={openModal} closeModal={setOpenModal}/>
         </>

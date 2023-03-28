@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {IUserAccountsData} from "../../types";
+import {IServerData, IUserAccountsData} from "../../types";
 
 export const userApi = createApi({
     reducerPath: 'userApi',
@@ -13,7 +13,7 @@ export const userApi = createApi({
     }),
     tagTypes: ['Accounts'],
     endpoints: (build) => ({
-        getServers: build.query({
+        getServers: build.query<IServerData,string>({
             query: () => ({
                 url: '/servers'
             })
@@ -41,9 +41,16 @@ export const userApi = createApi({
             }),
             invalidatesTags: ['Accounts']
         }),
+        deleteAccount: build.mutation({
+            query: (id) => ({
+                url: `/account/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['Accounts']
+        }),
     })
 });
 
-export const {useGetServersQuery, useGetAccountsQuery, useAddAccountMutation, useUpdateAccountMutation} = userApi;
+export const {useGetServersQuery, useGetAccountsQuery, useAddAccountMutation, useUpdateAccountMutation, useDeleteAccountMutation} = userApi;
 
 export const {getAccounts} = userApi.endpoints;

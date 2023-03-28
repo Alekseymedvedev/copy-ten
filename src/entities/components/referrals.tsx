@@ -31,7 +31,7 @@ const Referrals: FC<IType> = ({name, link, avatar, registrationDate, lastPayment
                 <Stack direction="row" spacing={7}>
                     <Stack alignItems="center">
                         <span className="subHeaders white-90">Последняя оплата</span>
-                        <span className="subHeadersBold white-100">{lastPayment}</span>
+                        <span className="subHeadersBold white-100">{lastPayment ? lastPayment: '---'}</span>
                     </Stack>
                     <Divider orientation="vertical" flexItem/>
                     <Stack alignItems="center">

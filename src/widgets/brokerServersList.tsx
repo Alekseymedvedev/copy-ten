@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import {Stack, useMediaQuery} from "@mui/material";
+import {Alert, Snackbar, Stack, useMediaQuery} from "@mui/material";
 import CustomSelect from "../shared/UI/customSelect";
 import CustomInput from "../shared/UI/customInput";
 import Paper from "@mui/material/Paper";
@@ -9,66 +9,65 @@ import IconConnected from "../shared/assets/images/icons/iconConnected";
 import IconPlus from "../shared/assets/images/icons/iconPlus";
 import SimpleModal from "../entities/components/modal/simpleModal";
 import {useInput} from "../hooks/useInput";
+import AccountModal from "../entities/components/modal/accountModal";
+import AddServerModal from "../entities/components/modal/addServerModal";
 
 interface IType {
     children?: any
 }
 
 const BrokerServersList: FC<IType> = ({children}) => {
-    const {data}= useGetAllServersQuery('/servers')
-    const [addServer,{error: addError, isLoading}] = useAddServerMutation()
+    const {data: isDataServers} = useGetAllServersQuery('/servers')
+
     const mediaQuery = useMediaQuery('(min-width:900px)');
     const [openModal, setOpenModal] = useState(false);
-    const nameServer = useInput('')
-    console.log(addError)
-    console.log(isLoading)
-    const handlerAdd=()=>{
-        addServer({title:nameServer.value,type:0})
-        setOpenModal(false)
-    }
+    const [openModalUpdate, setOpenModalUpdate] = useState(false);
+    const [openModalDelete, setOpenModalDelete] = useState(false);
+    const [serverId,setServerId]=useState(0)
+    const [serverName,setServerName]=useState('')
+
     return (
         <Stack spacing={7}>
-            {/*<Stack direction={mediaQuery ? "row" : "column"} justifyContent="space-between" spacing={7}>*/}
-            {/*    <Stack direction={mediaQuery ? "row" : "column"} spacing={7}>*/}
-            {/*        <CustomSelect defaultValue="По дате"/>*/}
-            {/*        <CustomSelect defaultValue="По сумме"/>*/}
-            {/*    </Stack>*/}
-            {/*    <Stack direction="row" spacing={7} sx={{maxWidth: mediaQuery ?240:null}}>*/}
-            {/*        <CustomInput search/>*/}
-            {/*    </Stack>*/}
-            {/*</Stack>*/}
+
+
             <Button
                 fullWidth
-                onClick={()=>setOpenModal(true)}
-                // variant="neutral"
+                onClick={() => setOpenModal(true)}
                 color="neutral"
                 startIcon={<IconPlus/>}
-                sx={{height:48, justifyContent: 'flex-start'}}
+                sx={{height: 48, justifyContent: 'flex-start'}}
             >
                 Добавить сервер
             </Button>
             {
-                data?.data && data?.data.map(item=>
+                isDataServers?.data && isDataServers?.data.map(item =>
                     <Paper key={item.id}>
                         <Stack direction="row" justifyContent="space-between" spacing={7}>
                             <span>Сервер {item.title}</span>
                             <Stack direction="row" spacing={7}>
-                                <Button color="neutral">Настройки</Button>
-                                <Button color="error">Удалить</Button>
+                                <Button onClick={() => {
+                                    setOpenModalUpdate(true)
+                                    setServerId(item.id)
+                                }} color="neutral">{item.id} Настройки</Button>
+                                <Button onClick={() => {
+                                    setOpenModalDelete(true)
+                                    setServerId(item.id)
+                                    setServerName(item.title)
+                                }} color="error">Удалить</Button>
                             </Stack>
                         </Stack>
                     </Paper>
                 )
             }
-            <SimpleModal title="Добавить сервер" openModal={openModal} closeModal={setOpenModal}>
-                <Stack spacing={7}>
-                    <CustomInput dataInput={nameServer} label="Имя счета"/>
-                </Stack>
-                <Stack direction="row" justifyContent="flex-end" spacing={7} sx={{mt: 7}}>
-                    <Button onClick={() => setOpenModal(false)} color="neutral">Отмена</Button>
-                    <Button onClick={handlerAdd} color="success">Добавить</Button>
-                </Stack>
-            </SimpleModal>
+
+            <AddServerModal title="Добавить сервер" isAddServer openModal={openModal} closeModal={setOpenModal}/>
+            <AddServerModal title="Настройки сервера" isUpdateServer updateServerNumber={serverId} openModal={openModalUpdate} closeModal={setOpenModalUpdate}/>
+            <AddServerModal title="Подтверждение"
+                            isDeleteServer
+                            updateServerNumber={serverId}
+                            serverName={serverName}
+                            openModal={openModalDelete}
+                            closeModal={setOpenModalDelete}/>
         </Stack>
     );
 };
