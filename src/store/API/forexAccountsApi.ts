@@ -1,10 +1,11 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {IUserAccountsData} from "../../types";
+import parameters from "../../entities/components/parameters";
 
 export const forexAccountsApi = createApi({
     reducerPath: 'forexAccountsApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: `${process.env.REACT_APP_URL}forex/`,
+        baseUrl: `${process.env.REACT_APP_URL}/admin/forex/`,
         prepareHeaders: (headers, {getState}) => {
             headers.set("Content-type", "application/json")
             headers.set("Accept", "application/json")
@@ -14,7 +15,7 @@ export const forexAccountsApi = createApi({
     tagTypes: ['ForexAccount'],
     endpoints: (build) => ({
         getForexAccounts: build.query({
-            query: () => ({
+            query: (param) => ({
                 url: '/accounts'
             })
         }),

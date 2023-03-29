@@ -1,14 +1,18 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import Paper from "@mui/material/Paper";
 import {Avatar, Divider, Stack, useMediaQuery} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import Button from "@mui/material/Button";
 import IconProduct from "../../shared/assets/images/icons/iconProduct";
 import {IProducts} from "../../types";
+import AddProductModal from "./modal/addProductModal";
+import SettingProductModal from "./modal/settingProductModal";
 
 
-const MyProductItem: FC<IProducts> = ({status, valid_to, sub_title, title, slug}) => {
+const MyProductItem: FC<IProducts> = ({id,status, valid_to, sub_title, title, slug}) => {
     const mediaQuery = useMediaQuery('(min-width:900px)');
+    const [openModal, setOpenModal] = useState(false);
+
     return (
         <Paper>
             <Stack
@@ -38,14 +42,15 @@ const MyProductItem: FC<IProducts> = ({status, valid_to, sub_title, title, slug}
                     <Divider orientation="vertical" flexItem/>
                     <Stack alignItems="center" spacing={2}>
                         <span className="subHeaders white-90">Дата валидности</span>
-                        <span className="subHeadersBold">{valid_to}</span>
+                        <span className="subHeadersBold">{valid_to ? valid_to : '---'}</span>
                     </Stack>
                 </Stack>
                 <Stack direction="row" alignItems="center" spacing={7}>
                     <Button color="neutral">Продлить</Button>
-                    <Button color="neutral">Настройки</Button>
+                    <Button onClick={() => setOpenModal(true)} color="neutral">Настройки</Button>
                 </Stack>
             </Stack>
+            <SettingProductModal productId={id} openModal={openModal} closeModal={setOpenModal}/>
         </Paper>
     );
 };

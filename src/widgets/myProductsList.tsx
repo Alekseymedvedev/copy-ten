@@ -10,10 +10,10 @@ interface IType {
 
 const MyProductsList: FC<IType> = ({children}) => {
     const {data, isLoading, error} = useGetAllProductsQuery('/products')
-    console.log(data)
+
     return (
         <Paper>
-            <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{mb:7}}>
+            <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{mb: 7}}>
                 <span className="h2 white-90">Мои продукты</span>
                 <Stack direction="row" spacing={7}>
                     <Chip label="Все" color="neutral"/>
@@ -21,18 +21,20 @@ const MyProductsList: FC<IType> = ({children}) => {
                     <Chip label="Счет 2" color="neutral"/>
                 </Stack>
             </Stack>
-            {
-                data && data.data.map(item=>
-                    <MyProductItem
-                        slug={item.slug}
-                        sub_title={item.sub_title}
-                        status={item.status}
-                        valid_to={item.valid_to}
-                        key={item.id}
-                    />
-                )
-            }
-
+            <Stack spacing={7}>
+                {
+                    data && data.data.map(item =>
+                        <MyProductItem
+                            id={item.id}
+                            key={item.id}
+                            slug={item.slug}
+                            sub_title={item.sub_title}
+                            status={item.status}
+                            valid_to={item.valid_to}
+                        />
+                    )
+                }
+            </Stack>
         </Paper>
     );
 };

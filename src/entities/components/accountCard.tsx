@@ -58,17 +58,16 @@ const AccountCard: FC<T> = ({
                             Здравствуйте! В заявке вы указали недействительный счет. Пожалуйста, проверьте
                             корректность введенных данных
                         </Stack>
-
+                        <Stack direction="row" spacing={7} sx={{mt: 'auto', mb: 7, mr: 7, ml: 'auto'}}>
+                            <Button color="error" onClick={handleDeleteAccount}>Удалить</Button>
+                            <Button color="success" onClick={() => addRepeat(true)}>Повторить</Button>
+                        </Stack>
                     </Stack>
                     : status === 0 ?
                         <Stack alignItems="center" sx={{height: `100%`, mt: 23}}>
                             <IconAddAccount success/>
                             <Stack className="h2 blue" sx={{mb: 7, mt: 7}} textAlign="center">
                                 Ожидание рассмотрения заявки <br/> на добавление счета
-                            </Stack>
-                            <Stack direction="row" spacing={7} sx={{mt: 'auto', mb: 7, mr: 7, ml: 'auto'}}>
-                                <Button color="error" onClick={handleDeleteAccount}>Удалить</Button>
-                                <Button color="success" onClick={() => addRepeat(true)}>Повторить</Button>
                             </Stack>
                         </Stack>
                         :

@@ -44,5 +44,8 @@ export const customMuiChip = {
             border: `0.5px solid #3C3C3C`,
             textTransform: 'capitalize',
         },
+        icon:{
+            color: 'unset'
+        }
     },
 } as object

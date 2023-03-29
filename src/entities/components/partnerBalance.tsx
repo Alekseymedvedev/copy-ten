@@ -33,8 +33,8 @@ const PartnerBalance: FC<IType> = ({children}) => {
                     }
 
                     <Stack direction="row" alignItems="center" spacing={4}>
-                        <Button variant="outlined" color="neutral">История начислений</Button>
-                        <Button onClick={handleOpenModal} variant="outlined" color="warning">Вывод</Button>
+                        <Button disabled variant="outlined" color="neutral">История начислений</Button>
+                        <Button disabled onClick={handleOpenModal} variant="outlined" color="warning">Вывод</Button>
                     </Stack>
                 </Stack>
             </Paper>

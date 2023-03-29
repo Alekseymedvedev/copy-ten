@@ -4,7 +4,7 @@ import {themeColors} from "./themeColors";
 import {customMuiInput} from "./components/customMuiInput";
 import {customMuiChip} from "./components/customMuiChip";
 import {customMuiSelect} from "./components/customMuiSelect";
-import { customMuiInputLabel} from "./components/customMuiInputLabel";
+import {customMuiInputLabel} from "./components/customMuiInputLabel";
 import {customMuiCheckbox} from "./components/customMuiCheckbox";
 import {customMuiContainer} from "./components/customMuiContainer";
 import {customMuiCard} from "./components/customMuiCard";
@@ -16,7 +16,6 @@ import {customMuiTabs} from "./components/customMuiTabs";
 import {customMuiTab} from "./components/customMuiTab";
 import {customMuiPaper} from "./components/customMuiPaper";
 import {customMuiDivider} from "./components/customMuiDivider";
-
 
 
 export const darkTheme = createTheme({
@@ -148,20 +147,20 @@ export const darkTheme = createTheme({
         MuiDivider: customMuiDivider,
 
         MuiAlert: {
-            variants:[
+            variants: [
                 {
-                    props: {severity:"success"} ,
+                    props: {severity: "success"},
                     style: (({theme}: any) => ({
-                        background:theme.palette.success.dark,
-                        color:theme.palette.success.main
+                        background: theme.palette.success.dark,
+                        color: theme.palette.success.main
 
                     }))
                 },
                 {
-                    props: {severity:"error"} ,
+                    props: {severity: "error"},
                     style: (({theme}: any) => ({
-                        background:theme.palette.error.dark,
-                        color:theme.palette.error.main
+                        background: theme.palette.error.dark,
+                        color: theme.palette.error.main
 
                     }))
                 },
@@ -224,6 +223,13 @@ export const darkTheme = createTheme({
                         borderBottom: ` 0.5px solid #828282`,
                     },
 
+                }
+            }
+        },
+        MuiSkeleton: {
+            styleOverrides: {
+                root: {
+                    borderRadius: 10
                 }
             }
         },

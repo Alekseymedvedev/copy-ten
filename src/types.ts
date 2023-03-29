@@ -41,7 +41,7 @@ export interface Product {
 export interface IUserAccounts {
     id: number;
     name?: any;
-    login: string | number | undefined;
+    login: string | undefined;
     password: string;
     reject_reason?: any;
     server: Server;
@@ -64,7 +64,7 @@ export interface IForexAccount{
     accountData:IAccountData
 }
 export interface IProducts{
-    id?: string;
+    id: string;
     object?: string;
     title?: string;
     sub_title?: string;

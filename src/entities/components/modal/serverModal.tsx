@@ -26,7 +26,7 @@ interface IType {
     isDeleteServer?: boolean;
 }
 
-const AddServerModal: FC<IType> = ({
+const ServerModal: FC<IType> = ({
                                        openModal,
                                        closeModal,
                                        title,
@@ -65,7 +65,7 @@ const AddServerModal: FC<IType> = ({
             )
         }
 
-        if (input.value != '' && serverNumber != '') {
+        if (input.value !== '' && serverNumber !== '') {
             if (isAddServer) addServer({title: input.value, type: serverNumber})
                 .then(() => {
                     if (!isLoading) {
@@ -90,9 +90,9 @@ const AddServerModal: FC<IType> = ({
                     if (updateError !== undefined) setOpenSnackbar(true)
                 })
         }
-        if (input.value == '') setErrorInput(true)
-        if (serverNumber == '') setErrorSelect(true)
-        console.log(serverNumber)
+        if (input.value === '') setErrorInput(true)
+        if (serverNumber === '') setErrorSelect(true)
+
     }
     const handlerClose = () => {
         closeModal(false)
@@ -136,7 +136,7 @@ const AddServerModal: FC<IType> = ({
                                     title="Сервер счета"
                                     defaultValue="Выбрать сервер"
                                     optionValue={setServerNumber}
-                                    options={[{title: 'Центовый', value: 0}, {title: 'Долларовый', value: 1}]}
+                                    options={[{title: 'Центовый', id: 0}, {title: 'Долларовый', id: 1}]}
                                     isError={errorSelect}
                                 />
                             </Stack>
@@ -152,4 +152,4 @@ const AddServerModal: FC<IType> = ({
     );
 };
 
-export default AddServerModal;
+export default ServerModal;

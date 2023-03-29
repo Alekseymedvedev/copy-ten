@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import {Alert, Snackbar, Stack, useMediaQuery} from "@mui/material";
+import {Alert, Pagination, Snackbar, Stack, useMediaQuery} from "@mui/material";
 import CustomSelect from "../shared/UI/customSelect";
 import CustomInput from "../shared/UI/customInput";
 import Paper from "@mui/material/Paper";
@@ -10,7 +10,7 @@ import IconPlus from "../shared/assets/images/icons/iconPlus";
 import SimpleModal from "../entities/components/modal/simpleModal";
 import {useInput} from "../hooks/useInput";
 import AccountModal from "../entities/components/modal/accountModal";
-import AddServerModal from "../entities/components/modal/addServerModal";
+import ServerModal from "../entities/components/modal/serverModal";
 
 interface IType {
     children?: any
@@ -23,8 +23,8 @@ const BrokerServersList: FC<IType> = ({children}) => {
     const [openModal, setOpenModal] = useState(false);
     const [openModalUpdate, setOpenModalUpdate] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
-    const [serverId,setServerId]=useState(0)
-    const [serverName,setServerName]=useState('')
+    const [serverId, setServerId] = useState(0)
+    const [serverName, setServerName] = useState('')
 
     return (
         <Stack spacing={7}>
@@ -60,14 +60,16 @@ const BrokerServersList: FC<IType> = ({children}) => {
                 )
             }
 
-            <AddServerModal title="Добавить сервер" isAddServer openModal={openModal} closeModal={setOpenModal}/>
-            <AddServerModal title="Настройки сервера" isUpdateServer updateServerNumber={serverId} openModal={openModalUpdate} closeModal={setOpenModalUpdate}/>
-            <AddServerModal title="Подтверждение"
-                            isDeleteServer
-                            updateServerNumber={serverId}
-                            serverName={serverName}
-                            openModal={openModalDelete}
-                            closeModal={setOpenModalDelete}/>
+            <ServerModal title="Добавить сервер" isAddServer openModal={openModal} closeModal={setOpenModal}/>
+            <ServerModal title="Настройки сервера" isUpdateServer updateServerNumber={serverId}
+                         openModal={openModalUpdate} closeModal={setOpenModalUpdate}/>
+            <ServerModal title="Подтверждение"
+                         isDeleteServer
+                         updateServerNumber={serverId}
+                         serverName={serverName}
+                         openModal={openModalDelete}
+                         closeModal={setOpenModalDelete}/>
+            <Pagination  color="primary" count={10} variant="outlined" shape="rounded"/>
         </Stack>
     );
 };

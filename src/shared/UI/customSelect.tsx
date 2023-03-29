@@ -41,7 +41,7 @@ const CustomSelect: FC<IType> = ({
         );
         optionValue && optionValue(value)
 
-        if (value) setError(false)
+        if (value !== '') setError(false)
     };
     return (
         <Stack direction="row" spacing={4} alignItems="center" justifyContent="space-between"

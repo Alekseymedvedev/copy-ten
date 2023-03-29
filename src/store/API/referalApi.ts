@@ -18,9 +18,14 @@ export const referralApi = createApi({
                 url: '/main'
             })
         }),
-   getReferralUsers: build.query({
+        getReferralUsers: build.query({
             query: () => ({
                 url: '/users'
+            })
+        }),
+     getReferralLineUsers: build.query({
+            query: (id) => ({
+                url:`/users/line/${id}`
             })
         }),
 
@@ -28,6 +33,6 @@ export const referralApi = createApi({
     })
 });
 
-export const {useGetReferralDataQuery, useGetReferralUsersQuery} = referralApi;
+export const {useGetReferralDataQuery, useGetReferralUsersQuery, useGetReferralLineUsersQuery} = referralApi;
 
-export const {getReferralData } = referralApi.endpoints;
+export const {getReferralData} = referralApi.endpoints;

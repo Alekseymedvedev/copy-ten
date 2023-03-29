@@ -4,7 +4,6 @@ import PartnerBalance from "../entities/components/partnerBalance";
 import {Stack, useMediaQuery} from "@mui/material";
 import PartnerLink from "../entities/components/partnerLink";
 import ReferralsList from "../widgets/referralsList";
-import {useGetReferralDataQuery} from "../store/API/referalApi";
 
 
 const Partner = () => {

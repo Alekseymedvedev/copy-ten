@@ -12,7 +12,7 @@ import CustomSelect from "../../../shared/UI/customSelect";
 import {useGetServersQuery} from "../../../store/API/userApi";
 
 
-interface ICustomModal {
+interface IType {
     maxWidth?: number;
     openModal: boolean;
     closeModal: any;
@@ -20,7 +20,7 @@ interface ICustomModal {
     isError?: boolean
 }
 
-const AccountModal: FC<ICustomModal> = ({maxWidth, openModal, closeModal, isError}) => {
+const AccountModal: FC<IType> = ({maxWidth, openModal, closeModal, isError}) => {
     const {data: isDataServer, isLoading: isLoadingDataServer} = useGetServersQuery('/servers')
     const [addAccount, {error: addError, isLoading}] = useAddAccountMutation()
     const [open, setOpen] = useState(false);
@@ -82,8 +82,7 @@ const AccountModal: FC<ICustomModal> = ({maxWidth, openModal, closeModal, isErro
                                 <span className="blue"> Forex счет</span>
                                 <span>?</span>
                             </div>
-                            :
-                            (step === 2) ?
+                            : (step === 2) ?
                                 <Stack justifyContent="flex-end" spacing={7} sx={{mt: 7}}>
                                     <CustomInput label="Номер счета" dataInput={login}/>
                                     <CustomInput label="Пароль от счета" dataInput={password}/>
@@ -97,10 +96,13 @@ const AccountModal: FC<ICustomModal> = ({maxWidth, openModal, closeModal, isErro
                                 :
                                 (step === 3 && addError) ?
                                     <div className="h2">
+                                        <span className="red">Ошибка!</span>
+                                        <span> Заявка на добавление счета не отправлена</span>
+                                    </div>
+                                    :  <div className="h2">
                                         <span className="green">Успешно!</span>
                                         <span> Заявка на добавление счета отправлена</span>
                                     </div>
-                                    : null
 
                     }
                     <Stack direction="row" justifyContent="flex-end" spacing={7} sx={{mt: 7}}>
