@@ -19,9 +19,11 @@ export const userApi = createApi({
             })
         }),
         getAccounts: build.query<IUserAccountsData, any>({
-            query: (limit: number = 5) => ({
+            query: (page) => ({
                 url: '/accounts',
-                _limit: limit
+                params:{
+                    page,
+                }
             }),
             providesTags: ['Accounts'],
         }),

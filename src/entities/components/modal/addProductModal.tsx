@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
 import {useAddAccountMutation, useGetAccountsQuery, useGetServersQuery} from "../../../store/API/userApi";
 import {useInput} from "../../../hooks/useInput";
-import {Alert, Chip, Divider, Skeleton, Snackbar, Stack, useMediaQuery} from "@mui/material";
+import {Alert, Chip, Divider, Pagination, Skeleton, Snackbar, Stack, useMediaQuery} from "@mui/material";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import IconClose from "../../../shared/assets/images/icons/iconClose";
@@ -10,9 +10,15 @@ import CustomSelect from "../../../shared/UI/customSelect";
 import Button from "@mui/material/Button";
 import IconPlay from "../../../shared/assets/images/icons/iconPlay";
 import Paper from "@mui/material/Paper";
-import {useGetProductsBySlugQuery} from "../../../store/API/productApi";
+import {
+    useCreateNewProductMutation,
+    useGetPaymentLinkQuery,
+    useGetProductsBySlugQuery
+} from "../../../store/API/productApi";
 import IconPlus from "../../../shared/assets/images/icons/iconPlus";
 import {Link} from "react-router-dom";
+import SimpleModal from "./simpleModal";
+import PaymentModal from "./paymentModal";
 
 interface IType {
     stateModal?: any;
@@ -23,27 +29,54 @@ interface IType {
 }
 
 const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
-    const {data, isLoading, error} = useGetProductsBySlugQuery(stateModal.slug)
-    const {data: accountsData, error: accountsError, isLoading: accountsLoading} = useGetAccountsQuery('/accounts')
+    const [paymentLinkId, setPaymentLinkId] = useState(-1)
+    const [page, setPage] = useState(1);
+
+    const {data, isLoading, error} = useGetProductsBySlugQuery({slug:stateModal.slug, page})
+    const {data: accountsData, error: accountsError, isLoading: accountsLoading} = useGetAccountsQuery(page)
+    const [createNewProduct,{data:dataPayLink,error:productError,isLoading:productLoading}]= useCreateNewProductMutation()
     const mediaQuery = useMediaQuery('(min-width:900px)');
     const [open, setOpen] = useState(false)
+    const [openPaymentModal, setOpenPaymentModal] = useState(false)
+
+
+
     // const [userProductId, setUserProductId] = useState('')
     const [forexAccountData, setForexAccountData] = useState({id: -1, login: '' });
-    console.log(accountsData)
+
     const [step, setStep] = useState(1);
 
     useEffect((() => {
+        console.log(dataPayLink)
+        setPaymentLinkId(dataPayLink)
+        setOpenPaymentModal(true)
         setOpen(openModal)
-    }), [open, openModal])
+    }), [open, openModal,dataPayLink])
 
-
+    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        setPage(value);
+    };
     const handlerClose = () => {
         closeModal(false)
         setOpen(false)
         setStep(1)
     };
-    const handlerProduct = () => {
+    const createProduct = () => {
+        createNewProduct({
+            body:{
+                forex_account_id:forexAccountData.id
+            },
+            slug:stateModal.slug
+        }).then(()=>{
 
+        })
+        if( !productLoading && dataPayLink){
+            // setStep(step+1)
+            console.log(dataPayLink)
+            console.log(paymentLinkId)
+            setPaymentLinkId(dataPayLink)
+            setOpenPaymentModal(true)
+        }
     };
 
 
@@ -165,6 +198,7 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
                             </>
                             : (step === 2) ?
                                 <Stack spacing={7}>
+
                                     <Stack className="h2 white-100">Выберите счет для продукта</Stack>
                                     {
                                         accountsData && accountsData.data.map(item =>
@@ -235,6 +269,10 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
 
                                 </Stack>
                                 : (step === 3) ?
+
+                                    productError ? 'ошибка при добовлении'
+                                        :
+
                                     <Stack className="h2 white-100" spacing={28}>
                                         <span>
                                             <span>Вы хотите подключить продукт</span>
@@ -259,7 +297,7 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
 
                         {
                             (step === 2) ?
-                                <Button onClick={() => setStep(step + 1)} color="success">Создать заказ</Button>
+                                <Button onClick={createProduct} color="success">Создать заказ</Button>
                                 :
                                 (step === 3) ?
                                     <Button
@@ -270,10 +308,28 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
                                     :
                                     null
                         }
+                        {
+                            productError && <SimpleModal title="Ошибка при добавлении продукта" openModal={true}/>
+                        }
 
                     </Stack>
+                    {
+                        data?.meta?.pagination?.total_pages >1 &&
+                        <Pagination
+                            onChange={handleChange}
+                            color="primary"
+                            count={data?.meta?.pagination?.total_pages}
+                            variant="outlined"
+                            shape="rounded"/>
+
+                    }
                 </Box>
             </Modal>
+
+            {
+                (openPaymentModal && dataPayLink) && <PaymentModal paymentLinkId={paymentLinkId} openModal={openPaymentModal} closeModal={setOpenPaymentModal}/>
+            }
+
         </>
     );
 }

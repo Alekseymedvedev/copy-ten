@@ -15,9 +15,16 @@ export const forexAccountsApi = createApi({
     tagTypes: ['ForexAccount'],
     endpoints: (build) => ({
         getForexAccounts: build.query({
-            query: (param) => ({
-                url: '/accounts'
-            })
+            query: ({page, sort, search}) => ({
+                url: `/accounts`,
+                params:{
+                    page,
+                    orderBy:`created_at`,
+                    sortedBy:sort,
+                    search: search ?`status:${search}`:''
+                }
+            }),
+            providesTags: ['ForexAccount'],
         }),
         updateForexAccount: build.mutation({
             query: ({body, id}) => ({

@@ -14,15 +14,38 @@ export const productApi = createApi({
     }),
     tagTypes: ['Products'],
     endpoints: (build) => ({
-        getAllProducts: build.query<IProductsData, string>({
-            query: () => ({
-                url: '/products'
-            })
+        getAllProducts: build.query<IProductsData, string | number>({
+            query: (page) => ({
+                url: '/products',
+                params: {
+                    page,
+
+                }
+            }),
+            providesTags: ['Products'],
         }),
         getProductsBySlug: build.query({
-            query: (slug) => ({
-                url: `/products/${slug}`
-            })
+            query: ({slug, page}) => ({
+                url: `/products/${slug}`,
+                params: {
+                    page,
+                }
+            }),
+            providesTags: ['Products']
+        }),
+        getPaymentLink: build.query({
+            query: (id) => ({
+                url: id
+            }),
+            providesTags: ['Products']
+        }),
+        createNewProduct: build.mutation({
+            query: ({body, slug}) => ({
+                url: `/product/${slug}`,
+                method: 'Post',
+                body
+            }),
+            invalidatesTags: ['Products']
         }),
         updateProduct: build.mutation({
             query({body, id}) {
@@ -38,6 +61,12 @@ export const productApi = createApi({
 
 });
 
-export const {useGetAllProductsQuery, useGetProductsBySlugQuery, useUpdateProductMutation } = productApi;
+export const {
+    useGetAllProductsQuery,
+    useGetProductsBySlugQuery,
+    useUpdateProductMutation,
+    useCreateNewProductMutation,
+    useGetPaymentLinkQuery
+} = productApi;
 
 export const {getAllProducts} = productApi.endpoints;

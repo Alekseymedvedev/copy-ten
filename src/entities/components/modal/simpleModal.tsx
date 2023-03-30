@@ -6,8 +6,8 @@ import IconClose from "../../../shared/assets/images/icons/iconClose";
 interface IType {
     children?: any;
     maxWidth?: number;
-    title: string;
-    closeModal: any;
+    title?: string;
+    closeModal?: any;
     openModal: boolean;
 }
 

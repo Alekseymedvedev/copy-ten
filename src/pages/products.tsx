@@ -1,18 +1,18 @@
 import MainLayout from "../widgets/mainLayout";
-import TariffItem from "../entities/components/tariffItem";
+import ProductItem from "../entities/components/productItem";
 import MyProductsList from "../widgets/myProductsList";
 import {Stack} from "@mui/material";
 
 
-const Tariff = () => {
+const Products = () => {
     return (
         <MainLayout>
             <Stack spacing={7}>
-                <TariffItem/>
+                <ProductItem/>
                 <MyProductsList/>
             </Stack>
         </MainLayout>
     );
 };
 
-export default Tariff;
+export default Products;

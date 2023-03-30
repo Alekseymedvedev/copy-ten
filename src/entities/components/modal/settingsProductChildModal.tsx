@@ -7,10 +7,10 @@ interface IType {
     closeModal: any;
     openModal: boolean;
     accountId?: number | string;
-    productId?:  string;
+    productId?:  number | string;
 }
 
-const SettingsAccountChildModal: FC<IType> = ({openModal, closeModal,accountId,productId}) => {
+const SettingsProductChildModal: FC<IType> = ({openModal, closeModal,accountId,productId}) => {
     const [updateAccount, {isLoading, error}] = useUpdateProductMutation()
     const [open, setOpen] = useState(false);
     const [step, setStep] = useState(1);
@@ -90,4 +90,4 @@ const SettingsAccountChildModal: FC<IType> = ({openModal, closeModal,accountId,p
         </>
     );
 };
-export default SettingsAccountChildModal;
+export default SettingsProductChildModal;

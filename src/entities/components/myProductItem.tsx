@@ -5,7 +5,6 @@ import {NavLink} from "react-router-dom";
 import Button from "@mui/material/Button";
 import IconProduct from "../../shared/assets/images/icons/iconProduct";
 import {IProducts} from "../../types";
-import AddProductModal from "./modal/addProductModal";
 import SettingProductModal from "./modal/settingProductModal";
 
 
@@ -50,7 +49,10 @@ const MyProductItem: FC<IProducts> = ({id,status, valid_to, sub_title, title, sl
                     <Button onClick={() => setOpenModal(true)} color="neutral">Настройки</Button>
                 </Stack>
             </Stack>
-            <SettingProductModal productId={id} openModal={openModal} closeModal={setOpenModal}/>
+            {
+                openModal && <SettingProductModal productId={id} openModal={openModal} closeModal={setOpenModal}/>
+            }
+
         </Paper>
     );
 };

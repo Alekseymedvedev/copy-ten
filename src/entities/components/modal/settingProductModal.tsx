@@ -10,22 +10,22 @@ import {useUpdateProductMutation} from "../../../store/API/productApi";
 import {useGetAccountsQuery} from "../../../store/API/userApi";
 import Paper from "@mui/material/Paper";
 import CopyTradingModalChild from "./copyTradingModalChild";
-import SettingsAccountChildModal from "./settingsAccountChildModal";
+import SettingsProductChildModal from "./settingsProductChildModal";
 
 interface IType {
     openModal: boolean;
     closeModal: any;
-    productId: string;
+    productId: number | string;
 }
 
 const SettingProductModal: FC<IType> = ({openModal, closeModal, productId}) => {
-
+    const [updateAccount, {isLoading, error}] = useUpdateProductMutation()
     const {data: accountsData, error: accountsError, isLoading: accountsLoading} = useGetAccountsQuery('/accounts')
     const mediaQuery = useMediaQuery('(min-width:900px)')
     const [open, setOpen] = useState(false);
     const [openModalChild, setOpenModalChild] = useState(false);
     const [step, setStep] = useState(1);
-    const [forexAccountData, setForexAccountData] = useState({id: -1, login: ''});
+    const [forexAccountData, setForexAccountData] = useState({id: 0, login: ''});
 
     useEffect((() => {
         setOpen(openModal)
@@ -37,7 +37,20 @@ const SettingProductModal: FC<IType> = ({openModal, closeModal, productId}) => {
         setStep(1)
     };
 
-    console.log(forexAccountData)
+    const handleUpdate = () => {
+        console.log(productId)
+        console.log(forexAccountData.id)
+        updateAccount({
+            body: {forex_account_id: forexAccountData.id == 0 ? null : forexAccountData.id},
+            id: productId
+        }).then(() => {
+            if (!error && !isLoading) {
+                setOpen(false)
+            }
+
+        })
+    };
+
     return (
         <>
 
@@ -80,10 +93,15 @@ const SettingProductModal: FC<IType> = ({openModal, closeModal, productId}) => {
                                                                 {item.name ? item.name : '---'}
                                                             </span>
                                             </Stack>
+
+                                            {/*item.product?.product_data?.id*/}
                                             {
-                                                item.product?.assigned ?
-                                                    <Button color="success">Подключено</Button>
-                                                    : <Button color="neutral">Подключить</Button>
+                                                item.product?.product_data?.id == productId ?
+                                                    <Button variant="contained" color="info">Уже подключено</Button>
+                                                    : item.product?.assigned ?
+                                                        <Button color="success">Подключено</Button>
+                                                        : <Button color="neutral">Подключить</Button>
+
                                             }
                                         </Stack>
                                         <Stack direction="row" justifyContent="space-between" spacing={7}>
@@ -123,15 +141,22 @@ const SettingProductModal: FC<IType> = ({openModal, closeModal, productId}) => {
                                 </Paper>
                             )
                         }
-                        <Button fullWidth color="neutral" sx={{height:68}}>Без счета</Button>
+                        <Button
+                            onClick={()=>{
+                                setForexAccountData({id: 0, login: ''})
+                            }}
+                            fullWidth
+                            color="neutral"
+                            sx={{height: 68}}>Без счета</Button>
                         <Stack direction="row" spacing={7} justifyContent="flex-end">
                             <Button onClick={handlerClose} color="error">Отмена</Button>
-                            <Button onClick={() => setOpenModalChild(true)} color="success">Сохранить</Button>
+                            <Button onClick={handleUpdate} color="success">Сохранить</Button>
                         </Stack>
                     </Stack>
                 </Box>
             </Modal>
-            <SettingsAccountChildModal accountId={forexAccountData.id} productId={productId}  openModal={openModalChild} closeModal={setOpenModalChild}/>
+            {/*<SettingsProductChildModal accountId={forexAccountData.id} productId={productId} openModal={openModalChild}*/}
+            {/*                           closeModal={setOpenModalChild}/>*/}
         </>
     );
 }

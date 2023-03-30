@@ -46,7 +46,7 @@ const state = [
         priceTitle: 'До 50.000$',
         image: imgRobot,
         price: '$5000',
-        slug:'copier10k',
+        slug:null,
         text: 'Velit nunc ultrices sit est et varius. Tellus accumsan pretium sollicitudin elit purus morbi.Euismod fames ullamcorper eget eget mi nisi aliquet tortor. Etiam aenean mauris integer maecenas et in. Volutpat dolor id vulputate non sed arcu. Justo ut nisl tincidun',
         sale: {
             isSale: false,
@@ -55,7 +55,8 @@ const state = [
         }
     },
 ]
-const TariffItem: FC<IType> = ({children}) => {
+
+const ProductItem: FC<IType> = ({children}) => {
     const mediaQuery = useMediaQuery('(min-width:900px)');
     const [stateModal, setStateModal] = useState(state[0])
     const [openModal, setOpenModal] = useState(false);
@@ -102,10 +103,12 @@ const TariffItem: FC<IType> = ({children}) => {
                     </Paper>
                 )
             }
-            <AddProductModal stateModal={stateModal} openModal={openModal} closeModal={setOpenModal}/>
+            {
+                openModal && <AddProductModal stateModal={stateModal} openModal={openModal} closeModal={setOpenModal}/>
+            }
 
         </Stack>
     );
 };
 
-export default TariffItem;
+export default ProductItem;

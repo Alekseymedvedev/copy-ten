@@ -69,7 +69,7 @@ const BrokerServersList: FC<IType> = ({children}) => {
                          serverName={serverName}
                          openModal={openModalDelete}
                          closeModal={setOpenModalDelete}/>
-            <Pagination  color="primary" count={10} variant="outlined" shape="rounded"/>
+
         </Stack>
     );
 };

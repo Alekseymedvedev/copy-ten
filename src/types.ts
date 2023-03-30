@@ -28,6 +28,7 @@ export interface Stats {
 }
 
 export interface ProductData {
+    id:number;
     title: string;
     sub_title: string;
     slug: string;
@@ -75,5 +76,6 @@ export interface IProducts{
 
 }
 export interface IProductsData{
-    data:IProducts[]
+    data:IProducts[];
+    meta:any;
 }
