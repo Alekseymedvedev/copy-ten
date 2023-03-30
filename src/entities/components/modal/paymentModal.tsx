@@ -43,7 +43,7 @@ const PaymentModal: FC<IType> = ({paymentLinkId, title, openModal, closeModal}) 
                     <Button
 
                         color="success"
-                        component={Link} target="_blank" to={dataPaymentLink?.data?.payment_url}
+                        component={Link} target="_blank" to={dataPaymentLink?.payment_url}
                     >Подтвердить и оплатить</Button>
                 </Box>
             </Modal>
