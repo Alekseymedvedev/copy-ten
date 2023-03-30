@@ -30,19 +30,24 @@ interface IType {
 
 const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
     const [paymentLinkId, setPaymentLinkId] = useState(-1)
-    const [page, setPage] = useState(1);
-
-    const {data, isLoading, error} = useGetProductsBySlugQuery({slug:stateModal.slug, page})
-    const {data: accountsData, error: accountsError, isLoading: accountsLoading} = useGetAccountsQuery(page)
-    const [createNewProduct,{data:dataPayLink,error:productError,isLoading:productLoading}]= useCreateNewProductMutation()
+    const [accountPage, setAccountPPage] = useState(1);
+    const [productsPage, setProductsPPage] = useState(1);
+    console.log(accountPage)
+    console.log(productsPage)
+    const {data, isLoading, error} = useGetProductsBySlugQuery({slug: stateModal.slug, page:accountPage})
+    const {data: accountsData, error: accountsError, isLoading: accountsLoading} = useGetAccountsQuery(productsPage)
+    const [createNewProduct, {
+        data: dataPayLink,
+        error: productError,
+        isLoading: productLoading
+    }] = useCreateNewProductMutation()
     const mediaQuery = useMediaQuery('(min-width:900px)');
     const [open, setOpen] = useState(false)
     const [openPaymentModal, setOpenPaymentModal] = useState(false)
 
 
-
     // const [userProductId, setUserProductId] = useState('')
-    const [forexAccountData, setForexAccountData] = useState({id: -1, login: '' });
+    const [forexAccountData, setForexAccountData] = useState({id: -1, login: ''});
 
     const [step, setStep] = useState(1);
 
@@ -51,10 +56,13 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
         setPaymentLinkId(dataPayLink)
         setOpenPaymentModal(true)
         setOpen(openModal)
-    }), [open, openModal,dataPayLink])
+    }), [open, openModal, dataPayLink])
 
-    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        setPage(value);
+    const handleChangeAccountPPage = (event: React.ChangeEvent<unknown>, value: number) => {
+        setAccountPPage(value);
+    };
+    const handleChangeProductsPPage = (event: React.ChangeEvent<unknown>, value: number) => {
+        setProductsPPage(value);
     };
     const handlerClose = () => {
         closeModal(false)
@@ -63,14 +71,14 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
     };
     const createProduct = () => {
         createNewProduct({
-            body:{
-                forex_account_id:forexAccountData.id
+            body: {
+                forex_account_id: forexAccountData.id
             },
-            slug:stateModal.slug
-        }).then(()=>{
+            slug: stateModal.slug
+        }).then(() => {
 
         })
-        if( !productLoading && dataPayLink){
+        if (!productLoading && dataPayLink) {
             // setStep(step+1)
             console.log(dataPayLink)
             console.log(paymentLinkId)
@@ -90,7 +98,7 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
                 aria-describedby="parent-modal-description"
             >
 
-                <Box sx={{maxWidth:step === 3 ? 620 : 780}}>
+                <Box sx={{maxWidth: step === 3 ? 620 : 780}}>
                     <Stack onClick={handlerClose} sx={{position: "absolute", top: 14, right: 28, cursor: "pointer"}}>
                         <IconClose/>
                     </Stack>
@@ -200,6 +208,7 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
                                 <Stack spacing={7}>
 
                                     <Stack className="h2 white-100">Выберите счет для продукта</Stack>
+
                                     {
                                         accountsData && accountsData.data.map(item =>
                                             <Paper
@@ -213,7 +222,8 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
                                                     cursor: 'pointer'
                                                 }}
                                             >
-                                                <Stack direction={mediaQuery ? "row" : "column"} justifyContent="space-between">
+                                                <Stack direction={mediaQuery ? "row" : "column"} justifyContent="space-between"
+                                                       spacing={7}>
                                                     <Stack direction="row" justifyContent="space-between" spacing={7}>
                                                         <Stack alignItems="center" spacing={2}>
                                                             <span className="subHeaders white-90">
@@ -226,7 +236,7 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
                                                         {
                                                             item.product?.assigned ?
                                                                 <Button color="success">Подключено</Button>
-                                                                :<Button color="neutral">Подключить</Button>
+                                                                : <Button color="neutral">Подключить</Button>
                                                         }
                                                     </Stack>
                                                     <Stack direction="row" justifyContent="space-between" spacing={7}>
@@ -273,21 +283,35 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
                                     productError ? 'ошибка при добовлении'
                                         :
 
-                                    <Stack className="h2 white-100" spacing={28}>
+                                        <Stack className="h2 white-100" spacing={28}>
                                         <span>
                                             <span>Вы хотите подключить продукт</span>
-                                            <span className="yellow">&nbsp;{stateModal.name} {stateModal.priceTitle}&nbsp;</span>
+                                            <span
+                                                className="yellow">&nbsp;{stateModal.name} {stateModal.priceTitle}&nbsp;</span>
                                             <span>на счет</span>
                                             <span className="blue">&nbsp;{forexAccountData.login}</span>
                                         </span>
-                                        <span>
+                                            <span>
                                             <span>Сумма заказа:</span>
                                             <span className="green">&nbsp;{stateModal.price}</span>
                                         </span>
-                                    </Stack>
+                                        </Stack>
                                     : null
                     }
                     <Stack direction="row" justifyContent="flex-end" spacing={7} sx={{mt: 7}}>
+                        {
+                            data?.meta?.pagination?.total_pages > 1 &&
+                            <Pagination
+                                page={step === 1 ? accountPage : productsPage}
+                                onChange={step === 1 ? handleChangeAccountPPage : handleChangeProductsPPage}
+                                color="primary"
+                                count={data?.meta?.pagination?.total_pages}
+                                variant="outlined"
+                                shape="rounded"
+                                sx={{mr: 'auto'}}
+                            />
+
+                        }
                         {
                             (step === 1) ?
                                 <Button onClick={handlerClose} color="neutral">Отмена</Button>
@@ -313,21 +337,14 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
                         }
 
                     </Stack>
-                    {
-                        data?.meta?.pagination?.total_pages >1 &&
-                        <Pagination
-                            onChange={handleChange}
-                            color="primary"
-                            count={data?.meta?.pagination?.total_pages}
-                            variant="outlined"
-                            shape="rounded"/>
 
-                    }
                 </Box>
             </Modal>
 
             {
-                (openPaymentModal && dataPayLink) && <PaymentModal paymentLinkId={paymentLinkId} openModal={openPaymentModal} closeModal={setOpenPaymentModal}/>
+                (openPaymentModal && dataPayLink) &&
+                <PaymentModal paymentLinkId={paymentLinkId} openModal={openPaymentModal}
+                              closeModal={setOpenPaymentModal}/>
             }
 
         </>

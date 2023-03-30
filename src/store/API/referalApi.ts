@@ -11,22 +11,25 @@ export const referralApi = createApi({
             headers.set("Authorization", `Bearer ${process.env.REACT_APP_TOKEN}`)
         },
     }),
-
+    tagTypes: ['Referral'],
     endpoints: (build) => ({
         getReferralData: build.query({
             query: () => ({
                 url: '/main'
-            })
+            }),
+            providesTags: ['Referral'],
         }),
         getReferralUsers: build.query({
             query: () => ({
                 url: '/users'
-            })
+            }),
+            providesTags: ['Referral'],
         }),
-     getReferralLineUsers: build.query({
+        getReferralLineUsers: build.query({
             query: (id) => ({
-                url:`/users/line/${id}`
-            })
+                url: `/users/line/${id}`
+            }),
+            providesTags: ['Referral'],
         }),
 
 

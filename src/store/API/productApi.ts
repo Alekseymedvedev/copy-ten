@@ -31,7 +31,7 @@ export const productApi = createApi({
                     page,
                 }
             }),
-            providesTags: ['Products']
+
         }),
         getPaymentLink: build.query({
             query: (id) => ({
