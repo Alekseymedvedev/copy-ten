@@ -27,7 +27,7 @@ const AccountHeader: FC<T> = ({balance, accountType}) => {
             <Stack spacing={4}>
                 <Stack direction="row" alignItems="center" spacing="auto">
                     <Stack direction="row" alignItems="center" spacing={2}>
-                        <Chip variant="filled" color="success" sx={{padding: 0, width: 28, height: 8}}/>
+                        <Chip variant="filled" color="success" sx={{padding: 0, width: 28, height: 8,backgroundColor:'#6FCF97'}}/>
                         <span className="subHeaders white-90">Денежный</span>
                     </Stack>
                     {
