@@ -43,15 +43,15 @@ const AccountType: FC<T> = ({
     return (
         <Stack
             direction={mediaQuery ? "column" : "row"}
-            alignItems={mediaQuery ? "center" : "flex-start"}
+            alignItems="center"
             spacing="auto"
             mb={4}
-            sx={{padding: `8px 28px`}}
+            sx={{padding: `14px 28px`}}
         >
             <Stack spacing={2}>
                 <span className="subHeaders white-80">{accountNumber}</span>
                 <Stack direction="row" spacing={4}>
-                    <span className="h2 white-100">{accountName ?accountName : 'Имя счета'}</span>
+                    <Stack className="h2 white-100" sx={{maxWidth: 150, whiteSpace: 'nowrap',textOverflow: 'ellipsis', overflow: 'hidden',}}>{accountName ?accountName : 'Имя счета'}</Stack>
                     <Stack
                         onClick={() => { setOpenModal(true)}}
                         sx={{zIndex: 100,cursor:'pointer'}}>

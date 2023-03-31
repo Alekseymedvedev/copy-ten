@@ -146,7 +146,7 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
                                             <Skeleton variant="rectangular" width={`100%`} height={46}/>
                                             : data ?
                                                 data.data.map((item: any) =>
-                                                    item.forex_account?.assigned &&
+                                                    // item.forex_account?.assigned &&
                                                     <Paper key={item.id}>
                                                         <Stack direction={mediaQuery ? "row" : "column"} spacing={7}
                                                                justifyContent="space-between">
@@ -280,7 +280,7 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
                                 </Stack>
                                 : (step === 3) ?
 
-                                    productError ? 'ошибка при добовлении'
+                                    productError ? 'ошибка при добавлении'
                                         :
 
                                         <Stack className="h2 white-100" spacing={28}>
@@ -343,7 +343,7 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
 
             {
                 (openPaymentModal && dataPayLink) &&
-                <PaymentModal paymentLinkId={paymentLinkId} openModal={openPaymentModal}
+                <PaymentModal stateModal={stateModal}  paymentLinkId={paymentLinkId} openModal={openPaymentModal}
                               closeModal={setOpenPaymentModal}/>
             }
 

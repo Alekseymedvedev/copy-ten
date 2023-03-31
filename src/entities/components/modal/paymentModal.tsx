@@ -6,13 +6,14 @@ import Button from "@mui/material/Button";
 import {Link} from "react-router-dom";
 
 interface IType {
-    paymentLinkId: any;
+    paymentLinkId?: any;
+    stateModal?: any;
     title?: string;
     closeModal?: any;
     openModal: boolean;
 }
 
-const PaymentModal: FC<IType> = ({paymentLinkId, title, openModal, closeModal}) => {
+const PaymentModal: FC<IType> = ({paymentLinkId, title, openModal, closeModal,stateModal}) => {
 
     const [id, setId] = useState(-1);
     const {data: dataPaymentLink} = useGetPaymentLinkQuery(`/product/${id}/pay`)
@@ -39,7 +40,19 @@ const PaymentModal: FC<IType> = ({paymentLinkId, title, openModal, closeModal}) 
                     </Stack>
                     <Stack className="h2 white-90" sx={{mb: 7}}>{title}</Stack>
                     <Divider variant="fullWidth" sx={{mb: 7}}/>
-                    {dataPaymentLink?.data?.payment_url}
+                    <Stack className="h2 white-100" spacing={28}>
+                                        <span>
+                                            <span>Вы хотите подключить продукт</span>
+                                            <span
+                                                className="yellow">&nbsp;{stateModal?.name} {stateModal?.priceTitle}&nbsp;</span>
+                                            <span>на счет</span>
+                                            <span className="blue">&nbsp;</span>
+                                        </span>
+                        <span>
+                                            <span>Сумма заказа:</span>
+                                            <span className="green">&nbsp;{stateModal?.price}</span>
+                                        </span>
+                    </Stack>
                     <Button
 
                         color="success"

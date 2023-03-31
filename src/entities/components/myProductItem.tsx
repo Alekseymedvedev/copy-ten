@@ -6,12 +6,14 @@ import Button from "@mui/material/Button";
 import IconProduct from "../../shared/assets/images/icons/iconProduct";
 import {IProducts} from "../../types";
 import SettingProductModal from "./modal/settingProductModal";
+import PaymentModal from "./modal/paymentModal";
 
 
 const MyProductItem: FC<IProducts> = ({id,status, valid_to, sub_title, title, slug}) => {
     const mediaQuery = useMediaQuery('(min-width:900px)');
     const [openModal, setOpenModal] = useState(false);
-
+    const [openPaymentModal, setOpenPaymentModal] = useState(false)
+    const [paymentLinkId, setPaymentLinkId] = useState(-1)
     return (
         <Paper>
             <Stack
@@ -52,7 +54,11 @@ const MyProductItem: FC<IProducts> = ({id,status, valid_to, sub_title, title, sl
             {
                 openModal && <SettingProductModal productId={id} openModal={openModal} closeModal={setOpenModal}/>
             }
-
+            {
+                (openPaymentModal) &&
+                <PaymentModal paymentLinkId={paymentLinkId} openModal={openPaymentModal}
+                              closeModal={setOpenPaymentModal}/>
+            }
         </Paper>
     );
 };
