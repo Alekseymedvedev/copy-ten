@@ -5,7 +5,7 @@ export const customMuiPaper = {
             padding: 14,
             boxShadow: "none",
             border: ` 0.5px solid #3C3C3C`,
-            background: `linear-gradient(90deg, #1F1F1F 0%, rgba(31, 31, 31, 0) 100%)`,
+            background: `linear-gradient(180deg, rgba(31, 31, 31, 0) 0%, #1F1F1F 100%)`,
             position: 'relative',
             "@media (min-width:900px)":{
                 padding: `14px 28px`,
