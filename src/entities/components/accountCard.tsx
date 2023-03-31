@@ -7,7 +7,6 @@ import IconAddAccount from "../../shared/assets/images/icons/iconAddAccount";
 import {IBalance, Server} from "../../types";
 import {NavLink} from "react-router-dom";
 import {useDeleteAccountMutation, useGetAccountsQuery} from "../../store/API/userApi";
-import Paper from "@mui/material/Paper";
 
 interface T {
     isLoading?: boolean;
@@ -37,8 +36,9 @@ const AccountCard: FC<T> = ({
         deleteAccount(accountNumber)
     }
 
+
     return (
-        <Paper sx={{ overflow: 'hidden',height: 400,}}>
+        <Stack sx={{height: 400, border: ` 0.5px solid #3C3C3C`,background: `linear-gradient(180deg, rgba(31, 31, 31, 0) 0%, #1F1F1F 100%)`, borderRadius: 2.5, overflow: 'hidden'}}>
             <AccountType
                 accountLogin={accountLogin}
                 productType={productType}
@@ -85,7 +85,7 @@ const AccountCard: FC<T> = ({
 
             }
 
-        </Paper>
+        </Stack>
     );
 };
 
