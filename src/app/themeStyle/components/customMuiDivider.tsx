@@ -8,7 +8,7 @@ export const customMuiDivider={
             style: {
                 position: 'relative',
                 right: -1,
-                width: `102%`,
+                width: `110%`,
             },
         },
         {

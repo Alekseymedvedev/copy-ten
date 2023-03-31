@@ -29,9 +29,9 @@ const AccountCardList: FC<T> = ({}) => {
                     <Paper sx={{height: mediaQuery ? 400 : 110, borderStyle:'dashed'}}>
                         <Stack justifyContent="center" alignItems="center" sx={{height: `100%`}}>
                             <Stack sx={{mb: 7}}>
-                                <IconPlus/>
+                                <IconPlus size={20}/>
                             </Stack>
-                            <Stack>Добавить счет</Stack>
+                            <Stack className="white-80">Добавить счет</Stack>
                         </Stack>
                     </Paper>
                 </Grid>

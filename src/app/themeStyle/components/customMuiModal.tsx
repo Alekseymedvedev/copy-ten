@@ -12,7 +12,8 @@ export const customMuiModal={
                 backgroundColor: '#1F1F1F',
                 border: `0.5px solid #3c3c3c`,
                 borderRadius: 10,
-                padding: 14,
+                padding: 28,
+                outline: 'none',
                 maxHeight: `90%`,
                 overflow:'hidden',
                 overflowY: 'scroll'

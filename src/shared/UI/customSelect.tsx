@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 
 interface IType {
-    children?:any;
+    width?:any;
     title?: string;
     multiple?: boolean;
     defaultValue?: string;
@@ -19,7 +19,7 @@ interface IType {
 }
 
 const CustomSelect: FC<IType> = ({
-    children,
+                                     width,
                                      title,
                                      multiple,
                                      defaultValue,
@@ -44,21 +44,22 @@ const CustomSelect: FC<IType> = ({
         if (value !== '') setError(false)
     };
     return (
-        <Stack direction="row" spacing={4} alignItems="center" justifyContent="space-between"
-               sx={{width: !mediaQuery ? `100%` : 'unset'}}>
-            {title && <Stack className="subHeaders white-80" sx={{width:`100%`}}>{title}</Stack>}
-            <FormControl fullWidth error={error} >
+        // <Stack direction="row" spacing={4} alignItems="center" justifyContent="space-between"
+        //        sx={{width: !mediaQuery ? `100%` : 'unset'}}>
+        //     {title && <Stack className="subHeaders white-80" sx={{width:`100%`}}>{title}</Stack>}
+            <FormControl fullWidth error={error} sx={{width : width ? width:'unset'}}>
                 <InputLabel shrink={false} sx={{ left: 24,top: -8,opacity: variantName[0]  !== '' ? 0 : 1}}>
                     {defaultValue}
                 </InputLabel>
                 <Select
                     IconComponent={"select"}
-                    fullWidth={!mediaQuery}
+                    fullWidth
                     multiple={multiple}
                     value={variantName}
                     onChange={handleChange}
+                    //
                 >
-                    {children}
+
                     {
                         (options !== undefined && options?.length > 0) &&
                              options?.map((option:any) => (
@@ -71,7 +72,7 @@ const CustomSelect: FC<IType> = ({
                 </Select>
                 {error && <FormHelperText>Поле обязательно к заполнению</FormHelperText>}
             </FormControl>
-        </Stack>
+        // </Stack>
     );
 };
 

@@ -68,7 +68,7 @@ const AccountModal: FC<IType> = ({maxWidth, openModal, closeModal, isError}) => 
                 aria-describedby="parent-modal-description"
             >
 
-                <Box sx={{maxWidth: maxWidth ? maxWidth : 620}}>
+                <Box sx={{maxWidth: 460}}>
                     <Stack onClick={handlerClose} sx={{position: "absolute", top: 14, right: 28, cursor: "pointer"}}>
                         <IconClose/>
                     </Stack>
@@ -84,14 +84,17 @@ const AccountModal: FC<IType> = ({maxWidth, openModal, closeModal, isError}) => 
                             </div>
                             : (step === 2) ?
                                 <Stack justifyContent="flex-end" spacing={7} sx={{mt: 7}}>
-                                    <CustomInput label="Номер счета" dataInput={login}/>
+                                    <CustomInput label="Номер счета" dataInput={login} inputType="text"/>
                                     <CustomInput label="Пароль от счета" dataInput={password}/>
-                                    <CustomSelect
-                                        title="Сервер счета"
-                                        defaultValue="Выбрать сервер"
-                                        optionValue={setServerNumber}
-                                        options={isDataServer?.data}
-                                    />
+                                    <Stack direction="row" justifyContent="space-between" spacing={7}>
+                                        <span className="subHeadersBold white-90">Сервер счета</span>
+                                        <CustomSelect
+                                            width={152}
+                                            defaultValue="Выбрать сервер"
+                                            optionValue={setServerNumber}
+                                            options={isDataServer?.data}
+                                        />
+                                    </Stack>
                                 </Stack>
                                 :
                                 (step === 3 && addError) ?
@@ -99,7 +102,7 @@ const AccountModal: FC<IType> = ({maxWidth, openModal, closeModal, isError}) => 
                                         <span className="red">Ошибка!</span>
                                         <span> Заявка на добавление счета не отправлена</span>
                                     </div>
-                                    :  <div className="h2">
+                                    : <div className="h2">
                                         <span className="green">Успешно!</span>
                                         <span> Заявка на добавление счета отправлена</span>
                                     </div>
@@ -112,7 +115,7 @@ const AccountModal: FC<IType> = ({maxWidth, openModal, closeModal, isError}) => 
                                 :
                                 (step === 4 && !isError) ? null
                                     :
-                                    <Button onClick={handlerClose} color="error">Отклонить</Button>
+                                    <Button onClick={handlerClose} color="error">Отмена</Button>
                         }
 
                         {

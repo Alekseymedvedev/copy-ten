@@ -8,7 +8,8 @@ interface T {
     isRequired?: boolean;
     search?: boolean;
     dataInput?:any;
-    errorInput?:boolean
+    errorInput?:boolean;
+    inputType?:string;
 }
 
 const CustomInput: FC<T> = ({
@@ -16,7 +17,8 @@ const CustomInput: FC<T> = ({
                                 isRequired,
                                 search,
                                 dataInput,
-                                errorInput}) => {
+                                errorInput,
+                                inputType}) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -27,20 +29,15 @@ const CustomInput: FC<T> = ({
     return (
         <>
             {
-                search ?
+                inputType ==='text' ?
                     <TextField
+                        {...dataInput}
+                        required={isRequired ? true : undefined}
                         fullWidth
-                        size="small"
-                        type="search"
+                        helperText={(dataInput?.error || errorInput) && "Поле обязательно к заполнению"}
+                        label={label}
                         InputLabelProps={{
                             shrink: true,
-                        }}
-                        InputProps={{
-                            startAdornment:
-                                <IconButton size="small"
-                                >
-                                    <IconSearch/>
-                                </IconButton>
                         }}
                     />
                     :
