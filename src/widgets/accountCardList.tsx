@@ -26,7 +26,7 @@ const AccountCardList: FC<T> = ({}) => {
         <>
             <Grid container spacing={10} columns={16} wrap="wrap">
                 <Grid item xs={16} md={8} onClick={() => setOpenModal(true)} sx={{cursor: "pointer"}}>
-                    <Paper sx={{height: mediaQuery ? 400 : 110}}>
+                    <Paper sx={{height: mediaQuery ? 400 : 110, borderStyle:'dashed'}}>
                         <Stack justifyContent="center" alignItems="center" sx={{height: `100%`}}>
                             <Stack sx={{mb: 7}}>
                                 <IconPlus/>

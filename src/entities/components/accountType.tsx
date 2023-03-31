@@ -45,7 +45,6 @@ const AccountType: FC<T> = ({
             direction={mediaQuery ? "column" : "row"}
             alignItems="center"
             spacing="auto"
-            mb={4}
             sx={{padding: `14px 28px`}}
         >
             <Stack spacing={2}>
