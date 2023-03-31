@@ -68,7 +68,7 @@ const AccountType: FC<T> = ({
             <Stack direction="row" spacing={4}>
                 {
                     productType === "Копировальщик"
-                        ? <Chip label="Копировальщик" color="success" sx={{pr: 0, pl: 0}}/>
+                        ? <Chip label="Копировальщик" variant="outlined" color="success" sx={{pr: 0, pl: 0}}/>
                         : <Chip label="Робот" color="secondary" sx={{pr: 0, pl: 0}}/>
                 }
                 {
