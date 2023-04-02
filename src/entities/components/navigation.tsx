@@ -50,7 +50,7 @@ const Navigation: FC<IType> = ({isAdmin}) => {
             {
                 !isAdmin &&
                 <>
-                    <li className="menuItem active navigationYellow">
+                    <li className="menuItem menuItemProduct active navigationYellow">
                         <NavLink to="/tariff">
                             Продукты
                             <IconProducts active={true}/>
