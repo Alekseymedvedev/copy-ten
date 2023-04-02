@@ -26,8 +26,9 @@ const AccountModal: FC<IType> = ({maxWidth, openModal, closeModal, isError}) => 
     const [open, setOpen] = useState(false);
     const [step, setStep] = useState(1);
     const [serverNumber, setServerNumber] = useState('');
-    const login = useInput('')
-    const password = useInput('')
+    const [errorInput, setErrorInput] = useState(false);
+    const login = useInput('',errorInput)
+    const password = useInput('',errorInput)
 
 
     useEffect((() => {
@@ -47,6 +48,8 @@ const AccountModal: FC<IType> = ({maxWidth, openModal, closeModal, isError}) => 
                     }
                 }
             )
+        }else{
+            setErrorInput(true)
         }
     };
 
@@ -110,12 +113,11 @@ const AccountModal: FC<IType> = ({maxWidth, openModal, closeModal, isError}) => 
                     }
                     <Stack direction="row" justifyContent="flex-end" spacing={7} sx={{mt: 7}}>
                         {
-                            (step === 3 && !isError) ?
-                                <Button onClick={() => setStep(step - 1)} color="neutral">Назад</Button>
+                            (step === 3) ?
+                                null
                                 :
-                                (step === 4 && !isError) ? null
-                                    :
-                                    <Button onClick={handlerClose} color="error">Отмена</Button>
+                                <Button onClick={handlerClose} color="error">Отмена</Button>
+
                         }
 
                         {

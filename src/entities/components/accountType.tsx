@@ -10,6 +10,7 @@ import {Server} from "../../types";
 interface T {
     accountType?: Server;
     accountLogin?: number | string;
+    status?: number | string;
     accountNumber?: number | string;
     accountName?: string;
     productType?: string;
@@ -19,6 +20,7 @@ interface T {
 const AccountType: FC<T> = ({
                                 accountType,
                                 accountLogin,
+                                status,
                                 accountNumber,
                                 productType,
                                 accountName,
@@ -51,7 +53,7 @@ const AccountType: FC<T> = ({
                 <span className="subHeaders white-80">{accountNumber}</span>
                 <Stack direction="row" spacing={4}>
                     <Stack className="h2 white-100" sx={{
-                        maxWidth: 150,
+                        maxWidth: 90,
                         whiteSpace: 'nowrap',
                         textOverflow: 'ellipsis',
                         overflow: 'hidden',
@@ -65,21 +67,25 @@ const AccountType: FC<T> = ({
                     </Stack>
                 </Stack>
             </Stack>
-            <Stack direction="row" spacing={4}>
-                {
-                    productType === "Копировальщик"
-                        ? <Chip label="Копировальщик" variant="outlined" color="success" sx={{pr: 0, pl: 0}}/>
-                        : <Chip label="Робот" color="secondary" sx={{pr: 0, pl: 0}}/>
-                }
-                {
-                    accountType?.type === 0 ?
-                        <Chip label="Центовый" variant="filled" color="neutral" sx={{pr: 0, pl: 0}}/>
-                        :
-                        <Chip label="Долларовый" variant="filled" color="warning" sx={{pr: 0, pl: 0}}/>
-                }
+            {
+                status === 1 &&
+                <Stack direction="row" spacing={4}>
+                    {
+                        productType === "Копировальщик"
+                            ? <Chip label="Копитрейдер" variant="outlined" color="success" sx={{pr: 0, pl: 0}}/>
+                            : <Chip label="Робот" color="secondary" sx={{pr: 0, pl: 0}}/>
+                    }
+                    {
+                        accountType?.type === 0 ?
+                            <Chip label="Центовый" variant="filled" color="neutral" sx={{pr: 0, pl: 0}}/>
+                            :
+                            <Chip label="Долларовый" variant="filled" color="warning" sx={{pr: 0, pl: 0}}/>
+                    }
 
-            </Stack>
-            <SimpleModal title="Имя счета" openModal={openModal} closeModal={setOpenModal}>
+                </Stack>
+            }
+
+            <SimpleModal maxWidth={460} title="Имя счета" openModal={openModal} closeModal={setOpenModal}>
                 <Stack spacing={7}>
                     <CustomInput dataInput={nameAccount} label="Имя счета" inputType="text"/>
                 </Stack>

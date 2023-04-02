@@ -45,6 +45,7 @@ const AccountCard: FC<T> = ({
                 accountType={accountType}
                 accountNumber={accountNumber}
                 accountName={accountName}
+                status={status}
             />
             <Divider variant="fullWidth" sx={{mb: 14, ml: 14}}/>
 
@@ -64,9 +65,9 @@ const AccountCard: FC<T> = ({
                         </Stack>
                     </Stack>
                     : status === 0 ?
-                        <Stack alignItems="center" sx={{height: `100%`, mt: 23}}>
+                        <Stack alignItems="center" sx={{height: `100%`, mt: 45}}>
                             <IconAddAccount success/>
-                            <Stack className="h2 blue" sx={{mb: 7, mt: 7}} textAlign="center">
+                            <Stack className="h2 blue" sx={{mb: 7, mt: 12}} textAlign="center">
                                 Ожидание рассмотрения заявки <br/> на добавление счета
                             </Stack>
                         </Stack>

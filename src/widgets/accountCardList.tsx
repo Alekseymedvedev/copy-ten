@@ -26,14 +26,14 @@ const AccountCardList: FC<T> = ({}) => {
         <>
             <Grid container spacing={10} columns={16} wrap="wrap">
                 <Grid item xs={16} md={8} onClick={() => setOpenModal(true)} sx={{cursor: "pointer"}}>
-                    <Paper sx={{height: mediaQuery ? 400 : 110, borderStyle:'dashed'}}>
+                    <Stack sx={{height: mediaQuery ? 400 : 110,  border: ` 0.5px dashed #3C3C3C`, borderRadius: 2.5, overflow: 'hidden'}}>
                         <Stack justifyContent="center" alignItems="center" sx={{height: `100%`}}>
                             <Stack sx={{mb: 7}}>
-                                <IconPlus size={20}/>
+                                <IconPlus size={20} color="#3C3C3C"/>
                             </Stack>
                             <Stack className="white-80">Добавить счет</Stack>
                         </Stack>
-                    </Paper>
+                    </Stack>
                 </Grid>
                 {
                     isLoading ?
