@@ -5,10 +5,11 @@ import {IBalance} from "../../types";
 interface T {
     balance?: IBalance;
     accountType?: number;
+    depositLoad?: number;
 }
 
 
-const AccountHeader: FC<T> = ({balance, accountType}) => {
+const AccountHeader: FC<T> = ({balance, accountType,depositLoad}) => {
     const [type, setType] = useState('$')
     useEffect(() => {
         if (accountType === 0) {
@@ -49,7 +50,7 @@ const AccountHeader: FC<T> = ({balance, accountType}) => {
                 </Stack>
                 <Stack className="subHeaders" direction="row" justifyContent="flex-end">
                     <span className="white-80">Загруженность счета:</span>
-                    <span className="yellow">&nbsp;%</span>
+                    <span className="yellow">&nbsp;{depositLoad}%</span>
                 </Stack>
             </Stack>
         </Stack>

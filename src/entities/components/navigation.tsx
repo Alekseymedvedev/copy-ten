@@ -46,7 +46,7 @@ const Navigation: FC<IType> = ({isAdmin}) => {
         }
     },[menuData])
     return (
-        <ul className="menuList">
+        <ul className={isAdmin ?"menuList" : "menuList menuUserList"}>
             {
                 !isAdmin &&
                 <>

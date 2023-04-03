@@ -20,11 +20,18 @@ const ReferralsList: FC<IType> = ({children}) => {
     const mediaQuery = useMediaQuery('(min-width:900px)');
     const [alignment, setAlignment] = useState<string | null>('left');
     const [referral, setReferral] = useState([]);
+    const [activeBtn, setActiveBtn] = useState(1);
 
 
     useEffect(() => {
-        if (data) setReferral(data?.data)
-    }, [data])
+        if (activeBtn === 1 && !isLoading && !error) {
+            setReferral(data?.data)
+        }else if (!isLoadingReferralLine) {
+            setReferral(isDataReferralLine?.data)
+            console.log('activeBtn'+ activeBtn)
+            console.log('activeBtn'+ isLoadingReferralLine)
+        }
+    }, [data,activeBtn,isDataReferralLine])
     console.log(isDataReferralLine)
     const handleAlignment = (
         event: React.MouseEvent<HTMLElement>,
@@ -34,49 +41,48 @@ const ReferralsList: FC<IType> = ({children}) => {
     };
     return (
         <Paper>
-            <Stack direction="row" alignItems="center" justifyContent="space-between" flexWrap="wrap" sx={{mb: 7}}>
+            <Stack direction={mediaQuery ? 'row':"column"} alignItems={mediaQuery ? 'center':"flex-start"} justifyContent="space-between" flexWrap="wrap" sx={{mb: 7}}>
                 <Stack className="h2 white-90" sx={{mb: 7}}>Приглашенные люди</Stack>
                 <Stack direction={mediaQuery ? "row" : "column"} alignItems={mediaQuery ? "center" : "flex-start"}
                        justifyContent="space-between" flexWrap="wrap" spacing={2}>
-                    <ToggleButtonGroup
-                        value={alignment}
-                        exclusive
-                        onChange={handleAlignment}
-                    >
-                        <ToggleButton
-                            onClick={() => {
-                                setReferral(data?.data)
-                            }}
-                            value="left"
-                            sx={{color: '#BDBDBD'}}>
-                            Все приглашенные
-                        </ToggleButton>
-                        <ToggleButton
-                            onClick={() => {
-                                setIdLine(1)
-                                setReferral(isDataReferralLine.data)
-                            }}
-                            value="center"
-                            sx={{color: '#BDBDBD'}}>
-                            Первая линия
-                        </ToggleButton>
-                        <ToggleButton
-                            onClick={() => {
-                                setIdLine(2)
-                                setReferral(isDataReferralLine.data)
-                            }}
-                            value="right"
-                            sx={{color: '#BDBDBD'}}>
-                            Вторая линия
-                        </ToggleButton>
-                    </ToggleButtonGroup>
+                    <Button
+                        onClick={() => {
+                            setReferral(data?.data)
+                            setActiveBtn(1)
+                        }}
+                        color="neutral"
+                        sx={{color:'#BDBDBD'}}>Все приглашенные</Button>
+                    <Button
+                        onClick={() => {
+                            setIdLine(1)
+                            setActiveBtn(2)
+                           if(!isLoadingReferralLine && isDataReferralLine) {
+                               setReferral(isDataReferralLine.data)
+                           }
+                            console.log(referral)
+                        }}
+                        color="neutral"
+                        sx={{color:'#BDBDBD'}}>Первая линия</Button>
+
+                    <Button
+                        onClick={() => {
+                            setIdLine(2)
+                            setActiveBtn(3)
+                           if(!isLoadingReferralLine && isDataReferralLine) {
+                               setReferral(isDataReferralLine?.data)
+                           }
+                            console.log(referral)
+                        }}
+                        color="neutral"
+                        sx={{color:'#BDBDBD'}}>Вторая линия</Button>
+
                 </Stack>
             </Stack>
             <Stack spacing={5}>
                 {
                     isLoading ?
                         <Skeleton variant="rectangular" width={`100%`} height={63}/>
-                        : (data && isDataReferralLine && referral.length > 0) ?
+                        : (data && isDataReferralLine && referral?.length > 0) ?
                             referral.map((item: any, index) =>
                                 <Referrals
                                     key={index}

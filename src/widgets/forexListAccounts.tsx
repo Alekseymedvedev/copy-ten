@@ -29,6 +29,7 @@ const ForexListAccounts: FC<IType> = ({children}) => {
             <Stack direction={mediaQuery ? "row" : "column"} justifyContent="space-between" spacing={7}>
                 <Stack direction={mediaQuery ? "row" : "column"} spacing={7}>
                     <CustomSelect
+                        width={130}
                         defaultValue="По дате"
                         options={[
                             {title: 'Сначала старые', id: 'asc'},
@@ -37,11 +38,13 @@ const ForexListAccounts: FC<IType> = ({children}) => {
                         optionValue={setSortValue}
                     />
                     <CustomSelect
-                        defaultValue="Подтвержденные"
+                        width={162}
+                        defaultValue="По статусу"
                         options={[
                             {title: 'Все', id: ''},
-                            {title: 'Подтвержденные', id: 1},
-                            {title: 'Не подтвержденные', id: -1}
+                            {title: 'Подтвержден', id: '1'},
+                            {title: 'Ожидает', id: '0'},
+                            {title: 'Отклонен', id: '-1'},
                         ]}
                         optionValue={setValidatedValue}
                     />

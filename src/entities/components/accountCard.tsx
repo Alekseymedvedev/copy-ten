@@ -18,6 +18,7 @@ interface T {
     accountNumber?: number | string;
     accountName?: string;
     addRepeat: (open: boolean) => void;
+    depositLoad?: any
 }
 
 const AccountCard: FC<T> = ({
@@ -30,6 +31,7 @@ const AccountCard: FC<T> = ({
                                 accountType,
                                 accountName,
                                 addRepeat,
+                                depositLoad,
                             }) => {
     const [deleteAccount] = useDeleteAccountMutation()
     const handleDeleteAccount = () => {
@@ -73,7 +75,7 @@ const AccountCard: FC<T> = ({
                         </Stack>
                         :
                         <NavLink to={`/exchange-account/${accountLogin}`}>
-                            <AccountHeader balance={balance} accountType={accountType?.type}/>
+                            <AccountHeader depositLoad={depositLoad} balance={balance} accountType={accountType?.type}/>
                             <Stack sx={{width: '100%', height: 210}}>
                                 <ResponsiveContainer>
                                     <AreaChart data={balance?.graph} margin={{right: 0, bottom: 0, left: 0}}>

@@ -28,7 +28,7 @@ const CustomSelect: FC<IType> = ({
                                      isError
                                  }) => {
     const mediaQuery = useMediaQuery('(min-width:900px)');
-    const [variantName, setVariantName] = useState(['']);
+    const [variantName, setVariantName] = useState<any>([null]);
     const [error, setError] = useState(false);
     useEffect(() => {
         isError && setError(isError)
@@ -44,11 +44,9 @@ const CustomSelect: FC<IType> = ({
         if (value !== '') setError(false)
     };
     return (
-        // <Stack direction="row" spacing={4} alignItems="center" justifyContent="space-between"
-        //        sx={{width: !mediaQuery ? `100%` : 'unset'}}>
-        //     {title && <Stack className="subHeaders white-80" sx={{width:`100%`}}>{title}</Stack>}
+
             <FormControl fullWidth error={error} sx={{width : width ? width:'unset'}}>
-                <InputLabel shrink={false} sx={{ left: 24,top: -8,opacity: variantName[0]  !== '' ? 0 : 1}}>
+                <InputLabel shrink={false} sx={{ left: 24,top: -8,opacity: variantName[0]  !== null ? 0 : 1}}>
                     {defaultValue}
                 </InputLabel>
                 <Select
@@ -57,7 +55,6 @@ const CustomSelect: FC<IType> = ({
                     multiple={multiple}
                     value={variantName}
                     onChange={handleChange}
-                    //
                 >
 
                     {
@@ -72,7 +69,6 @@ const CustomSelect: FC<IType> = ({
                 </Select>
                 {error && <FormHelperText>Поле обязательно к заполнению</FormHelperText>}
             </FormControl>
-        // </Stack>
     );
 };
 

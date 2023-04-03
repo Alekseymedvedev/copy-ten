@@ -1,6 +1,6 @@
 import React, {FC, useState} from 'react';
 import AccountCard from "../entities/components/accountCard";
-import {Grid, Card, Stack, useMediaQuery, Skeleton, Typography} from "@mui/material";
+import {Grid, Card, Stack, useMediaQuery, Skeleton, Typography, Pagination} from "@mui/material";
 import IconPlus from "../shared/assets/images/icons/iconPlus";
 import AccountModal from "../entities/components/modal/accountModal";
 import {IUserAccounts} from "../types";
@@ -11,7 +11,8 @@ interface T {
 }
 
 const AccountCardList: FC<T> = ({}) => {
-    const {data, error, isLoading} = useGetAccountsQuery('/accounts')
+    const [accountPage, setAccountPPage] = useState(1);
+    const {data, error, isLoading} = useGetAccountsQuery(accountPage)
     const mediaQuery = useMediaQuery('(min-width:900px)');
     const [openModal, setOpenModal] = useState(false);
 
@@ -22,6 +23,10 @@ const AccountCardList: FC<T> = ({}) => {
             </Paper>
         )
     }
+
+    const handleChangeAccountPage = (event: React.ChangeEvent<unknown>, value: number) => {
+        setAccountPPage(value);
+    };
     return (
         <>
             <Grid container spacing={10} columns={16} wrap="wrap">
@@ -61,12 +66,26 @@ const AccountCardList: FC<T> = ({}) => {
                                     accountNumber={item.id}
                                     accountType={item.server}
                                     addRepeat={setOpenModal}
+                                    depositLoad={item?.stats?.balance?.deposit_load}
                                 />
                             </Grid>
                         )
                 }
             </Grid>
             <AccountModal openModal={openModal} closeModal={setOpenModal}/>
+            {
+                data?.meta?.pagination?.total_pages > 1 &&
+                <Pagination
+                    page={accountPage}
+                    onChange={handleChangeAccountPage}
+                    color="primary"
+                    count={data?.meta?.pagination?.total_pages}
+                    variant="outlined"
+                    shape="rounded"
+                    sx={{mr: 'auto', ml:'auto', mt:14,maxWidth: 'max-content'}}
+                />
+
+            }
         </>
     );
 };

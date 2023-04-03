@@ -24,6 +24,16 @@ export const productApi = createApi({
             }),
             providesTags: ['Products'],
         }),
+        getAllAddValidateProducts: build.query({
+            query: (page) => ({
+                url: '/products/available/accounts',
+                params: {
+                    page,
+
+                }
+            }),
+            providesTags: ['Products'],
+        }),
         getProductsBySlug: build.query({
             query: ({slug, page}) => ({
                 url: `/products/${slug}`,
@@ -66,7 +76,8 @@ export const {
     useGetProductsBySlugQuery,
     useUpdateProductMutation,
     useCreateNewProductMutation,
-    useGetPaymentLinkQuery
+    useGetPaymentLinkQuery,
+    useGetAllAddValidateProductsQuery
 } = productApi;
 
 export const {getAllProducts} = productApi.endpoints;

@@ -29,7 +29,7 @@ const AccountModal: FC<IType> = ({maxWidth, openModal, closeModal, isError}) => 
     const [errorInput, setErrorInput] = useState(false);
     const login = useInput('',errorInput)
     const password = useInput('',errorInput)
-
+    const [errorSelect, setErrorSelect] = useState(false);
 
     useEffect((() => {
         setOpen(openModal)
@@ -41,7 +41,7 @@ const AccountModal: FC<IType> = ({maxWidth, openModal, closeModal, isError}) => 
         setStep(1)
     };
     const handlerAddAccount = () => {
-        if (login.value !== '' && password.value !== '') {
+        if (login.value !== '' && password.value !== '' && serverNumber !== '') {
             addAccount({server_id: serverNumber, login: login.value, password: password.value}).then(() => {
                     if (!isLoading && !addError) {
                         setStep(step + 1)
@@ -49,8 +49,11 @@ const AccountModal: FC<IType> = ({maxWidth, openModal, closeModal, isError}) => 
                 }
             )
         }else{
+            setErrorSelect(true)
             setErrorInput(true)
         }
+       // if(login.value !== '') setErrorInput(true)
+       // if(serverNumber !== '') setErrorSelect(true)
     };
 
 
@@ -96,6 +99,7 @@ const AccountModal: FC<IType> = ({maxWidth, openModal, closeModal, isError}) => 
                                             defaultValue="Выбрать сервер"
                                             optionValue={setServerNumber}
                                             options={isDataServer?.data}
+                                            isError={errorSelect}
                                         />
                                     </Stack>
                                 </Stack>

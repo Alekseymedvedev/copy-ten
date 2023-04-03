@@ -10,6 +10,7 @@ interface T {
     dataInput?:any;
     errorInput?:boolean;
     inputType?:string;
+
 }
 
 const CustomInput: FC<T> = ({
@@ -18,7 +19,7 @@ const CustomInput: FC<T> = ({
                                 search,
                                 dataInput,
                                 errorInput,
-                                inputType}) => {
+                                inputType,}) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);

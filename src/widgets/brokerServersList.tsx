@@ -28,27 +28,25 @@ const BrokerServersList: FC<IType> = ({children}) => {
 
     return (
         <Stack spacing={7}>
-
-
             <Button
                 fullWidth
                 onClick={() => setOpenModal(true)}
                 color="neutral"
                 startIcon={<IconPlus/>}
-                sx={{height: 48, justifyContent: 'flex-start'}}
+                sx={{height: 48, justifyContent: 'flex-start', fontSize:16,color:'#BDBDBD'}}
             >
                 Добавить сервер
             </Button>
             {
                 isDataServers?.data && isDataServers?.data.map(item =>
                     <Paper key={item.id}>
-                        <Stack direction="row" justifyContent="space-between" spacing={7}>
-                            <span>Сервер {item.title}</span>
+                        <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={7}>
+                            <span className="subHeadersBold white-100">Сервер {item.title}</span>
                             <Stack direction="row" spacing={7}>
                                 <Button onClick={() => {
                                     setOpenModalUpdate(true)
                                     setServerId(item.id)
-                                }} color="neutral">{item.id} Настройки</Button>
+                                }} color="neutral">Настройки</Button>
                                 <Button onClick={() => {
                                     setOpenModalDelete(true)
                                     setServerId(item.id)

@@ -21,6 +21,7 @@ export interface IBalance {
     graph: Graph[];
     value: number;
     gain: Gain;
+    deposit_load: string | number;
 }
 
 export interface Stats {
@@ -51,7 +52,8 @@ export interface IUserAccounts {
     status: number;
 }
 export interface IUserAccountsData {
-    data: IUserAccounts[]
+    data: IUserAccounts[];
+    meta:any
 }
 
 

@@ -10,7 +10,7 @@ const Partner = () => {
     const mediaQuery = useMediaQuery('(min-width:900px)');
 
     return (
-        <MainLayout>
+        <MainLayout heading="Партнерская программа">
             <Stack spacing={7}>
                 <Paper sx={{maxWidth: 'max-content'}}>
                     <span className="h2 blue">Как работает партнерская система?</span>

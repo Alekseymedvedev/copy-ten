@@ -1,6 +1,6 @@
 import React, {FC, useState} from 'react';
 import Paper from "@mui/material/Paper";
-import {Button, Skeleton, Stack} from '@mui/material';
+import {Button, Skeleton, Stack, useMediaQuery} from '@mui/material';
 import {useGetReferralDataQuery} from "../../store/API/referalApi";
 
 interface IType {
@@ -8,6 +8,7 @@ interface IType {
 }
 
 const PartnerLink: FC<IType> = ({children}) => {
+    const mediaQuery = useMediaQuery('(min-width:900px)');
     const {data, error, isLoading} = useGetReferralDataQuery('/main')
     const [textBtn, setTextBtn] = useState('Скопировать')
     const handlerCopy = (copy: string) => {
@@ -32,13 +33,19 @@ const PartnerLink: FC<IType> = ({children}) => {
 
                             <Stack spacing={4}>
                                 <span className="h2 white-90">Ваша партнерская ссылка</span>
-                                <a href={data.ref_link} className="link green">{data?.ref_link}</a>
+                                <Stack className="link green" onClick={() => handlerCopy(data?.ref_link)} sx={{cursor:'pointer'}}>
+                                    {data?.ref_link}
+                                </Stack>
                             </Stack>
-                            <Button
-                                onClick={() => handlerCopy(data?.ref_link)}
-                                variant="outlined"
-                                color="neutral"
-                            >{textBtn}</Button>
+                            {
+                                mediaQuery &&
+                                <Button
+
+                                    variant="outlined"
+                                    color="neutral"
+                                >{textBtn}</Button>
+                            }
+
                         </>
                 }
 

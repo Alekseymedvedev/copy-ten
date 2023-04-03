@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import IconPlay from "../../../shared/assets/images/icons/iconPlay";
 import Paper from "@mui/material/Paper";
 import {
-    useCreateNewProductMutation,
+    useCreateNewProductMutation, useGetAllAddValidateProductsQuery,
     useGetPaymentLinkQuery,
     useGetProductsBySlugQuery
 } from "../../../store/API/productApi";
@@ -35,7 +35,7 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
     console.log(accountPage)
     console.log(productsPage)
     const {data, isLoading, error} = useGetProductsBySlugQuery({slug: stateModal.slug, page:accountPage})
-    const {data: accountsData, error: accountsError, isLoading: accountsLoading} = useGetAccountsQuery(productsPage)
+    const {data: accountsData, error: accountsError, isLoading: accountsLoading} = useGetAllAddValidateProductsQuery(productsPage)
     const [createNewProduct, {
         data: dataPayLink,
         error: productError,
@@ -210,7 +210,7 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
                                     <Stack className="h2 white-100">Выберите счет для продукта</Stack>
 
                                     {
-                                        accountsData && accountsData.data.map(item =>
+                                        accountsData && accountsData.data.map((item:any) =>
                                             <Paper
                                                 key={item.id}
                                                 onClick={() => setForexAccountData({
@@ -305,7 +305,7 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
                                 page={step === 1 ? accountPage : productsPage}
                                 onChange={step === 1 ? handleChangeAccountPPage : handleChangeProductsPPage}
                                 color="primary"
-                                count={data?.meta?.pagination?.total_pages}
+                                count={step === 1 ? data?.meta?.pagination?.total_pages : accountsData?.meta?.pagination?.total_pages}
                                 variant="outlined"
                                 shape="rounded"
                                 sx={{mr: 'auto'}}

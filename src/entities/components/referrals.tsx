@@ -2,6 +2,7 @@ import React, {FC} from 'react';
 import NickName from "../../shared/components/nickName";
 import Paper from "@mui/material/Paper";
 import {Avatar, Divider, Stack, useMediaQuery} from "@mui/material";
+import {NavLink} from "react-router-dom";
 
 
 interface IType {
@@ -24,11 +25,11 @@ const Referrals: FC<IType> = ({name, link, avatar, registrationDate, lastPayment
                         sx={{width: 34, height: 34}}
                     />
                     <Stack spacing={2}>
-                        <span className="subHeaders link">{link}</span>
+                        <NavLink className="subHeaders link" to={`https://t.me/${link}`} target="_blank">{link}</NavLink>
                         <span className="subHeadersBold">{name}</span>
                     </Stack>
                 </Stack>
-                <Stack direction="row" spacing={7}>
+                <Stack direction="row" spacing={7} justifyContent="space-around" sx={{width:mediaQuery ? 'unset':`100%`}}>
                     <Stack alignItems="center">
                         <span className="subHeaders white-90">Последняя оплата</span>
                         <span className="subHeadersBold white-100">{lastPayment ? lastPayment: '---'}</span>
