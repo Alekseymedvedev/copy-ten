@@ -17,7 +17,7 @@ export const menuUserData = [
     {path: "/support", name: 'Тех. поддержка', navigateClass: 'supportMenuItem support', icon: IconSupport},
 ]
 export const menuAdminData = [
-    {path: "/admin", name: 'Пользователи', navigateClass: 'navigationWhite', },
+    {path: "/admin/users", name: 'Пользователи', navigateClass: 'navigationWhite', },
     {path: "/admin/forex", name: 'Forex счета', navigateClass: 'navigationWhite', },
     {path: "/admin/bank-requisites", name: 'Банковские реквизиты', navigateClass: 'navigationWhite', },
     {path: "/admin/transaction", name: 'Вывод', navigateClass: 'navigationWhite', },
@@ -50,8 +50,8 @@ const Navigation: FC<IType> = ({isAdmin}) => {
             {
                 !isAdmin &&
                 <>
-                    <li className="menuItem menuItemProduct active navigationYellow">
-                        <NavLink to="/tariff">
+                    <li className={`menuItem menuItemProduct active navigationYellow`}>
+                        <NavLink to="/tariff" className="active">
                             Продукты
                             <IconProducts active={true}/>
                         </NavLink>

@@ -18,7 +18,7 @@ import AdminTransaction from "../../pages/adminTransaction";
 
 export const routes = [
     {path: "/", element: <Home/>},
-    {path: "/auth", element: <Auth/>},
+
     {path: "/copy-trading", element: <CopyTrading/>},
     {path: "/tariff", element: <Products/>},
     {path: "/exchange-account/:id", element: <AccountDashboard/>},
@@ -26,7 +26,7 @@ export const routes = [
     {path: "/settings", element: <Settings/>},
     {path: "/support", element: <Support/>},
     {path: "/trader-dashboard", element: <TraderDashboard/>},
-    {path: "/admin", element: <Admin/>},
+    {path: "/admin/users", element: <Admin/>},
     {path: "/admin/forex", element: <AdminForexAccounts/>},
     {path: "/admin/bank-requisites", element: <AdminBankRequisites/>},
     {path: "/admin/sets", element: <AdminSets/>},

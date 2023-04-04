@@ -1,33 +1,44 @@
 import React from 'react';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Route, Routes, useLocation} from 'react-router-dom';
 import {routes} from "./routes/routes";
 import '../shared/assets/styles/reset.scss';
 import '../shared/assets/styles/libs.scss';
 import '../shared/assets/styles/globals.scss';
-import {ThemeProvider} from "@mui/material/styles";
-import {darkTheme} from "./themeStyle/themeStyle";
-import {CssBaseline} from "@mui/material";
+import {authSlice} from "../store/slice/authSlice";
+import {useAppDispatch, useAppSelector} from "../hooks/useRedux";
+import Auth from "../pages/auth";
 
 
 function App() {
+    const {isAuth} = useAppSelector(state => state.authReducer)
+    const {auth} = authSlice.actions
+    const dispatch = useAppDispatch()
+    const userToken = localStorage.getItem('token')
 
-
+    console.log(userToken)
+    if (userToken) {
+        dispatch(auth(true))
+    } else {
+        dispatch(auth(false))
+    }
     return (
-        <ThemeProvider theme={darkTheme}>
-            <CssBaseline/>
-            <BrowserRouter>
-                <Routes>
-                    {routes.map(route =>
-                        <Route
-                            path={route.path}
-                            element={route.element}
-                            key={route.path}
-                        />
-                    )}
-                </Routes>
-            </BrowserRouter>
-        </ThemeProvider>
+        <>
+            <Routes>
+                {
+                    isAuth ?
+                        routes.map(route =>
+                            <Route
+                                path={route.path}
+                                element={route.element}
+                                key={route.path}
+                            />
+                        )
+                        :
 
+                        <Route path="/" element=<Auth/>/>
+                }
+            </Routes>
+        </>
     );
 }
 

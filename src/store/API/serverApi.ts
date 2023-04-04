@@ -1,7 +1,7 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {IServerData, Server} from "../../types";
 
-
+const userToken = localStorage.getItem('token')
 export const serverApi = createApi({
     reducerPath: 'serverApi',
     baseQuery: fetchBaseQuery({
@@ -9,7 +9,7 @@ export const serverApi = createApi({
         prepareHeaders: (headers, {getState}) => {
             headers.set("Content-type", "application/json")
             headers.set("Accept", "application/json")
-            headers.set("Authorization", `Bearer ${process.env.REACT_APP_TOKEN}`)
+            headers.set("Authorization", `Bearer ${userToken}`)
         },
     }),
     tagTypes: ['Server'],

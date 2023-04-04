@@ -21,7 +21,7 @@ const ForexItem: FC<IType> = ({id, numberAccount, passwordAccount, login, server
     const [updateForexAccount] = useUpdateForexAccountMutation()
     const [openModal, setOpenModal] = useState(false);
     const [reasonValue, setReasonValue] = useState('');
-
+    const [textBtn, setTextBtn] = useState('Скопировать')
     const handlerUpdateForexAccount = () => {
         updateForexAccount({
             body: {
@@ -30,6 +30,17 @@ const ForexItem: FC<IType> = ({id, numberAccount, passwordAccount, login, server
             },
             id
         }).then(()=>{setOpenModal(false)})
+    }
+    const handlerCopy = (copy: any) => {
+        navigator.clipboard.writeText(copy)
+            .then(() => {
+                setTextBtn('Скопировано')
+            })
+            .then(() => {
+                setTimeout(() => {
+                    setTextBtn('Скопировать')
+                }, 5000)
+            })
     }
     return (
         <Paper>
@@ -42,14 +53,27 @@ const ForexItem: FC<IType> = ({id, numberAccount, passwordAccount, login, server
                     InputProps={{
                         endAdornment:
                             <IconButton size="small" sx={{height: 15, color: '#828282', fontSize: 12}}
-                                // onClick={handleClickShowPassword}
+                                onClick={()=>handlerCopy(numberAccount)}
                             >
-                                СКОПИРОВАТЬ
+                                {textBtn}
                             </IconButton>
                     }}
                     sx={{color: '#828282'}}
                 />
-                <TextField fullWidth value={passwordAccount} label="Пароль от счета" type="text"/>
+                <TextField
+                    fullWidth
+                    value={passwordAccount}
+                    label="Пароль от счета"
+                    type="text"
+                    InputProps={{
+                        endAdornment:
+                            <IconButton size="small" sx={{height: 15, color: '#828282', fontSize: 12}}
+                                        onClick={()=>handlerCopy(passwordAccount)}
+                            >
+                                {textBtn}
+                            </IconButton>
+                    }}
+                />
                 <TextField fullWidth value={login} label="Телеграм" type="text"/>
 
                 <Stack direction="row" justifyContent="space-between">

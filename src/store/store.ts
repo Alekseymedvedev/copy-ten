@@ -1,6 +1,7 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import {userApi} from "./API/userApi";
 import barChartReducer from './slice/barChartSlice'
+import authReducer from './slice/authSlice'
 import {serverApi} from "./API/serverApi";
 import {productApi} from "./API/productApi";
 import {referralApi} from "./API/referalApi";
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     [productApi.reducerPath]: productApi.reducer,
     [referralApi.reducerPath]: referralApi.reducer,
     [forexAccountsApi.reducerPath]: forexAccountsApi.reducer,
-    barChartReducer
+    barChartReducer,
+    authReducer
 })
 
 

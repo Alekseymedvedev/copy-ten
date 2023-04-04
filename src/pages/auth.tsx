@@ -1,8 +1,28 @@
 import Paper from "@mui/material/Paper";
 import logo from '../shared/assets/images/authLogo.svg'
 import {Button, Stack} from "@mui/material";
+import {Link} from "react-router-dom";
+import {useLocation} from "react-router-dom";
+import React, {FC, useEffect} from "react";
+import IconConnected from "../shared/assets/images/icons/iconConnected";
+import IconTg from "../shared/assets/images/icons/iconTg";
+import {useGetTokenMutation} from "../store/API/authApi";
+interface IType{
+    isFinish?:boolean
+}
 
-const Auth = () => {
+
+const Auth:FC<IType> = ({isFinish}) => {
+    const [fetchToken,{data,isLoading,error}]=useGetTokenMutation()
+    useEffect(()=>{
+        fetchToken('aYOxlpzRMwrX3gD7')
+    },[])
+    console.log(data?.accessToken)
+    // const {isAuth} = useAppSelector(state => state.authReducer)
+    const location = useLocation()
+    const locationToken = location?.search?.split('=').pop()
+    localStorage.setItem('token', `${data?.accessToken}`)
+    // console.log(locationToken)
     return (
         <Paper sx={{
             maxWidth:620,
@@ -26,7 +46,33 @@ const Auth = () => {
                            target="_blank">https://t.me/+yyCB128FQ1JmYTIy</a>
                     </Stack>
                 </Stack>
-                <Button fullWidth variant="contained" color="info" sx={{height:48}}>Завершить регистрацию</Button>
+                    {
+                        locationToken ?
+                            <Button
+                                component={Link}
+                                to="https://t.me/copyten_auth_bot"
+                                fullWidth
+                                variant="contained"
+                                color="info"
+                                sx={{height:48}}
+                            >
+                                Завершить регистрацию
+                            </Button>
+                            :
+                            <Button
+                                component={Link}
+                                to="https://t.me/copyten_auth_bot"
+                                fullWidth
+                                variant="contained"
+                                color="info"
+                                sx={{height:48}}
+                                startIcon={<IconTg/>}
+                            >
+                                Войти в систему
+                            </Button>
+                    }
+
+
             </Stack>
         </Paper>
     );

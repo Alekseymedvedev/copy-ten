@@ -1,6 +1,7 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {IProductsData} from "../../types";
 
+const userToken = localStorage.getItem('token')
 
 export const productApi = createApi({
     reducerPath: 'productApi',
@@ -9,7 +10,7 @@ export const productApi = createApi({
         prepareHeaders: (headers, {getState}) => {
             headers.set("Content-type", "application/json")
             headers.set("Accept", "application/json")
-            headers.set("Authorization", `Bearer ${process.env.REACT_APP_TOKEN}`)
+            headers.set("Authorization", `Bearer ${userToken}`)
         },
     }),
     tagTypes: ['Products'],

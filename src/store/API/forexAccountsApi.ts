@@ -2,6 +2,8 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {IUserAccountsData} from "../../types";
 import parameters from "../../entities/components/parameters";
 
+const userToken = localStorage.getItem('token')
+
 export const forexAccountsApi = createApi({
     reducerPath: 'forexAccountsApi',
     baseQuery: fetchBaseQuery({
@@ -9,7 +11,7 @@ export const forexAccountsApi = createApi({
         prepareHeaders: (headers, {getState}) => {
             headers.set("Content-type", "application/json")
             headers.set("Accept", "application/json")
-            headers.set("Authorization", `Bearer ${process.env.REACT_APP_TOKEN}`)
+            headers.set("Authorization", `Bearer ${userToken}`)
         },
     }),
     tagTypes: ['ForexAccount'],
