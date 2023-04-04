@@ -14,15 +14,19 @@ interface IType{
 
 const Auth:FC<IType> = ({isFinish}) => {
     const [fetchToken,{data,isLoading,error}]=useGetTokenMutation()
+    const location = useLocation()
+    const locationHash = location?.search?.split('=').pop()
     useEffect(()=>{
-        fetchToken('aYOxlpzRMwrX3gD7')
-    },[])
+        fetchToken(locationHash)
+        if(data && !isLoading && !error){
+            localStorage.setItem('token', `${data?.accessToken}`)
+        }
+    },[data,locationHash])
     console.log(data?.accessToken)
     // const {isAuth} = useAppSelector(state => state.authReducer)
-    const location = useLocation()
-    const locationToken = location?.search?.split('=').pop()
-    localStorage.setItem('token', `${data?.accessToken}`)
-    // console.log(locationToken)
+
+
+    console.log(locationHash)
     return (
         <Paper sx={{
             maxWidth:620,
@@ -47,7 +51,7 @@ const Auth:FC<IType> = ({isFinish}) => {
                     </Stack>
                 </Stack>
                     {
-                        locationToken ?
+                        locationHash ?
                             <Button
                                 component={Link}
                                 to="https://t.me/copyten_auth_bot"
