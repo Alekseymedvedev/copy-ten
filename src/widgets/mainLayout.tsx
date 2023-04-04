@@ -20,7 +20,7 @@ const MainLayout: FC<MainLayoutProps> = ({children, isAdmin, heading, accountNum
                 <Grid item xs={16} md={4}>
                     <Sidebar isAdmin={isAdmin}/>
                 </Grid>
-                <Grid item xs={16} md={12} sx={{display: 'flex', flexDirection: 'column'}}>
+                <Grid item xs={16} md={12} sx={{display: 'flex', flexDirection: 'column',height: `100vh`}}>
                     <Header heading={heading} accountNumber={accountNumber} typeAccount={typeAccount}/>
                     <main className="main">
                         {children}
