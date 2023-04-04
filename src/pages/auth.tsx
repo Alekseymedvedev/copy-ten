@@ -17,7 +17,7 @@ const Auth:FC<IType> = ({isFinish}) => {
     const location = useLocation()
     const locationHash = location?.search?.split('=').pop()
     const navigate = useNavigate()
-
+    // https://copy-ten-psi.vercel.app/reg?auth_code=aVbqKPzWy2pj0JZg
     useEffect(()=>{
         fetchToken(locationHash)
     },[])
