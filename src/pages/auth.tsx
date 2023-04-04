@@ -21,16 +21,24 @@ const Auth: FC<IType> = ({isFinish}) => {
     const navigate = useNavigate()
     const [value, setValue] = useState(false)
     const [registrationFinish, setRegistrationFinish] = useState(false)
-    // https://copy-ten-psi.vercel.app/reg?auth_code=aVbqKPzWy2pj0JZg
+
     useEffect(() => {
         fetchToken(locationHash)
     }, [])
     useEffect(() => {
-        if (data && registrationFinish) {
-            localStorage.setItem('token', `${data?.accessToken}`)
-            setTimeout(() => {
-                navigate('/')
-            }, 1000)
+        if (data) {
+            if (registrationHash === '/reg' && registrationFinish){
+                localStorage.setItem('token', `${data?.accessToken}`)
+                setTimeout(() => {
+                    navigate('/')
+                }, 1000)
+            }else if (registrationHash !== '/reg'){
+                localStorage.setItem('token', `${data?.accessToken}`)
+                setTimeout(() => {
+                    navigate('/')
+                }, 1000)
+            }
+
         }
     }, [isLoading,registrationFinish])
 
