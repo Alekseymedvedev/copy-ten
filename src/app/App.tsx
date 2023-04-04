@@ -19,7 +19,7 @@ function App() {
 // refresh
 
 
-    console.log(userToken)
+    console.log(1111)
     navigate(0)
    useEffect(()=>{
        setTimeout(()=>{
@@ -47,7 +47,7 @@ function App() {
                         )
                         :
 
-                        <Route path="/" element=<Auth/>/>
+                        <Route path="*" element=<Auth/>/>
                 }
             </Routes>
         </>
