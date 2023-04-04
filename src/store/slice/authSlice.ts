@@ -9,7 +9,7 @@ const initialState= {
 
 
 export const authSlice = createSlice({
-    name: 'barChart',
+    name: 'auth',
     initialState,
     reducers: {
 

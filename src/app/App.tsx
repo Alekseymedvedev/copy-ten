@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {BrowserRouter, Route, Routes, useLocation} from 'react-router-dom';
 import {routes} from "./routes/routes";
 import '../shared/assets/styles/reset.scss';
@@ -16,16 +16,18 @@ function App() {
     const userToken = localStorage.getItem('token')
 
     console.log(userToken)
-    if (userToken) {
-        dispatch(auth(true))
-    } else {
-        dispatch(auth(false))
-    }
+   useEffect(()=>{
+       if (userToken ) {
+           dispatch(auth(true))
+       } else {
+           dispatch(auth(false))
+       }
+   },[userToken])
     return (
         <>
             <Routes>
                 {
-                    isAuth ?
+                    userToken ?
                         routes.map(route =>
                             <Route
                                 path={route.path}

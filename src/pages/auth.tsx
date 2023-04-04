@@ -18,11 +18,15 @@ const Auth:FC<IType> = ({isFinish}) => {
     const locationHash = location?.search?.split('=').pop()
     useEffect(()=>{
         fetchToken(locationHash)
-        if(data && !isLoading && !error){
+    },[])
+    useEffect(()=>{
+        if(data){
             localStorage.setItem('token', `${data?.accessToken}`)
         }
-    },[data,locationHash])
+    },[isLoading])
+
     console.log(data?.accessToken)
+    console.log(isLoading)
     // const {isAuth} = useAppSelector(state => state.authReducer)
 
 
@@ -51,7 +55,7 @@ const Auth:FC<IType> = ({isFinish}) => {
                     </Stack>
                 </Stack>
                     {
-                        locationHash ?
+                        locationHash && locationHash ==undefined ?
                             <Button
                                 component={Link}
                                 to="https://t.me/copyten_auth_bot"
