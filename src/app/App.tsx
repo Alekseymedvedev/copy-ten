@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {BrowserRouter, redirect, Route, Routes, useLocation} from 'react-router-dom';
+import {BrowserRouter, redirect, Route, Routes, useLocation, useNavigate} from 'react-router-dom';
 import {routes} from "./routes/routes";
 import '../shared/assets/styles/reset.scss';
 import '../shared/assets/styles/libs.scss';
@@ -15,13 +15,17 @@ function App() {
     const dispatch = useAppDispatch()
     const [userToken ,setUserToken] = useState<any>(localStorage.getItem('token'))
     // const userToken = localStorage.getItem('token')
+    const navigate = useNavigate()
+// refresh
 
 
     console.log(userToken)
+    navigate(0)
    useEffect(()=>{
-       // setTimeout(()=>{
-       //     setUserToken(localStorage.getItem('token'))
-       // },3000)
+       setTimeout(()=>{
+           // setUserToken(localStorage.getItem('token'))
+
+       },3000)
        if (userToken ) {
            dispatch(auth(userToken))
        } else {

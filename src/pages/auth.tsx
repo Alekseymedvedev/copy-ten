@@ -1,7 +1,7 @@
 import Paper from "@mui/material/Paper";
 import logo from '../shared/assets/images/authLogo.svg'
 import {Button, Stack} from "@mui/material";
-import {Link, redirect} from "react-router-dom";
+import {Link, redirect, useNavigate} from "react-router-dom";
 import {useLocation} from "react-router-dom";
 import React, {FC, useEffect} from "react";
 import IconConnected from "../shared/assets/images/icons/iconConnected";
@@ -16,6 +16,7 @@ const Auth:FC<IType> = ({isFinish}) => {
     const [fetchToken,{data,isLoading,error}]=useGetTokenMutation()
     const location = useLocation()
     const locationHash = location?.search?.split('=').pop()
+    const navigate = useNavigate()
 
     useEffect(()=>{
         fetchToken(locationHash)
@@ -23,6 +24,10 @@ const Auth:FC<IType> = ({isFinish}) => {
     useEffect(()=>{
         if(data){
             localStorage.setItem('token', `${data?.accessToken}`)
+            setTimeout(()=>{
+                navigate('/')
+            },3000)
+
         }
     },[isLoading])
 
@@ -51,16 +56,16 @@ const Auth:FC<IType> = ({isFinish}) => {
                 </Stack>
                     {
                         locationHash ?
-                            // <Button
-                            //   onClick={aaa}
-                            //     fullWidth
-                            //     variant="contained"
-                            //     color="info"
-                            //     sx={{height:48}}
-                            // >
-                            //     Завершить регистрацию
-                            // </Button>
-                            <a href="/">Завершить регистрацию</a>
+                            <Button
+                                component={Link}
+                                to="/"
+                                fullWidth
+                                variant="contained"
+                                color="info"
+                                sx={{height:48}}
+                            >
+                                Завершить регистрацию
+                            </Button>
                             :
                             <Button
                                 component={Link}
