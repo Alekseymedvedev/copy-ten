@@ -1,7 +1,7 @@
 import Paper from "@mui/material/Paper";
 import logo from '../shared/assets/images/authLogo.svg'
 import {Button, Stack} from "@mui/material";
-import {Link} from "react-router-dom";
+import {Link, redirect} from "react-router-dom";
 import {useLocation} from "react-router-dom";
 import React, {FC, useEffect} from "react";
 import IconConnected from "../shared/assets/images/icons/iconConnected";
@@ -16,6 +16,7 @@ const Auth:FC<IType> = ({isFinish}) => {
     const [fetchToken,{data,isLoading,error}]=useGetTokenMutation()
     const location = useLocation()
     const locationHash = location?.search?.split('=').pop()
+
     useEffect(()=>{
         fetchToken(locationHash)
     },[])
@@ -25,12 +26,6 @@ const Auth:FC<IType> = ({isFinish}) => {
         }
     },[isLoading])
 
-    console.log(data?.accessToken)
-    console.log(isLoading)
-    // const {isAuth} = useAppSelector(state => state.authReducer)
-
-
-    console.log(locationHash)
     return (
         <Paper sx={{
             maxWidth:620,
@@ -55,17 +50,17 @@ const Auth:FC<IType> = ({isFinish}) => {
                     </Stack>
                 </Stack>
                     {
-                        locationHash && locationHash ==undefined ?
-                            <Button
-                                component={Link}
-                                to="https://t.me/copyten_auth_bot"
-                                fullWidth
-                                variant="contained"
-                                color="info"
-                                sx={{height:48}}
-                            >
-                                Завершить регистрацию
-                            </Button>
+                        locationHash ?
+                            // <Button
+                            //   onClick={aaa}
+                            //     fullWidth
+                            //     variant="contained"
+                            //     color="info"
+                            //     sx={{height:48}}
+                            // >
+                            //     Завершить регистрацию
+                            // </Button>
+                            <a href="/">Завершить регистрацию</a>
                             :
                             <Button
                                 component={Link}

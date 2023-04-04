@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {BrowserRouter, Route, Routes, useLocation} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {BrowserRouter, redirect, Route, Routes, useLocation} from 'react-router-dom';
 import {routes} from "./routes/routes";
 import '../shared/assets/styles/reset.scss';
 import '../shared/assets/styles/libs.scss';
@@ -10,19 +10,25 @@ import Auth from "../pages/auth";
 
 
 function App() {
-    const {isAuth} = useAppSelector(state => state.authReducer)
+
     const {auth} = authSlice.actions
     const dispatch = useAppDispatch()
-    const userToken = localStorage.getItem('token')
+    const [userToken ,setUserToken] = useState<any>(localStorage.getItem('token'))
+    // const userToken = localStorage.getItem('token')
+
 
     console.log(userToken)
    useEffect(()=>{
+       // setTimeout(()=>{
+       //     setUserToken(localStorage.getItem('token'))
+       // },3000)
        if (userToken ) {
-           dispatch(auth(true))
+           dispatch(auth(userToken))
        } else {
-           dispatch(auth(false))
+           dispatch(auth(userToken))
        }
-   },[userToken])
+   },[])
+
     return (
         <>
             <Routes>

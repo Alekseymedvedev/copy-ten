@@ -1,8 +1,10 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {IServerData, IUserAccountsData} from "../../types";
+import {useAppSelector} from "../../hooks/useRedux";
 
-const userToken = localStorage.getItem('token')
-
+ const userToken = localStorage.getItem('token')
+// setTimeout(()=>{
+// },3000)
 export const userApi = createApi({
     reducerPath: 'userApi',
     baseQuery: fetchBaseQuery({

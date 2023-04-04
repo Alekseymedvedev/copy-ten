@@ -4,7 +4,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 
 const initialState= {
-  isAuth: false
+  isToken: ''
 }
 
 
@@ -13,8 +13,8 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
 
-        auth(state, action: PayloadAction<boolean>) {
-            state.isAuth=action.payload
+        auth(state, action: PayloadAction<string>) {
+            state.isToken=action.payload
         },
     },
 })
