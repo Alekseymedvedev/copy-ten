@@ -26,7 +26,7 @@ const Auth:FC<IType> = ({isFinish}) => {
             localStorage.setItem('token', `${data?.accessToken}`)
             setTimeout(()=>{
                 navigate('/')
-            },3000)
+            },1000)
 
         }
     },[isLoading])
