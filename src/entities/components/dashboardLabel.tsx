@@ -6,10 +6,11 @@ import IconArrow from "../../shared/assets/images/icons/iconArrow";
 interface T {
     notProduct?: boolean;
     updateTariff?: boolean;
-    balance?: boolean;
+    balance?: any;
 }
 
 const DashboardLabel: FC<T> = ({notProduct, updateTariff, balance}) => {
+
     return (
         <Stack spacing={7}>
             {
@@ -40,8 +41,11 @@ const DashboardLabel: FC<T> = ({notProduct, updateTariff, balance}) => {
                     <span className="h2 white-90">Баланс</span>
                     <Stack>
                         <Stack direction="row" spacing={4} alignItems="flex-end">
-                            <span className="h1 white-100">$102.837</span>
-                            <span className="subHeaders green">+9384.23 C <IconArrow/></span>
+                            <span className="h1 white-100">${balance.value}</span>
+                            <span className={`subHeaders + ${balance.gain>0 ?'green': 'red'}`}>
+                                {balance.gain>0 ?'+': '-'}
+                                {balance.gain}
+                                <IconArrow  /></span>
                         </Stack>
                     </Stack>
                 </Stack>

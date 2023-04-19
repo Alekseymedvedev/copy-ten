@@ -15,9 +15,18 @@ interface IType {
     server?: number;
     status?: number;
     rejectReason?: string;
+    createdAt: string;
 }
 
-const ForexItem: FC<IType> = ({id, numberAccount, passwordAccount, login, server, status}) => {
+const ForexItem: FC<IType> = ({
+                                  id,
+                                  numberAccount,
+                                  passwordAccount,
+                                  login,
+                                  server,
+                                  status,
+                                  createdAt
+                              }) => {
     const [updateForexAccount] = useUpdateForexAccountMutation()
     const [openModal, setOpenModal] = useState(false);
     const [reasonValue, setReasonValue] = useState('');
@@ -29,7 +38,9 @@ const ForexItem: FC<IType> = ({id, numberAccount, passwordAccount, login, server
                 reject_reason: reasonValue !== '' ? reasonValue : null
             },
             id
-        }).then(()=>{setOpenModal(false)})
+        }).then(() => {
+            setOpenModal(false)
+        })
     }
     const handlerCopy = (copy: any) => {
         navigator.clipboard.writeText(copy)
@@ -53,7 +64,7 @@ const ForexItem: FC<IType> = ({id, numberAccount, passwordAccount, login, server
                     InputProps={{
                         endAdornment:
                             <IconButton size="small" sx={{height: 15, color: '#828282', fontSize: 12}}
-                                onClick={()=>handlerCopy(numberAccount)}
+                                        onClick={() => handlerCopy(numberAccount)}
                             >
                                 {textBtn}
                             </IconButton>
@@ -68,13 +79,17 @@ const ForexItem: FC<IType> = ({id, numberAccount, passwordAccount, login, server
                     InputProps={{
                         endAdornment:
                             <IconButton size="small" sx={{height: 15, color: '#828282', fontSize: 12}}
-                                        onClick={()=>handlerCopy(passwordAccount)}
+                                        onClick={() => handlerCopy(passwordAccount)}
                             >
                                 {textBtn}
                             </IconButton>
                     }}
                 />
-                <TextField fullWidth value={login} label="Телеграм" type="text"/>
+                {
+                    login &&
+                    <TextField fullWidth value={login} label="Телеграм" type="text"/>
+                }
+
 
                 <Stack direction="row" justifyContent="space-between">
                     <span className="subHeaders white-90">Сервер счета</span>
@@ -83,7 +98,7 @@ const ForexItem: FC<IType> = ({id, numberAccount, passwordAccount, login, server
                 <Stack direction="row" justifyContent="space-between">
                     <Stack className="subHeaders" alignItems="center">
                         <span className="white-80">Дата заявки</span>
-                        <span className="white-90">25.04.2022</span>
+                        <span className="white-90">{createdAt}</span>
                     </Stack>
                     <Stack direction="row" spacing={7}>
                         {
@@ -120,10 +135,10 @@ const ForexItem: FC<IType> = ({id, numberAccount, passwordAccount, login, server
                             minRows={10}
                             onChange={(e) => setReasonValue(e.target.value)}
                         />
-                        {/*<TextField sx={{height:300}} minRows={10}/>*/}
+
                     </Stack>
 
-                    {/*<TextareaAutosize />*/}
+
                     <Stack direction="row" justifyContent="flex-end" spacing={7}>
                         <Button color="error" onClick={() => setOpenModal(false)}>Отмена</Button>
                         <Button onClick={handlerUpdateForexAccount} color="success">Подтвердить</Button>

@@ -13,8 +13,7 @@ interface IType {
 const ForexListAccounts: FC<IType> = ({children}) => {
     const [page, setPage] = React.useState(1);
     const [sortValue, setSortValue] = useState('')
-    const [validatedValue, setValidatedValue] = useState('')
-
+    const [validatedValue, setValidatedValue] = useState('null')
     const {data, isLoading, error} = useGetForexAccountsQuery({page, sort:sortValue, search:validatedValue})
     const mediaQuery = useMediaQuery('(min-width:900px)');
 
@@ -41,7 +40,7 @@ const ForexListAccounts: FC<IType> = ({children}) => {
                         width={162}
                         defaultValue="По статусу"
                         options={[
-                            {title: 'Все', id: ''},
+                            {title: 'Все', id: "null"},
                             {title: 'Подтвержден', id: '1'},
                             {title: 'Ожидает', id: '0'},
                             {title: 'Отклонен', id: '-1'},
@@ -71,7 +70,7 @@ const ForexListAccounts: FC<IType> = ({children}) => {
             </Stack>
             {
                 isLoading ?
-                    <Skeleton variant="rectangular" width={`100%`} height={46}/>
+                    <Skeleton variant="rectangular" width={`100%`} height={210}/>
                     : data ?
                         data?.data.map((item: any) =>
                             <ForexItem
@@ -82,6 +81,7 @@ const ForexListAccounts: FC<IType> = ({children}) => {
                                 passwordAccount={item.password}
                                 server={item.server.title}
                                 status={item.status}
+                                createdAt={item.created_at}
                             />
                         )
                         :

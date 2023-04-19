@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 
 interface IType {
-    width?:any;
+    width?: any;
     title?: string;
     multiple?: boolean;
     defaultValue?: string;
@@ -28,13 +28,16 @@ const CustomSelect: FC<IType> = ({
                                      isError
                                  }) => {
     const mediaQuery = useMediaQuery('(min-width:900px)');
-    const [variantName, setVariantName] = useState<any>([null]);
+    const [variantName, setVariantName] = useState<any>([]);
     const [error, setError] = useState(false);
+
+
     useEffect(() => {
         isError && setError(isError)
     }, [isError])
 
     const handleChange = (e: SelectChangeEvent<typeof variantName>) => {
+
         const {target: {value}} = e;
         setVariantName(
             typeof value === 'string' ? value.split(',') : value,
@@ -45,30 +48,32 @@ const CustomSelect: FC<IType> = ({
     };
     return (
 
-            <FormControl fullWidth error={error} sx={{width : width ? width:'unset'}}>
-                <InputLabel shrink={false} sx={{ left: 24,top: -8,opacity: variantName[0]  !== null ? 0 : 1}}>
-                    {defaultValue}
-                </InputLabel>
-                <Select
-                    IconComponent={"select"}
-                    fullWidth
-                    multiple={multiple}
-                    value={variantName}
-                    onChange={handleChange}
-                >
+        <FormControl fullWidth error={error} sx={{width: width ? width : 'unset'}}>
+            <InputLabel shrink={false}
+                        sx={{left: 24, top: -8, opacity: (variantName.length ==0 || variantName == '') ? 1 : 0}}>
+                {defaultValue}
+            </InputLabel>
+            <Select
+                IconComponent={"select"}
+                fullWidth
+                multiple={multiple}
+                value={variantName}
+                onChange={handleChange}
+                renderValue={multiple ? (selected) => selected.join(', ') : undefined}
+            >
 
-                    {
-                        (options !== undefined && options?.length > 0) &&
-                             options?.map((option:any) => (
-                                <MenuItem key={option.id} value={option.id}>
-                                    {/*<Checkbox checked={variantName.indexOf(option.id) > -1}/>*/}
-                                    {option.title}
-                                </MenuItem>
-                            ))
-                    }
-                </Select>
-                {error && <FormHelperText>Поле обязательно к заполнению</FormHelperText>}
-            </FormControl>
+                {
+                    (options !== undefined && options?.length > 0) &&
+                    options?.map((option: any) => (
+                        <MenuItem key={option.id} value={option.id} title={option.title}>
+                            {multiple && <Checkbox checked={variantName.indexOf(option.id) > -1}/>}
+                            {option.title}
+                        </MenuItem>
+                    ))
+                }
+            </Select>
+            {error && <FormHelperText>Поле обязательно к заполнению</FormHelperText>}
+        </FormControl>
     );
 };
 

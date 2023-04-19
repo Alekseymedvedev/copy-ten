@@ -10,20 +10,12 @@ export const userApi = createApi({
             headers.set("Accept", "application/json")
         },
     }),
-    // tagTypes: ['Accounts'],
     endpoints: (build) => ({
-        // getServers: build.query<>({
-        //     query: () => ({
-        //         url: '/servers'
-        //     })
-        // }),
-
         getToken: build.mutation({
             query: (hash) => ({
                 url: `/login/hash/${hash}`,
                 method: 'POST',
             }),
-            // invalidatesTags: ['Accounts']
         }),
 
     })

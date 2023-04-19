@@ -3,6 +3,7 @@ import {Avatar, Chip, Stack, useMediaQuery} from "@mui/material";
 // @ts-ignore
 import img from '../../shared/assets/images/amin-panel.png'
 import IconAccount from "../../shared/assets/images/icons/iconAccount";
+import {useGetProfileQuery} from "../../store/API/profileApi";
 
 interface T {
     isAdmin?: boolean;
@@ -14,6 +15,7 @@ interface T {
 
 
 const HeaderSidebar: FC<T> = ({isAdmin,name, images, balance, account}) => {
+    const { data, error, isLoading } = useGetProfileQuery('')
     const mediaQuery = useMediaQuery('(min-width:900px)');
     return (
         <Stack direction="row" spacing={7}>
@@ -25,8 +27,8 @@ const HeaderSidebar: FC<T> = ({isAdmin,name, images, balance, account}) => {
                     :  (!isAdmin) ?
                     <>
                         <Avatar
-                            alt={name}
-                            src={images}
+                            alt={data?.data?.telegram?.fullname}
+                            src={data?.data?.telegram?.avatar_url && data?.data?.telegram?.avatar_url}
                             sx={{width:mediaQuery ? 74 : 34, height:mediaQuery ? 74 : 34}}
                         />
                         <Stack
@@ -36,10 +38,10 @@ const HeaderSidebar: FC<T> = ({isAdmin,name, images, balance, account}) => {
                             justifyContent={mediaQuery ? "flex-start": "space-between"}
                         >
                             <Stack>
-                                <div className="subHeaders white-80">@ryabishin</div>
-                                <div className="h2">Виталий</div>
+                                <div className="subHeaders white-80">@{data?.data?.telegram?.username}</div>
+                                <div className="h2">{data?.data?.telegram?.fullname}</div>
                             </Stack>
-                            <Chip label={account} variant="outlined" color={"neutral"} icon={<IconAccount/>}/>
+                            <Chip label={data?.data?.accounts?.deposit_load} variant="outlined" color={"neutral"} icon={<IconAccount/>}/>
                         </Stack>
                     </>
                     : null

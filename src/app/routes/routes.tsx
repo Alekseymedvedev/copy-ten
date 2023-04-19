@@ -6,7 +6,6 @@ import Partner from "../../pages/partner";
 import Support from "../../pages/support";
 import Settings from "../../pages/settings";
 import TraderDashboard from "../../pages/traderDashboard";
-import Auth from "../../pages/auth";
 import Admin from "../../pages/admin";
 import AdminForexAccounts from "../../pages/adminForexAccounts";
 import AdminBankRequisites from "../../pages/adminBankRequisites";

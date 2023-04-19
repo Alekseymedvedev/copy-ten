@@ -74,7 +74,7 @@ const AccountCard: FC<T> = ({
                             </Stack>
                         </Stack>
                         :
-                        <NavLink to={`/exchange-account/${accountLogin}`}>
+                        <NavLink to={`/exchange-account/${accountNumber}`}>
                             <AccountHeader depositLoad={depositLoad} balance={balance} accountType={accountType?.type}/>
                             <Stack sx={{width: '100%', height: 210}}>
                                 <ResponsiveContainer>

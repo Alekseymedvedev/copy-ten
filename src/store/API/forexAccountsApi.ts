@@ -23,7 +23,7 @@ export const forexAccountsApi = createApi({
                     page,
                     orderBy:`created_at`,
                     sortedBy:sort,
-                    search: search ?`status:${search}`:''
+                    search: search !== "null" ? `status:${search}`:''
                 }
             }),
             providesTags: ['ForexAccount'],

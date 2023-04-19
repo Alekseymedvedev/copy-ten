@@ -4,6 +4,7 @@ import CustomLineChart from "../entities/components/chart/customLineChart";
 
 
 interface IType {
+    data?:[];
     description?: 'label' | 'swift';
     additionLabel?: boolean;
     removeLabel?: boolean;
@@ -11,13 +12,15 @@ interface IType {
 }
 
 const BalanceChart: FC<IType> = ({
+                                     data,
                                      description,
                                      additionLabel,
                                      removeLabel,
                                      transactionLabel}) => {
+
     return (
             <Stack sx={{ width: '100%'}}>
-                <CustomLineChart />
+                <CustomLineChart data={data} />
                 {
                     description === "label" &&
                     <Stack spacing={2} sx={{ pr:14,pl:14}}>

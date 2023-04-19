@@ -7,6 +7,9 @@ import React, {FC, useEffect, useState} from "react";
 import IconConnected from "../shared/assets/images/icons/iconConnected";
 import IconTg from "../shared/assets/images/icons/iconTg";
 import {useGetTokenMutation} from "../store/API/authApi";
+import {useAppDispatch, useAppSelector} from "../hooks/useRedux";
+import {barChartSlice} from "../store/slice/barChartSlice";
+import {authSlice} from "../store/slice/authSlice";
 
 interface IType {
     isFinish?: boolean
@@ -14,6 +17,8 @@ interface IType {
 
 
 const Auth: FC<IType> = ({isFinish}) => {
+    const {auth} = authSlice.actions
+    const dispatch = useAppDispatch()
     const [fetchToken, {data, isLoading, error}] = useGetTokenMutation()
     const location = useLocation()
     const locationHash = location?.search?.split('=').pop()
@@ -27,18 +32,20 @@ const Auth: FC<IType> = ({isFinish}) => {
     }, [])
     useEffect(() => {
         if (data) {
-            if (registrationHash === '/reg' && registrationFinish){
+            if (registrationHash == '/reg' && registrationFinish){
                 localStorage.setItem('token', `${data?.accessToken}`)
                 setTimeout(() => {
+                    dispatch(auth(true))
                     navigate('/')
                 }, 1000)
+
             }else if (registrationHash !== '/reg'){
                 localStorage.setItem('token', `${data?.accessToken}`)
+                dispatch(auth(true))
                 setTimeout(() => {
                     navigate('/')
                 }, 1000)
             }
-
         }
     }, [isLoading,registrationFinish])
 

@@ -30,7 +30,7 @@ const HeaderChart: FC<T> = ({
             alignItems="center"
             justifyContent="space-between"
             spacing={4}
-            sx={{pl:14,}}
+            sx={{pl:12,pr:12}}
         >
             <Stack className="h2 white-90" direction="row" alignItems="center" spacing={4}>
                 <span>{title}</span>

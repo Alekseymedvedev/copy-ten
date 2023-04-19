@@ -1,7 +1,16 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import BalanceChart from "./balanceChart";
 import Chart from "../entities/components/chart/chart";
-import { Divider, Grid, Stack, useMediaQuery} from "@mui/material";
+import {
+    Divider,
+    FormControl,
+    Grid,
+    InputLabel, MenuItem,
+    Select, Skeleton,
+    Stack,
+    TextField,
+    useMediaQuery
+} from "@mui/material";
 import Button from "@mui/material/Button";
 import IconConnected from "../shared/assets/images/icons/iconConnected";
 import SimpleModal from "../entities/components/modal/simpleModal";
@@ -11,24 +20,129 @@ import Paper from "@mui/material/Paper";
 import NickName from "../shared/components/nickName";
 import {Link} from "react-router-dom";
 import CustomAreaChart from "../entities/components/chart/customAreaChart";
-import {chartData} from "../data/chart";
 import CurrentValues from "../entities/components/currentValues";
+import {
+    useDeleteSetMutation, useDeleteTraderMutation,
+    useGetAllAdminTradersQuery,
+    useGetAllLinkedTradersQuery,
+    useSettingsTraderMutation,
+    useUpdateSetMutation,
+    useUpdateSettingsTraderMutation
+} from "../store/API/tradeSetsApi";
+import IconPlus from "../shared/assets/images/icons/iconPlus";
+import imgStrategyGrid from "../shared/assets/images/strategy.png";
+import imgStrategyStopLoss from "../shared/assets/images/strategys-stop-loss.png";
+import CustomRange from "../shared/components/customRange";
+import Parameters from "../entities/components/parameters";
+import {useAppSelector} from "../hooks/useRedux";
+import TraderItem from "../entities/components/TraderItem";
+
 
 interface IType {
-    adminSet?: boolean
+    adminSet?: boolean;
+    data?: any;
+    isLoading?: boolean;
 }
 
-const Set: FC<IType> = ({adminSet}) => {
+const Set: FC<IType> = ({adminSet, data, isLoading}) => {
+    const {excludeSymbols, excludeDays, excludeHours} = useAppSelector(state => state.setParametersReducer)
+
+
+    const [addSettingsTrader] = useSettingsTraderMutation()
+    const [updateSettingsTrader] = useUpdateSettingsTraderMutation()
+    const [deleteSet] = useDeleteSetMutation()
+    const [updateSet] = useUpdateSetMutation()
+    const {data: dataTradersSet} = useGetAllAdminTradersQuery('1')
+    const {data: dataLinkedTraders} = useGetAllLinkedTradersQuery(data?.id)
+    const [deleteTrader] = useDeleteTraderMutation()
+
     const mediaQuery = useMediaQuery('(min-width:900px)');
-    const [openModalConnection, setOpenModalConnection] = useState(false);
+
+    const [openModalSetSettings, setOpenModalSetSettings] = useState(false);
+    const [openModalSettingsTrader, setOpenModalSettingsTrader] = useState(false);
+    const [openModalDelete, setOpenModalDelete] = useState(false);
+    const [openModalAddTrader, setOpenModalAddTrader] = useState(false);
     const [openModal, setOpenModal] = useState(false);
+
+    const [dataSet, setDataSet] = useState({id: '', name: ''})
+    const [valueRisk, setValueRisk] = useState(0);
+    const [valueMaxLot, setValueMaxLot] = useState(0);
+    const [valueMinLot, setValueMinLot] = useState(false);
+    const [textValue, setTextValue] = useState(data?.description);
+    const [nameAccount, setNameAccount] = useState(data?.name);
+    const [idTrader, setIdTrader] = useState('');
+
+    const [updateSettings, setUpdateSetting] = useState(false)
+
+    const closeModal = () => {
+        setTextValue('')
+        setNameAccount('')
+        // setIdTrader('')
+        setOpenModalSetSettings(false)
+        setOpenModalSettingsTrader(false)
+        setOpenModalAddTrader(false)
+    }
+    const handleUpdateSet = () => {
+
+        updateSet({
+            id: data.id,
+            body: {
+                name: nameAccount,
+                description: textValue,
+            }
+        }).then(() => {
+            closeModal()
+        })
+    }
+    const handleAddSettingsTrader = () => {
+
+        if (updateSettings) {
+
+            updateSettingsTrader({
+                idTrader,
+                body: {
+                    risk: valueRisk,
+                    max_lot: valueMaxLot,
+                    min_lot: valueMinLot,
+                    exclude_symbols: excludeSymbols,
+                    exclude_days: excludeDays,
+                    exclude_hours: excludeHours
+                }
+            }).then(() => {
+                closeModal()
+            })
+        } else {
+
+            addSettingsTrader({
+                idSet: data.id,
+                idTrader,
+                body: {
+                    settings: {
+                        risk: valueRisk,
+                        max_lot: valueMaxLot,
+                        min_lot: valueMinLot,
+                        exclude_symbols: excludeSymbols,
+                        exclude_days: excludeDays,
+                        exclude_hours: excludeHours
+                    }
+                }
+            }).then(() => {
+                closeModal()
+            })
+        }
+
+    }
+    const handleAddTrader = () => {
+        setOpenModal(false)
+        setOpenModalAddTrader(true)
+    }
 
     return (
         <>
             <Paper>
                 <Stack direction="row" spacing={7} alignItems="center" sx={{mb: 7}}>
                     <IconSet/>
-                    <span className="h2 white-90">Сет EZMONEY</span>
+                    <span className="h2 white-90">Сет {data?.name}</span>
                 </Stack>
                 <Divider variant="fullWidth" sx={{mb: 7, width: `103%`}}/>
                 <Grid
@@ -40,68 +154,40 @@ const Set: FC<IType> = ({adminSet}) => {
                     sx={{mb: 7}}
                 >
                     <Grid item xs={12} md={5}>
-                        <Chart title="Доходность" icon="bad" select={true} defaultValue="Январь">
-                            <BalanceChart/>
+                        <Chart
+                            title="Доходность"
+                        >
+                            <BalanceChart data={data?.graph}/>
                         </Chart>
                     </Grid>
                     <Grid item xs={12} md={7}>
                         <Stack className="subHeaders white-80" spacing={7}>
                             <p>
-                                Velit nunc ultrices sit est et varius. Tellus accumsan pretium sollicitudin elit purus
-                                morbi.
-                                Euismod fames ullamcorper eget eget mi nisi aliquet tortor. Etiam aenean mauris integer
-                                maecenas
-                                et in. Volutpat dolor id vulputate non sed arcu. Justo ut nisl non elit odio cursus
-                                auctor.
-                                Aliquam tincidunt nunc ultricies dignissim aenean montes feugiat.
-                                Vestibulum leo augue magna in morbi montes malesuada diam. Faucibus velit risus orci dui
-                                pellentesque fusce cursus magna. Quam tristique enim id.
-
-                            </p>
-                            <p>
-                                Velit nunc ultrices sit est et varius. Tellus accumsan pretium sollicitudin elit purus
-                                morbi.
-                                Euismod fames ullamcorper eget eget mi nisi aliquet tortor. Etiam aenean mauris integer
-                                maecenas
-                                et in. Volutpat dolor id vulputate non sed arcu. Justo ut nisl non elit odio cursus
-                                auctor.
-                                Aliquam tincidunt nunc ultricies dignissim aenean montes feugiat.
-                                Vestibulum leo augue magna in morbi montes malesuada diam. Faucibus velit risus orci dui
-                                pellentesque fusce cursus magna. Quam tristique enim id.
-
+                                {data?.description}
                             </p>
                         </Stack>
                     </Grid>
                 </Grid>
                 <Grid container spacing={10} columns={12} wrap="wrap" alignItems="stretch">
                     <Grid item xs={16} md={5}>
-                        {
-                            adminSet ?
-                                <Stack direction="row" spacing={7}>
-                                    <Button
-                                        // onClick={() => setOpenModalConnection(true)}
-                                        variant="contained"
-                                        color="error"
-                                        sx={{height: 48}}
-                                    >Удалить</Button>
-                                    <Button
-                                        // onClick={() => setOpenModalConnection(true)}
-                                        fullWidth
-                                        color="neutral"
-                                        sx={{height: 48}}
-                                    >Настройки</Button>
-                                </Stack>
+                        <Stack direction="row" spacing={7}>
+                            <Button
+                                onClick={() => {
+                                    setOpenModalDelete(true)
+                                    setDataSet({id: '', name: ''})
+                                }}
+                                variant="contained" fullWidth
+                                color="error"
+                                sx={{width: 81, height: 48}}
+                            >Удалить</Button>
+                            <Button
+                                onClick={() => setOpenModalSetSettings(true)}
+                                fullWidth
+                                color="neutral"
+                                sx={{height: 48}}
+                            >Настройки</Button>
+                        </Stack>
 
-                                :
-                                <Button
-                                    onClick={() => setOpenModalConnection(true)}
-                                    fullWidth
-                                    variant="gardient"
-                                    color="warning"
-                                    startIcon={<IconConnected/>}
-                                    sx={{height: 48}}
-                                >Подключиться</Button>
-                        }
 
                     </Grid>
                     <Grid item xs={16} md={7}>
@@ -111,54 +197,140 @@ const Set: FC<IType> = ({adminSet}) => {
                         </Button>
                     </Grid>
                 </Grid>
-                <SimpleModal title="Подключение трейдера" openModal={openModalConnection}
-                             closeModal={setOpenModalConnection}>
-                    <div className="h2"> на счет Мой счет 1?
-                        <span>Подключить сет</span>
-                        <span className="yellow">&nbsp;EZMONEY&nbsp;</span>
-                        <span>на счет</span>
-                        <span className="blue">&nbsp; Мой&nbsp;счет1&nbsp;</span>
-                        <span>?</span>
-                    </div>
-                </SimpleModal>
-                <SimpleModal maxWidth={1140} title="Настройки Сет EZMONEY" openModal={openModal} closeModal={setOpenModal}>
-                    {/*<Chip label="Подключенные трейдеры" icon={<IconTraders/>}*/}
-                    {/*      sx={{width: `100%`, height: 48, justifyContent: "flex-start",mb:7}}/>*/}
-
-                    {/*<Paper>*/}
-                    {/*    <Stack className="subHeaders white-80" spacing={7}>*/}
-                    {/*        <p>*/}
-                    {/*            Velit nunc ultrices sit est et varius. Tellus accumsan pretium sollicitudin elit purus*/}
-                    {/*        </p>*/}
-                    {/*        <p>*/}
-                    {/*            Velit nunc ultrices sit est et varius. Tellus accumsan pretium sollicitudin elit purus*/}
-                    {/*        </p>*/}
-                    {/*    </Stack>*/}
-                    {/*</Paper>*/}
-                    <Grid container spacing={10} columns={14} wrap="wrap" alignItems="center">
-                        <Grid item xs={14} md={3}>
-                            <NickName name="NICKNAME_NICKNAME" number="18050009" direction="row-reverse"
-                                      justifyContent="flex-end"/>
-                        </Grid>
-                        <Grid item xs={14} md={4}>
-                            <CustomAreaChart
-                                height={64}
-                                data={chartData}
-                                dataArea={[{
-                                    dataKey: "uv",
-                                    stroke: "#6FCF97",
-                                    fill: "#29312C"
-                                },]}/>
-                        </Grid>
-                        <Grid item xs={14} md={5}>
-                            <CurrentValues/>
-                        </Grid>
-                        <Grid item xs={14} md={2}>
-                          <Button component={Link} to="/" variant="outlined" color="info">Страница</Button>
-                        </Grid>
-                    </Grid>
-                </SimpleModal>
             </Paper>
+
+            <SimpleModal title="Настройки" openModal={openModalSetSettings}
+                         closeModal={setOpenModalSetSettings}>
+                <Stack spacing={7}>
+                    <TextField
+                        fullWidth
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        value={nameAccount}
+                        onChange={(e) => setNameAccount(e.target.value)}
+                        label="Название сета"
+                        type="text"
+                    />
+                    <TextField
+                        value={textValue}
+                        multiline
+                        minRows={10}
+                        onChange={(e) => setTextValue(e.target.value)}
+                    />
+                    <Stack direction="row" justifyContent="flex-end" spacing={7}>
+                        <Button onClick={closeModal} color="error">Отмена</Button>
+                        <Button
+                            onClick={handleUpdateSet}
+                            color="success">Сохранить настройки</Button>
+                    </Stack>
+                </Stack>
+            </SimpleModal>
+
+
+            <SimpleModal maxWidth={1140} title="Подключенные трейдеры" openModal={openModal}
+                         closeModal={setOpenModal}>
+                <Stack spacing={7}>
+                    <Button
+                        fullWidth
+                        onClick={handleAddTrader}
+                        startIcon={<IconPlus/>}
+                        sx={{height: 48, justifyContent: 'flex-start', color: '#BDBDBD'}}
+                    >
+                        Добавить трейдера
+                    </Button>
+                    {
+                        dataLinkedTraders?.data &&
+                        dataLinkedTraders?.data.map((item: any) =>
+                            <TraderItem
+                                id={item.id}
+                                stats={item.trader.stats}
+                                graph={item.trader.graph}
+                                name={item.trader.name}
+                                strategy={item.trader.strategy}
+                                openModal={setOpenModalSettingsTrader}
+                                deleteTrader={deleteTrader}
+                            />
+                        )
+                    }
+                </Stack>
+            </SimpleModal>
+            <SimpleModal maxWidth={1140} title="Добавить трейдера" openModal={openModalAddTrader}
+                         closeModal={setOpenModalAddTrader}>
+                <Stack spacing={7}>
+                    {
+                        dataTradersSet?.data &&
+                        dataTradersSet?.data.map((item: any) =>
+                            <Paper key={item.id} sx={{height: 68, alignItems: "center"}}>
+                                <Grid container spacing={10} columns={14} wrap="wrap" alignItems="center">
+                                    <Grid item xs={14} md={3}>
+                                        <NickName name={item.name} number={item.id}
+                                                  direction="row-reverse"
+                                                  avatar={item.strategy === 'grid' ? imgStrategyGrid : imgStrategyStopLoss}
+                                                  justifyContent="flex-end"/>
+                                    </Grid>
+                                    <Grid item xs={14} md={3}>
+                                        <CustomAreaChart
+                                            height={52}
+                                            data={item.graph}
+                                            dataArea={[{
+                                                dataKey: "uv",
+                                                stroke: "#6FCF97",
+                                                fill: "#29312C"
+                                            },]}/>
+                                    </Grid>
+                                    <Grid item xs={14} md={6}>
+                                        <CurrentValues stats={item.stats}/>
+                                    </Grid>
+                                    <Grid item xs={14} md={2}>
+                                        <Button onClick={() => {
+                                            setIdTrader(item.id)
+                                            setOpenModalSettingsTrader(true)
+                                        }}
+                                                color="success"
+                                        >Подключить</Button>
+                                    </Grid>
+                                </Grid>
+                            </Paper>
+                        )
+                    }
+                    <Stack direction="row" justifyContent="flex-end" spacing={7}>
+                        <Button
+                            onClick={closeModal}
+                            color="neutral">Закрыть</Button>
+                    </Stack>
+                </Stack>
+            </SimpleModal>
+            <SimpleModal maxWidth={620} title="Настройки трейдера" openModal={openModalSettingsTrader}
+                         closeModal={setOpenModalSettingsTrader}>
+                <Stack spacing={7}>
+                    <CustomRange onChange={setValueRisk} step={1} minValue={0} maxValue={100}
+                                 title="Риск в процентах"
+                                 isSliderRange/>
+                    <CustomRange onChange={setValueMaxLot} minValue={0} step={1} maxValue={500} title="Макс. лот *"
+                                 isSwitch isSliderRange/>
+                    <CustomRange onChangeSwift={setValueMinLot} title="Мин. лот" required isSwitch/>
+                    <Parameters/>
+
+                    <Stack direction="row" justifyContent="flex-end" spacing={7}>
+                        <Button onClick={() => setOpenModalSettingsTrader(false)} color="error">Отмена</Button>
+                        <Button
+                            onClick={handleAddSettingsTrader}
+                            color="success">Сохранить</Button>
+                    </Stack>
+                </Stack>
+            </SimpleModal>
+            <SimpleModal maxWidth={620} title="Подтверждение" openModal={openModalDelete}
+                         closeModal={setOpenModalDelete}>
+
+                <Stack direction="row" justifyContent="flex-end" spacing={7}>
+                    <Button onClick={() => setOpenModalDelete(false)} color="error">Отмена</Button>
+                    <Button
+                        onClick={() => deleteSet(data.id)}
+                        color="success">Подтвердить</Button>
+                </Stack>
+            </SimpleModal>
+
         </>
     );
 };

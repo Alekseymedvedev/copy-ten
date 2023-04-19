@@ -18,30 +18,49 @@ import DashboardTradersSidebar from "./dashboardTradersSidebar";
 import {useGetAccountsQuery} from "../store/API/userApi";
 import {useAppSelector} from "../hooks/useRedux";
 import barChartReducer from "../store/slice/barChartSlice";
+import {useLocation} from "react-router-dom";
+import {useGetAllSubscribesQuery, useGetAllSubscribesSetQuery} from "../store/API/subscribesApi";
+import {useGetHistoryQuery} from "../store/API/tradersUserApi";
+
 
 interface IType {
     traderDashboard?: boolean;
+    dataDashboard?: any;
 }
 
-const DashboardTabs: FC<IType> = ({traderDashboard}) => {
-    const {barChartData}= useAppSelector(state => state.barChartReducer)
+
+
+
+
+const DashboardTabs: FC<IType> = ({traderDashboard, dataDashboard}) => {
+
+    const {barChartData} = useAppSelector(state => state.barChartReducer)
     const mediaQuery = useMediaQuery('(min-width:900px)');
     const [sidebarVisible, setSidebarVisible] = useState(true);
     const [value, setValue] = useState(0);
-    const [data, setData] = useState<any>([]);
+    const [dataChart, setDataChart] = useState<any>([]);
+    const location = useLocation()
+    const id = location?.pathname?.split('/').pop()
+    const {data} = useGetAllSubscribesQuery(id)
+    const {data:dataSet} = useGetAllSubscribesSetQuery(id)
+    const {data:dataHistory} = useGetHistoryQuery(id)
 
-    console.log(barChartData)
+
     useEffect((() => {
-        setData(barChartData)
+        setDataChart(barChartData)
         if (!mediaQuery) {
             setSidebarVisible(false)
         }
-    }), [mediaQuery,data,barChartData])
+    }), [mediaQuery, dataChart, barChartData])
     return (
         <>
             <Box sx={{width: '100%'}}>
                 <TabsHeader
-                    tabsName={[{name: 'Дашборд', icon: <IconAccount/>}, {name: 'История', icon: <IconAccount/>},{name: 'Открытые позиции', icon: <IconAccount/>}]}
+                    tabsName={[
+                        {name: 'Дашборд', icon: <IconAccount/>},
+                        {name: 'История', icon: <IconAccount/>},
+                        // {name: 'Открытые позиции', icon: <IconAccount/>}
+                    ]}
                     tabsValue={value} onTabsChange={setValue}/>
 
                 <TabsItem value={value} index={0}>
@@ -50,60 +69,64 @@ const DashboardTabs: FC<IType> = ({traderDashboard}) => {
                             <Stack spacing={7}>
                                 {
                                     traderDashboard &&
-                                        <Paper>
-                                            <Stack  className="subHeaders white-80" spacing={7}>
-                                                <p>Velit nunc ultrices sit est et
-                                                    varius. Tellus accumsan pretium sollicitudin elit purus morbi.
-                                                    Euismod fames ullamcorper eget eget mi nisi aliquet tortor. Etiam
-                                                    aenean mauris integer maecenas et in. Volutpat dolor id vulputate
-                                                    non sed arcu. Justo ut nisl non elit odio cursus auctor. Aliquam
-                                                    tincidunt nunc ultricies dignissim aenean montes feugiat.
-                                                    Vestibulum leo augue magna in morbi montes malesuada diam. Faucibus
-                                                    velit risus orci dui pellentesque fusce cursus magna. Quam tristique
-                                                    enim id.
-                                                    </p>
-                                                <p>
-                                                    Velit nunc ultrices sit est et varius. Tellus accumsan pretium
-                                                    sollicitudin elit purus morbi. Euismod fames ullamcorper eget eget
-                                                    mi nisi aliquet tortor. Etiam aenean mauris integer maecenas et in.
-                                                    Volutpat dolor id vulputate non sed arcu. Justo ut nisl non elit
-                                                    odio cursus auctor. Aliquam tincidunt nunc ultricies dignissim
-                                                    aenean montes feugiat.
-                                                    Vestibulum leo augue magna in morbi montes malesuada diam. Faucibus
-                                                    velit risus orci dui pellentesque fusce cursus magna. Quam tristique
-                                                    enim id.
-                                                </p>
-                                            </Stack>
-                                        </Paper>
+                                    <Paper>
+                                        <Stack className="subHeaders white-80" spacing={7}>
+                                            <p>Velit nunc ultrices sit est et
+                                                varius. Tellus accumsan pretium sollicitudin elit purus morbi.
+                                                Euismod fames ullamcorper eget eget mi nisi aliquet tortor. Etiam
+                                                aenean mauris integer maecenas et in. Volutpat dolor id vulputate
+                                                non sed arcu. Justo ut nisl non elit odio cursus auctor. Aliquam
+                                                tincidunt nunc ultricies dignissim aenean montes feugiat.
+                                                Vestibulum leo augue magna in morbi montes malesuada diam. Faucibus
+                                                velit risus orci dui pellentesque fusce cursus magna. Quam tristique
+                                                enim id.
+                                            </p>
+                                            <p>
+                                                Velit nunc ultrices sit est et varius. Tellus accumsan pretium
+                                                sollicitudin elit purus morbi. Euismod fames ullamcorper eget eget
+                                                mi nisi aliquet tortor. Etiam aenean mauris integer maecenas et in.
+                                                Volutpat dolor id vulputate non sed arcu. Justo ut nisl non elit
+                                                odio cursus auctor. Aliquam tincidunt nunc ultricies dignissim
+                                                aenean montes feugiat.
+                                                Vestibulum leo augue magna in morbi montes malesuada diam. Faucibus
+                                                velit risus orci dui pellentesque fusce cursus magna. Quam tristique
+                                                enim id.
+                                            </p>
+                                        </Stack>
+                                    </Paper>
 
                                 }
-                                <DashboardLabel notProduct={!traderDashboard} updateTariff={!traderDashboard} balance={true}/>
-                                <TransactionsLabel/>
+                                <DashboardLabel notProduct={!traderDashboard} updateTariff={!traderDashboard}
+                                                balance={dataDashboard?.balance}/>
+                                <TransactionsLabel  data={dataDashboard?.deals_count}/>
+
+
+
                                 <Chart title="Баланс" icon="bad" date>
                                     <BalanceChart description="label" additionLabel removeLabel transactionLabel/>
                                 </Chart>
-                                <Chart title="Средства" icon="good" date>
-                                    <BalanceChart description="label" additionLabel removeLabel/>
-                                </Chart>
-                                <Chart title="Прирост баланса" icon="good">
-                                    <BalanceChart/>
-                                </Chart>
-                                <Chart title="По трейдерам" icon="good">
-                                    <BalanceChart description="swift"/>
-                                </Chart>
-                                <Stack spacing={7} direction={mediaQuery ? "row" : "column"}
-                                       justifyContent="space-between">
-                                    <Chart title="График" select={true}>
-                                        <CustomBarChart barChartData={data}/>
-                                    </Chart>
-                                    <SwitchList/>
-                                </Stack>
-                                <Chart title="По дням">
-                                    <CustomBarChart barChartData={data}/>
-                                </Chart>
-                                <Chart title="По часам" select={true}>
-                                    <CustomBarChart barChartData={data}/>
-                                </Chart>
+                                {/*<Chart title="Средства" icon="good" date>*/}
+                                {/*    <BalanceChart description="label" additionLabel removeLabel/>*/}
+                                {/*</Chart>*/}
+                                {/*<Chart title="Прирост баланса" icon="good">*/}
+                                {/*    <BalanceChart/>*/}
+                                {/*</Chart>*/}
+                                {/*<Chart title="По трейдерам" icon="good">*/}
+                                {/*    <BalanceChart description="swift"/>*/}
+                                {/*</Chart>*/}
+                                {/*<Stack spacing={7} direction={mediaQuery ? "row" : "column"}*/}
+                                {/*       justifyContent="space-between">*/}
+                                {/*    <Chart title="График" select={true}>*/}
+                                {/*        <CustomBarChart barChartData={data}/>*/}
+                                {/*    </Chart>*/}
+                                {/*    <SwitchList/>*/}
+                                {/*</Stack>*/}
+                                {/*<Chart title="По дням">*/}
+                                {/*    <CustomBarChart barChartData={data}/>*/}
+                                {/*</Chart>*/}
+                                {/*<Chart title="По часам" select={true}>*/}
+                                {/*    <CustomBarChart barChartData={data}/>*/}
+                                {/*</Chart>*/}
                                 <Paper>
                                     <Stack className="h2 white-90" sx={{mb: 7}}>По месяцам</Stack>
                                     <CustomTable/>
@@ -116,7 +139,7 @@ const DashboardTabs: FC<IType> = ({traderDashboard}) => {
                                 {
                                     traderDashboard ?
                                         <DashboardTradersSidebar/>
-                                        : <TradersAndSets/>
+                                        : <TradersAndSets dataSets={dataSet?.data} accountId={id} data={data?.data}/>
                                 }
 
 

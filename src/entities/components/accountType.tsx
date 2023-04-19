@@ -50,7 +50,7 @@ const AccountType: FC<T> = ({
             sx={{padding: `14px 28px`}}
         >
             <Stack spacing={2} sx={{mb: mediaQuery ? 0 : 4}}>
-                <span className="subHeaders white-80">{accountNumber}</span>
+                <span className="subHeaders white-80">{accountLogin}</span>
                 <Stack direction="row" spacing={4}>
                     <Stack className="h2 white-100" sx={{
                         maxWidth: 90,

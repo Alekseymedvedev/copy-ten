@@ -65,8 +65,6 @@ export const barChartSlice = createSlice({
         deleteBarChart(state, action: PayloadAction<number>) {
             state.barChartData.splice(action.payload - 1, 1)
         },
-
-
     },
 })
 

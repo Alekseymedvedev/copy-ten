@@ -7,6 +7,7 @@ import Set from "./set";
 import IconTraders from "../shared/assets/images/icons/iconTraders";
 import IconSet from "../shared/assets/images/icons/iconSet";
 import Filter from "../entities/components/filter";
+import UserSetsList from "./userSetsList";
 
 interface IType {
     children?: any
@@ -25,11 +26,11 @@ const CopyTradingTabs: FC<IType> = ({children}) => {
                 />
 
                 <TabsItem value={value} index={0}>
-                    <Filter/>
+                    {/*<Filter/>*/}
                     <CopyTradingAccordion/>
                 </TabsItem>
                 <TabsItem value={value} index={1}>
-                    <Set/>
+                    <UserSetsList />
                 </TabsItem>
             </Box>
         </>

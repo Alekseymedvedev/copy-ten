@@ -1,55 +1,12 @@
 import React, {FC} from 'react';
-import {Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import {CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {Stack} from "@mui/material";
 import CustomAxisTick from "./customAxisTick";
 
-const data = [
-    {
-        name: 'Page A',
-        uv: 100,
-        pv: null,
-        amt: null,
-    },
-    {
-        name: 'Page A',
-        uv: 100,
-        pv: 100,
-        amt: null,
-    },
-    {
-        name: 'Page A',
-        uv: null,
-        pv: 110,
-        amt: null,
-    },
-    {
 
-        name: 'Page A',
-        uv: 110,
-        pv: null,
-        amt: null,
-    },
-    {
-        name: 'Page A',
-        uv: 100,
-        pv: null,
-        amt: null,
-    },
-    {
-        name: 'Page A',
-        uv: null,
-        pv: null,
-        amt: 100,
-    },
-    {
-        name: 'Page A',
-        uv: null,
-        pv: null,
-        amt: 90,
-    }
-]
 
 interface T {
+    data?:[];
     colorYAxis?: string;
     colorYAxisRight?: string;
     colorXAxis?: string;
@@ -70,31 +27,28 @@ const contentTooltipStyle = {
     border: 'none'
 }
 
-const CustomLineChart: FC<T> = ({colorYAxis, colorYAxisRight, colorXAxis, height, referenceLineData}) => {
-
+const CustomLineChart: FC<T> = ({data,colorYAxis, colorYAxisRight, colorXAxis, height, referenceLineData}) => {
 
     return (
-        <Stack sx={{width: '100%', height: height ? height : 230, mb: 7}}>
-            <ResponsiveContainer>
+        <Stack sx={{height:230}}>
+            <ResponsiveContainer width="100%" height="100%">
                 <LineChart
                     data={data}
                     margin={{
                         top: 15,
-                        right: -40,
-                        left: -40,
+                        right: 0,
+                        left: -35,
                         bottom: 15,
                     }}
                 >
                     {referenceLineData && <ReferenceLine y={referenceLineData}  stroke="#828282" strokeDasharray="3 3"/>}
-
-                    <XAxis dataKey="name" tick={<CustomAxisTick color={colorYAxis}/>}/>
-                    <YAxis dataKey="pv" tick={<CustomAxisTick color={colorYAxis} rotate={-35}/>}/>
-                    <YAxis dataKey="uv" yAxisId="right" orientation="right"
-                           tick={<CustomAxisTick color={colorYAxis} rotate={-35} x={5}/>}/>
+                    <CartesianGrid stroke="#252525"/>
+                    {/*<XAxis dataKey="name" stroke="#252525" tick={<CustomAxisTick color={colorYAxis}/>}/>*/}
+                    <YAxis dataKey="uv"stroke="#252525" tick={<CustomAxisTick color={colorYAxis} rotate={-35}/>}/>
+                    {/*<YAxis dataKey="uv" stroke="#252525"yAxisId="right" orientation="right"*/}
+                    {/*       tick={<CustomAxisTick color={colorYAxis} rotate={-35} x={5}/>} />*/}
                     <Tooltip contentStyle={contentTooltipStyle} wrapperStyle={wrapperTooltipStyle} offset={-50}/>
-                    <Line dataKey="pv" stroke="#6FCF97" dot={{r: 0}}/>
                     <Line dataKey="uv" stroke="#56CCF2" dot={{r: 0}}/>
-                    <Line dataKey="amt" stroke="#FF8888" dot={{r: 0}}/>
                 </LineChart>
             </ResponsiveContainer>
         </Stack>

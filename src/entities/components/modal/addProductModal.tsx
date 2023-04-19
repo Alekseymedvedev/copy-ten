@@ -52,7 +52,6 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
     const [step, setStep] = useState(1);
 
     useEffect((() => {
-        console.log(dataPayLink)
         setPaymentLinkId(dataPayLink)
         setOpenPaymentModal(true)
         setOpen(openModal)

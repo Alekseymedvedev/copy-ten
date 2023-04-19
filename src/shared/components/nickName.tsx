@@ -24,6 +24,8 @@ const NickName: FC<IType> = ({name, number, avatar, direction, justifyContent}) 
                 <span className="subHeaders white-80">{number}</span>
                 <span className="subHeadersBold">{name}</span>
             </Stack>
+            {
+                avatar &&
             <CustomTooltip title={
                 <>
                     <span>{'Стратегия “Стопами”'}</span>
@@ -32,12 +34,16 @@ const NickName: FC<IType> = ({name, number, avatar, direction, justifyContent}) 
                 </>
             }
             >
-                <Avatar
-                    alt={name}
-                    src={avatar}
-                    sx={{width: 34, height: 34}}
-                />
+
+                    <Avatar
+                        alt={name}
+                        src={avatar}
+                        sx={{width: 34, height: 34}}
+                    />
+
+
             </CustomTooltip>
+            }
         </Stack>
     );
 };

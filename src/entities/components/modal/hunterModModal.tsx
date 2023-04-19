@@ -84,7 +84,6 @@ const HunterModModal: FC<IType> = ({maxWidth,openModal, closeModal, isOPenBtn, s
                             <Stack spacing={7}>
                                 <Chart title="График" icon="bad">
                                     <CustomLineChart referenceLineData={referenceLineData}/>
-
                                 </Chart>
                                 <Stack direction="row" spacing={7}>
                                     {/*<CustomInput  label="Значения (%)"/>*/}

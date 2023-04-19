@@ -30,7 +30,6 @@ export const productApi = createApi({
                 url: '/products/available/accounts',
                 params: {
                     page,
-
                 }
             }),
             providesTags: ['Products'],

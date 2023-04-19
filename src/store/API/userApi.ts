@@ -31,11 +31,32 @@ export const userApi = createApi({
             }),
             providesTags: ['Accounts'],
         }),
+           getSet: build.query({
+            query: (page) => ({
+                url: '/sets',
+                params:{
+                    page,
+                }
+            }),
+            providesTags: ['Accounts'],
+        }),
+        getAccountDashboard: build.query({
+            query: (id) => ({
+                url: `/account/${id}`,
+            }),
+        }),
         addAccount: build.mutation({
             query: (body) => ({
                 url: `/account`,
                 method: 'POST',
                 body,
+            }),
+            invalidatesTags: ['Accounts']
+        }),
+          addAccountSubscribe: build.mutation({
+            query: ({idSet, traderId, body}) => ({
+                url: `/set/${idSet}/account/${traderId}/subscribe`,
+                method: 'POST',
             }),
             invalidatesTags: ['Accounts']
         }),
@@ -57,6 +78,15 @@ export const userApi = createApi({
     })
 });
 
-export const {useGetServersQuery, useGetAccountsQuery, useAddAccountMutation, useUpdateAccountMutation, useDeleteAccountMutation} = userApi;
+export const {
+    useGetServersQuery,
+    useGetAccountsQuery,
+    useGetAccountDashboardQuery,
+    useGetSetQuery,
+    useAddAccountMutation,
+    useAddAccountSubscribeMutation,
+    useUpdateAccountMutation,
+    useDeleteAccountMutation,
+} = userApi;
 
 export const {getAccounts} = userApi.endpoints;

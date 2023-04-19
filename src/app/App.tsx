@@ -5,12 +5,14 @@ import '../shared/assets/styles/reset.scss';
 import '../shared/assets/styles/libs.scss';
 import '../shared/assets/styles/globals.scss';
 import Auth from "../pages/auth";
+import {useAppSelector} from "../hooks/useRedux";
 
 
 function App() {
+    const { isAuth } = useAppSelector(state => state.authReducer)
     const [userToken ,setUserToken] = useState<any>(localStorage.getItem('token'))
     const navigate = useNavigate()
-    navigate(0)
+   if (isAuth) navigate(0)
 
     return (
         <>
@@ -25,7 +27,6 @@ function App() {
                             />
                         )
                         :
-
                         <Route path="*" element=<Auth/>/>
                 }
             </Routes>

@@ -6,7 +6,7 @@ interface T {
     heading?: string;
     accountNumber?: string;
     isSelect?: boolean;
-    typeAccount?: 'dollar' | 'cent' | 'copytrad' | 'robot'
+    typeAccount?: string | number
 }
 
 
@@ -31,8 +31,8 @@ const Header: FC<T> = ({heading, accountNumber,isSelect, typeAccount}) => {
                         </span>
                         }
                     </Typography>
-                    {typeAccount === 'dollar' && <Chip label="Долларовый" variant="filled" color="warning"/>}
-                    {typeAccount === 'cent' && <Chip label="Центовый" variant="filled" color="neutral"/>}
+                    {typeAccount === 1 && <Chip label="Долларовый" variant="filled" color="warning"/>}
+                    {typeAccount === 0 && <Chip label="Центовый" variant="filled" color="neutral"/>}
                     {typeAccount === 'copytrad' && <Chip label="Копитрейдинг" variant="filled" color="success"/>}
                     {typeAccount === 'robot' && <Chip label="Робот" color="secondary"/>}
                 </Stack>
@@ -41,7 +41,15 @@ const Header: FC<T> = ({heading, accountNumber,isSelect, typeAccount}) => {
                         <span className="subHeaders white-80">Загруженность счета:</span>
                         <span className="subHeaders yellow">&nbsp;67%</span>
                     </Stack>
-                    { isSelect && <CustomSelect title="Выбор счета" defaultValue="Нет счетов"/> }
+                    { isSelect &&
+                        <CustomSelect
+                            width={112}
+                            defaultValue="Выбрать сервер"
+                            // optionValue={setServerNumber}
+                            // options={isDataServer?.data}
+
+                        />
+                    }
                 </Stack>
             </Stack>
         </header>

@@ -10,7 +10,8 @@ interface IType {
     step?: number;
     isSwitch?: boolean;
     isSliderRange?: boolean;
-    onChange?:(value:number)=>void;
+    onChange?:(value:any)=>void;
+    onChangeSwift?:(value:any)=>void;
 }
 
 const CustomRange: FC<IType> = ({
@@ -22,7 +23,8 @@ const CustomRange: FC<IType> = ({
                                     step,
                                     defaultValue,
                                     isSliderRange,
-                                    onChange
+                                    onChange,
+                                    onChangeSwift
                                 }) => {
     const [marks, setMarks] = useState([
         {value: minValue!==undefined ? minValue : 0, label: minValue ? minValue : 0},
@@ -33,6 +35,7 @@ const CustomRange: FC<IType> = ({
 
     const handleBadgeVisibility = () => {
         setInvisible(!invisible);
+      if(onChangeSwift) onChangeSwift(invisible)
     };
 
     const handleChange = (event: Event, newValue: number | number[]) => {

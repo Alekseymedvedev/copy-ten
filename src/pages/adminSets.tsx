@@ -1,11 +1,12 @@
 import MainLayout from "../widgets/mainLayout";
-import Set from "../widgets/set";
+import AdminSetsList from "../widgets/adminSetsList";
 
 
 const AdminSets = () => {
+
     return (
         <MainLayout heading="Сеты" isAdmin>
-            <Set adminSet/>
+            <AdminSetsList/>
         </MainLayout>
     );
 };
