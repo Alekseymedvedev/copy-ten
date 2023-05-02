@@ -183,7 +183,7 @@ export const darkTheme = createTheme({
             styleOverrides: {
                 root: {
                     border: ` 0.5px solid #828282`,
-                    borderRadius: 10,
+                    borderRadius: 5,
                 }
             }
         },
@@ -196,7 +196,7 @@ export const darkTheme = createTheme({
                     padding: `10px 0`,
                     borderRight: ` 0.5px solid #828282`,
                     textAlign: 'center',
-                    lineHeight: `10px`,
+                    lineHeight: `15px`,
                     ' &:last-child': {
                         borderRight: `none`,
                     },
