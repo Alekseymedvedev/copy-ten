@@ -48,7 +48,7 @@ const CustomTable: FC<T> = ({data, dataTableHead}) => {
                             <TableCell
                                 className={item?.commission > 0 ? 'green' : 'red'}>{item?.commission ? item?.commission : '-'}</TableCell>
                             <TableCell
-                                className={item?.swap > 0 ? 'green' : 'red'}>{item?.swap ? item?.swap : '-'}</TableCell>
+                                className={item?.swap > 0 ? 'green' : item?.swap < 0 ? 'red' :''}>{item?.swap ? item?.swap : '-'}</TableCell>
                             <TableCell className={item?.profit > 0 ? 'green' : 'red'}>
                                 {item.profit > 0 ? '+' : '-'}{item?.profit}
                             </TableCell>
