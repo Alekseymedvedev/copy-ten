@@ -80,8 +80,8 @@ const Header: FC<T> = ({heading,  isSelect,accountNumber, typeAccount}) => {
                                                     item.deposit_load < 33 ?
                                                         'green'
                                                         : item.deposit_load < 66 ?
-                                                            'red'
-                                                            : 'yellow'
+                                                            'yellow'
+                                                            : 'red'
                                                 }
                                             >
                                                {item.deposit_load}%
