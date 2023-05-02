@@ -18,6 +18,7 @@ interface IType {
     strategy: string;
     stats: any;
     graph: [];
+    linked?:boolean;
 }
 
 const TraderItem: FC<IType> = ({
@@ -29,6 +30,7 @@ const TraderItem: FC<IType> = ({
                                    strategy,
                                    stats,
                                    graph,
+                                   linked,
                                }) => {
 
 
@@ -71,7 +73,7 @@ const TraderItem: FC<IType> = ({
                             }}>
                                 Настройки
                             </MenuItem>
-                            <MenuItem sx={{color: '#56CCF2'}} component={Link} to='/'>
+                            <MenuItem sx={{color: '#56CCF2'}} component={Link} to={`/trader-dashboard/${id}`}>
                                 Страница
                             </MenuItem>
                             <MenuItem onClick={() => deleteTrader(id)} sx={{color: '#FF8888'}}>

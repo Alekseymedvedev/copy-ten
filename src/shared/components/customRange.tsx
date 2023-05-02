@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {Chip, Paper, Slider, Stack, Switch} from "@mui/material";
 
 interface IType {
@@ -9,6 +9,7 @@ interface IType {
     defaultValue?: number;
     step?: number;
     isSwitch?: boolean;
+    isSwitchChecked?: boolean;
     isSliderRange?: boolean;
     onChange?:(value:any)=>void;
     onChangeSwift?:(value:any)=>void;
@@ -20,6 +21,7 @@ const CustomRange: FC<IType> = ({
                                     minValue,
                                     maxValue,
                                     isSwitch,
+                                    isSwitchChecked,
                                     step,
                                     defaultValue,
                                     isSliderRange,
@@ -28,12 +30,18 @@ const CustomRange: FC<IType> = ({
                                 }) => {
     const [marks, setMarks] = useState([
         {value: minValue!==undefined ? minValue : 0, label: minValue ? minValue : 0},
-        {value:maxValue!==undefined ? maxValue : 1, label: maxValue ? maxValue : 1 },
+        {value:maxValue!==undefined ? maxValue : 10, label: maxValue ? maxValue : 10 },
     ]);
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(defaultValue ? defaultValue :0);
     const [invisible, setInvisible] = useState(false);
+    const [switchChecked, setSwitchChecked] = useState(isSwitchChecked);
 
+    useEffect(()=>{
+        if(isSwitchChecked) setSwitchChecked(isSwitchChecked)
+
+    },[isSwitchChecked])
     const handleBadgeVisibility = () => {
+        setSwitchChecked(!switchChecked)
         setInvisible(!invisible);
       if(onChangeSwift) onChangeSwift(invisible)
     };
@@ -45,8 +53,7 @@ const CustomRange: FC<IType> = ({
                 onChange(newValue)
             }
         }
-
-    };
+    }
 
     return (
 
@@ -59,6 +66,7 @@ const CustomRange: FC<IType> = ({
                     {
                         isSwitch &&
                         <Switch
+                            checked={isSwitchChecked}
                             defaultChecked
                             size="small"
                             onChange={handleBadgeVisibility}
@@ -73,7 +81,7 @@ const CustomRange: FC<IType> = ({
                         size="small"
                         defaultValue={defaultValue ? defaultValue : 0}
                         min={minValue ?minValue :0}
-                        max={maxValue ? maxValue :1}
+                        max={maxValue ? maxValue :10}
                         step={step ?step : 0.01}
                         onChange={handleChange}
                         valueLabelDisplay="off"

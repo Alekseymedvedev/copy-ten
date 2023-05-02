@@ -75,7 +75,6 @@ const Auth: FC<IType> = ({isFinish}) => {
                            target="_blank">https://t.me/+yyCB128FQ1JmYTIy</a>
                     </Stack>
                 </Stack>
-
                 {
                     registrationHash === '/reg' ?
                         <Stack spacing={5}>

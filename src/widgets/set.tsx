@@ -22,7 +22,7 @@ import {Link} from "react-router-dom";
 import CustomAreaChart from "../entities/components/chart/customAreaChart";
 import CurrentValues from "../entities/components/currentValues";
 import {
-    useDeleteSetMutation, useDeleteTraderMutation,
+    useDeleteSetMutation, useDeleteTraderMutation, useGetAddLinkedTradersQuery,
     useGetAllAdminTradersQuery,
     useGetAllLinkedTradersQuery,
     useSettingsTraderMutation,
@@ -52,8 +52,8 @@ const Set: FC<IType> = ({adminSet, data, isLoading}) => {
     const [updateSettingsTrader] = useUpdateSettingsTraderMutation()
     const [deleteSet] = useDeleteSetMutation()
     const [updateSet] = useUpdateSetMutation()
-    const {data: dataTradersSet} = useGetAllAdminTradersQuery('1')
     const {data: dataLinkedTraders} = useGetAllLinkedTradersQuery(data?.id)
+    const {data: dataAddLinkedTraders} = useGetAddLinkedTradersQuery(data?.id)
     const [deleteTrader] = useDeleteTraderMutation()
 
     const mediaQuery = useMediaQuery('(min-width:900px)');
@@ -77,7 +77,6 @@ const Set: FC<IType> = ({adminSet, data, isLoading}) => {
     const closeModal = () => {
         setTextValue('')
         setNameAccount('')
-        // setIdTrader('')
         setOpenModalSetSettings(false)
         setOpenModalSettingsTrader(false)
         setOpenModalAddTrader(false)
@@ -259,8 +258,8 @@ const Set: FC<IType> = ({adminSet, data, isLoading}) => {
                          closeModal={setOpenModalAddTrader}>
                 <Stack spacing={7}>
                     {
-                        dataTradersSet?.data &&
-                        dataTradersSet?.data.map((item: any) =>
+                        dataAddLinkedTraders?.data &&
+                        dataAddLinkedTraders?.data.map((item: any) =>
                             <Paper key={item.id} sx={{height: 68, alignItems: "center"}}>
                                 <Grid container spacing={10} columns={14} wrap="wrap" alignItems="center">
                                     <Grid item xs={14} md={3}>
@@ -283,12 +282,18 @@ const Set: FC<IType> = ({adminSet, data, isLoading}) => {
                                         <CurrentValues stats={item.stats}/>
                                     </Grid>
                                     <Grid item xs={14} md={2}>
-                                        <Button onClick={() => {
-                                            setIdTrader(item.id)
-                                            setOpenModalSettingsTrader(true)
-                                        }}
-                                                color="success"
-                                        >Подключить</Button>
+                                        {
+                                            item.already_linked ?
+                                                <Button color="info">Уже подключено</Button>
+                                                :
+                                                <Button onClick={() => {
+                                                    setIdTrader(item.id)
+                                                    setOpenModalSettingsTrader(true)
+                                                }}
+                                                        color="success"
+                                                >Подключить</Button>
+                                        }
+
                                     </Grid>
                                 </Grid>
                             </Paper>

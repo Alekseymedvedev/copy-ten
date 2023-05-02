@@ -5,7 +5,7 @@ interface IBarChartState {
     id: number;
     name: string;
     pv: number;
-    uv:any;
+    uv: any;
 }
 
 interface ISwitchData {
@@ -20,27 +20,7 @@ interface IBarChartData {
 }
 
 const initialState: IBarChartData = {
-    barChartData: [
-        {
-            id: 1,
-            name: 'INST1',
-            pv: 3400,
-            uv:1111,
-        },
-        {
-            id: 2,
-            name: 'INST1',
-            pv: 4400,
-            uv:1111,
-        },
-        {
-            id: 3,
-            name: 'INST1',
-            pv: 2400,
-            uv:1111,
-        },
-    ],
-
+    barChartData: [],
 }
 
 
@@ -49,8 +29,8 @@ export const barChartSlice = createSlice({
     initialState,
     reducers: {
 
-        fetchBarChart(state, action: PayloadAction<IBarChartState>) {
-            state.barChartData.push(action.payload)
+        fetchBarChart(state, action: PayloadAction<any>) {
+            state.barChartData=action.payload
         },
         addBarChart(state, action: PayloadAction<any>) {
             state.barChartData.splice(action.payload - 1, 0,
@@ -58,7 +38,7 @@ export const barChartSlice = createSlice({
                     id: action.payload.id,
                     name: `INST${action.payload - 1}`,
                     pv: action.payload.pv,
-                    uv:0
+                    uv: 0
                 },
             )
         },

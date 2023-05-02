@@ -7,68 +7,56 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
 
-
-
-function createData(
-    name: string,
-    calories: number,
-    fat: number,
-    carbs: number,
-    protein: number,
-    protein1: number,
-    protein2: number,
-    protein3: number,
-    protein4: number,
-) {
-    return {name, calories, fat, carbs, protein, protein1, protein2, protein3, protein4};
-}
-
-const rows = [
-    createData('2020', 159, 6.0, -24, 4.0, 159, 6.0, 24, 4.0),
-    createData('2021', -237, 9.0, -37, 4.3, 159, 6.0, 24, 4.0),
-    createData('2022', 262, 16.0, 24, 6.0, 159, 6.0, 24, 4.0),
-];
-
 interface T {
-    children?: any
+    data?: any;
+    dataTableHead?: string[]
 }
 
-const CustomTable: FC<T> = ({children}) => {
+const CustomTable: FC<T> = ({data, dataTableHead}) => {
     return (
         <TableContainer>
             <Table aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Год</TableCell>
-                        <TableCell align="right">Янв</TableCell>
-                        <TableCell align="right">Янв</TableCell>
-                        <TableCell align="right">Янв</TableCell>
-                        <TableCell align="right">Янв</TableCell>
-                        <TableCell align="right">Янв</TableCell>
-                        <TableCell align="right">Янв</TableCell>
-                        <TableCell align="right">Янв</TableCell>
+                        {
+                            dataTableHead &&
+                            dataTableHead.map((item: any,index:any) =>
+                                <TableCell key={item+index}>{item}</TableCell>
+                            )
+                        }
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
-                        <TableRow key={row.name}
-                            // sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                            <TableCell component="th" scope="row">
-                                {row.name}
+                    {data?.map((item: any) => (
+                        <TableRow key={item.trader.name + item.open_at + item.profit}>
+
+                            <TableCell>{item.open_at}</TableCell>
+                            <TableCell>
+                                {item.trader.name}
+                                {item.set.name && <span className="green"> (Сет {item.set.name})</span>}
                             </TableCell>
-                            <TableCell className="red" align="right">{row.calories}</TableCell>
-                            <TableCell align="right">{row.fat}</TableCell>
-                            <TableCell align="right">{row.carbs}</TableCell>
-                            <TableCell align="right">{row.protein}</TableCell>
-                            <TableCell align="right">{row.protein}</TableCell>
-                            <TableCell align="right">{row.protein}</TableCell>
-                            <TableCell align="right">{row.protein}</TableCell>
+                            <TableCell className={item.type === 'sell' ? 'red' : 'green'}>
+                                {item.type === 'sell' ? 'Продажа' : 'Покупка'}
+                            </TableCell>
+                            <TableCell>
+                                <span className="yellow">{item.volume}</span>
+                            </TableCell>
+                            <TableCell sx={{color: '#fff'}}>{item.symbol ? item?.symbol : '-'}</TableCell>
+                            <TableCell sx={{color: '#fff'}}>{item.open_price}</TableCell>
+                            <TableCell>{item.close_at}</TableCell>
+                            <TableCell sx={{color: '#fff'}}>{item.close_price}</TableCell>
+                            <TableCell
+                                className={item.commission > 0 ? 'green' : 'red'}>{item.commission ? item.commission : '-'}</TableCell>
+                            <TableCell
+                                className={item.swap > 0 ? 'green' : 'red'}>{item.swap ? item.swap : '-'}</TableCell>
+                            <TableCell className={item.profit > 0 ? 'green' : 'red'}>
+                                {item.profit > 0 ? '+' : '-'}{item.profit}
+                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
             </Table>
-         </TableContainer>
+        </TableContainer>
         // <StyledTableContainer >
         //     <Table sx={{minWidth: 650}} aria-label="a dense table">
         //         <TableHead>

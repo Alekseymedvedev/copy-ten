@@ -54,8 +54,8 @@ export const userApi = createApi({
             invalidatesTags: ['Accounts']
         }),
           addAccountSubscribe: build.mutation({
-            query: ({idSet, traderId, body}) => ({
-                url: `/set/${idSet}/account/${traderId}/subscribe`,
+            query: ({idSet, accountId}) => ({
+                url: `/set/${idSet}/account/${accountId}/subscribe`,
                 method: 'POST',
             }),
             invalidatesTags: ['Accounts']

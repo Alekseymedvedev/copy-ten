@@ -94,7 +94,6 @@ const SettingProductModal: FC<IType> = ({openModal, closeModal, productId}) => {
                                                             </span>
                                             </Stack>
 
-                                            {/*item.product?.product_data?.id*/}
                                             {
                                                 item.product?.product_data?.id == productId ?
                                                     <Button variant="contained" color="info">Уже подключено</Button>

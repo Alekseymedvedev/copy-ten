@@ -65,8 +65,7 @@ const Sidebar: FC<T> = ({isAdmin}) => {
                             <Stack sx={!mediaQuery ? styleMediaQuery : style}>
                                 <Stack spacing={7}>
                                     <Stack spacing={7}>
-                                        <HeaderSidebar isAdmin={isAdmin} name="Remy Sharp" images="" account="2"
-                                                       balance="10 000 000"/>
+                                        <HeaderSidebar isAdmin={isAdmin} />
                                     </Stack>
                                     <Navigation isAdmin={isAdmin}/>
                                 </Stack>

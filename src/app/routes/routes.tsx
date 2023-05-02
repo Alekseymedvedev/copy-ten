@@ -24,7 +24,7 @@ export const routes = [
     {path: "/partner", element: <Partner/>},
     {path: "/settings", element: <Settings/>},
     {path: "/support", element: <Support/>},
-    {path: "/trader-dashboard", element: <TraderDashboard/>},
+    {path: "/trader-dashboard/:id", element: <TraderDashboard/>},
     {path: "/admin/users", element: <Admin/>},
     {path: "/admin/forex", element: <AdminForexAccounts/>},
     {path: "/admin/bank-requisites", element: <AdminBankRequisites/>},

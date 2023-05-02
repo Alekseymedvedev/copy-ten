@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import Paper from "@mui/material/Paper";
 import {Divider, Grid, Pagination, Skeleton, Stack, TextField, useMediaQuery} from "@mui/material";
 import IconSet from "../shared/assets/images/icons/iconSet";
@@ -9,6 +9,7 @@ import IconConnected from "../shared/assets/images/icons/iconConnected";
 import IconTraders from "../shared/assets/images/icons/iconTraders";
 import {useAddAccountSubscribeMutation, useGetSetQuery} from "../store/API/userApi";
 import SimpleModal from "../entities/components/modal/simpleModal";
+import {useAppSelector} from "../hooks/useRedux";
 
 
 interface IType {
@@ -20,9 +21,13 @@ const UserSetsList: FC<IType> = ({children}) => {
     const [page, setPage] = useState(1);
     const {data, isLoading, error} = useGetSetQuery(page)
     const [addAccountSubscribe] = useAddAccountSubscribeMutation()
+    const {accountId} = useAppSelector(state => state.accountIdReducer)
 
     const [openModalConnection, setOpenModalConnection] = useState(false);
     const [openModal, setOpenModal] = useState(false);
+    const [idSet, setIdSet] = useState('');
+    const [nameAccount, setNameAccount] = useState('');
+    const [nameSet, setNameSet] = useState('');
 
     const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
@@ -41,15 +46,17 @@ const UserSetsList: FC<IType> = ({children}) => {
     }
     const handleConnection = () => {
         addAccountSubscribe({
-            idSet: '',
-            traderId: '',
+            idSet,
+            accountId,
+        }).then(() => {
+            closeModal()
         })
     }
     return (
         <Stack spacing={7}>
             {
                 data &&
-                data?.data?.map((item:any)=>
+                data?.data?.map((item: any) =>
                     <Paper key={item?.id}>
                         <Stack direction="row" spacing={7} alignItems="center" sx={{mb: 7}}>
                             <IconSet/>
@@ -81,15 +88,31 @@ const UserSetsList: FC<IType> = ({children}) => {
                         </Grid>
                         <Grid container spacing={10} columns={12} wrap="wrap" alignItems="stretch">
                             <Grid item xs={16} md={5}>
+                                {
+                                    item.subscribed_forex_accounts.find((item: any) => item.forex_account.id === accountId)
+                                        ?
+                                        <Button
+                                            fullWidth
+                                            variant="gardient"
+                                            color="success"
+                                            startIcon={<IconConnected connected/>}
+                                            sx={{height: 48}}
+                                        >Подключено</Button>
+                                        :
+                                        <Button
+                                            onClick={() => {
+                                                setIdSet(item.id)
+                                                setNameSet(item.name)
+                                                setOpenModalConnection(true)
+                                            }}
+                                            fullWidth
+                                            variant="gardient"
+                                            color="warning"
+                                            startIcon={<IconConnected/>}
+                                            sx={{height: 48}}
+                                        >Подключиться</Button>
+                                }
 
-                                <Button
-                                    onClick={() => setOpenModalConnection(true)}
-                                    fullWidth
-                                    variant="gardient"
-                                    color="warning"
-                                    startIcon={<IconConnected/>}
-                                    sx={{height: 48}}
-                                >Подключиться</Button>
 
                             </Grid>
                             <Grid item xs={16} md={7}>
@@ -115,10 +138,15 @@ const UserSetsList: FC<IType> = ({children}) => {
                 />
 
             }
-            <SimpleModal title="Настройки" openModal={openModalConnection}
+            <SimpleModal title="Вы уверены?" openModal={openModalConnection}
                          closeModal={setOpenModalConnection}>
                 <Stack spacing={7}>
-
+                    <span className="h2">
+                        Подключить сет
+                        <span className="yellow">&nbsp;{nameSet}&nbsp;</span>
+                        на счет
+                        {/*<span className="blue">&nbsp;Мой счет 1&nbsp;</span>*/}
+                        ?</span>
                     <Stack direction="row" justifyContent="flex-end" spacing={7}>
                         <Button onClick={closeModal} color="error">Отмена</Button>
                         <Button

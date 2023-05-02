@@ -16,6 +16,7 @@ interface IType {
     options?: any;
     optionValue?: any;
     isError?: boolean;
+    isSettingsParams?:any
 }
 
 const CustomSelect: FC<IType> = ({
@@ -25,10 +26,11 @@ const CustomSelect: FC<IType> = ({
                                      defaultValue,
                                      options,
                                      optionValue,
+                                     isSettingsParams,
                                      isError
                                  }) => {
     const mediaQuery = useMediaQuery('(min-width:900px)');
-    const [variantName, setVariantName] = useState<any>([]);
+    const [variantName, setVariantName] = useState<any>(isSettingsParams ? isSettingsParams :[]);
     const [error, setError] = useState(false);
 
 

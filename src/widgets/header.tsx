@@ -1,26 +1,48 @@
-import React, {FC} from 'react';
-import {Typography, Stack, useMediaQuery, Chip} from "@mui/material";
+import React, {FC, useEffect, useState} from 'react';
+import {Typography, Stack, useMediaQuery, Chip, FormControl, InputLabel, Select, MenuItem} from "@mui/material";
 import CustomSelect from "../shared/UI/customSelect";
+import {useGetProfileQuery} from "../store/API/profileApi";
+import {Link} from "react-router-dom";
+import {authSlice} from "../store/slice/authSlice";
+import {useAppDispatch, useAppSelector} from "../hooks/useRedux";
+import {accountIdSlice} from "../store/slice/accountIdSlice";
+
 
 interface T {
     heading?: string;
     accountNumber?: string;
     isSelect?: boolean;
-    typeAccount?: string | number
+    typeAccount?: string
 }
 
 
-const Header: FC<T> = ({heading, accountNumber,isSelect, typeAccount}) => {
+const Header: FC<T> = ({heading,  isSelect,accountNumber, typeAccount}) => {
     const mediaQuery = useMediaQuery('(min-width:900px)');
+    const {data, error, isLoading} = useGetProfileQuery('')
 
+    const { changeAccountId,changeAccountName } = accountIdSlice.actions
+    const dispatch = useAppDispatch()
+
+    const[depositLoad,setDepositLoad]=useState(data?.data?.accounts[0]?.deposit_load)
+    useEffect(()=>{
+       dispatch(changeAccountId(data?.data?.accounts[0]?.id))
+       dispatch(changeAccountName(data?.data?.accounts[0]?.login))
+     },[data,isLoading])
+
+    const changeAccount=(e:any)=>{
+        const account =data?.data?.accounts.filter((item:any)=>item.id ===e.target.value)
+        setDepositLoad(account[0].deposit_load)
+        dispatch(changeAccountId(e.target.value))
+        dispatch(changeAccountName(account[0].login))
+    }
     return (
         <header className="header">
             <Stack direction={mediaQuery ? "row" : "column"} spacing="auto" alignItems="center">
                 <Stack
                     direction={mediaQuery ? "row" : "column"}
-                    spacing={mediaQuery ? 7: 4}
+                    spacing={mediaQuery ? 7 : 4}
                     alignItems="center"
-                    sx={mediaQuery ?null: { mb:4}}>
+                    sx={mediaQuery ? null : {mb: 4}}>
                     <Typography variant="h1">
                         <span>{heading}</span>
                         {
@@ -31,24 +53,51 @@ const Header: FC<T> = ({heading, accountNumber,isSelect, typeAccount}) => {
                         </span>
                         }
                     </Typography>
-                    {typeAccount === 1 && <Chip label="Долларовый" variant="filled" color="warning"/>}
-                    {typeAccount === 0 && <Chip label="Центовый" variant="filled" color="neutral"/>}
-                    {typeAccount === 'copytrad' && <Chip label="Копитрейдинг" variant="filled" color="success"/>}
-                    {typeAccount === 'robot' && <Chip label="Робот" color="secondary"/>}
+                    {typeAccount && <Chip label={typeAccount} variant="filled" color="success"/>}
+                    {/*{typeAccount === 0 && <Chip label="Центовый" variant="filled" color="neutral"/>}*/}
+                    {/*{typeAccount === 'copytrad' && <Chip label="Копитрейдинг" variant="filled" color="success"/>}*/}
+                    {/*{typeAccount === 'robot' && <Chip label="Робот" color="secondary"/>}*/}
                 </Stack>
-                <Stack direction={mediaQuery ? "row" : "column"} alignItems="center" spacing={mediaQuery ? 7: 4}>
+                <Stack className="subHeaders" direction={mediaQuery ? "row" : "column"} alignItems="center" spacing={mediaQuery ? 7 : 4}>
                     <Stack direction="row" alignItems="center">
-                        <span className="subHeaders white-80">Загруженность счета:</span>
-                        <span className="subHeaders yellow">&nbsp;67%</span>
+                        <span className="white-80">Загруженность&nbsp;счета:</span>
+                        <span className="yellow">&nbsp;{depositLoad}%</span>
                     </Stack>
-                    { isSelect &&
-                        <CustomSelect
-                            width={112}
-                            defaultValue="Выбрать сервер"
-                            // optionValue={setServerNumber}
-                            // options={isDataServer?.data}
-
-                        />
+                    {(isSelect && !isLoading) &&
+                        <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={7}>
+                            <span className="white-80">Выбор&nbsp;счета</span>
+                            <Select
+                                onChange={changeAccount}
+                                IconComponent={"select"}
+                                fullWidth
+                                defaultValue={data?.data?.accounts[0]?.id}
+                            >
+                                {
+                                    data &&
+                                    data?.data?.accounts?.map((item: any) =>
+                                        <MenuItem
+                                            key={item.id}
+                                            value={item.id}
+                                        >
+                                            Счет&nbsp;{item.login}&nbsp;
+                                            (
+                                            <span
+                                                className={
+                                                    item.deposit_load < 33 ?
+                                                        'green'
+                                                        : item.deposit_load < 66 ?
+                                                            'red'
+                                                            : 'yellow'
+                                                }
+                                            >
+                                               {item.deposit_load}%
+                                            </span>
+                                            )
+                                        </MenuItem>
+                                    )
+                                }
+                            </Select>
+                        </Stack>
                     }
                 </Stack>
             </Stack>

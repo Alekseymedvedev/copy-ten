@@ -192,7 +192,7 @@ export const darkTheme = createTheme({
                 root: (({theme}: any) => ({
                     color: '#828282',
                     fontWeight: 500,
-                    fontSize: 8,
+                    fontSize: 12,
                     padding: `10px 0`,
                     borderRight: ` 0.5px solid #828282`,
                     textAlign: 'center',

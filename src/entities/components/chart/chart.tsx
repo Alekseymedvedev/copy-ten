@@ -6,7 +6,7 @@ import Paper from "@mui/material/Paper";
 interface T {
     children?: any;
     title?: string;
-    date?: boolean;
+    changeTime?: any;
     select?: boolean;
     selectTitle?: string;
     defaultValue?: string;
@@ -17,7 +17,7 @@ interface T {
 const Chart: FC<T> = ({
                           children,
                           title,
-                          date,
+                          changeTime,
                           select,
                           selectTitle,
                           defaultValue,
@@ -28,7 +28,7 @@ const Chart: FC<T> = ({
         <Paper sx={{flexGrow :1,"@media (min-width:900px)":{
                 padding: `14px 4px`,
             }}}>
-            <HeaderChart title={title} icon={icon} selectTitle={selectTitle} defaultValue={defaultValue} date={date} select={select} number={number}/>
+            <HeaderChart title={title} icon={icon} selectTitle={selectTitle} defaultValue={defaultValue} changeTime={changeTime} select={select} number={number}/>
             {children}
         </Paper>
     );

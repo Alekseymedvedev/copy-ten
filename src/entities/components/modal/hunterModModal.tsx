@@ -77,13 +77,13 @@ const HunterModModal: FC<IType> = ({maxWidth,openModal, closeModal, isOPenBtn, s
                         (step === 1) ?
                             <Stack className="h2">
                                 <Chart title="График" icon="bad">
-                                    <CustomLineChart/>
+                                    {/*<CustomLineChart/>*/}
                                 </Chart>
                             </Stack>
                             :
                             <Stack spacing={7}>
                                 <Chart title="График" icon="bad">
-                                    <CustomLineChart referenceLineData={referenceLineData}/>
+                                    {/*<CustomLineChart referenceLineData={referenceLineData}/>*/}
                                 </Chart>
                                 <Stack direction="row" spacing={7}>
                                     {/*<CustomInput  label="Значения (%)"/>*/}

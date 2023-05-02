@@ -30,6 +30,13 @@ export const subscribesApi = createApi({
             }),
             providesTags: ['Settings'],
         }),
+        getSubscribesSettings: build.query({
+            query: (id) => ({
+                url: `/subscribe/${id}/settings`
+            }),
+            providesTags: ['Settings'],
+        }),
+
         updateSettings: build.mutation({
             query: ({body, id}) => ({
                 url: `/subscribe/${id}/settings`,
@@ -51,6 +58,11 @@ export const subscribesApi = createApi({
 
 });
 
-export const { useGetAllSubscribesQuery, useGetAllSubscribesSetQuery, useGetAllSubscribesSettingsQuery } = subscribesApi;
+export const {
+    useGetAllSubscribesQuery,
+    useGetAllSubscribesSetQuery,
+    useGetAllSubscribesSettingsQuery ,
+    useGetSubscribesSettingsQuery
+} = subscribesApi;
 
 export const { getAllSubscribes } = subscribesApi.endpoints;

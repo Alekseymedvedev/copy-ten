@@ -9,10 +9,12 @@ import {barChartSlice} from "../../store/slice/barChartSlice";
 import setParametersReducer, {setParametersSlice} from "../../store/slice/parametersSlice";
 
 interface IType {
-    children?: any
+    symbolSettings?: any
+    daySettings?: any
+    hoursSettings?: any
 }
 
-const Parameters: FC<IType> = ({children}) => {
+const Parameters: FC<IType> = ({symbolSettings,daySettings,hoursSettings}) => {
     const {addExcludeDays,addExcludeHours,addExcludeSymbols} = setParametersSlice.actions
     const dispatch = useAppDispatch()
 
@@ -40,6 +42,7 @@ const Parameters: FC<IType> = ({children}) => {
                     <span className="subHeaders white-90">Символы</span>
                 </Stack>
                 <CustomSelect
+                    isSettingsParams={symbolSettings ?symbolSettings : null}
                     optionValue={handleExcludeSymbols}
                     options={[
                         {id:'eur',title:'eur'},
@@ -60,6 +63,7 @@ const Parameters: FC<IType> = ({children}) => {
                     <span className="subHeaders white-90">Дни</span>
                 </Stack>
                 <CustomSelect
+                    isSettingsParams={daySettings ?daySettings : null}
                     optionValue={handleExcludeDays}
                     options={[
                         {id:'Пн',title:'Пн'},
@@ -84,6 +88,7 @@ const Parameters: FC<IType> = ({children}) => {
                     <span className="subHeaders white-90">Часы</span>
                 </Stack>
                 <CustomSelect
+                    isSettingsParams={hoursSettings ?hoursSettings : null}
                     optionValue={handleExcludeHours}
                     options={[
                         {id:'1',title:'1'},

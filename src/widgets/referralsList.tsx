@@ -32,7 +32,7 @@ const ReferralsList: FC<IType> = ({children}) => {
             console.log('activeBtn'+ isLoadingReferralLine)
         }
     }, [data,activeBtn,isDataReferralLine])
-    console.log(isDataReferralLine)
+
     const handleAlignment = (
         event: React.MouseEvent<HTMLElement>,
         newAlignment: string | null,
@@ -59,7 +59,7 @@ const ReferralsList: FC<IType> = ({children}) => {
                            if(!isLoadingReferralLine && isDataReferralLine) {
                                setReferral(isDataReferralLine.data)
                            }
-                            console.log(referral)
+
                         }}
                         color="neutral"
                         sx={{color:'#BDBDBD'}}>Первая линия</Button>
@@ -82,8 +82,8 @@ const ReferralsList: FC<IType> = ({children}) => {
                 {
                     isLoading ?
                         <Skeleton variant="rectangular" width={`100%`} height={63}/>
-                        : (data && isDataReferralLine && referral?.length > 0) ?
-                            referral.map((item: any, index) =>
+                        : (data && isDataReferralLine) ?
+                            referral?.map((item: any, index) =>
                                 <Referrals
                                     key={index}
                                     avatar={item.telegram.avatar_url}

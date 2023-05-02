@@ -52,8 +52,6 @@ const AccountModal: FC<IType> = ({maxWidth, openModal, closeModal, isError}) => 
             setErrorSelect(true)
             setErrorInput(true)
         }
-       // if(login.value !== '') setErrorInput(true)
-       // if(serverNumber !== '') setErrorSelect(true)
     };
 
 

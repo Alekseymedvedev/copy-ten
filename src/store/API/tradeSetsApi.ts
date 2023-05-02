@@ -28,6 +28,12 @@ export const tradeSetsApi = createApi({
             }),
             providesTags: ['Set'],
         }),
+         getAddLinkedTraders: build.query({
+            query: (id) => ({
+                url: `/set/${id}/traders/available`
+            }),
+            providesTags: ['Set'],
+        }),
         getAllAdminTraders: build.query({
             query: (page) => ({
                 url: '/traders',
@@ -95,6 +101,7 @@ export const {
     useGetAllAdminSetsQuery,
     useGetAllAdminTradersQuery,
     useGetAllLinkedTradersQuery,
+    useGetAddLinkedTradersQuery,
     useUpdateSetMutation,
     useSettingsTraderMutation,
     useUpdateSettingsTraderMutation,

@@ -9,7 +9,7 @@ import {
     useMediaQuery
 } from "@mui/material";
 
-import CopyTradingModal from "../entities/components/modal/copyTradingModal";
+import CopyTradingModalSettings from "../entities/components/modal/copyTradingModalSettings";
 import CustomInput from "../shared/UI/customInput";
 
 interface IType {
@@ -92,7 +92,7 @@ const TransactionAccordion: FC<IType> = ({children}) => {
             </Accordion>
 
 
-            <CopyTradingModal openModal={openModal} closeModal={setOpenModal}/>
+            <CopyTradingModalSettings openModal={openModal} closeModal={setOpenModal}/>
         </div>
     );
 };

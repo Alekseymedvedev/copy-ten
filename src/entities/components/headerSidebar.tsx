@@ -7,14 +7,11 @@ import {useGetProfileQuery} from "../../store/API/profileApi";
 
 interface T {
     isAdmin?: boolean;
-    name: string;
-    images?: string;
-    balance: string;
-    account: string;
+
 }
 
 
-const HeaderSidebar: FC<T> = ({isAdmin,name, images, balance, account}) => {
+const HeaderSidebar: FC<T> = ({isAdmin}) => {
     const { data, error, isLoading } = useGetProfileQuery('')
     const mediaQuery = useMediaQuery('(min-width:900px)');
     return (

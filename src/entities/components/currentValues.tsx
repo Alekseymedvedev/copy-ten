@@ -7,12 +7,12 @@ interface IType {
 
 const CurrentValues: FC<IType> = ({stats}) => {
     const mediaQuery = useMediaQuery('(min-width:900px)');
-    console.log(stats)
+
     return (
         <Stack direction={"row"} alignItems="center" justifyContent="space-between" spacing={7}>
             <Stack>
                 <span className="subHeaders white-90">Просадка</span>
-                <span className="subHeadersBold green">+{stats.deposit_load}%</span>
+                <span className="subHeadersBold green">+{stats?.deposit_load}%</span>
             </Stack>
             <Divider orientation="vertical" variant="middle" flexItem/>
             <Stack>
@@ -22,12 +22,12 @@ const CurrentValues: FC<IType> = ({stats}) => {
             <Divider orientation="vertical" variant="middle" flexItem/>
             <Stack>
                 <span className="subHeaders white-90">Тек. месяц</span>
-                <span className="subHeadersBold green">+{stats.balance.gain.current_month}%</span>
+                <span className="subHeadersBold green">+{stats?.balance?.gain?.current_month}%</span>
             </Stack>
             <Divider orientation="vertical" variant="middle" flexItem/>
             <Stack>
                 <span className="subHeaders white-90">Значение</span>
-                <span className="subHeadersBold green">+{stats.balance.value}%</span>
+                <span className="subHeadersBold green">+{stats?.balance?.value}%</span>
             </Stack>
             <Stack
                 className="subHeaders yellow"
@@ -42,7 +42,7 @@ const CurrentValues: FC<IType> = ({stats}) => {
                     right:14,
                     top:14,
                 }}
-            >{stats.deposit_load}%</Stack>
+            >{stats?.deposit_load}%</Stack>
         </Stack>
     );
 };

@@ -2,7 +2,6 @@ import React, {FC} from 'react';
 import {Stack} from "@mui/material";
 import {Area, AreaChart, ResponsiveContainer} from "recharts";
 
-
 interface IDataArea {
     dataKey: string;
     stroke: string;

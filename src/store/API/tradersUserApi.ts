@@ -31,6 +31,7 @@ export const tradersUserApi = createApi({
             query: (id) => ({
                 url: `trader/${id}`
             }),
+            providesTags: ['Trader']
         }),
         addTrader: build.mutation({
             query: (body) => ({
@@ -40,9 +41,39 @@ export const tradersUserApi = createApi({
             }),
             invalidatesTags: ['Trader']
         }),
+        subscribeTrader: build.mutation({
+            query: ({ idTrader,idAccount,body}) => ({
+                url: `trader/${idTrader}/account/${idAccount}/subscribe`,
+                method: 'POST',
+                body,
+            }),
+            invalidatesTags: ['Trader']
+        }),
+        updateSettingsTrader: build.mutation({
+            query: ({ idTrader,idAccount,body}) => ({
+                url: `subscribe/${idTrader}/settings`,
+                method: 'PUT',
+                body,
+            }),
+            invalidatesTags: ['Trader']
+        }),
+        unsubscribeTrader: build.mutation({
+            query: (idTrader) => ({
+                url: `subscribe/${idTrader}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['Trader']
+        }),
     })
 });
 
-export const { useGetAllUserTradersQuery, useGetHistoryQuery, useGetTraderQuery } = tradersUserApi;
+export const {
+    useGetAllUserTradersQuery,
+    useGetHistoryQuery,
+    useGetTraderQuery,
+    useSubscribeTraderMutation,
+    useUpdateSettingsTraderMutation,
+    useUnsubscribeTraderMutation
+} = tradersUserApi;
 
 export const { getAllUserTraders } = tradersUserApi.endpoints;

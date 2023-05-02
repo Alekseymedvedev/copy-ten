@@ -1,7 +1,7 @@
 import React, {FC, useState} from 'react';
 import SettingsItem from "./settingsItem";
 import {Button, Divider, Stack} from "@mui/material";
-import CopyTradingModal from "./modal/copyTradingModal";
+import CopyTradingModalSettings from "./modal/copyTradingModalSettings";
 import SettingsModak from "./modal/settingsModak";
 import Paper from "@mui/material/Paper";
 import CustomInput from "../../shared/UI/customInput";

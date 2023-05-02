@@ -15,11 +15,12 @@ import {chartData} from "../data/chart";
 import CurrentValues from "../entities/components/currentValues";
 import IconConnected from "../shared/assets/images/icons/iconConnected";
 import HeaderChart from "../shared/components/headerChart";
-import CopyTradingModal from "../entities/components/modal/copyTradingModal";
+import CopyTradingModalSettings from "../entities/components/modal/copyTradingModalSettings";
 import {Link} from "react-router-dom";
 import {useGetAllUserTradersQuery} from "../store/API/tradersUserApi";
 import imgStrategyGrid from "../shared/assets/images/strategy.png";
 import imgStrategyStopLoss from "../shared/assets/images/strategys-stop-loss.png";
+import {useAppSelector} from "../hooks/useRedux";
 
 
 interface IType {
@@ -30,9 +31,11 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
     const mediaQuery = useMediaQuery('(min-width:900px)');
     const [page, setPage] = useState(1);
     const {data, isLoading, error} = useGetAllUserTradersQuery(page)
-    console.log(data)
+    const {accountId} = useAppSelector(state => state.accountIdReducer)
     const [expanded, setExpanded] = useState<string | false>('panel1');
     const [openModal, setOpenModal] = useState(false);
+    const [idTrader, setIdTrader] = useState('');
+
     const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
     };
@@ -40,9 +43,11 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
         (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
             setExpanded(newExpanded ? panel : false);
         };
-    const handleOpenModal = (event: React.SyntheticEvent) => {
+    const handleOpenModal = (event: React.SyntheticEvent, id: any) => {
         event.stopPropagation()
         setOpenModal(true)
+        setIdTrader(id)
+
     };
 
     return (
@@ -58,7 +63,7 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                     >
                         <AccordionSummary>
                             <Grid container spacing={10} columns={12} wrap="wrap" alignItems="center">
-                                <Grid item xs={12} md={3}>
+                                <Grid item xs={12} md={2}>
                                     <NickName
                                         name={item.name}
                                         number={item.id}
@@ -81,38 +86,30 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                                     }
                                 </Grid>
 
-                                <Grid item xs={12} md={6} flexDirection="row" justifyContent="flex-end">
+                                <Grid item xs={12} md={7} flexDirection="row" justifyContent="flex-end">
                                     <Stack width='100%' direction={mediaQuery ? "row" : "column"} alignItems="center"
                                            justifyContent="flex-end" spacing={7}>
-                                        <Stack
-                                            className="subHeaders yellow"
-                                            alignItems="center"
-                                            justifyContent="center"
-                                            sx={{
-                                                width: 34,
-                                                height: 34,
-                                                border: ` 0.5px solid #3C3C3C`,
-                                                borderRadius: `50%`,
-                                                position: !mediaQuery ? 'absolute' : 'static',
-                                                right: 14,
-                                                top: 14,
-                                            }}
-                                        >10%</Stack>
-                                        {/*{(expanded !== `panel${index+1}` || !mediaQuery) ? <CurrentValues/> : null}*/}
+
+                                        {(expanded !== `panel${index + 1}` || !mediaQuery) ?
+                                            <CurrentValues stats={item?.stats}/> : null}
                                         {
-                                            (expanded === `panel${index + 1}` || !mediaQuery) && item.connected ?
+                                            (expanded === `panel${index + 1}` || !mediaQuery) ?
                                                 <Button
                                                     fullWidth={!mediaQuery}
-                                                    onClick={(e) => handleOpenModal(e)}
+                                                    onClick={(e) => {
+                                                        handleOpenModal(e, item.id)
+                                                    }}
                                                     variant="gardient"
-                                                    color="warning"
-                                                    startIcon={<IconConnected/>}
+                                                    color={item.subscribed_forex_accounts.find((item: any) => item.forex_account.id === accountId) ? "success" : "warning"}
+                                                    startIcon={<IconConnected
+                                                        connected={item.subscribed_forex_accounts.find((item: any) => item.forex_account.id === accountId)}/>}
                                                     sx={{ml: 'auto', mb: 7}}
                                                 >
-                                                    Подключение
+                                                    {item.subscribed_forex_accounts.find((item: any) => item.forex_account.id === accountId) ? "Подключено" : "Подключение"}
                                                 </Button>
 
-                                                : <IconConnected/>
+                                                : <IconConnected
+                                                    connected={item.subscribed_forex_accounts.find((item: any) => item.forex_account.id === accountId)}/>
                                         }
                                         {
                                             !mediaQuery &&
@@ -148,43 +145,62 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                                     <Stack spacing={7}>
                                         <Stack direction="row" spacing={7}>
                                             <Stack spacing={7}
-                                                   sx={{p: `14px`, border: `0.5px solid #3C3C3C`, borderRadius: 2.5}}>
+                                                   sx={{
+                                                       width: `100%`,
+                                                       p: `14px`,
+                                                       border: `0.5px solid #3C3C3C`,
+                                                       borderRadius: 2.5
+                                                   }}>
                                                 <Stack direction="row" alignItems="center"
                                                        justifyContent="space-between">
                                                     <span className="subHeaders white-90">Начало торгов</span>
-                                                    <span className="subHeadersBold">24.12.2019</span>
+                                                    <span
+                                                        className="subHeadersBold">{item.stats.start_trading_at}</span>
                                                 </Stack>
                                                 <Stack direction="row" alignItems="center"
                                                        justifyContent="space-between">
                                                     <span className="subHeaders white-90">Сделок за неделю</span>
-                                                    <span className="subHeadersBold">1 075</span>
+                                                    <span className="subHeadersBold">{item.stats.deals_per_week}</span>
                                                 </Stack>
                                                 <Stack flexWrap="wrap" direction="row" alignItems="center"
                                                        justifyContent="space-between">
                                                     <span className="subHeaders white-90">Время последней сделки:</span>
-                                                    <span className="subHeadersBold">2022-12-24 10:58:48</span>
+                                                    <span className="subHeadersBold">{item.stats.last_deal_at}</span>
                                                 </Stack>
                                             </Stack>
                                             <Stack spacing={7}
-                                                   sx={{p: `14px`, border: `0.5px solid #3C3C3C`, borderRadius: 2.5}}>
+                                                   sx={{
+                                                       width: `100%`,
+                                                       p: `14px`,
+                                                       border: `0.5px solid #3C3C3C`,
+                                                       borderRadius: 2.5
+                                                   }}>
                                                 <Stack direction="row" alignItems="center"
                                                        justifyContent="space-between">
-                                                    <span className="subHeaders white-90">Начало торгов</span>
-                                                    <span className="subHeadersBold">24.12.2019</span>
+                                                    <span className="subHeaders white-90">Всего сделок</span>
+                                                    <span className="subHeadersBold">{item.stats.deals_count}</span>
                                                 </Stack>
                                                 <Stack flexWrap="wrap" direction="row" alignItems="center"
                                                        justifyContent="space-between">
-                                                    <span className="subHeaders white-90">Сделок за неделю</span>
-                                                    <span className="subHeadersBold">1 075</span>
+                                                    <span className="subHeaders white-90">Доходные сделки</span>
+                                                    <span
+                                                        className="subHeadersBold green">{item.stats.profitable_deals_count}</span>
                                                 </Stack>
                                                 <Stack flexWrap="wrap" direction="row" alignItems="center"
                                                        justifyContent="space-between">
-                                                    <span className="subHeaders white-90">Время последней сделки:</span>
-                                                    <span className="subHeadersBold">2022-12-24 10:58:48</span>
+                                                    <span className="subHeaders white-90">Убыточные сделки</span>
+                                                    <span
+                                                        className="subHeadersBold red">{item.stats.losing_deals_count}</span>
+                                                </Stack>
+                                                <Stack flexWrap="wrap" direction="row" alignItems="center"
+                                                       justifyContent="space-between">
+                                                    <span className="subHeaders white-90">Средняя прибыль PIP</span>
+                                                    <span
+                                                        className="subHeadersBold green">{item.stats.median_profit_in_pip}</span>
                                                 </Stack>
                                             </Stack>
                                         </Stack>
-                                        <Button color="neutral" component={Link} to="/trader-dashboard">
+                                        <Button color="neutral" component={Link} to={`/trader-dashboard/${item.id}`}>
                                             <span className="h2">Подробнее</span>
                                         </Button>
                                     </Stack>
@@ -209,14 +225,9 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                 />
 
             }
-            {/*<Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>*/}
-            {/*    <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">*/}
-            {/*    </AccordionSummary>*/}
-            {/*    <AccordionDetails>*/}
 
-            {/*    </AccordionDetails>*/}
-            {/*</Accordion>*/}
-            <CopyTradingModal openModal={openModal} closeModal={setOpenModal}/>
+            <CopyTradingModalSettings idTrader={idTrader} idAccount={accountId} openModal={openModal}
+                                      closeModal={setOpenModal}/>
         </div>
     );
 }

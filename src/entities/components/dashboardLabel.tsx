@@ -5,23 +5,23 @@ import IconArrow from "../../shared/assets/images/icons/iconArrow";
 
 interface T {
     notProduct?: boolean;
-    updateTariff?: boolean;
+    notifications?: any;
     balance?: any;
 }
 
-const DashboardLabel: FC<T> = ({notProduct, updateTariff, balance}) => {
+const DashboardLabel: FC<T> = ({notProduct, notifications, balance}) => {
 
     return (
         <Stack spacing={7}>
             {
-                notProduct &&
+                notifications?.product_not_assign &&
                 <Stack className="redBg" sx={{p: `14px 28px`, border: `0.5px solid #3C3C3C`, borderRadius: 2.5}}>
                     <span className="h2 white-90">Внимание</span>
                     <span className="red">У вас не приобретен продукт для работы платформы</span>
                 </Stack>
             }
             {
-                updateTariff &&
+                notifications?.balance_limit_reached &&
                 <Stack className="blueBg" sx={{p: `14px 28px`, border: `0.5px solid #3C3C3C`, borderRadius: 2.5}}>
                     <span className="h2 white-90">Внимание</span>
                     <span className="white-100">

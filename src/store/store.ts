@@ -13,6 +13,7 @@ import {tradersUserApi} from "./API/tradersUserApi";
 import {tradeSetsApi} from "./API/tradeSetsApi";
 import {traderAdminApi} from "./API/tradersAdminApi";
 import {chartApi} from "./API/chartApi";
+import accountIdReducer from "./slice/accountIdSlice";
 
 
 const rootReducer = combineReducers({
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
     [traderAdminApi.reducerPath]: traderAdminApi.reducer,
     [chartApi.reducerPath]: chartApi.reducer,
     barChartReducer,
+    accountIdReducer,
     authReducer,
     setParametersReducer,
 })

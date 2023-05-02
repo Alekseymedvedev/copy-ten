@@ -11,28 +11,54 @@ import TabsHeader from "../entities/components/tabsHeader";
 import IconAccount from "../shared/assets/images/icons/iconAccount";
 import TabsItem from "../entities/components/tabsItem";
 import {useDeleteAccountMutation} from "../store/API/userApi";
+import CopyTradingModalSettings from "../entities/components/modal/copyTradingModalSettings";
+import {useUnsubscribeTraderMutation} from "../store/API/tradersUserApi";
+import {useAppSelector} from "../hooks/useRedux";
+import SimpleModal from "../entities/components/modal/simpleModal";
+import AccountModal from "../entities/components/modal/accountModal";
+import DeleteAccountModal from "../entities/components/modal/deleteAccountModal";
 
 
 interface IType {
     accountId?: string;
-    dataSets?:any;
+    dataSets?: any;
+    product?: any;
+    login?: any;
     data?: {
+
+        id: any;
         stats: { gain: number, dropdown: number, balance: number, deposit_load: number },
         graph: [],
         trader: { id: string | number, name: string, strategy: string }
     }[]
 }
 
-const TradersAndSets: FC<IType> = ({data, accountId,dataSets}) => {
-    console.log(data)
-    const [deleteAccount] = useDeleteAccountMutation()
-    const mediaQuery = useMediaQuery('(min-width:900px)');
-    const [value, setValue] = useState(0);
+const TradersAndSets: FC<IType> = ({data, accountId,product,login, dataSets}) => {
     const navigate = useNavigate()
 
-    const deleteAcc = () => {
-        deleteAccount(accountId)
-        navigate('/')
+    const [unsubscribe] = useUnsubscribeTraderMutation()
+
+    const mediaQuery = useMediaQuery('(min-width:900px)');
+
+    const [value, setValue] = useState(0);
+
+    const [openModalDelete, setOpenModalDelete] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
+    const [openModalUnsubscribe, setOpenModalUnsubscribe] = useState(false);
+
+    const [subscribeId, setSubscribeId] = useState(0);
+    const [subscribeLogin, setSubscribeLogin] = useState(0);
+    const [idTrader, setIdTrader] = useState('');
+
+
+    const handleSettingsAcc = (id: any) => {
+        setIdTrader(id)
+        setOpenModal(true)
+    }
+    const handleUnsubscribe = (id: any,login:any) => {
+        setSubscribeLogin(login)
+        setSubscribeId(id)
+        setOpenModalUnsubscribe(true)
     }
 
     return (
@@ -71,141 +97,182 @@ const TradersAndSets: FC<IType> = ({data, accountId,dataSets}) => {
                         {name: 'Сеты', icon: <IconAccount/>},
                     ]}
                     tabsValue={value} onTabsChange={setValue}/>
-                <Divider sx={{mb: 4,width:`105%`}}/>
+                <Divider sx={{mb: 4, width: `105%`}}/>
                 <Stack className="subHeadersBold white-80" sx={{mb: 4}}>7/15</Stack>
                 <TabsItem value={value} index={0}>
-                    {
-                        data && data.map(item =>
-                            <Paper
-                                key={item.trader.id}
-                                sx={{
-                                    flexGrow: 1,
-                                    "@media (min-width:900px)": {
-                                        padding: `14px`,
-                                    }
-                                }}>
-                                <NickName
-                                    name={item.trader.name} number={item.trader.id}
-                                    avatar={item.trader.strategy === 'grid' ? imgStrategyGrid : imgStrategyStopLoss}
-                                    justifyContent="space-between"/>
-                                <Stack sx={{mb: 8}}>
-                                    <CustomAreaChart data={item.graph} height={54}
-                                                     dataArea={[{dataKey: "uv", stroke: "#6FCF97", fill: "#29312C"}]}/>
-                                </Stack>
-                                <Grid container columns={4} sx={{mb: 7}}>
-                                    <Grid item xs={2}>
-                                        <Stack alignItems="center" justifyContent="center" spacing={2}
-                                               sx={{
-                                                   p: 2,
-                                                   borderRight: `0.5px solid #3C3C3C`,
-                                                   borderBottom: `0.5px solid #3C3C3C`
-                                               }}>
-                                            <span className="subHeaders white-90">Прирост</span>
-                                            <span className="subHeadersBold green">+{item.stats.gain}%</span>
-                                        </Stack>
+                    <Stack spacing={7}>
+                        {
+                            data && data.map(item =>
+                                <Paper
+                                    key={item.trader.id}
+                                    sx={{
+                                        flexGrow: 1,
+                                        "@media (min-width:900px)": {
+                                            padding: `14px`,
+                                        }
+                                    }}>
+                                    <NickName
+                                        name={item.trader.name} number={item.trader.id}
+                                        avatar={item.trader.strategy === 'grid' ? imgStrategyGrid : imgStrategyStopLoss}
+                                        justifyContent="space-between"/>
+                                    <Stack sx={{mb: 8}}>
+                                        <CustomAreaChart data={item.graph} height={54}
+                                                         dataArea={[{dataKey: "uv", stroke: "#6FCF97", fill: "#29312C"}]}/>
+                                    </Stack>
+                                    <Grid container columns={4} sx={{mb: 7}}>
+                                        <Grid item xs={2}>
+                                            <Stack alignItems="center" justifyContent="center" spacing={2}
+                                                   sx={{
+                                                       p: 2,
+                                                       borderRight: `0.5px solid #3C3C3C`,
+                                                       borderBottom: `0.5px solid #3C3C3C`
+                                                   }}>
+                                                <span className="subHeaders white-90">Прирост</span>
+                                                <span className="subHeadersBold green">+{item.stats.gain}%</span>
+                                            </Stack>
+                                        </Grid>
+                                        <Grid item xs={2}>
+                                            <Stack alignItems="center" justifyContent="center" spacing={2}
+                                                   sx={{p: 2, borderBottom: `0.5px solid #3C3C3C`}}>
+                                                <span className="subHeaders white-90">Просадка</span>
+                                                <span className="subHeadersBold green">+{item.stats.dropdown}%</span>
+                                            </Stack>
+                                        </Grid>
+                                        <Grid item xs={2}>
+                                            <Stack alignItems="center" justifyContent="center" spacing={2}
+                                                   sx={{p: 2, borderRight: `0.5px solid #3C3C3C`}}>
+                                                <span className="subHeaders white-90">Баланс</span>
+                                                <span className="subHeadersBold green">+{item.stats.balance}%</span>
+                                            </Stack>
+                                        </Grid>
+                                        <Grid item xs={2}>
+                                            <Stack alignItems="center" justifyContent="center" spacing={2}
+                                                   sx={{p: 2, textAlign: "center"}}>
+                                                <span className="subHeaders white-90">Нагр. депозита</span>
+                                                <span className="subHeadersBold green">+{item.stats.deposit_load}%</span>
+                                            </Stack>
+                                        </Grid>
                                     </Grid>
-                                    <Grid item xs={2}>
-                                        <Stack alignItems="center" justifyContent="center" spacing={2}
-                                               sx={{p: 2, borderBottom: `0.5px solid #3C3C3C`}}>
-                                            <span className="subHeaders white-90">Просадка</span>
-                                            <span className="subHeadersBold green">+{item.stats.dropdown}%</span>
-                                        </Stack>
-                                    </Grid>
-                                    <Grid item xs={2}>
-                                        <Stack alignItems="center" justifyContent="center" spacing={2}
-                                               sx={{p: 2, borderRight: `0.5px solid #3C3C3C`}}>
-                                            <span className="subHeaders white-90">Баланс</span>
-                                            <span className="subHeadersBold green">+{item.stats.balance}%</span>
-                                        </Stack>
-                                    </Grid>
-                                    <Grid item xs={2}>
-                                        <Stack alignItems="center" justifyContent="center" spacing={2}
-                                               sx={{p: 2, textAlign: "center"}}>
-                                            <span className="subHeaders white-90">Нагр. депозита</span>
-                                            <span className="subHeadersBold green">+{item.stats.deposit_load}%</span>
-                                        </Stack>
-                                    </Grid>
-                                </Grid>
 
-                                <Stack direction="row" spacing={7} sx={{mb: 4}}>
-                                    <Button color="neutral" sx={{width: 48, height: 48, minWidth: 'unset'}}>
-                                        <IconSettings/>
-                                    </Button>
-                                    <Button fullWidth color="neutral" component={Link} to="/trader-dashboard">Дашборд
-                                        трейдера</Button>
-                                </Stack>
-                                <Button fullWidth variant="contained" color="error">Отключить</Button>
-                            </Paper>
-                        )
-                    }
+                                    <Stack direction="row" spacing={7} sx={{mb: 4}}>
+                                        <Button
+                                            onClick={() => {
+                                                handleSettingsAcc(item.id)
+                                            }}
+                                            color="neutral"
+                                            sx={{width: 48, height: 48, minWidth: 'unset'}}
+                                        >
+                                            <IconSettings/>
+                                        </Button>
+                                        <Button fullWidth color="neutral" component={Link}
+                                                to={`/trader-dashboard/${item.trader.id}`}>Дашборд
+                                            трейдера</Button>
+                                    </Stack>
+                                    <Button onClick={() => handleUnsubscribe(item.id,item.trader.name)} fullWidth variant="contained"
+                                            color="error">Отключить</Button>
+                                </Paper>
+                            )
+                        }
+                    </Stack>
                 </TabsItem>
                 <TabsItem value={value} index={1}>
-                    {
-                        dataSets && dataSets.map((item:any) =>
-                            <Paper
-                                key={item.set.id}
-                                sx={{
-                                    flexGrow: 1,
-                                    "@media (min-width:900px)": {
-                                        padding: `14px`,
-                                    }
-                                }}>
-                                <NickName
-                                    name={item.set.name} number={item.set.id}
-                                    justifyContent="space-between"/>
-                                <Stack sx={{mb: 8}}>
-                                    <CustomAreaChart data={item.graph} height={54}
-                                                     dataArea={[{dataKey: "uv", stroke: "#6FCF97", fill: "#29312C"}]}/>
-                                </Stack>
-                                <Grid container columns={4} sx={{mb: 7}}>
-                                    <Grid item xs={2}>
-                                        <Stack alignItems="center" justifyContent="center" spacing={2}
-                                               sx={{
-                                                   p: 2,
-                                                   borderRight: `0.5px solid #3C3C3C`,
-                                                   borderBottom: `0.5px solid #3C3C3C`
-                                               }}>
-                                            <span className="subHeaders white-90">Прирост</span>
-                                            <span className="subHeadersBold green">+{item.stats.gain}%</span>
-                                        </Stack>
+                    <Stack spacing={7}>
+                        {
+                            dataSets && dataSets.map((item: any) =>
+                                <Paper
+                                    key={item.set.id}
+                                    sx={{
+                                        flexGrow: 1,
+                                        "@media (min-width:900px)": {
+                                            padding: `14px`,
+                                        }
+                                    }}>
+                                    <NickName
+                                        name={item.set.name} number={item.set.id}
+                                        justifyContent="space-between"/>
+                                    <Stack sx={{mb: 8}}>
+                                        <CustomAreaChart data={item.graph} height={54}
+                                                         dataArea={[{dataKey: "uv", stroke: "#6FCF97", fill: "#29312C"}]}/>
+                                    </Stack>
+                                    <Grid container columns={4} sx={{mb: 7}}>
+                                        <Grid item xs={2}>
+                                            <Stack alignItems="center" justifyContent="center" spacing={2}
+                                                   sx={{
+                                                       p: 2,
+                                                       borderRight: `0.5px solid #3C3C3C`,
+                                                       borderBottom: `0.5px solid #3C3C3C`
+                                                   }}>
+                                                <span className="subHeaders white-90">Прирост</span>
+                                                <span className="subHeadersBold green">+{item.stats.gain}%</span>
+                                            </Stack>
+                                        </Grid>
+                                        <Grid item xs={2}>
+                                            <Stack alignItems="center" justifyContent="center" spacing={2}
+                                                   sx={{p: 2, borderBottom: `0.5px solid #3C3C3C`}}>
+                                                <span className="subHeaders white-90">Просадка</span>
+                                                <span className="subHeadersBold green">+{item.stats.dropdown}%</span>
+                                            </Stack>
+                                        </Grid>
+                                        <Grid item xs={2}>
+                                            <Stack alignItems="center" justifyContent="center" spacing={2}
+                                                   sx={{p: 2, borderRight: `0.5px solid #3C3C3C`}}>
+                                                <span className="subHeaders white-90">Баланс</span>
+                                                <span className="subHeadersBold green">+{item.stats.balance}%</span>
+                                            </Stack>
+                                        </Grid>
+                                        <Grid item xs={2}>
+                                            <Stack alignItems="center" justifyContent="center" spacing={2}
+                                                   sx={{p: 2, textAlign: "center"}}>
+                                                <span className="subHeaders white-90">Нагр. депозита</span>
+                                                <span className="subHeadersBold green">+{item.stats.deposit_load}%</span>
+                                            </Stack>
+                                        </Grid>
                                     </Grid>
-                                    <Grid item xs={2}>
-                                        <Stack alignItems="center" justifyContent="center" spacing={2}
-                                               sx={{p: 2, borderBottom: `0.5px solid #3C3C3C`}}>
-                                            <span className="subHeaders white-90">Просадка</span>
-                                            <span className="subHeadersBold green">+{item.stats.dropdown}%</span>
-                                        </Stack>
-                                    </Grid>
-                                    <Grid item xs={2}>
-                                        <Stack alignItems="center" justifyContent="center" spacing={2}
-                                               sx={{p: 2, borderRight: `0.5px solid #3C3C3C`}}>
-                                            <span className="subHeaders white-90">Баланс</span>
-                                            <span className="subHeadersBold green">+{item.stats.balance}%</span>
-                                        </Stack>
-                                    </Grid>
-                                    <Grid item xs={2}>
-                                        <Stack alignItems="center" justifyContent="center" spacing={2}
-                                               sx={{p: 2, textAlign: "center"}}>
-                                            <span className="subHeaders white-90">Нагр. депозита</span>
-                                            <span className="subHeadersBold green">+{item.stats.deposit_load}%</span>
-                                        </Stack>
-                                    </Grid>
-                                </Grid>
-
-                                {/*<Stack direction="row" spacing={7} sx={{mb: 4}}>*/}
-                                {/*    <Button color="neutral" sx={{width: 48, height: 48, minWidth: 'unset'}}>*/}
-                                {/*        <IconSettings/>*/}
-                                {/*    </Button>*/}
-                                {/*    <Button fullWidth color="neutral" component={Link} to="/trader-dashboard">Дашборд*/}
-                                {/*        трейдера</Button>*/}
-                                {/*</Stack>*/}
-                            </Paper>
-                        )
-                    }
+                                    <Button onClick={() => handleUnsubscribe(item.id,item.set.name)} fullWidth variant="contained"
+                                            color="error">Отключить</Button>
+                                </Paper>
+                            )
+                        }
+                    </Stack>
                 </TabsItem>
             </Paper>
-            <Button onClick={deleteAcc} fullWidth variant="contained" color="error" sx={{height: 76}}>Удалить
+            <Button onClick={()=>setOpenModalDelete(true)} fullWidth variant="contained" color="error" sx={{height: 76}}>Удалить
                 счет</Button>
+
+            {
+                openModal &&
+                <CopyTradingModalSettings idTrader={idTrader} idAccount={accountId} openModal={openModal}
+                                          closeModal={setOpenModal}/>
+            }
+            {
+                openModalUnsubscribe &&
+                <SimpleModal title="Отключить тредера" openModal={openModalUnsubscribe} closeModal={setOpenModalUnsubscribe}>
+                <span className="h2">
+                    <span>Отключить тредера</span>
+                    <span className="yellow">&nbsp;{subscribeLogin}&nbsp;</span>
+                    <span>от счета {login}</span>
+                </span>
+                    <Stack direction="row" justifyContent="flex-end" spacing={7}>
+                        <Button onClick={()=>setOpenModalUnsubscribe(false)} color="error">Отмена</Button>
+                        <Button
+                            onClick={()=> {
+                                unsubscribe(subscribeId).then(()=>setOpenModalUnsubscribe(false))
+                                // navigate(0)
+                            }}
+                            color="success">Сохранить</Button>
+                    </Stack>
+                </SimpleModal>
+            }
+            {
+                openModalDelete &&
+                <DeleteAccountModal
+                    accountId={accountId}
+                    product={product}
+                    accountName={login}
+                    openModal={openModalDelete}
+                    closeModal={setOpenModalDelete}
+                />
+            }
 
         </>
     );
