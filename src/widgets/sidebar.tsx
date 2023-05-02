@@ -23,7 +23,8 @@ const styleMediaQuery = {
     top: `65px`,
     left: 0,
     background: `#212121`,
-    position: 'fixed'
+    position: 'fixed',
+    overflowY: 'scroll'
 }
 
 interface T {
@@ -48,7 +49,7 @@ const Sidebar: FC<T> = ({isAdmin}) => {
     return (
         <>
             <Stack>
-                <Stack>
+
                     {
                         !mediaQuery ?
                             <Stack direction="row" alignItems="center" justifyContent="space-between"
@@ -62,17 +63,17 @@ const Sidebar: FC<T> = ({isAdmin}) => {
                     }
                     {
                         visibleMenu ?
-                            <Stack sx={!mediaQuery ? styleMediaQuery : style}>
-                                <Stack spacing={7}>
+
+                                <Stack spacing={7} sx={!mediaQuery ? styleMediaQuery : style}>
                                     <Stack spacing={7}>
                                         <HeaderSidebar isAdmin={isAdmin} />
                                     </Stack>
                                     <Navigation isAdmin={isAdmin}/>
                                 </Stack>
-                            </Stack>
+
                             : null
                     }
-                </Stack>
+
             </Stack>
         </>
     );

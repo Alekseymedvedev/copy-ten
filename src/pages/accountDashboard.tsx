@@ -61,27 +61,31 @@ const AccountDashboard = () => {
     return (
         <MainLayout heading="Дашборд" accountNumber={dataAccount?.data?.login}
                     typeAccount={dataAccount?.data?.product?.product_data?.title}>
-            <DashboardTabs
-                dataDashboard={dataAccount?.data}
-                balanceChartData={data}
-                dataTradersChart={dataTradersChart}
-                dataSymbol={dataSymbol}
-                isLoadingSymbol={isLoadingSymbol}
-                dataChartDay={dataChartDay}
-                dataChartHours={dataChartHours}
-                dataChartDrawdown={dataChartDrawdown}
-                dataBalanceGain={dataBalanceGain}
-                dataChartDrawdownAndGain={dataChartDrawdownAndGain}
-                dataChartMonths={dataChartMonths}
+            {
+                dataAccount &&
+                <DashboardTabs
+                    dataDashboard={dataAccount?.data}
+                    balanceChartData={data}
+                    dataTradersChart={dataTradersChart}
+                    dataSymbol={dataSymbol}
+                    isLoadingSymbol={isLoadingSymbol}
+                    dataChartDay={dataChartDay}
+                    dataChartHours={dataChartHours}
+                    dataChartDrawdown={dataChartDrawdown}
+                    dataBalanceGain={dataBalanceGain}
+                    dataChartDrawdownAndGain={dataChartDrawdownAndGain}
+                    dataChartMonths={dataChartMonths}
 
-                balanceChartUrl={setBalanceChartUrl}
-                tradersChartUrl={tradersChartUrl}
-                balanceGainChartUrl={setBalanceGainChartUrl}
-                dayChartUrl={setDayChartUrl}
-                hoursChartUrl={setHoursChartUrl}
-                drawdownChartUrl={setDrawdownChartUrl}
-                drawdownAndGainChartUrl={setDrawdownAndGainChartUrl}
-            />
+                    balanceChartUrl={setBalanceChartUrl}
+                    tradersChartUrl={tradersChartUrl}
+                    balanceGainChartUrl={setBalanceGainChartUrl}
+                    dayChartUrl={setDayChartUrl}
+                    hoursChartUrl={setHoursChartUrl}
+                    drawdownChartUrl={setDrawdownChartUrl}
+                    drawdownAndGainChartUrl={setDrawdownAndGainChartUrl}
+                />
+            }
+
         </MainLayout>
     );
 };

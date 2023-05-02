@@ -5,18 +5,29 @@ import IconConnected from "../shared/assets/images/icons/iconConnected";
 import CustomRange from "../shared/components/customRange";
 import Parameters from "../entities/components/parameters";
 import HunterModModal from "../entities/components/modal/hunterModModal";
-import {useAppSelector} from "../hooks/useRedux";
+import {useAppDispatch, useAppSelector} from "../hooks/useRedux";
 import {useGetSubscribesSettingsQuery} from "../store/API/subscribesApi";
 import CopyTradingModalSettings from "../entities/components/modal/copyTradingModalSettings";
 import CopyTradingModalChild from "../entities/components/modal/copyTradingModalChild";
 import SimpleModal from "../entities/components/modal/simpleModal";
 import {useUnsubscribeTraderMutation} from "../store/API/tradersUserApi";
+import {setParametersSlice} from "../store/slice/parametersSlice";
 
 interface IType {
     dataTrader?: any
 }
 
 const DashboardTradersSidebar: FC<IType> = ({dataTrader}) => {
+    const {
+        addRisk,
+        addMaxLot,
+        addMinLot,
+        addExcludeDays,
+        addExcludeHours,
+        addExcludeSymbols
+    } = setParametersSlice.actions
+    const dispatch = useAppDispatch()
+
     const {accountId, accountName} = useAppSelector(state => state.accountIdReducer)
 
     const subscribe = dataTrader?.subscribed_forex_accounts.find((item: any) => item.forex_account.id === accountId)
@@ -31,6 +42,17 @@ const DashboardTradersSidebar: FC<IType> = ({dataTrader}) => {
     const [openModalSave, setOpenModalSave] = useState(false);
 
     const [hoverBtn, setHoverBtn] = useState(false);
+
+
+    const handleRisk = (value: any) => {
+        dispatch(addRisk(value))
+    }
+    const handleMaxLot = (value: any) => {
+        dispatch(addMaxLot(value))
+    }
+    const handleMinLot = (value: any) => {
+        dispatch(addMinLot(value))
+    }
 
     const handlerHunterMod = () => {
         setConnectionHunterMod(true)
@@ -115,7 +137,7 @@ const DashboardTradersSidebar: FC<IType> = ({dataTrader}) => {
             }
 
             {
-                dataTrader?.subscribed_forex_accounts.find((item: any) => item.forex_account.id === accountId) &&
+                (dataTrader?.subscribed_forex_accounts.find((item: any) => item.forex_account.id === accountId) && data) &&
                 <Paper sx={{p: 14}}>
 
                     <Stack spacing={7}>
@@ -158,11 +180,15 @@ const DashboardTradersSidebar: FC<IType> = ({dataTrader}) => {
 
 
                                 <>
-                                    <CustomRange title="Риск" defaultValue={data?.risk} required isSwitch
+
+                                    <CustomRange onChange={handleRisk} title="Риск" defaultValue={data?.risk} required
+                                                 isSwitch
                                                  isSliderRange/>
-                                    <CustomRange title="Макс. лот" defaultValue={data?.max_lot} required isSwitch
+                                    <CustomRange onChange={handleMaxLot} title="Макс. лот" defaultValue={data?.max_lot}
+                                                 required isSwitch
                                                  isSliderRange/>
-                                    <CustomRange title="Мин. лот" isSwitchChecked={data?.min_lot} required
+                                    <CustomRange onChangeSwift={handleMinLot} title="Мин. лот" isSwitchChecked={false}
+                                                 required
                                                  isSwitch/>
                                     <Parameters
                                         symbolSettings={data?.exclude_symbols}
@@ -183,13 +209,17 @@ const DashboardTradersSidebar: FC<IType> = ({dataTrader}) => {
             {/*<HunterModModal setConnectionHunterMod={setConnectionHunterMod} setHunterModBtn={setHunterModBtn} openModal={openModal} closeModal={setOpenModal}/>*/}
             {
                 openModal &&
-                <CopyTradingModalSettings idTrader={dataTrader.id} nameAccount={accountName} idAccount={accountId}
-                                          openModal={openModal}
-                                          closeModal={setOpenModal}/>
+                <CopyTradingModalSettings
+                    idTrader={dataTrader.id}
+                    nameTrader={dataTrader?.name}
+                    nameAccount={accountName}
+                    idAccount={accountId}
+                    openModal={openModal}
+                    closeModal={setOpenModal}/>
             }
             {
                 openModalSave &&
-                <CopyTradingModalChild idTrader={subscribe?.id} openModal={openModalSave}
+                <CopyTradingModalChild idTrader={subscribe?.id} nameAccount={accountName} openModal={openModalSave}
                                        closeModal={setOpenModalSave}/>
             }
             {

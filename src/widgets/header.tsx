@@ -23,7 +23,6 @@ const Header: FC<T> = ({heading,  isSelect,accountNumber, typeAccount}) => {
     const { changeAccountId,changeAccountName } = accountIdSlice.actions
     const dispatch = useAppDispatch()
 
-    const[depositLoad,setDepositLoad]=useState(data?.data?.accounts[0]?.deposit_load)
     useEffect(()=>{
        dispatch(changeAccountId(data?.data?.accounts[0]?.id))
        dispatch(changeAccountName(data?.data?.accounts[0]?.login))
@@ -31,7 +30,6 @@ const Header: FC<T> = ({heading,  isSelect,accountNumber, typeAccount}) => {
 
     const changeAccount=(e:any)=>{
         const account =data?.data?.accounts.filter((item:any)=>item.id ===e.target.value)
-        setDepositLoad(account[0].deposit_load)
         dispatch(changeAccountId(e.target.value))
         dispatch(changeAccountName(account[0].login))
     }
@@ -59,10 +57,6 @@ const Header: FC<T> = ({heading,  isSelect,accountNumber, typeAccount}) => {
                     {/*{typeAccount === 'robot' && <Chip label="Робот" color="secondary"/>}*/}
                 </Stack>
                 <Stack className="subHeaders" direction={mediaQuery ? "row" : "column"} alignItems="center" spacing={mediaQuery ? 7 : 4}>
-                    <Stack direction="row" alignItems="center">
-                        <span className="white-80">Загруженность&nbsp;счета:</span>
-                        <span className="yellow">&nbsp;{depositLoad}%</span>
-                    </Stack>
                     {(isSelect && !isLoading) &&
                         <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={7}>
                             <span className="white-80">Выбор&nbsp;счета</span>

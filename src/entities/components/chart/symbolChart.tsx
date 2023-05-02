@@ -65,9 +65,9 @@ const SymbolChart: FC<IType> = ({data}) => {
                                 bottom: 0,
                             }}
                         >
+                            {/*tick={<CustomAxisTick/>}*/}
                             <CartesianGrid strokeDasharray="3 3" stroke="#3c3c3c"/>
-                            <XAxis dataKey="name" tick={<CustomAxisTick/>} allowDataOverflow={true}
-                                   domain={[0, 'dataMax + 1000']}/>
+                            <XAxis dataKey="name" tick={<CustomAxisTick textAnchor="middle"/>}  interval={0}/>
                             <YAxis tick={<CustomAxisTick rotate={-30}/>}/>
                             <Tooltip contentStyle={contentTooltipStyle} wrapperStyle={wrapperTooltipStyle}
                                      offset={-60}/>

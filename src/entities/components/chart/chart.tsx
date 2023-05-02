@@ -28,7 +28,7 @@ const Chart: FC<T> = ({
         <Paper sx={{flexGrow :1,"@media (min-width:900px)":{
                 padding: `14px 4px`,
             }}}>
-            <HeaderChart title={title} icon={icon} selectTitle={selectTitle} defaultValue={defaultValue} changeTime={changeTime} select={select} number={number}/>
+            <HeaderChart title={title}  changeTime={changeTime}/>
             {children}
         </Paper>
     );

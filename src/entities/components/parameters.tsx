@@ -7,6 +7,7 @@ import {useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../hooks/useRedux";
 import {barChartSlice} from "../../store/slice/barChartSlice";
 import setParametersReducer, {setParametersSlice} from "../../store/slice/parametersSlice";
+import {useGetAccountSymbolQuery} from "../../store/API/userApi";
 
 interface IType {
     symbolSettings?: any
@@ -15,6 +16,9 @@ interface IType {
 }
 
 const Parameters: FC<IType> = ({symbolSettings,daySettings,hoursSettings}) => {
+    const {accountId, accountName} = useAppSelector(state => state.accountIdReducer)
+    const {data}=useGetAccountSymbolQuery(accountId)
+
     const {addExcludeDays,addExcludeHours,addExcludeSymbols} = setParametersSlice.actions
     const dispatch = useAppDispatch()
 
@@ -44,11 +48,7 @@ const Parameters: FC<IType> = ({symbolSettings,daySettings,hoursSettings}) => {
                 <CustomSelect
                     isSettingsParams={symbolSettings ?symbolSettings : null}
                     optionValue={handleExcludeSymbols}
-                    options={[
-                        {id:'eur',title:'eur'},
-                        {id:'dol',title:'dol'},
-                        {id:'rub',title:'rub'}
-                    ]}
+                    options={data?.data?.map((item:any)=>({id:item.title,title:item.title}))}
                     multiple/>
             </Stack>
             <Stack direction="row" alignItems="center" justifyContent="space-between">
@@ -90,14 +90,12 @@ const Parameters: FC<IType> = ({symbolSettings,daySettings,hoursSettings}) => {
                 <CustomSelect
                     isSettingsParams={hoursSettings ?hoursSettings : null}
                     optionValue={handleExcludeHours}
-                    options={[
-                        {id:'1',title:'1'},
-                        {id:'2',title:'2'},
-                        {id:'3',title:'3'},
-                        {id:'4',title:'4'},
-                        {id:'5',title:'5'},
-                        {id:'6',title:'6'},
-                    ]}
+                    options={
+                        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24].map((item: any) => ({
+                            id: item,
+                            title: item
+                        }))
+                    }
                     multiple/>
             </Stack>
             {/*<Button color="success">Оптимизировать</Button>*/}

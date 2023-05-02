@@ -33,7 +33,7 @@ interface IType {
     }[]
 }
 
-const TradersAndSets: FC<IType> = ({data, accountId,product,login, dataSets}) => {
+const TradersAndSets: FC<IType> = ({data, accountId, product, login, dataSets}) => {
     const navigate = useNavigate()
 
     const [unsubscribe] = useUnsubscribeTraderMutation()
@@ -48,14 +48,18 @@ const TradersAndSets: FC<IType> = ({data, accountId,product,login, dataSets}) =>
 
     const [subscribeId, setSubscribeId] = useState(0);
     const [subscribeLogin, setSubscribeLogin] = useState(0);
+
     const [idTrader, setIdTrader] = useState('');
+    const [nameTrader, setNameTrader] = useState('');
+
+    const [name, setName] = useState('');
 
 
     const handleSettingsAcc = (id: any) => {
         setIdTrader(id)
         setOpenModal(true)
     }
-    const handleUnsubscribe = (id: any,login:any) => {
+    const handleUnsubscribe = (id: any, login: any) => {
         setSubscribeLogin(login)
         setSubscribeId(id)
         setOpenModalUnsubscribe(true)
@@ -98,8 +102,9 @@ const TradersAndSets: FC<IType> = ({data, accountId,product,login, dataSets}) =>
                     ]}
                     tabsValue={value} onTabsChange={setValue}/>
                 <Divider sx={{mb: 4, width: `105%`}}/>
-                <Stack className="subHeadersBold white-80" sx={{mb: 4}}>7/15</Stack>
+
                 <TabsItem value={value} index={0}>
+                    <Stack className="subHeadersBold white-80" sx={{mb: 4}}>Всего тредеров: {data?.length}</Stack>
                     <Stack spacing={7}>
                         {
                             data && data.map(item =>
@@ -158,6 +163,8 @@ const TradersAndSets: FC<IType> = ({data, accountId,product,login, dataSets}) =>
                                         <Button
                                             onClick={() => {
                                                 handleSettingsAcc(item.id)
+                                                setNameTrader(item.trader.name)
+                                                setName('трейдера')
                                             }}
                                             color="neutral"
                                             sx={{width: 48, height: 48, minWidth: 'unset'}}
@@ -168,7 +175,8 @@ const TradersAndSets: FC<IType> = ({data, accountId,product,login, dataSets}) =>
                                                 to={`/trader-dashboard/${item.trader.id}`}>Дашборд
                                             трейдера</Button>
                                     </Stack>
-                                    <Button onClick={() => handleUnsubscribe(item.id,item.trader.name)} fullWidth variant="contained"
+                                    <Button onClick={() => handleUnsubscribe(item.id, item.trader.name)} fullWidth
+                                            variant="contained"
                                             color="error">Отключить</Button>
                                 </Paper>
                             )
@@ -176,6 +184,7 @@ const TradersAndSets: FC<IType> = ({data, accountId,product,login, dataSets}) =>
                     </Stack>
                 </TabsItem>
                 <TabsItem value={value} index={1}>
+                    <Stack className="subHeadersBold white-80" sx={{mb: 4}}>Всего сетов: {dataSets?.length}</Stack>
                     <Stack spacing={7}>
                         {
                             dataSets && dataSets.map((item: any) =>
@@ -228,7 +237,13 @@ const TradersAndSets: FC<IType> = ({data, accountId,product,login, dataSets}) =>
                                             </Stack>
                                         </Grid>
                                     </Grid>
-                                    <Button onClick={() => handleUnsubscribe(item.id,item.set.name)} fullWidth variant="contained"
+                                    <Button
+                                        onClick={() => {
+                                            handleUnsubscribe(item.id, item.set.name)
+                                            setName('сет')
+                                        }}
+                                        fullWidth
+                                            variant="contained"
                                             color="error">Отключить</Button>
                                 </Paper>
                             )
@@ -236,27 +251,42 @@ const TradersAndSets: FC<IType> = ({data, accountId,product,login, dataSets}) =>
                     </Stack>
                 </TabsItem>
             </Paper>
-            <Button onClick={()=>setOpenModalDelete(true)} fullWidth variant="contained" color="error" sx={{height: 76}}>Удалить
+            <Button onClick={() => setOpenModalDelete(true)} fullWidth variant="contained" color="error"
+                    sx={{height: 76}}>Удалить
                 счет</Button>
 
             {
                 openModal &&
-                <CopyTradingModalSettings idTrader={idTrader} idAccount={accountId} openModal={openModal}
-                                          closeModal={setOpenModal}/>
+                <CopyTradingModalSettings
+                    idTrader={idTrader}
+                    openModal={openModal}
+                    nameTrader={nameTrader}
+                    nameAccount={login}
+                    closeModal={setOpenModal}>
+
+                    <span>Изменить настройки</span>
+                    <span className="green">&nbsp;{nameTrader}&nbsp;</span>
+                    <span>на счет</span>
+                    <span className="blue">&nbsp;для счета {login}&nbsp;</span>
+                    <span>?</span>
+
+                </CopyTradingModalSettings>
             }
             {
                 openModalUnsubscribe &&
-                <SimpleModal title="Отключить тредера" openModal={openModalUnsubscribe} closeModal={setOpenModalUnsubscribe}>
-                <span className="h2">
-                    <span>Отключить тредера</span>
+                <SimpleModal title="Отключить тредера" openModal={openModalUnsubscribe}
+                             closeModal={setOpenModalUnsubscribe}>
+                <div className="h2">
+                    <span>Отключить {name}</span>
                     <span className="yellow">&nbsp;{subscribeLogin}&nbsp;</span>
-                    <span>от счета {login}</span>
-                </span>
+                    <span>от счета</span>
+                    <span className="blue"> {login}</span>
+                </div>
                     <Stack direction="row" justifyContent="flex-end" spacing={7}>
-                        <Button onClick={()=>setOpenModalUnsubscribe(false)} color="error">Отмена</Button>
+                        <Button onClick={() => setOpenModalUnsubscribe(false)} color="error">Отмена</Button>
                         <Button
-                            onClick={()=> {
-                                unsubscribe(subscribeId).then(()=>setOpenModalUnsubscribe(false))
+                            onClick={() => {
+                                unsubscribe(subscribeId).then(() => setOpenModalUnsubscribe(false))
                                 // navigate(0)
                             }}
                             color="success">Сохранить</Button>

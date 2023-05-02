@@ -2,7 +2,7 @@ import {FC, useEffect, useState} from "react";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import { Divider, Stack} from "@mui/material";
+import {Divider, Stack} from "@mui/material";
 import IconClose from "../../../shared/assets/images/icons/iconClose";
 import * as React from "react";
 import CustomRange from "../../../shared/components/customRange";
@@ -13,29 +13,34 @@ import {useAppDispatch} from "../../../hooks/useRedux";
 
 
 interface IType {
+    children?: any;
     maxWidth?: number;
     openModal: boolean;
     closeModal?: any;
     isOPenBtn?: boolean;
     idTrader?: any
+    nameTrader?: any
     idAccount?: any
     nameAccount?: any
 }
 
 const CopyTradingModalSettings: FC<IType> = ({
-                                         maxWidth,
-                                         openModal,
-                                         closeModal,
-                                         isOPenBtn,
-                                         idTrader,
-                                         idAccount,
-                                         nameAccount,
-}) => {
+                                                 children,
+                                                 maxWidth,
+                                                 openModal,
+                                                 closeModal,
+                                                 isOPenBtn,
+                                                 idTrader,
+                                                 nameTrader,
+                                                 idAccount,
+                                                 nameAccount,
+                                             }) => {
     const [open, setOpen] = useState(false);
     const [openModalChild, setOpenModalChild] = useState(false);
     const [step, setStep] = useState(1);
+    const [error, setError] = useState(false);
 
-    const {addRisk,addMaxLot,addMinLot,addExcludeDays,addExcludeHours,addExcludeSymbols} = setParametersSlice.actions
+    const {addRisk, addMaxLot, addMinLot} = setParametersSlice.actions
     const dispatch = useAppDispatch()
 
 
@@ -51,13 +56,13 @@ const CopyTradingModalSettings: FC<IType> = ({
         setStep(1)
     };
 
-    const handleRisk=(value:any)=>{
+    const handleRisk = (value: any) => {
         dispatch(addRisk(value))
     }
-    const handleMaxLot=(value:any)=>{
+    const handleMaxLot = (value: any) => {
         dispatch(addMaxLot(value))
     }
-    const handleMinLot=(value:any)=>{
+    const handleMinLot = (value: any) => {
         dispatch(addMinLot(value))
     }
     return (
@@ -81,12 +86,9 @@ const CopyTradingModalSettings: FC<IType> = ({
                     <Divider variant="fullWidth" sx={{mb: 7}}/>
                     {
                         (step === 1) ?
+
                             <div className="h2">
-                                <span>Подключить трейдера</span>
-                                <span className="green">&nbsp;Nickname_Nickname&nbsp;</span>
-                                <span>на счет</span>
-                                <span className="blue">&nbsp;Мой счет 1&nbsp;</span>
-                                <span>?</span>
+                                {children}
                             </div>
                             :
                             (step === 2) ?
@@ -96,18 +98,38 @@ const CopyTradingModalSettings: FC<IType> = ({
                                     {/*    <span>Используемый <br/> депозит</span>*/}
                                     {/*    <span className="yellow">1239$</span>*/}
                                     {/*</Stack>*/}
-                                    <CustomRange onChange={handleRisk} title="Риск в процентах" required isSwitch isSliderRange/>
-                                    <CustomRange onChange={handleMaxLot} title="Макс. лот" required isSwitch isSliderRange/>
+                                    <CustomRange onChange={handleRisk} title="Риск в процентах" required isSwitch
+                                                 isSliderRange/>
+                                    <CustomRange onChange={handleMaxLot} title="Макс. лот" required isSwitch
+                                                 isSliderRange/>
                                     <CustomRange onChangeSwift={handleMinLot} title="Мин. лот" required isSwitch/>
                                     <Parameters/>
                                 </Stack>
                                 :
                                 (step === 3) ?
                                     <div className="h2">
-                                        <span className="green">Успешно!</span>
-                                        <span>&nbsp;Успешно! Трейдер Nickname_Nickname подключен на Ваш счет&nbsp;</span>
-                                        <span className="blue">Мой счет 1</span>
-                                        <span>!</span>
+                                        {
+                                            error ?
+                                                <>
+                                                    <span className="red">Ошибка!</span>
+                                                    <span>&nbsp;Трейдер
+                                                        <span className="yellow">&nbsp;{nameTrader}&nbsp;</span>
+                                                        не подключен на Ваш счет&nbsp;
+                                                    </span>
+                                                    <span className="blue">{nameAccount}</span>
+                                                    <span>!</span>
+                                                </>
+                                                :
+                                                <>
+                                                    <span className="green">Успешно!</span>
+                                                    <span>&nbsp;Трейдер
+                                                        <span className="yellow">&nbsp;{nameTrader}&nbsp;</span>
+                                                        подключен на Ваш счет&nbsp;</span>
+                                                    <span className="blue">{nameAccount}</span>
+                                                    <span>!</span>
+                                                </>
+                                        }
+
                                     </div>
                                     : null
 
@@ -139,8 +161,17 @@ const CopyTradingModalSettings: FC<IType> = ({
                     </Stack>
                 </Box>
             </Modal>
-            <CopyTradingModalChild idAccount={idAccount} idTrader={idTrader} step={step} setStep={setStep} openModal={openModalChild}
-                                   closeModal={setOpenModalChild}/>
+            <CopyTradingModalChild
+                idAccount={idAccount}
+                nameAccount={nameAccount}
+                idTrader={idTrader}
+                nameTrader={nameTrader}
+                step={step}
+                setStep={setStep}
+                openModal={openModalChild}
+                closeModal={setOpenModalChild}
+                isError={setError}
+            />
         </>
     );
 }

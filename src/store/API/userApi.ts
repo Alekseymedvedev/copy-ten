@@ -2,7 +2,7 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {IServerData, IUserAccountsData} from "../../types";
 import {useAppSelector} from "../../hooks/useRedux";
 
- const userToken = localStorage.getItem('token')
+const userToken = localStorage.getItem('token')
 // setTimeout(()=>{
 // },3000)
 export const userApi = createApi({
@@ -17,7 +17,7 @@ export const userApi = createApi({
     }),
     tagTypes: ['Accounts'],
     endpoints: (build) => ({
-        getServers: build.query<IServerData,string>({
+        getServers: build.query<IServerData, string>({
             query: () => ({
                 url: '/servers'
             })
@@ -25,16 +25,16 @@ export const userApi = createApi({
         getAccounts: build.query<IUserAccountsData, any>({
             query: (page) => ({
                 url: '/accounts',
-                params:{
+                params: {
                     page,
                 }
             }),
             providesTags: ['Accounts'],
         }),
-           getSet: build.query({
+        getSet: build.query({
             query: (page) => ({
                 url: '/sets',
-                params:{
+                params: {
                     page,
                 }
             }),
@@ -45,6 +45,11 @@ export const userApi = createApi({
                 url: `/account/${id}`,
             }),
         }),
+        getAccountSymbol: build.query({
+            query: (id) => ({
+                url: `/account/${id}/used-symbols`,
+            }),
+        }),
         addAccount: build.mutation({
             query: (body) => ({
                 url: `/account`,
@@ -53,7 +58,7 @@ export const userApi = createApi({
             }),
             invalidatesTags: ['Accounts']
         }),
-          addAccountSubscribe: build.mutation({
+        addAccountSubscribe: build.mutation({
             query: ({idSet, accountId}) => ({
                 url: `/set/${idSet}/account/${accountId}/subscribe`,
                 method: 'POST',
@@ -81,6 +86,7 @@ export const userApi = createApi({
 export const {
     useGetServersQuery,
     useGetAccountsQuery,
+    useGetAccountSymbolQuery,
     useGetAccountDashboardQuery,
     useGetSetQuery,
     useAddAccountMutation,

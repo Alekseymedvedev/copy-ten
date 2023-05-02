@@ -20,6 +20,7 @@ interface IType {
     nameTrader?: any
     idAccount?: any
     nameAccount?: any
+    isError?: any
 }
 
 const CopyTradingModalChild: FC<IType> = ({
@@ -32,6 +33,7 @@ const CopyTradingModalChild: FC<IType> = ({
                                               nameTrader,
                                               idAccount,
                                               nameAccount,
+                                              isError,
                                           }) => {
     const [open, setOpen] = useState(false);
     const {
@@ -43,13 +45,13 @@ const CopyTradingModalChild: FC<IType> = ({
         excludeHours
     } = useAppSelector(state => state.setParametersReducer)
 
-    const [subscribe,{error, isLoading}] = useSubscribeTraderMutation()
-    const [updateSettings]=useUpdateSettingsTraderMutation()
-    console.log(idTrader)
+    const [subscribe, {error, isLoading}] = useSubscribeTraderMutation()
+    const [updateSettings] = useUpdateSettingsTraderMutation()
 
-    const [success,setSuccess]=useState(false)
+
+    const [success, setSuccess] = useState(false)
     useEffect((() => {
-      setOpen(openModal)
+        setOpen(openModal)
     }), [open, openModal])
 
     const handleClose = () => {
@@ -57,7 +59,7 @@ const CopyTradingModalChild: FC<IType> = ({
         setOpen(false);
     };
     const handleSubscribe = () => {
-        if(idAccount){
+        if (idAccount) {
             subscribe({
                 idTrader,
                 idAccount,
@@ -71,14 +73,15 @@ const CopyTradingModalChild: FC<IType> = ({
                         exclude_hours: excludeHours
                     }
                 }
-            }).then(()=>{
+            }).then(() => {
                 handleClose()
-                if(!error && !isLoading && step && setStep) {
+                if (!error && !isLoading && step && setStep) {
                     setStep(step + 1)
                     setSuccess(true)
+                    isError(error)
                 }
             })
-        }else{
+        } else {
             updateSettings({
                 idTrader,
                 body: {
@@ -88,6 +91,12 @@ const CopyTradingModalChild: FC<IType> = ({
                     exclude_symbols: excludeSymbols,
                     exclude_days: excludeDays,
                     exclude_hours: excludeHours
+                }
+            }).then(() => {
+                handleClose()
+                if (!error && !isLoading && step && setStep) {
+                    setSuccess(true)
+                    isError(error)
                 }
             })
         }
@@ -99,8 +108,8 @@ const CopyTradingModalChild: FC<IType> = ({
                 anchorOrigin={{vertical: 'top', horizontal: 'center',}}
                 open={success}
             >
-                <Alert severity={error ?"error":"success"} icon={false}>
-                    {error ?"Ошибка!":"Успешно!"}
+                <Alert severity={error ? "error" : "success"} icon={false}>
+                    {error ? "Ошибка!" : "Успешно!"}
                 </Alert>
             </Snackbar>
             <Modal
@@ -116,13 +125,27 @@ const CopyTradingModalChild: FC<IType> = ({
                     <Stack className="h2 white-90" sx={{mb: 7}}>Подключение трейдера</Stack>
 
                     <Divider variant="fullWidth" sx={{mb: 7}}/>
-                    <div className="h2">
-                        <span>Подключить трейдера</span>
-                        <span className="green">&nbsp;{nameTrader}&nbsp;</span>
-                        <span>на счет</span>
-                        <span className="blue">&nbsp;Мой счет {nameAccount}&nbsp;</span>
-                        <span>?</span>
-                    </div>
+
+                    {
+                        idAccount ?
+                            <div className="h2">
+                                <span>Подключить трейдера</span>
+                                <span className="green">&nbsp;{nameTrader}&nbsp;</span>
+                                <span>на счет</span>
+                                <span className="blue">&nbsp;{nameAccount}&nbsp;</span>
+                                <span>?</span>
+                            </div>
+                            :
+                            <div className="h2">
+                                <span>Сохранить настройки трейдера</span>
+                                <span className="green">&nbsp;{nameTrader}&nbsp;</span>
+                                <span>для счета</span>
+                                <span className="blue">&nbsp;{nameAccount}&nbsp;</span>
+                                <span>?</span>
+                            </div>
+                    }
+
+
                     <Stack direction="row" justifyContent="flex-end" spacing={7} sx={{mt: 7}}>
                         <Button onClick={handleClose} color="error">Отклонить</Button>
                         <Button onClick={handleSubscribe} color="success">Продожить</Button>

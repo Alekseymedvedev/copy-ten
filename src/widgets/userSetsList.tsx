@@ -21,7 +21,7 @@ const UserSetsList: FC<IType> = ({children}) => {
     const [page, setPage] = useState(1);
     const {data, isLoading, error} = useGetSetQuery(page)
     const [addAccountSubscribe] = useAddAccountSubscribeMutation()
-    const {accountId} = useAppSelector(state => state.accountIdReducer)
+    const {accountId,accountName} = useAppSelector(state => state.accountIdReducer)
 
     const [openModalConnection, setOpenModalConnection] = useState(false);
     const [openModal, setOpenModal] = useState(false);
@@ -145,7 +145,7 @@ const UserSetsList: FC<IType> = ({children}) => {
                         Подключить сет
                         <span className="yellow">&nbsp;{nameSet}&nbsp;</span>
                         на счет
-                        {/*<span className="blue">&nbsp;Мой счет 1&nbsp;</span>*/}
+                        <span className="blue">&nbsp;{accountName}&nbsp;</span>
                         ?</span>
                     <Stack direction="row" justifyContent="flex-end" spacing={7}>
                         <Button onClick={closeModal} color="error">Отмена</Button>

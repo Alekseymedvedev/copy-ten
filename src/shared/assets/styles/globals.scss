@@ -260,3 +260,6 @@ div {
 .recharts-wrapper{
   cursor: pointer !important;
 }
+.recharts-rectangle.recharts-tooltip-cursor{
+  fill: transparent;
+}

@@ -65,7 +65,7 @@ const ByTradersChart: FC<IType> = ({data}) => {
     }
 
     return (
-        <Stack sx={{width: '100%',pr:14}}>
+        <Stack sx={{width: '100%',pr:14,pl:14}}>
             {
                 (data && data?.graph?.length > 0) &&
 
@@ -82,7 +82,7 @@ const ByTradersChart: FC<IType> = ({data}) => {
                         >
 
                             <CartesianGrid stroke="#252525"/>
-                            <YAxis dataKey={traderArr[1]} stroke="#252525" tick={<CustomAxisTick rotate={-35}/>}/>
+                            {/*<YAxis  stroke="#252525" tick={<CustomAxisTick rotate={-35}/>}/>*/}
                             <Tooltip contentStyle={contentTooltipStyle} wrapperStyle={wrapperTooltipStyle}
                                      offset={-50}/>
                             {

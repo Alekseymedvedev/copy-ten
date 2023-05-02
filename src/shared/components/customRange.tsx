@@ -11,8 +11,8 @@ interface IType {
     isSwitch?: boolean;
     isSwitchChecked?: boolean;
     isSliderRange?: boolean;
-    onChange?:(value:any)=>void;
-    onChangeSwift?:(value:any)=>void;
+    onChange?: (value: any) => void;
+    onChangeSwift?: (value: any) => void;
 }
 
 const CustomRange: FC<IType> = ({
@@ -29,21 +29,21 @@ const CustomRange: FC<IType> = ({
                                     onChangeSwift
                                 }) => {
     const [marks, setMarks] = useState([
-        {value: minValue!==undefined ? minValue : 0, label: minValue ? minValue : 0},
-        {value:maxValue!==undefined ? maxValue : 10, label: maxValue ? maxValue : 10 },
+        {value: minValue !== undefined ? minValue : 0, label: minValue ? minValue : 0},
+        {value: maxValue !== undefined ? maxValue : 100, label: maxValue ? maxValue : 100},
     ]);
-    const [value, setValue] = useState(defaultValue ? defaultValue :0);
+    const [value, setValue] = useState(defaultValue ? defaultValue : 0);
     const [invisible, setInvisible] = useState(false);
     const [switchChecked, setSwitchChecked] = useState(isSwitchChecked);
 
-    useEffect(()=>{
-        if(isSwitchChecked) setSwitchChecked(isSwitchChecked)
+    useEffect(() => {
+        if (isSwitchChecked) setSwitchChecked(isSwitchChecked)
 
-    },[isSwitchChecked])
+    }, [isSwitchChecked])
     const handleBadgeVisibility = () => {
         setSwitchChecked(!switchChecked)
         setInvisible(!invisible);
-      if(onChangeSwift) onChangeSwift(invisible)
+        if (onChangeSwift) onChangeSwift(invisible)
     };
 
     const handleChange = (event: Event, newValue: number | number[]) => {
@@ -57,32 +57,58 @@ const CustomRange: FC<IType> = ({
 
     return (
 
-        <Paper sx={{p: 4,borderRadius: `5px`}}>
-            <Stack direction="row" alignItems="center" justifyContent="space-between" >
+        <Paper
+            sx={{
+                "@media (min-width:900px)": {
+                    padding: `12px 8px`,
+                }, borderRadius: `5px`
+            }}>
+            <Stack direction="row" alignItems="center" justifyContent="space-between">
                 <span className="subHeaders">{title} {required && <span className="red">*</span>}</span>
                 <Stack direction="row" alignItems="center" justifyContent="space-between">
-                    {isSliderRange && <Chip label={value} variant="filled" color="neutral" sx={{height:23}}/>}
+                    {isSliderRange && <Chip label={value} variant="filled" color="neutral" sx={{height: 23,p:`8px 2px`}}/>}
 
                     {
-                        isSwitch &&
-                        <Switch
-                            checked={isSwitchChecked}
-                            defaultChecked
-                            size="small"
-                            onChange={handleBadgeVisibility}
-                        />
+                        isSwitchChecked !== undefined ?
+                            <Switch
+                                checked={switchChecked}
+                                size="small"
+                                onChange={(e) => {
+                                    setSwitchChecked(e.target.checked)
+                                    handleBadgeVisibility()
+                                }}
+                            />
+                            : isSwitch ?
+                                <Switch
+                                    defaultChecked
+                                    size="small"
+                                    onChange={handleBadgeVisibility}
+                                />
+                                : null
                     }
+                    {/*{*/}
+                    {/*    isSwitch &&*/}
+                    {/*    <Switch*/}
+                    {/*        checked={isSwitchChecked}*/}
+                    {/*        defaultChecked*/}
+                    {/*        size="small"*/}
+                    {/*        onChange={(e)=>{*/}
+                    {/*            setSwitchChecked(e.target.checked)*/}
+                    {/*            handleBadgeVisibility(e)*/}
+                    {/*        }}*/}
+                    {/*    />*/}
+                    {/*}*/}
                 </Stack>
             </Stack>
             {
                 isSliderRange &&
-                <Stack sx={{m: 7, mb:0}}>
+                <Stack sx={{m: 7, mb: 0}}>
                     <Slider
                         size="small"
                         defaultValue={defaultValue ? defaultValue : 0}
-                        min={minValue ?minValue :0}
-                        max={maxValue ? maxValue :10}
-                        step={step ?step : 0.01}
+                        min={minValue ? minValue : 0}
+                        max={maxValue ? maxValue : 100}
+                        step={step ? step :1}
                         onChange={handleChange}
                         valueLabelDisplay="off"
                         marks={marks}
