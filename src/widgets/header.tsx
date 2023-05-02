@@ -51,7 +51,7 @@ const Header: FC<T> = ({heading,  isSelect,accountNumber, typeAccount}) => {
                         </span>
                         }
                     </Typography>
-                    {typeAccount && <Chip label={typeAccount} variant="filled" color="success"/>}
+                    {typeAccount && <Chip label={typeAccount} variant="outlined" color="success"/>}
                     {/*{typeAccount === 0 && <Chip label="Центовый" variant="filled" color="neutral"/>}*/}
                     {/*{typeAccount === 'copytrad' && <Chip label="Копитрейдинг" variant="filled" color="success"/>}*/}
                     {/*{typeAccount === 'robot' && <Chip label="Робот" color="secondary"/>}*/}

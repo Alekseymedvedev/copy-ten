@@ -44,8 +44,9 @@ const DashboardLabel: FC<T> = ({notProduct, notifications, balance}) => {
                             <span className="h1 white-100">${balance.value}</span>
                             <span className={`subHeaders + ${balance.gain>0 ?'green': 'red'}`}>
                                 {balance.gain>0 ?'+': '-'}
-                                {balance.gain}
-                                <IconArrow  /></span>
+                                {balance.gain}&nbsp;
+                                <IconArrow  />
+                            </span>
                         </Stack>
                     </Stack>
                 </Stack>

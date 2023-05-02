@@ -53,7 +53,7 @@ const TransactionsLabel: FC<T> = ({data}) => {
                                 justifyContent="space-between"
                             >
                                 <span className="h2 white-90">{item.title}</span>
-                                <span className={item.colorText}>{item.value}</span>
+                                <span className={item.colorText + " h2"}>{item.value}</span>
                             </Stack>
                             :
                             <Skeleton key={index} variant="rounded" width={140} height={140}/>

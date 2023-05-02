@@ -97,14 +97,14 @@ const TradersAndSets: FC<IType> = ({data, accountId, product, login, dataSets}) 
                     variant="fullWidth"
                     size={'sizeSmall'}
                     tabsName={[
-                        {name: 'Трейдеры', icon: <IconAccount/>},
-                        {name: 'Сеты', icon: <IconAccount/>},
+                        {name: 'Трейдеры'},
+                        {name: 'Сеты'},
                     ]}
                     tabsValue={value} onTabsChange={setValue}/>
                 <Divider sx={{mb: 4, width: `105%`}}/>
 
                 <TabsItem value={value} index={0}>
-                    <Stack className="subHeadersBold white-80" sx={{mb: 4}}>Всего тредеров: {data?.length}</Stack>
+                    <Stack className="subHeadersBold white-80" sx={{mb: 4}}>{data?.length}/15</Stack>
                     <Stack spacing={7}>
                         {
                             data && data.map(item =>
@@ -184,7 +184,7 @@ const TradersAndSets: FC<IType> = ({data, accountId, product, login, dataSets}) 
                     </Stack>
                 </TabsItem>
                 <TabsItem value={value} index={1}>
-                    <Stack className="subHeadersBold white-80" sx={{mb: 4}}>Всего сетов: {dataSets?.length}</Stack>
+                    <Stack className="subHeadersBold white-80" sx={{mb: 4}}>{dataSets?.length}/15</Stack>
                     <Stack spacing={7}>
                         {
                             dataSets && dataSets.map((item: any) =>
