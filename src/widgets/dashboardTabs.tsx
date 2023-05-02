@@ -121,26 +121,8 @@ const DashboardTabs: FC<IType> = ({
                                     traderDashboard &&
                                     <Paper>
                                         <Stack className="subHeaders white-80" spacing={7}>
-                                            <p>Velit nunc ultrices sit est et
-                                                varius. Tellus accumsan pretium sollicitudin elit purus morbi.
-                                                Euismod fames ullamcorper eget eget mi nisi aliquet tortor. Etiam
-                                                aenean mauris integer maecenas et in. Volutpat dolor id vulputate
-                                                non sed arcu. Justo ut nisl non elit odio cursus auctor. Aliquam
-                                                tincidunt nunc ultricies dignissim aenean montes feugiat.
-                                                Vestibulum leo augue magna in morbi montes malesuada diam. Faucibus
-                                                velit risus orci dui pellentesque fusce cursus magna. Quam tristique
-                                                enim id.
-                                            </p>
                                             <p>
-                                                Velit nunc ultrices sit est et varius. Tellus accumsan pretium
-                                                sollicitudin elit purus morbi. Euismod fames ullamcorper eget eget
-                                                mi nisi aliquet tortor. Etiam aenean mauris integer maecenas et in.
-                                                Volutpat dolor id vulputate non sed arcu. Justo ut nisl non elit
-                                                odio cursus auctor. Aliquam tincidunt nunc ultricies dignissim
-                                                aenean montes feugiat.
-                                                Vestibulum leo augue magna in morbi montes malesuada diam. Faucibus
-                                                velit risus orci dui pellentesque fusce cursus magna. Quam tristique
-                                                enim id.
+                                                {dataTrader?.description}
                                             </p>
                                         </Stack>
                                     </Paper>
@@ -148,7 +130,7 @@ const DashboardTabs: FC<IType> = ({
                                 }
                                 <DashboardLabel notProduct={!traderDashboard}
                                                 notifications={dataDashboard?.notifications}
-                                                balance={dataDashboard?.stats?.balance}/>
+                                                balance={dataTrader ? dataTrader?.stats?.balance :dataDashboard?.stats?.balance}/>
                                 <TransactionsLabel data={dataTrader ? dataTrader?.stats?.deals_count : dataDashboard?.stats?.deals_count}/>
                                 {
                                     balanceChartData &&

@@ -27,6 +27,7 @@ const Chart: FC<T> = ({
     return (
         <Paper sx={{flexGrow :1,"@media (min-width:900px)":{
                 padding: `14px 4px`,
+                minHeight:300
             }}}>
             <HeaderChart title={title}  changeTime={changeTime}/>
             {children}

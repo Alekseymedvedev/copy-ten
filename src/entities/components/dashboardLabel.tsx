@@ -43,7 +43,6 @@ const DashboardLabel: FC<T> = ({notProduct, notifications, balance}) => {
                         <Stack direction="row" spacing={4} alignItems="flex-end">
                             <span className="h1 white-100">${balance.value}</span>
                             <span className={`subHeaders + ${balance.gain>0 ?'green': 'red'}`}>
-                                {balance.gain>0 ?'+': '-'}
                                 {balance.gain}&nbsp;
                                 <IconArrow  />
                             </span>

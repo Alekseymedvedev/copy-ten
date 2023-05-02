@@ -184,7 +184,7 @@ const TradersAndSets: FC<IType> = ({data, accountId, product, login, dataSets}) 
                     </Stack>
                 </TabsItem>
                 <TabsItem value={value} index={1}>
-                    <Stack className="subHeadersBold white-80" sx={{mb: 4}}>{dataSets?.length}/15</Stack>
+                    <Stack className="subHeadersBold white-80" sx={{mb: 4}}>{dataSets?.length}/1</Stack>
                     <Stack spacing={7}>
                         {
                             dataSets && dataSets.map((item: any) =>
