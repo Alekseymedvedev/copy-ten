@@ -30,7 +30,9 @@ interface IType {
 const TransactionChart: FC<IType> = ({balanceChartData}) => {
 
     const skipped = (ctx: any) => {
-        return ctx.p0.raw.type == 0 ? '#56CCF2' : ctx.p0.raw.type == 1 ? '#6FCF97' : '#FF8888'
+        console.log(ctx)
+        return ctx.p1.raw.type == 0 ? '#56CCF2' : ctx.p1.raw.type == 1 ? '#6FCF97' : '#FF8888'
+
     };
     return (
         <>

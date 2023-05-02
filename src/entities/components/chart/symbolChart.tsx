@@ -79,7 +79,7 @@ const SymbolChart: FC<IType> = ({data}) => {
                 </Stack>
             </Paper>
             <Stack sx={{
-                padding: `20px 14px`,
+                padding: `14px`,
                 background: `linear-gradient(180deg, rgba(31, 31, 31, 0) 0%, #1F1F1F 100%)`,
                 border: `0.5px solid #3C3C3C`,
                 borderRadius: 2.5,
@@ -92,7 +92,7 @@ const SymbolChart: FC<IType> = ({data}) => {
             }}
             >
 
-                <Stack mb={8} className="subheaders white-90">{data.length} Инстр.</Stack>
+                <Stack mb={4} className="subheaders white-90">{data.length} Инстр.</Stack>
                 <Divider sx={{mb: 4}}/>
                 <Stack spacing={6}>
 
@@ -111,7 +111,7 @@ const SymbolChart: FC<IType> = ({data}) => {
                             >
                             <span className="subHeaders">
                                 <span className="white-100">{item.name}</span>
-                                <span className="green">&nbsp;+{item.value}%</span>
+                                {/*<span className="green">&nbsp;+{item.value}%</span>*/}
                             </span>
                                 <Switch id={`item.id`} value={item.pv} defaultChecked size="small" onChange={(e) => {
                                     handlerSwitch(e, item.id, item, index)

@@ -28,29 +28,29 @@ const CustomTable: FC<T> = ({data, dataTableHead}) => {
                 </TableHead>
                 <TableBody>
                     {data?.map((item: any) => (
-                        <TableRow key={item.trader.name + item.open_at + item.profit}>
+                        <TableRow key={item?.trader?.name + item.open_at + item.profit}>
 
                             <TableCell>{item.open_at}</TableCell>
                             <TableCell>
-                                {item.trader.name}
-                                {item.set.name && <span className="green"> (Сет {item.set.name})</span>}
+                                {item.trader?.name}
+                                {item?.set?.name && <span className="green"> (Сет {item?.set?.name})</span>}
                             </TableCell>
-                            <TableCell className={item.type === 'sell' ? 'red' : 'green'}>
-                                {item.type === 'sell' ? 'Продажа' : 'Покупка'}
+                            <TableCell className={item?.type === 'sell' ? 'red' : 'green'}>
+                                {item?.type === 'sell' ? 'Продажа' : 'Покупка'}
                             </TableCell>
                             <TableCell>
-                                <span className="yellow">{item.volume}</span>
+                                <span className="yellow">{item?.volume}</span>
                             </TableCell>
-                            <TableCell sx={{color: '#fff'}}>{item.symbol ? item?.symbol : '-'}</TableCell>
-                            <TableCell sx={{color: '#fff'}}>{item.open_price}</TableCell>
-                            <TableCell>{item.close_at}</TableCell>
+                            <TableCell sx={{color: '#fff'}}>{item?.symbol ? item?.symbol : '-'}</TableCell>
+                            <TableCell sx={{color: '#fff'}}>{item?.open_price}</TableCell>
+                            <TableCell>{item?.close_at}</TableCell>
                             <TableCell sx={{color: '#fff'}}>{item.close_price}</TableCell>
                             <TableCell
-                                className={item.commission > 0 ? 'green' : 'red'}>{item.commission ? item.commission : '-'}</TableCell>
+                                className={item?.commission > 0 ? 'green' : 'red'}>{item?.commission ? item?.commission : '-'}</TableCell>
                             <TableCell
-                                className={item.swap > 0 ? 'green' : 'red'}>{item.swap ? item.swap : '-'}</TableCell>
-                            <TableCell className={item.profit > 0 ? 'green' : 'red'}>
-                                {item.profit > 0 ? '+' : '-'}{item.profit}
+                                className={item?.swap > 0 ? 'green' : 'red'}>{item?.swap ? item?.swap : '-'}</TableCell>
+                            <TableCell className={item?.profit > 0 ? 'green' : 'red'}>
+                                {item.profit > 0 ? '+' : '-'}{item?.profit}
                             </TableCell>
                         </TableRow>
                     ))}

@@ -21,7 +21,7 @@ const DashboardTable: FC<T> = ({data, dataTableHead}) => {
                         {
                             dataTableHead &&
                             dataTableHead.map((item: any,index:any) =>
-                                <TableCell key={item+index}>{item}</TableCell>
+                                <TableCell key={item+index} sx={{color:'#BDBDBD'}}>{item}</TableCell>
                             )
                         }
                     </TableRow>
