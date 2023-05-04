@@ -66,7 +66,7 @@ const DashboardTradersSidebar: FC<IType> = ({dataTrader}) => {
     }
 
     return (
-        <Stack spacing={7}>
+        <Stack spacing={7} sx={{position: 'sticky'}}>
             <Paper sx={{"@media (min-width:900px)": {
                     p: 14,
                 }}}>

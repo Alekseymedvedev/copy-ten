@@ -26,20 +26,20 @@ const state = [
             text: ''
         }
     },
-    {
-        id: 2,
-        name: 'Копировальщик',
-        priceTitle: 'До 20.000$',
-        image: imgCopy,
-        price: '$2000',
-        slug:'copier10k',
-        text: 'Velit nunc ultrices sit est et varius. Tellus accumsan pretium sollicitudin elit purus morbi.Euismod fames ullamcorper eget eget mi nisi aliquet tortor. Etiam aenean mauris integer maecenas et in. Volutpat dolor id vulputate non sed arcu. Justo ut nisl tincidun',
-        sale: {
-            isSale: false,
-            priceSale: '',
-            text: ''
-        }
-    },
+    // {
+    //     id: 2,
+    //     name: 'Копировальщик',
+    //     priceTitle: 'До 20.000$',
+    //     image: imgCopy,
+    //     price: '$2000',
+    //     slug:'copier10k',
+    //     text: 'Velit nunc ultrices sit est et varius. Tellus accumsan pretium sollicitudin elit purus morbi.Euismod fames ullamcorper eget eget mi nisi aliquet tortor. Etiam aenean mauris integer maecenas et in. Volutpat dolor id vulputate non sed arcu. Justo ut nisl tincidun',
+    //     sale: {
+    //         isSale: false,
+    //         priceSale: '',
+    //         text: ''
+    //     }
+    // },
     {
         id: 3,
         name: 'Робот',

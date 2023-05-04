@@ -9,20 +9,20 @@ body{
 .footer{
   margin-top: 28px;
 }
-div::-webkit-scrollbar {
+*::-webkit-scrollbar {
   width: 5px; /* ширина scrollbar */
 }
 
-div::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
   background: transparent; /* цвет дорожки */
 }
 
-div::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background-color: $white-70; /* цвет плашки */
   border-radius: 20px; /* закругления плашки */
 }
 
-div {
+* {
   scrollbar-width: thin;
   scrollbar-color: $white-70 transparent;
 }

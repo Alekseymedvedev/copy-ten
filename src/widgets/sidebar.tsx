@@ -24,7 +24,6 @@ const styleMediaQuery = {
     left: 0,
     background: `#212121`,
     position: 'fixed',
-    overflowY: 'scroll'
 }
 
 interface T {
@@ -50,29 +49,31 @@ const Sidebar: FC<T> = ({isAdmin}) => {
         <>
             <Stack>
 
-                    {
-                        !mediaQuery ?
-                            <Stack direction="row" alignItems="center" justifyContent="space-between"
-                                   sx={{ml: -5, mr: -5, height: `65px`, padding: `14px 28px`, background: `#212121`}}>
-                                <IconButton onClick={handleMenu}>
-                                    <IconMenu active={visibleMenu}/>
-                                </IconButton>
-                                <img src={logo} alt="logo"/>
+                {
+                    !mediaQuery ?
+                        <Stack direction="row" alignItems="center" justifyContent="space-between"
+                               sx={{ml: -5, mr: -5, height: `65px`, padding: `14px 28px`, background: `#212121`}}>
+                            <IconButton onClick={handleMenu}>
+                                <IconMenu active={visibleMenu}/>
+                            </IconButton>
+                            <img src={logo} alt="logo"/>
+                        </Stack>
+                        : null
+                }
+                {
+                    visibleMenu ?
+
+                        <Stack spacing={7} sx={!mediaQuery ? styleMediaQuery : style}>
+                            <Stack spacing={7}>
+                                <HeaderSidebar isAdmin={isAdmin}/>
                             </Stack>
-                            : null
-                    }
-                    {
-                        visibleMenu ?
+                            <Stack sx={{overflowY: 'scroll'}}>
+                                <Navigation isAdmin={isAdmin}/>
+                            </Stack>
+                        </Stack>
 
-                                <Stack spacing={7} sx={!mediaQuery ? styleMediaQuery : style}>
-                                    <Stack spacing={7}>
-                                        <HeaderSidebar isAdmin={isAdmin} />
-                                    </Stack>
-                                    <Navigation isAdmin={isAdmin}/>
-                                </Stack>
-
-                            : null
-                    }
+                        : null
+                }
 
             </Stack>
         </>

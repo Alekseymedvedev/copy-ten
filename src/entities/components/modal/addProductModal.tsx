@@ -32,10 +32,13 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
     const [paymentLinkId, setPaymentLinkId] = useState(-1)
     const [accountPage, setAccountPPage] = useState(1);
     const [productsPage, setProductsPPage] = useState(1);
-    console.log(accountPage)
-    console.log(productsPage)
-    const {data, isLoading, error} = useGetProductsBySlugQuery({slug: stateModal.slug, page:accountPage})
-    const {data: accountsData, error: accountsError, isLoading: accountsLoading} = useGetAllAddValidateProductsQuery(productsPage)
+
+    const {data, isLoading, error} = useGetProductsBySlugQuery({slug: stateModal.slug, page: accountPage})
+    const {
+        data: accountsData,
+        error: accountsError,
+        isLoading: accountsLoading
+    } = useGetAllAddValidateProductsQuery(productsPage)
     const [createNewProduct, {
         data: dataPayLink,
         error: productError,
@@ -44,6 +47,8 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
     const mediaQuery = useMediaQuery('(min-width:900px)');
     const [open, setOpen] = useState(false)
     const [openPaymentModal, setOpenPaymentModal] = useState(false)
+    const [openVideoModal, setOpenVideoModal] = useState(false)
+    const [visibleText, setVisibleText] = useState(true)
 
 
     // const [userProductId, setUserProductId] = useState('')
@@ -112,29 +117,85 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
                                 <Stack direction={mediaQuery ? "row" : "column"} spacing={7}
                                        justifyContent="space-between"
                                        sx={{mb: 14}}>
-                                    <Stack justifyContent="space-between" spacing={7}>
-                                        <Stack justifyContent="space-between" spacing={7}>
-                                        <span className={stateModal.id === 3 ? "h1 pink" : "h1 green"}>
-                                            {stateModal.name} {stateModal.priceTitle}
-                                        </span>
-                                            <p className="subHeaders white-90">{stateModal.text}</p>
-                                        </Stack>
-                                        <Stack direction={mediaQuery ? "row" : "column"} spacing={7}>
-                                            <Button color="neutral">Читать подробнее</Button>
-                                            <Button color="error" startIcon={<IconPlay/>}>Посмотреть
-                                                презентацию</Button>
-                                        </Stack>
-                                    </Stack>
-                                    <Stack alignItems="center" justifyContent="space-between" spacing={7}>
-                                        <img src={stateModal.image} alt="Копировальщик"/>
-                                        <Chip
-                                            icon={<Stack sx={{color: '#BDBDBD !important'}}>Цена:</Stack>}
-                                            label={
-                                                stateModal.sale?.isSale ?
-                                                    stateModal.price + ' ' + stateModal.sale?.priceSale
-                                                    : stateModal.price
+                                    <Stack>
+
+
+                                        <Stack
+                                            spacing={7}
+                                            sx={
+                                                visibleText ?
+                                                    {
+                                                        maxHeight: 300,
+                                                        maxWidth: 460,
+                                                        background: `linear-gradient(180deg, #D9D9D9 41.15%, rgba(217, 217, 217, 0) 100%)`,
+                                                        backgroundClip: 'text',
+                                                        textFillColor: 'transparent'
+                                                    } :
+                                                    {
+                                                        maxWidth: 460,
+                                                        color: '#BDBDBD'
+                                                    }
                                             }
-                                            color="warning" variant="outlined"/>
+                                        >
+                                            <p>
+                                                CopyTen - инновационный инструмент, который позволяет собрать свой
+                                                портфель
+                                                из нескольких трейдеров и выделить на каждого часть своего депозита.
+                                                Это помогает снизить риск при неудачной торговле одного трейдера и
+                                                сохранить
+                                                средства.
+                                            </p>
+                                            <p>
+                                                Гибкие настройки инструмента позволяют детально настроить копирование от
+                                                каждого трейдера, что помогает увеличить прибыль и снизить риски.
+                                            </p>
+                                            <p>
+                                                CopyTen предлагает несколько тарифов, которые зависят от размера вашего
+                                                депозита. Вы можете выбрать тариф, который наиболее подходит для ваших
+                                                инвестиционных потребностей:
+                                            </p>
+                                            <p>
+                                                - CopyTen 2000$ - 1000р. в месяц;
+                                                - CopyTen 5000$ - 1800р. в месяц;
+                                                - CopyTen 10000$ - 3000р. в месяц;
+                                                - CopyTen 20000$ - 6000р. в месяц.
+                                            </p>
+                                            <p>
+                                                Станьте риск менеджером и используйте CopyTen для эффективного
+                                                управления
+                                                своими инвестициями.
+                                            </p>
+
+                                            {/*<Stack justifyContent="space-between" spacing={7}>*/}
+                                            {/*<span className={stateModal.id === 3 ? "h1 pink" : "h1 green"}>*/}
+                                            {/*    {stateModal.name} {stateModal.priceTitle}*/}
+                                            {/*</span>*/}
+                                            {/*    <p className="subHeaders white-90">{stateModal.text}</p>*/}
+                                            {/*</Stack>*/}
+                                            {/*<Stack direction={mediaQuery ? "row" : "column"} spacing={7}>*/}
+                                            {/*    <Button color="neutral">Читать подробнее</Button>*/}
+                                            {/*    <Button color="error" startIcon={<IconPlay/>}>Посмотреть*/}
+                                            {/*        презентацию</Button>*/}
+                                            {/*</Stack>*/}
+                                        </Stack>
+                                        <Button onClick={() => setVisibleText(!visibleText)} color="neutral">
+                                            Читать подробнее
+                                        </Button>
+                                    </Stack>
+                                    <Stack spacing={7}>
+                                        <img src={stateModal.image} alt="Копировальщик"/>
+                                        <Button onClick={() => setOpenVideoModal(true)} color="error"
+                                                startIcon={<IconPlay/>}>
+                                            Посмотреть презентацию
+                                        </Button>
+                                        {/*<Chip*/}
+                                        {/*    icon={<Stack sx={{color: '#BDBDBD !important'}}>Цена:</Stack>}*/}
+                                        {/*    label={*/}
+                                        {/*        stateModal.sale?.isSale ?*/}
+                                        {/*            stateModal.price + ' ' + stateModal.sale?.priceSale*/}
+                                        {/*            : stateModal.price*/}
+                                        {/*    }*/}
+                                        {/*    color="warning" variant="outlined"/>*/}
                                     </Stack>
 
                                 </Stack>
@@ -209,7 +270,7 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
                                     <Stack className="h2 white-100">Выберите счет для продукта</Stack>
 
                                     {
-                                        accountsData && accountsData.data.map((item:any) =>
+                                        accountsData && accountsData.data.map((item: any) =>
                                             <Paper
                                                 key={item.id}
                                                 onClick={() => setForexAccountData({
@@ -339,10 +400,18 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
 
                 </Box>
             </Modal>
+            {
+                <SimpleModal openModal={openVideoModal} closeModal={setOpenVideoModal} title="Смотреть видео">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/VBpmbqTi86Y"
+                            title="YouTube video player" frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen></iframe>
+                </SimpleModal>
+            }
 
             {
                 (openPaymentModal && dataPayLink) &&
-                <PaymentModal stateModal={stateModal}  paymentLinkId={paymentLinkId} openModal={openPaymentModal}
+                <PaymentModal stateModal={stateModal} paymentLinkId={paymentLinkId} openModal={openPaymentModal}
                               closeModal={setOpenPaymentModal}/>
             }
 
