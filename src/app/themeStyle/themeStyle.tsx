@@ -190,7 +190,7 @@ export const darkTheme = createTheme({
         MuiTableCell: {
             styleOverrides: {
                 root: (({theme}: any) => ({
-                    color: '#828282',
+                    color: '#BDBDBD',
                     fontWeight: 500,
                     fontSize: 12,
                     padding: `10px 0`,

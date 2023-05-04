@@ -8,13 +8,14 @@ import {useGetProfileQuery} from "../store/API/profileApi";
 
 interface MainLayoutProps {
     children: any;
+    isLink?: any;
     isAdmin?: boolean;
     heading?: string;
     accountNumber?: string;
     typeAccount?: string
 }
 
-const MainLayout: FC<MainLayoutProps> = ({children, isAdmin, heading, accountNumber, typeAccount}) => {
+const MainLayout: FC<MainLayoutProps> = ({children,isLink, isAdmin, heading, accountNumber, typeAccount}) => {
 
     return (
         <Container maxWidth="lg">
@@ -23,7 +24,7 @@ const MainLayout: FC<MainLayoutProps> = ({children, isAdmin, heading, accountNum
                     <Sidebar isAdmin={isAdmin}/>
                 </Grid>
                 <Grid item xs={16} md={12} sx={{display: 'flex', flexDirection: 'column', height: `100vh`}}>
-                    <Header heading={heading} isSelect={!isAdmin} accountNumber={accountNumber}
+                    <Header isLink={isLink} heading={heading} isSelect={!isAdmin} accountNumber={accountNumber}
                             typeAccount={typeAccount}/>
                     <main className="main">
                         {children}

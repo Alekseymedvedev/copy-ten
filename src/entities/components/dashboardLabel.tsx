@@ -1,15 +1,15 @@
 import React, {FC} from 'react';
-import {Stack} from "@mui/material";
+import {Chip, Stack} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import IconArrow from "../../shared/assets/images/icons/iconArrow";
 
 interface T {
-    notProduct?: boolean;
+    accountType?: any;
     notifications?: any;
     balance?: any;
 }
 
-const DashboardLabel: FC<T> = ({notProduct, notifications, balance}) => {
+const DashboardLabel: FC<T> = ({accountType, notifications, balance}) => {
 
     return (
         <Stack spacing={7}>
@@ -32,14 +32,16 @@ const DashboardLabel: FC<T> = ({notProduct, notifications, balance}) => {
             }
             {
                 balance &&
-                <Stack className="redBg" sx={{
+                <Stack
+                    direction="row" justifyContent="space-between" alignItems="center"
+                    className="redBg" sx={{
                     p: `14px 28px`,
                     border: `0.5px solid #3C3C3C`,
                     borderRadius: 2.5,
                     background: `linear-gradient(90deg, #1F1F1F 0%, rgba(31, 31, 31, 0) 100%)`
                 }}>
-                    <span className="h2 white-90">Баланс</span>
-                    <Stack>
+                    <Stack >
+                        <span className="h2 white-90">Баланс</span>
                         <Stack direction="row" spacing={4} alignItems="flex-end">
                             <span className="h1 white-100">${balance.value}</span>
                             <span className={`subHeaders + ${balance.gain>0 ?'green': 'red'}`}>
@@ -47,7 +49,14 @@ const DashboardLabel: FC<T> = ({notProduct, notifications, balance}) => {
                                 <IconArrow  />
                             </span>
                         </Stack>
+
                     </Stack>
+                    {
+                        accountType?.type === 0 ?
+                            <Chip label="Центовый" variant="filled" color="neutral" sx={{pr: 0, pl: 0}}/>
+                            :
+                            <Chip label="Долларовый" variant="filled" color="warning" sx={{pr: 0, pl: 0}}/>
+                    }
                 </Stack>
             }
         </Stack>

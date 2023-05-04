@@ -50,7 +50,7 @@ const SymbolChart: FC<IType> = ({data}) => {
                 }
             }}>
                 <HeaderChart title="График"/>
-                <Stack sx={{width: '100%', height: 260}}>
+                <Stack sx={{width: '100%', height: 230}}>
                     <ResponsiveContainer>
                         <BarChart
                             data={barData}

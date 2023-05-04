@@ -96,7 +96,7 @@ const TransactionChart: FC<IType> = ({balanceChartData}) => {
                         backgroundColor:'transparent',
                         segment: {
                             borderColor: ctx => skipped(ctx),
-                            borderWidth: 1,
+                            borderWidth: 2,
                         },
                         spanGaps: false,
                         parsing: {

@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {Skeleton, Stack} from "@mui/material";
 
 interface T {
-    data?: any
+    data?: any;
 }
 
 
@@ -27,7 +27,7 @@ const TransactionsLabel: FC<T> = ({data}) => {
             colorBg: 'redBg',
         },
         {
-            title: 'За текущий месяц',
+            title: 'Нагрузка депозита',
             value: `${data?.losing}%`,
             colorText: 'blue',
             colorBg: 'blueBg',

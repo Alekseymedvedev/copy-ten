@@ -23,6 +23,7 @@ import TransactionChart from "../entities/components/chart/transactionChart";
 import SymbolChart from "../entities/components/chart/symbolChart";
 import DashboardTable from "../shared/components/dashboardTable";
 import ByTradersChart from "../entities/components/chart/byTradersChart";
+import IconTabs from "../shared/assets/images/icons/iconTabs";
 
 
 interface IType {
@@ -42,6 +43,7 @@ interface IType {
     dataBalanceGain?: any;
     dataChartDrawdownAndGain?: any;
     isLoadingSymbol?: any;
+    dataHistory?: any;
 
 
     balanceChartUrl?: any;
@@ -51,6 +53,7 @@ interface IType {
     tradersChartUrl?: any;
     drawdownChartUrl?: any;
     drawdownAndGainChartUrl?: any;
+    isTrader?:any
 }
 
 
@@ -77,6 +80,8 @@ const DashboardTabs: FC<IType> = ({
                                       tradersChartUrl,
                                       drawdownChartUrl,
                                       drawdownAndGainChartUrl,
+                                      dataHistory,
+                                      isTrader
                                   }) => {
 
     const {barChartData} = useAppSelector(state => state.barChartReducer)
@@ -92,7 +97,7 @@ const DashboardTabs: FC<IType> = ({
     const id = location?.pathname?.split('/').pop()
     const {data} = useGetAllSubscribesQuery(id)
     const {data: dataSet} = useGetAllSubscribesSetQuery(id)
-    const {data: dataHistory} = useGetHistoryQuery(id)
+
 
     useEffect((() => {
 
@@ -107,8 +112,8 @@ const DashboardTabs: FC<IType> = ({
             <Box sx={{width: '100%'}}>
                 <TabsHeader
                     tabsName={[
-                        {name: 'Дашборд', icon: <IconAccount/>},
-                        {name: 'История', icon: <IconAccount/>},
+                        {name: 'Дашборд', icon: <IconTabs/>},
+                        {name: 'История', icon: <IconTabs/>},
                         // {name: 'Открытые позиции', icon: <IconAccount/>}
                     ]}
                     tabsValue={value} onTabsChange={setValue}/>
@@ -128,10 +133,11 @@ const DashboardTabs: FC<IType> = ({
                                     </Paper>
 
                                 }
-                                <DashboardLabel notProduct={!traderDashboard}
-                                                notifications={dataDashboard?.notifications}
-                                                balance={dataTrader ? dataTrader?.stats?.balance :dataDashboard?.stats?.balance}/>
-                                <TransactionsLabel data={dataTrader ? dataTrader?.stats?.deals_count : dataDashboard?.stats?.deals_count}/>
+                                <DashboardLabel
+                                                notifications={dataDashboard?.server.type}
+                                                balance={dataDashboard?.stats?.balance}/>
+                                <TransactionsLabel
+                                    data={dataTrader ? dataTrader?.stats?.deals_count : dataDashboard?.stats?.deals_count}/>
                                 {
                                     balanceChartData &&
                                     <Chart title="Баланс" changeTime={balanceChartUrl}>
@@ -227,10 +233,17 @@ const DashboardTabs: FC<IType> = ({
                 </TabsItem>
                 <TabsItem value={value} index={1}>
                     <CustomTable
+                        isTrader={isTrader}
                         data={dataHistory?.data}
-                        dataTableHead={[
-                            'Время', 'Трейдер', 'Тип', 'Обьем', 'Символ', 'Цена', 'Время', 'Цена', 'Комиссия', 'Своп', 'Прибыль'
-                        ]}
+                        dataTableHead={dataTrader ?
+                            [
+                                'Время',  'Тип', 'Обьем', 'Символ', 'Цена', 'Время', 'Цена', 'Комиссия', 'Своп', 'Прибыль'
+                            ]
+                            :
+                            [
+                                'Время', 'Трейдер', 'Тип', 'Обьем', 'Символ', 'Цена', 'Время', 'Цена', 'Комиссия', 'Своп', 'Прибыль'
+                            ]
+                    }
                     />
                 </TabsItem>
                 {/*<TabsItem value={value} index={2}>*/}

@@ -17,6 +17,7 @@ import {useAppSelector} from "../hooks/useRedux";
 import SimpleModal from "../entities/components/modal/simpleModal";
 import AccountModal from "../entities/components/modal/accountModal";
 import DeleteAccountModal from "../entities/components/modal/deleteAccountModal";
+import {useGetSubscribesSettingsQuery} from "../store/API/subscribesApi";
 
 
 interface IType {
@@ -36,6 +37,7 @@ interface IType {
 const TradersAndSets: FC<IType> = ({data, accountId, product, login, dataSets}) => {
     const navigate = useNavigate()
 
+
     const [unsubscribe] = useUnsubscribeTraderMutation()
 
     const mediaQuery = useMediaQuery('(min-width:900px)');
@@ -49,6 +51,7 @@ const TradersAndSets: FC<IType> = ({data, accountId, product, login, dataSets}) 
     const [subscribeId, setSubscribeId] = useState(0);
     const [subscribeLogin, setSubscribeLogin] = useState(0);
 
+    const [trader, setTrader] = useState({});
     const [idTrader, setIdTrader] = useState('');
     const [nameTrader, setNameTrader] = useState('');
 
@@ -143,14 +146,14 @@ const TradersAndSets: FC<IType> = ({data, accountId, product, login, dataSets}) 
                                                 <span className="subHeadersBold green">+{item.stats.dropdown}%</span>
                                             </Stack>
                                         </Grid>
-                                        <Grid item xs={2}>
-                                            <Stack alignItems="center" justifyContent="center" spacing={2}
-                                                   sx={{p: 2, borderRight: `0.5px solid #3C3C3C`}}>
-                                                <span className="subHeaders white-90">Баланс</span>
-                                                <span className="subHeadersBold green">+{item.stats.balance}%</span>
-                                            </Stack>
-                                        </Grid>
-                                        <Grid item xs={2}>
+                                        {/*<Grid item xs={2}>*/}
+                                        {/*    <Stack alignItems="center" justifyContent="center" spacing={2}*/}
+                                        {/*           sx={{p: 2, borderRight: `0.5px solid #3C3C3C`}}>*/}
+                                        {/*        <span className="subHeaders white-90">Баланс</span>*/}
+                                        {/*        <span className="subHeadersBold green">+{item.stats.balance}%</span>*/}
+                                        {/*    </Stack>*/}
+                                        {/*</Grid>*/}
+                                        <Grid item xs={4}>
                                             <Stack alignItems="center" justifyContent="center" spacing={2}
                                                    sx={{p: 2, textAlign: "center"}}>
                                                 <span className="subHeaders white-90">Нагр. депозита</span>
@@ -164,16 +167,20 @@ const TradersAndSets: FC<IType> = ({data, accountId, product, login, dataSets}) 
                                             onClick={() => {
                                                 handleSettingsAcc(item.id)
                                                 setNameTrader(item.trader.name)
+                                                setTrader(item.id)
                                                 setName('трейдера')
                                             }}
                                             color="neutral"
-                                            sx={{width: 48, height: 48, minWidth: 'unset'}}
+                                            sx={{width: 48, height: 48, minWidth: 'unset',backgroundColor: '#1F1F1F'}}
                                         >
                                             <IconSettings/>
                                         </Button>
                                         <Button fullWidth color="neutral" component={Link}
-                                                to={`/trader-dashboard/${item.trader.id}`}>Дашборд
-                                            трейдера</Button>
+                                                sx={{backgroundColor: '#1F1F1F'}}
+                                                to={`/trader-dashboard/${item.trader.id}`}>
+                                            Дашборд
+                                            трейдера
+                                        </Button>
                                     </Stack>
                                     <Button onClick={() => handleUnsubscribe(item.id, item.trader.name)} fullWidth
                                             variant="contained"
@@ -222,14 +229,14 @@ const TradersAndSets: FC<IType> = ({data, accountId, product, login, dataSets}) 
                                                 <span className="subHeadersBold green">+{item.stats.dropdown}%</span>
                                             </Stack>
                                         </Grid>
-                                        <Grid item xs={2}>
-                                            <Stack alignItems="center" justifyContent="center" spacing={2}
-                                                   sx={{p: 2, borderRight: `0.5px solid #3C3C3C`}}>
-                                                <span className="subHeaders white-90">Баланс</span>
-                                                <span className="subHeadersBold green">+{item.stats.balance}%</span>
-                                            </Stack>
-                                        </Grid>
-                                        <Grid item xs={2}>
+                                        {/*<Grid item xs={2}>*/}
+                                        {/*    <Stack alignItems="center" justifyContent="center" spacing={2}*/}
+                                        {/*           sx={{p: 2, borderRight: `0.5px solid #3C3C3C`}}>*/}
+                                        {/*        <span className="subHeaders white-90">Баланс</span>*/}
+                                        {/*        <span className="subHeadersBold green">+{item.stats.balance}%</span>*/}
+                                        {/*    </Stack>*/}
+                                        {/*</Grid>*/}
+                                        <Grid item xs={4}>
                                             <Stack alignItems="center" justifyContent="center" spacing={2}
                                                    sx={{p: 2, textAlign: "center"}}>
                                                 <span className="subHeaders white-90">Нагр. депозита</span>
@@ -261,6 +268,7 @@ const TradersAndSets: FC<IType> = ({data, accountId, product, login, dataSets}) 
                     idTrader={idTrader}
                     openModal={openModal}
                     nameTrader={nameTrader}
+                    trader={trader}
                     nameAccount={login}
                     closeModal={setOpenModal}>
 

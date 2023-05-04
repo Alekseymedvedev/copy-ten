@@ -10,6 +10,7 @@ import CopyTradingModalChild from "./copyTradingModalChild";
 import Parameters from "../parameters";
 import {setParametersSlice} from "../../../store/slice/parametersSlice";
 import {useAppDispatch} from "../../../hooks/useRedux";
+import {useGetSubscribesSettingsQuery} from "../../../store/API/subscribesApi";
 
 
 interface IType {
@@ -19,6 +20,7 @@ interface IType {
     closeModal?: any;
     isOPenBtn?: boolean;
     idTrader?: any
+    trader?: any
     nameTrader?: any
     idAccount?: any
     nameAccount?: any
@@ -31,10 +33,13 @@ const CopyTradingModalSettings: FC<IType> = ({
                                                  closeModal,
                                                  isOPenBtn,
                                                  idTrader,
+                                                 trader,
                                                  nameTrader,
                                                  idAccount,
                                                  nameAccount,
                                              }) => {
+    const {data:dataSettings} = useGetSubscribesSettingsQuery(trader)
+
     const [open, setOpen] = useState(false);
     const [openModalChild, setOpenModalChild] = useState(false);
     const [step, setStep] = useState(1);
@@ -42,7 +47,6 @@ const CopyTradingModalSettings: FC<IType> = ({
 
     const {addRisk, addMaxLot, addMinLot} = setParametersSlice.actions
     const dispatch = useAppDispatch()
-
 
     useEffect((() => {
         setOpen(openModal)
@@ -98,12 +102,23 @@ const CopyTradingModalSettings: FC<IType> = ({
                                     {/*    <span>Используемый <br/> депозит</span>*/}
                                     {/*    <span className="yellow">1239$</span>*/}
                                     {/*</Stack>*/}
-                                    <CustomRange onChange={handleRisk} title="Риск в процентах" required isSwitch
+                                    <CustomRange onChange={handleRisk} title="Риск" defaultValue={dataSettings?.risk}
+                                                 required
+                                                 isSwitch
                                                  isSliderRange/>
-                                    <CustomRange onChange={handleMaxLot} title="Макс. лот" required isSwitch
+                                    <CustomRange onChange={handleMaxLot} title="Макс. лот"
+                                                 defaultValue={dataSettings?.max_lot}
+                                                 required isSwitch
                                                  isSliderRange/>
-                                    <CustomRange onChangeSwift={handleMinLot} title="Мин. лот" required isSwitch/>
-                                    <Parameters/>
+                                    <CustomRange onChangeSwift={handleMinLot} title="Мин. лот"
+                                                 isSwitchChecked={false}
+                                                 required
+                                                 isSwitch/>
+                                    <Parameters
+                                        symbolSettings={dataSettings?.exclude_symbols}
+                                        hoursSettings={dataSettings?.exclude_hours}
+                                        daySettings={dataSettings?.exclude_days}
+                                    />
                                 </Stack>
                                 :
                                 (step === 3) ?

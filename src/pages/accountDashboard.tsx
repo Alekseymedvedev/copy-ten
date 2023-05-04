@@ -13,6 +13,7 @@ import {
     useGetChartSymbolQuery, useGetChartTradersQuery
 } from "../store/API/chartApi";
 import {useState} from "react";
+import {useGetHistoryQuery} from "../store/API/tradersUserApi";
 
 
 const AccountDashboard = () => {
@@ -57,9 +58,10 @@ const AccountDashboard = () => {
         data: dataChartDrawdownAndGain,
         isLoading: isLoadingChartDrawdownAndGain
     } = useGetChartDrawdownAndGainQuery({id: `account/${id}`, url: drawdownAndGainChartUrl})
+    const {data: dataHistory} = useGetHistoryQuery(`account/${id}`)
 
     return (
-        <MainLayout heading="Дашборд" accountNumber={dataAccount?.data?.login}
+        <MainLayout isLink={true} heading="Дашборд" accountNumber={dataAccount?.data?.login}
                     typeAccount={dataAccount?.data?.product?.product_data?.title}>
             {
                 dataAccount &&
@@ -75,6 +77,7 @@ const AccountDashboard = () => {
                     dataBalanceGain={dataBalanceGain}
                     dataChartDrawdownAndGain={dataChartDrawdownAndGain}
                     dataChartMonths={dataChartMonths}
+                    dataHistory={dataHistory}
 
                     balanceChartUrl={setBalanceChartUrl}
                     tradersChartUrl={tradersChartUrl}

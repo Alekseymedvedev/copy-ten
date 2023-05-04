@@ -2,7 +2,7 @@ import MainLayout from "../widgets/mainLayout";
 import DashboardTabs from "../widgets/dashboardTabs";
 
 import {useLocation} from "react-router-dom";
-import {useGetTraderQuery} from "../store/API/tradersUserApi";
+import {useGetHistoryQuery, useGetTraderQuery} from "../store/API/tradersUserApi";
 import {
     useGetChartBalanceGainQuery, useGetChartBalanceQuery, useGetChartDayQuery,
     useGetChartDrawdownAndGainQuery, useGetChartDrawdownQuery,
@@ -26,10 +26,10 @@ const TraderDashboard = () => {
     const {data:dataChartMonths, isLoading:isLoadingChartMonths} = useGetChartMonthsQuery({id:`trader/${id}`,url:'all'})
     const {data:dataChartDrawdown, isLoading:isLoadingChartDrawdown} = useGetChartDrawdownQuery({id:`trader/${id}`,url:'all'})
     const {data:dataChartDrawdownAndGain, isLoading:isLoadingChartDrawdownAndGain} = useGetChartDrawdownAndGainQuery({id:`trader/${id}`,url:'all'})
-
+    const {data: dataHistory} = useGetHistoryQuery(`trader/${id}`)
 
     return (
-        <MainLayout>
+        <MainLayout heading={`Трейдер ${dataTrader?.data?.name}`}>
             <DashboardTabs
                 traderDashboard
                 dataTrader={dataTrader?.data}
@@ -42,7 +42,8 @@ const TraderDashboard = () => {
                 dataBalanceGain={dataBalanceGain}
                 dataChartDrawdownAndGain={dataChartDrawdownAndGain}
                 dataChartMonths={dataChartMonths}
-
+                dataHistory={dataHistory}
+                isTrader
 
             />
         </MainLayout>

@@ -9,10 +9,11 @@ import TableRow from '@mui/material/TableRow';
 
 interface T {
     data?: any;
-    dataTableHead?: string[]
+    dataTableHead?: string[];
+    isTrader:any
 }
 
-const CustomTable: FC<T> = ({data, dataTableHead}) => {
+const CustomTable: FC<T> = ({data, dataTableHead,isTrader}) => {
     return (
         <TableContainer>
             <Table aria-label="simple table">
@@ -31,10 +32,13 @@ const CustomTable: FC<T> = ({data, dataTableHead}) => {
                         <TableRow key={item?.trader?.name + item.open_at + item.profit}>
 
                             <TableCell>{item.open_at}</TableCell>
-                            <TableCell>
-                                {item.trader?.name}
-                                {item?.set?.name && <span className="green"> (Сет {item?.set?.name})</span>}
-                            </TableCell>
+                            {!isTrader &&
+                                <TableCell>
+                                    {item.trader?.name}
+                                    {item?.set?.name && <span className="green"> (Сет {item?.set?.name})</span>}
+                                </TableCell>
+                            }
+
                             <TableCell className={item?.type === 'sell' ? 'red' : 'green'}>
                                 {item?.type === 'sell' ? 'Продажа' : 'Покупка'}
                             </TableCell>
