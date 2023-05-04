@@ -2,7 +2,7 @@ import React, {FC, useEffect, useState} from 'react';
 import {Typography, Stack, useMediaQuery, Chip, FormControl, InputLabel, Select, MenuItem} from "@mui/material";
 import CustomSelect from "../shared/UI/customSelect";
 import {useGetProfileQuery} from "../store/API/profileApi";
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, useLocation} from "react-router-dom";
 import {authSlice} from "../store/slice/authSlice";
 import {useAppDispatch, useAppSelector} from "../hooks/useRedux";
 import {accountIdSlice} from "../store/slice/accountIdSlice";
@@ -20,7 +20,9 @@ interface T {
 const Header: FC<T> = ({heading, isSelect, accountNumber, typeAccount,isLink}) => {
     const mediaQuery = useMediaQuery('(min-width:900px)');
     const {data, error, isLoading} = useGetProfileQuery('')
-    console.log(isLink)
+    const location = useLocation()
+    const id = location?.pathname?.split('/').pop()
+
     const {changeAccountId, changeAccountName} = accountIdSlice.actions
     const dispatch = useAppDispatch()
 
@@ -66,7 +68,7 @@ const Header: FC<T> = ({heading, isSelect, accountNumber, typeAccount,isLink}) =
                                 onChange={changeAccount}
                                 IconComponent={"select"}
                                 fullWidth
-                                defaultValue={data?.data?.accounts[0]?.id}
+                                defaultValue={isLink ? id : data?.data?.accounts[0]?.id}
                             >
                                 {/*{*/}
                                 {/*    data &&*/}
@@ -98,7 +100,6 @@ const Header: FC<T> = ({heading, isSelect, accountNumber, typeAccount,isLink}) =
                                         <MenuItem
                                             key={item.id}
                                             value={item.id}
-                                            // selected={}
                                         >
                                             {
                                                 isLink ?
@@ -138,8 +139,10 @@ const Header: FC<T> = ({heading, isSelect, accountNumber, typeAccount,isLink}) =
                                                     </>
                                             }
                                         </MenuItem>
+
                                     )
                                 }
+
                             </Select>
                         </Stack>
                     }
