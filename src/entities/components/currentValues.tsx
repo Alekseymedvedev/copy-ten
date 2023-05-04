@@ -10,22 +10,22 @@ const CurrentValues: FC<IType> = ({stats}) => {
     console.log(stats)
     return (
         <Stack direction={"row"} alignItems="center" justifyContent="space-between" spacing={7}>
-            <Stack>
+            <Stack alignItems="center">
                 <span className="subHeaders white-90">Просадка</span>
                 <span className="subHeadersBold green">{stats?.dropdown}%</span>
             </Stack>
             <Divider orientation="vertical" variant="middle" flexItem/>
-            <Stack>
+            <Stack alignItems="center">
                 <span className="subHeaders white-90">Все время</span>
                 <span className="subHeadersBold green">{stats.gain.all}%</span>
             </Stack>
             <Divider orientation="vertical" variant="middle" flexItem/>
-            <Stack>
+            <Stack alignItems="center">
                 <span className="subHeaders white-90">Тек. месяц</span>
                 <span className="subHeadersBold green">{stats?.gain?.current_month}%</span>
             </Stack>
             <Divider orientation="vertical" variant="middle" flexItem/>
-            <Stack>
+            <Stack alignItems="center">
                 <span className="subHeaders white-90">Значение</span>
                 <span className="subHeadersBold green">{stats?.balance}%</span>
             </Stack>

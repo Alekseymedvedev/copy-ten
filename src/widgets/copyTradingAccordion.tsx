@@ -61,7 +61,7 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                         expanded={mediaQuery ? expanded === `panel${index + 1}` : false}
                         onChange={handleChange(`panel${index + 1}`)}
                     >
-                        <AccordionSummary>
+                        <AccordionSummary sx={{height:68}}>
                             <Grid container spacing={10} columns={12} wrap="wrap" alignItems="center">
                                 <Grid item xs={12} md={2}>
                                     <NickName
