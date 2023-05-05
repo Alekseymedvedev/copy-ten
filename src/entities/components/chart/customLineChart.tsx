@@ -34,15 +34,7 @@ const CustomLineChart: FC<T> = ({
                                     height,
                                     referenceLineData
                                 }) => {
-    const HSLToRGB = (h: any, s: any, l: any) => {
-        s /= 100;
-        l /= 100;
-        const k = (n: any) => (n + h / 30) % 12;
-        const a = s * Math.min(l, 1 - l);
-        const f = (n: any) =>
-            l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
-        return `rgb(${255 * f(0)}, ${255 * f(8)}, ${255 * f(4)})`;
-    };
+
 
     return (
         <Stack sx={{height: 230,mr:14}} >
@@ -60,7 +52,7 @@ const CustomLineChart: FC<T> = ({
                     <CartesianGrid stroke="#252525"/>
                     <YAxis dataKey="uv" stroke="#252525" tick={<CustomAxisTick color={colorYAxis} rotate={-35}/>}/>
                     <YAxis dataKey="uv" stroke="#252525" orientation="right"/>
-                    <Tooltip contentStyle={contentTooltipStyle} wrapperStyle={wrapperTooltipStyle} offset={-50}/>
+                    <Tooltip  contentStyle={contentTooltipStyle} wrapperStyle={wrapperTooltipStyle} offset={-50}/>
                     {
                         data &&
                             Object.keys(data[0]).map((item, index) =>

@@ -7,28 +7,29 @@ interface T {
 
 
 const TransactionsLabel: FC<T> = ({data}) => {
+    console.log(data)
     const dataLabel = [
         {
             title: 'Всего сделок',
-            value: data?.all,
+            value: data?.deals_count?.all,
             colorText: 'white-100',
             colorBg: '',
         },
         {
             title: 'Доходных сделки',
-            value: data?.profitable,
+            value: data?.deals_count?.profitable,
             colorText: 'green',
             colorBg: 'greenBg',
         },
         {
             title: 'Убыточные сделки',
-            value: data?.losing,
+            value: data?.deals_count?.losing,
             colorText: 'red',
             colorBg: 'redBg',
         },
         {
             title: 'Нагрузка депозита',
-            value: `${data?.losing}%`,
+            value: `${data?.deposit_load}%`,
             colorText: 'blue',
             colorBg: 'blueBg',
         },

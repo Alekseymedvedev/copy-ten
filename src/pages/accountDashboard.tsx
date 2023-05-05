@@ -12,7 +12,7 @@ import {
     useGetChartMonthsQuery,
     useGetChartSymbolQuery, useGetChartTradersQuery
 } from "../store/API/chartApi";
-import {useState} from "react";
+import React, {useState} from "react";
 import {useGetHistoryQuery} from "../store/API/tradersUserApi";
 
 
@@ -27,7 +27,7 @@ const AccountDashboard = () => {
     const [hoursChartUrl, setHoursChartUrl] = useState('all')
     const [drawdownChartUrl, setDrawdownChartUrl] = useState('all')
     const [drawdownAndGainChartUrl, setDrawdownAndGainChartUrl] = useState('all')
-
+    const [page, setPage] = useState(1);
 
     const {data: dataAccount, isLoading: isLoadingAccount, error: errorAccount} = useGetAccountDashboardQuery(id)
 
@@ -58,8 +58,11 @@ const AccountDashboard = () => {
         data: dataChartDrawdownAndGain,
         isLoading: isLoadingChartDrawdownAndGain
     } = useGetChartDrawdownAndGainQuery({id: `account/${id}`, url: drawdownAndGainChartUrl})
-    const {data: dataHistory} = useGetHistoryQuery(`account/${id}`)
+    const {data: dataHistory} = useGetHistoryQuery({id:`account/${id}`,page})
 
+    const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
+        setPage(value);
+    };
     return (
         <MainLayout isLink={true} heading="Дашборд" accountNumber={dataAccount?.data?.login}
                     typeAccount={dataAccount?.data?.product?.product_data?.title}>
@@ -86,6 +89,8 @@ const AccountDashboard = () => {
                     hoursChartUrl={setHoursChartUrl}
                     drawdownChartUrl={setDrawdownChartUrl}
                     drawdownAndGainChartUrl={setDrawdownAndGainChartUrl}
+
+                    changePage={handleChangePage} page={page}
                 />
             }
 

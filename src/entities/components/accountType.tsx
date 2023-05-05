@@ -30,15 +30,16 @@ const AccountType: FC<T> = ({
     const [openModal, setOpenModal] = useState(false);
     const nameAccount = useInput('',false,true)
 
-    const handlerEdit = () => {
+    const handlerEdit = (e:any) => {
         setOpenModal(false)
         updateAccount({
             body: {
                 name: nameAccount.value,
-                login: accountLogin,
                 server_id: accountType?.id
             },
             id: accountNumber
+        }).then(()=>{
+            nameAccount.onChange(e)
         })
 
     }
@@ -70,16 +71,21 @@ const AccountType: FC<T> = ({
             {
                 status === 1 &&
                 <Stack direction="row" spacing={4}>
+
                     {
+                        productType &&
                         productType === "Копировальщик"
                             ? <Chip label="Копитрейдер" variant="outlined" color="success" sx={{pr: 0, pl: 0}}/>
-                            : <Chip label="Робот" color="secondary" sx={{pr: 0, pl: 0}}/>
+                             : productType ?
+                             <Chip label="Робот" color="secondary" sx={{pr: 0, pl: 0}}/>
+                        :null
                     }
                     {
                         accountType?.type === 0 ?
                             <Chip label="Центовый" variant="filled" color="neutral" sx={{pr: 0, pl: 0}}/>
-                            :
+                            : accountType?.type === 1 ?
                             <Chip label="Долларовый" variant="filled" color="warning" sx={{pr: 0, pl: 0}}/>
+                            :null
                     }
 
                 </Stack>

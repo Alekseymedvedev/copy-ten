@@ -5,16 +5,21 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import {Pagination} from "@mui/material";
 
 
 interface T {
     data?: any;
     dataTableHead?: string[];
-    isTrader:any
+    isTrader:any;
+    changePage?:any;
+    page?:any;
 }
 
-const CustomTable: FC<T> = ({data, dataTableHead,isTrader}) => {
+const CustomTable: FC<T> = ({data, dataTableHead,isTrader,changePage,page}) => {
     return (
+        <>
+
         <TableContainer>
             <Table aria-label="simple table">
                 <TableHead>
@@ -61,45 +66,21 @@ const CustomTable: FC<T> = ({data, dataTableHead,isTrader}) => {
                 </TableBody>
             </Table>
         </TableContainer>
-        // <StyledTableContainer >
-        //     <Table sx={{minWidth: 650}} aria-label="a dense table">
-        //         <TableHead>
-        //             <StyledTableRow>
-        //                 <StyledTableCell align="center">Год</StyledTableCell>
-        //                 <StyledTableCell align="center">Янв</StyledTableCell>
-        //                 <StyledTableCell align="center">Янв</StyledTableCell>
-        //                 <StyledTableCell align="center">Янв</StyledTableCell>
-        //                 <StyledTableCell align="center">Янв</StyledTableCell>
-        //                 <StyledTableCell align="center">Янв</StyledTableCell>
-        //                 <StyledTableCell align="center">Янв</StyledTableCell>
-        //                 <StyledTableCell align="center">Янв</StyledTableCell>
-        //             </StyledTableRow>
-        //         </TableHead>
-        //         <TableBody>
-        //             {rows.map((row) => (
-        //                 <StyledTableRow key={row.name}>
-        //                     <StyledTableCell component="th" scope="row">
-        //                         {row.name}
-        //                     </StyledTableCell>
-        //                     <StyledTableCell className={row.calories < 0 ? 'red' : 'green'}
-        //                                      align="center">{row.calories}</StyledTableCell>
-        //                     <StyledTableCell className={row.calories < 0 ? 'red' : 'green'} scope="row"
-        //                                      align="center">{row.fat}</StyledTableCell>
-        //                     <StyledTableCell className={row.calories < 0 ? 'red' : 'green'}
-        //                                      align="center">{row.carbs}</StyledTableCell>
-        //                     <StyledTableCell className={row.calories < 0 ? 'red' : 'green'}
-        //                                      align="center">{row.protein}</StyledTableCell>
-        //                     <StyledTableCell className={row.calories < 0 ? 'red' : 'green'}
-        //                                      align="center">{row.protein1}</StyledTableCell>
-        //                     <StyledTableCell className={row.calories < 0 ? 'red' : 'green'}
-        //                                      align="center">{row.protein2}</StyledTableCell>
-        //                     <StyledTableCell className={row.calories < 0 ? 'red' : 'green'}
-        //                                      align="center">{row.protein3}</StyledTableCell>
-        //                 </StyledTableRow>
-        //             ))}
-        //         </TableBody>
-        //     </Table>
-        // </StyledTableContainer>
+
+            {
+                data?.meta?.pagination?.total_pages > 1 &&
+            <Pagination
+                page={page}
+                onChange={changePage}
+                color="primary"
+                count={data?.meta?.pagination?.total_pages}
+                variant="outlined"
+                shape="rounded"
+                sx={{mr: 'auto'}}
+            />
+
+        }
+            </>
     );
 };
 

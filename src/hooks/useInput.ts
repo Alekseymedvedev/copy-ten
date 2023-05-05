@@ -1,7 +1,7 @@
 import React, {useEffect, useMemo, useState} from "react";
 
 
-export const useInput = (initialValue: any, errorInput?: boolean, noValidate?: boolean) => {
+export const useInput = (initialValue: any, errorInput?: boolean, clear?: boolean, noValidate?: boolean) => {
     const [value, setValue] = useState(initialValue)
     const [error, setError] = useState(false)
     useEffect(() => {
@@ -10,11 +10,9 @@ export const useInput = (initialValue: any, errorInput?: boolean, noValidate?: b
         }
     }, [errorInput])
 
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onChange = (e: any) => {
         setValue(e.target.value)
-        if (e.target.value === '' && !noValidate) {
-            setError(true)
-        } else {
+        if (e.target.value !== '' && !noValidate) {
             setError(false)
         }
     }

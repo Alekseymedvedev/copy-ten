@@ -23,8 +23,11 @@ export const tradersUserApi = createApi({
             providesTags: ['Trader'],
         }),
         getHistory: build.query({
-            query: (id) => ({
-                url: `${id}/history`
+            query: ({id,page}) => ({
+                url: `${id}/history`,
+                params: {
+                    page,
+                }
             }),
         }),
         getTrader: build.query({

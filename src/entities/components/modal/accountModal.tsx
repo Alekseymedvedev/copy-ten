@@ -26,58 +26,65 @@ const AccountModal: FC<IType> = ({maxWidth, openModal, closeModal, isError}) => 
     const [open, setOpen] = useState(false);
     const [step, setStep] = useState(1);
     const [serverNumber, setServerNumber] = useState('');
-    const [errorInput, setErrorInput] = useState(false);
-    const login = useInput('',errorInput)
-    const password = useInput('',errorInput)
+    const [errorInputLogin, setErrorInputLogin] = useState(false);
+    const [errorPassword, setErrorPassword] = useState(false);
+    const login = useInput('',errorInputLogin)
+    const password = useInput('',errorPassword)
     const [errorSelect, setErrorSelect] = useState(false);
+
 
     useEffect((() => {
         setOpen(openModal)
     }), [open, openModal])
 
-    const handlerClose = () => {
+    const handlerClose = (e:any) => {
         closeModal(false)
         setOpen(false);
+         setErrorSelect(false);
+        setErrorInputLogin(false);
+        setErrorPassword(false);
+        setServerNumber('')
         setStep(1)
+        login.onChange(e)
+        password.onChange(e)
     };
+
     const handlerAddAccount = () => {
         if (login.value !== '' && password.value !== '' && serverNumber !== '') {
             addAccount({server_id: serverNumber, login: login.value, password: password.value}).then(() => {
-                    if (!isLoading && !addError) {
-                        setStep(step + 1)
-                    }
+                setStep(step + 1)
                 }
             )
         }else{
-            setErrorSelect(true)
-            setErrorInput(true)
+            if(serverNumber === '') {
+                setErrorSelect(true)
+            }
+            if(login.value === '') {
+                setErrorInputLogin(true)
+            }
+            if(password.value === '') {
+                setErrorPassword(true)
+            }
         }
     };
 
 
     return (
         <>
-            <Snackbar
-                anchorOrigin={{vertical: 'top', horizontal: 'center',}}
-                open={step === 3}
-            >
-                <Alert severity={addError ? "error" : "success"} icon={false}>
-                    {addError ? 'Ошибка' : 'Успешно!'}
-                </Alert>
-            </Snackbar>
-            <Modal
-                open={open}
-                onClose={handlerClose}
-                aria-labelledby="parent-modal-title"
-                aria-describedby="parent-modal-description"
-            >
-
+            <Modal open={open} onClose={handlerClose}>
                 <Box sx={{maxWidth: 460}}>
+                    <Snackbar
+                        anchorOrigin={{vertical: 'top', horizontal: 'center',}}
+                        open={step === 3}
+                    >
+                        <Alert severity={addError ? "error" : "success"} icon={false}>
+                            {addError ? 'Ошибка' : 'Успешно!'}
+                        </Alert>
+                    </Snackbar>
                     <Stack onClick={handlerClose} sx={{position: "absolute", top: 14, right: 28, cursor: "pointer"}}>
                         <IconClose/>
                     </Stack>
                     <Stack className="h2 white-90" sx={{mb: 7}}>Добавить счет</Stack>
-
                     <Divider variant="fullWidth" sx={{mb: 7}}/>
                     {
                         (step === 1) ?
@@ -123,7 +130,7 @@ const AccountModal: FC<IType> = ({maxWidth, openModal, closeModal, isError}) => 
                         }
 
                         {
-                            (step === 2 && !isError) ?
+                            (step === 2 ) ?
                                 <Button onClick={handlerAddAccount} color="success">Продожить</Button>
                                 :
                                 (step === 3 && !isError) ?

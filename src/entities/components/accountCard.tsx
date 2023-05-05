@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import AccountType from "./accountType";
-import {Button, Divider, Skeleton, Stack, Typography} from "@mui/material";
+import {Button, Divider, Skeleton, Stack, Typography, useMediaQuery} from "@mui/material";
 import {Area, AreaChart, ResponsiveContainer} from "recharts";
 import AccountHeader from "./accountHeader";
 import IconAddAccount from "../../shared/assets/images/icons/iconAddAccount";
@@ -38,10 +38,11 @@ const AccountCard: FC<T> = ({
         deleteAccount(accountNumber)
     }
 
+    const mediaQuery = useMediaQuery('(min-width:900px)');
 
     return (
-        <Stack sx={{height: 400, border: ` 0.5px solid #3C3C3C`,background: `linear-gradient(180deg, rgba(31, 31, 31, 0) 0%, #1F1F1F 100%)`, borderRadius: 2.5, overflow: 'hidden'}}>
-            <AccountType
+        <Stack sx={{height:mediaQuery ? 400: 'unset', border: ` 0.5px solid #3C3C3C`,background: `linear-gradient(180deg, rgba(31, 31, 31, 0) 0%, #1F1F1F 100%)`, borderRadius: 2.5, overflow: 'hidden'}}>
+        <AccountType
                 accountLogin={accountLogin}
                 productType={productType}
                 accountType={accountType}
@@ -80,7 +81,6 @@ const AccountCard: FC<T> = ({
                                 <ResponsiveContainer>
                                     <AreaChart data={balance?.graph} margin={{right: 0, bottom: 0, left: 0}}>
                                         <Area dataKey="uv" stroke="#6FCF97" fill="#29312C" width={2}/>
-                                        <Area dataKey="pv" stroke="#56CCF2" fill="transparent"/>
                                     </AreaChart>
                                 </ResponsiveContainer>
                             </Stack>

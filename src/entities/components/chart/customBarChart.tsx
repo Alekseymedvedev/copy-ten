@@ -42,7 +42,7 @@ const CustomBarChart: FC<T> = ({barChartData}) => {
                     <CartesianGrid strokeDasharray="3 3" stroke="#3c3c3c" />
                     <XAxis dataKey="name" tick={<CustomAxisTick/>} />
                     <YAxis  tick={<CustomAxisTick/>} />
-                    <Tooltip contentStyle={contentTooltipStyle} wrapperStyle={wrapperTooltipStyle} offset={-60}/>
+                    <Tooltip  contentStyle={contentTooltipStyle} wrapperStyle={wrapperTooltipStyle} offset={-50}/>
                     <ReferenceLine y={0} stroke="#3c3c3c" alwaysShow={true} isFront={true}/>
                     <Bar dataKey="pv" stackId={1} fill="#6FCF97" isAnimationActive={false} background={false}/>
                     <Bar dataKey="uv"  stackId={1} fill="#FF8888" background={false}/>

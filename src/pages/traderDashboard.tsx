@@ -9,7 +9,7 @@ import {
     useGetChartHoursQuery, useGetChartMonthsQuery,
     useGetChartSymbolQuery
 } from "../store/API/chartApi";
-import {useState} from "react";
+import React, {useState} from "react";
 
 
 const TraderDashboard = () => {
@@ -17,7 +17,7 @@ const TraderDashboard = () => {
     const id = location?.pathname?.split('/').pop()
 
     const {data:dataTrader, isLoading:isLoadingTrader,} = useGetTraderQuery(id)
-
+    const [page, setPage] = useState(1);
     const {data, isLoading, error} = useGetChartBalanceQuery({id:`trader/${id}`,url:'all'})
     const {data:dataBalanceGain, isLoading:isLoadingBalanceGain} = useGetChartBalanceGainQuery({id:`trader/${id}`,url:'all'})
     const {data:dataSymbol, isLoading:isLoadingSymbol} = useGetChartSymbolQuery({id:`trader/${id}`,url:'all'})
@@ -26,8 +26,10 @@ const TraderDashboard = () => {
     const {data:dataChartMonths, isLoading:isLoadingChartMonths} = useGetChartMonthsQuery({id:`trader/${id}`,url:'all'})
     const {data:dataChartDrawdown, isLoading:isLoadingChartDrawdown} = useGetChartDrawdownQuery({id:`trader/${id}`,url:'all'})
     const {data:dataChartDrawdownAndGain, isLoading:isLoadingChartDrawdownAndGain} = useGetChartDrawdownAndGainQuery({id:`trader/${id}`,url:'all'})
-    const {data: dataHistory} = useGetHistoryQuery(`trader/${id}`)
-
+    const {data: dataHistory} = useGetHistoryQuery({id:`trader/${id}`,page})
+    const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
+        setPage(value);
+    };
     return (
         <MainLayout heading={`Трейдер ${dataTrader?.data?.name}`}>
             <DashboardTabs
@@ -44,7 +46,7 @@ const TraderDashboard = () => {
                 dataChartMonths={dataChartMonths}
                 dataHistory={dataHistory}
                 isTrader
-
+                changePage={handleChangePage} page={page}
             />
         </MainLayout>
     );

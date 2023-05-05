@@ -44,7 +44,8 @@ interface IType {
     dataChartDrawdownAndGain?: any;
     isLoadingSymbol?: any;
     dataHistory?: any;
-
+    changePage?:any;
+    page?:any;
 
     balanceChartUrl?: any;
     balanceGainChartUrl?: any;
@@ -81,7 +82,7 @@ const DashboardTabs: FC<IType> = ({
                                       drawdownChartUrl,
                                       drawdownAndGainChartUrl,
                                       dataHistory,
-                                      isTrader
+                                      isTrader,changePage,page
                                   }) => {
 
     const {barChartData} = useAppSelector(state => state.barChartReducer)
@@ -134,10 +135,11 @@ const DashboardTabs: FC<IType> = ({
 
                                 }
                                 <DashboardLabel
+                                    accountType={dataDashboard && dataDashboard?.server.type}
                                                 notifications={dataDashboard?.server.type}
-                                                balance={dataDashboard?.stats?.balance}/>
+                                                balance={dataTrader ? dataTrader?.stats?.balance : dataDashboard?.stats?.balance}/>
                                 <TransactionsLabel
-                                    data={dataTrader ? dataTrader?.stats?.deals_count : dataDashboard?.stats?.deals_count}/>
+                                    data={dataTrader ? dataTrader?.stats : dataDashboard?.stats}/>
                                 {
                                     balanceChartData &&
                                     <Chart title="Баланс" changeTime={balanceChartUrl}>
@@ -233,6 +235,7 @@ const DashboardTabs: FC<IType> = ({
                 </TabsItem>
                 <TabsItem value={value} index={1}>
                     <CustomTable
+                        changePage={changePage} page={page}
                         isTrader={isTrader}
                         data={dataHistory?.data}
                         dataTableHead={dataTrader ?

@@ -52,10 +52,11 @@ const DashboardLabel: FC<T> = ({accountType, notifications, balance}) => {
 
                     </Stack>
                     {
-                        accountType?.type === 0 ?
+                        accountType === 0 ?
                             <Chip label="Центовый" variant="filled" color="neutral" sx={{pr: 0, pl: 0}}/>
-                            :
+                            : accountType === 1 ?
                             <Chip label="Долларовый" variant="filled" color="warning" sx={{pr: 0, pl: 0}}/>
+                            :null
                     }
                 </Stack>
             }

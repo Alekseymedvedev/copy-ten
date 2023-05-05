@@ -18,11 +18,11 @@ const AccountHeader: FC<T> = ({balance, accountType,depositLoad}) => {
     }, [])
     return (
         <Stack sx={{mb: 17, padding: `0px 28px`}}>
-            <Stack direction="row" alignItems="center" spacing="auto">
+            <Stack direction="row" alignItems="center" spacing="auto" sx={{mb: 2}}>
                 <div className="h2 white-90">Баланс счета</div>
                 <div className="h1 white-100">
                     <span>{balance?.value}</span>
-                    <span>{type}</span>
+                    <span> {type}</span>
                 </div>
             </Stack>
             <Stack spacing={4}>

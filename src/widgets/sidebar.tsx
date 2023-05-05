@@ -7,12 +7,13 @@ import logo from '../shared/assets/images/logo.svg'
 
 
 const style = {
-    maxWidth: 300,
-    width: `100%`,
+     maxWidth: 300,
+    width: `24%`,
     padding: `0 10px`,
     borderRight: `4px solid #1F1F1F;`,
     position: 'fixed',
-    top: 28
+    top: 28,
+    overflowY: 'scroll'
 }
 const styleMediaQuery = {
     height: `100vh`,
@@ -67,7 +68,7 @@ const Sidebar: FC<T> = ({isAdmin}) => {
                             <Stack spacing={7}>
                                 <HeaderSidebar isAdmin={isAdmin}/>
                             </Stack>
-                            <Stack sx={{overflowY: 'scroll'}}>
+                            <Stack sx={{}}>
                                 <Navigation isAdmin={isAdmin}/>
                             </Stack>
                         </Stack>

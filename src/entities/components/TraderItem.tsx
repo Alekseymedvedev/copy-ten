@@ -56,7 +56,7 @@ const TraderItem: FC<IType> = ({
                         },]}/>
                 </Grid>
                 <Grid item xs={14} md={6}>
-                    <CurrentValues stats={stats}/>
+                    {/*<CurrentValues stats={stats}/>*/}
                 </Grid>
                 <Grid item xs={14} md={2}>
                     <FormControl fullWidth>

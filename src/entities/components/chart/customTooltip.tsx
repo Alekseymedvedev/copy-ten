@@ -7,14 +7,16 @@ interface IType {
 }
 
 const CustomTooltip: FC<IType> = ({ active, payload, label }) => {
-    console.log(label)
-    return (
-        <div className="custom-tooltip">
-            <p className="label">{`${label} : ${payload[0]?.value}`}</p>
-            <p className="intro">{label}</p>
-            <p className="desc">Anything you want can be displayed here.</p>
-        </div>
-    );
+    if (active && payload && payload.length) {
+        return (
+            <div className="custom-tooltip">
+                <p className="label">{`${label} : ${payload[0].value}`}</p>
+                <p className="desc">Anything you want can be displayed here.</p>
+            </div>
+        );
+    }
+
+    return null;
 };
 
 export default CustomTooltip;

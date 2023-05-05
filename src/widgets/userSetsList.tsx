@@ -10,6 +10,9 @@ import IconTraders from "../shared/assets/images/icons/iconTraders";
 import {useAddAccountSubscribeMutation, useGetSetQuery} from "../store/API/userApi";
 import SimpleModal from "../entities/components/modal/simpleModal";
 import {useAppSelector} from "../hooks/useRedux";
+import IconPlus from "../shared/assets/images/icons/iconPlus";
+import TraderItem from "../entities/components/TraderItem";
+import {useGetAllLinkedTradersQuery} from "../store/API/tradeSetsApi";
 
 
 interface IType {
@@ -22,7 +25,7 @@ const UserSetsList: FC<IType> = ({children}) => {
     const {data, isLoading, error} = useGetSetQuery(page)
     const [addAccountSubscribe] = useAddAccountSubscribeMutation()
     const {accountId,accountName} = useAppSelector(state => state.accountIdReducer)
-
+    const {data: dataLinkedTraders} = useGetAllLinkedTradersQuery('2')
     const [openModalConnection, setOpenModalConnection] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const [idSet, setIdSet] = useState('');
@@ -153,6 +156,24 @@ const UserSetsList: FC<IType> = ({children}) => {
                             onClick={handleConnection}
                             color="success">Подключить</Button>
                     </Stack>
+                </Stack>
+            </SimpleModal>
+            <SimpleModal maxWidth={1140} title="Подключенные трейдеры" openModal={openModal}
+                         closeModal={setOpenModal}>
+                <Stack spacing={7}>
+
+                    {
+                        dataLinkedTraders?.data &&
+                        dataLinkedTraders?.data.map((item: any) =>
+                            <TraderItem
+                                id={item.id}
+                                stats={item.trader.stats}
+                                graph={item.trader.graph}
+                                name={item.trader.name}
+                                strategy={item.trader.strategy}
+                            />
+                        )
+                    }
                 </Stack>
             </SimpleModal>
         </Stack>

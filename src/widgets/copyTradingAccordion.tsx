@@ -61,7 +61,7 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                         expanded={mediaQuery ? expanded === `panel${index + 1}` : false}
                         onChange={handleChange(`panel${index + 1}`)}
                     >
-                        <AccordionSummary sx={{height:68}}>
+                        <AccordionSummary sx={{m:0}}>
                             <Grid container spacing={10} columns={12} wrap="wrap" alignItems="center">
                                 <Grid item xs={12} md={2}>
                                     <NickName
@@ -75,7 +75,7 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                                     {
                                         (expanded !== `panel${index + 1}` || !mediaQuery) ?
                                             <CustomAreaChart
-                                                height={64}
+                                                height={52}
                                                 data={item.graph}
                                                 dataArea={[{
                                                     dataKey: "uv",
@@ -210,8 +210,6 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                     </Accordion>
                 )
             }
-
-
             {
                 data?.meta?.pagination?.total_pages > 1 &&
                 <Pagination
@@ -223,11 +221,13 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                     shape="rounded"
                     sx={{mr: 'auto'}}
                 />
-
+            }
+            {
+                openModal &&
+                <CopyTradingModalSettings idTrader={idTrader} trader={idTrader} idAccount={accountId} openModal={openModal}
+                                          closeModal={setOpenModal}/>
             }
 
-            <CopyTradingModalSettings idTrader={idTrader} idAccount={accountId} openModal={openModal}
-                                      closeModal={setOpenModal}/>
         </div>
     );
 }

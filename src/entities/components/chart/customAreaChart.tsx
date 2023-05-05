@@ -30,7 +30,7 @@ const CustomAreaChart: FC<IType> = ({height, data, dataArea}) => {
                 >
                     {
                         dataArea && dataArea.map(item =>
-                            <Area key={item.dataKey + item.dataKey} dataKey={item.dataKey} stroke={item.stroke}
+                            <Area key={item.dataKey + item.dataKey} dataKey="uv" stroke={item.stroke}
                                   fill={item.fill}/>
                         )
                     }

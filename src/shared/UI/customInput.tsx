@@ -46,8 +46,6 @@ const CustomInput: FC<T> = ({
                         {...dataInput}
                         required={isRequired ? true : undefined}
                         fullWidth
-                        // error={errorInput}
-                        // onChange={()=>{}}
                         helperText={(dataInput?.error || errorInput) && "Поле обязательно к заполнению"}
                         label={label}
                         type={showPassword ? 'text' : 'password'}

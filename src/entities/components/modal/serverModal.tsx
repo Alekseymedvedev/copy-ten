@@ -131,7 +131,7 @@ const ServerModal: FC<IType> = ({
                             </Stack>
                             :
                             <Stack spacing={7}>
-                                <CustomInput dataInput={input} label="Название сервера"/>
+                                <CustomInput inputType="text" dataInput={input} label="Название сервера"/>
                                 <CustomSelect
                                     title="Сервер счета"
                                     defaultValue="Выбрать сервер"

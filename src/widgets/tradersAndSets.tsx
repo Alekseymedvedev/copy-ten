@@ -136,14 +136,14 @@ const TradersAndSets: FC<IType> = ({data, accountId, product, login, dataSets}) 
                                                        borderBottom: `0.5px solid #3C3C3C`
                                                    }}>
                                                 <span className="subHeaders white-90">Прирост</span>
-                                                <span className="subHeadersBold green">+{item.stats.gain}%</span>
+                                                <span className="subHeadersBold green">{item.stats.gain}%</span>
                                             </Stack>
                                         </Grid>
                                         <Grid item xs={2}>
                                             <Stack alignItems="center" justifyContent="center" spacing={2}
                                                    sx={{p: 2, borderBottom: `0.5px solid #3C3C3C`}}>
                                                 <span className="subHeaders white-90">Просадка</span>
-                                                <span className="subHeadersBold green">+{item.stats.dropdown}%</span>
+                                                <span className="subHeadersBold green">{item.stats.dropdown}%</span>
                                             </Stack>
                                         </Grid>
                                         {/*<Grid item xs={2}>*/}
@@ -157,7 +157,7 @@ const TradersAndSets: FC<IType> = ({data, accountId, product, login, dataSets}) 
                                             <Stack alignItems="center" justifyContent="center" spacing={2}
                                                    sx={{p: 2, textAlign: "center"}}>
                                                 <span className="subHeaders white-90">Нагр. депозита</span>
-                                                <span className="subHeadersBold green">+{item.stats.deposit_load}%</span>
+                                                <span className="subHeadersBold green">{item.stats.deposit_load}%</span>
                                             </Stack>
                                         </Grid>
                                     </Grid>
@@ -219,14 +219,14 @@ const TradersAndSets: FC<IType> = ({data, accountId, product, login, dataSets}) 
                                                        borderBottom: `0.5px solid #3C3C3C`
                                                    }}>
                                                 <span className="subHeaders white-90">Прирост</span>
-                                                <span className="subHeadersBold green">+{item.stats.gain}%</span>
+                                                <span className="subHeadersBold green">{item.stats.gain}%</span>
                                             </Stack>
                                         </Grid>
                                         <Grid item xs={2}>
                                             <Stack alignItems="center" justifyContent="center" spacing={2}
                                                    sx={{p: 2, borderBottom: `0.5px solid #3C3C3C`}}>
                                                 <span className="subHeaders white-90">Просадка</span>
-                                                <span className="subHeadersBold green">+{item.stats.dropdown}%</span>
+                                                <span className="subHeadersBold green">{item.stats.dropdown}%</span>
                                             </Stack>
                                         </Grid>
                                         {/*<Grid item xs={2}>*/}
@@ -240,7 +240,7 @@ const TradersAndSets: FC<IType> = ({data, accountId, product, login, dataSets}) 
                                             <Stack alignItems="center" justifyContent="center" spacing={2}
                                                    sx={{p: 2, textAlign: "center"}}>
                                                 <span className="subHeaders white-90">Нагр. депозита</span>
-                                                <span className="subHeadersBold green">+{item.stats.deposit_load}%</span>
+                                                <span className="subHeadersBold green">{item.stats.deposit_load}%</span>
                                             </Stack>
                                         </Grid>
                                     </Grid>
