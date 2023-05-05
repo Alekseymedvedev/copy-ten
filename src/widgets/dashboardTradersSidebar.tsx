@@ -66,7 +66,7 @@ const DashboardTradersSidebar: FC<IType> = ({dataTrader}) => {
     }
 
     return (
-        <Stack spacing={7} sx={{position: 'sticky'}}>
+        <Stack spacing={7}>
             <Paper sx={{"@media (min-width:900px)": {
                     p: 14,
                 }}}>
@@ -140,7 +140,7 @@ const DashboardTradersSidebar: FC<IType> = ({dataTrader}) => {
 
             {
                 (dataTrader?.subscribed_forex_accounts.find((item: any) => item.forex_account.id === accountId) && data) ?
-                    <Paper sx={{p: 14}}>
+                    <Paper sx={{p: 14,position: 'sticky',top:0}} >
 
                         <Stack spacing={7}>
                             <span className="h2 white-90">Настройки</span>
@@ -211,7 +211,7 @@ const DashboardTradersSidebar: FC<IType> = ({dataTrader}) => {
                         </Stack>
                     </Paper>
                     :
-                    <Skeleton variant="rounded" width={`100%`} height={433}/>
+                    <Skeleton variant="rounded" width={`100%`} height={433} sx={{p: 14,position: 'sticky',top:0}}/>
             }
             {/*<Button fullWidth variant="gardient" color="info" onClick={handlerHunterMod}>*/}
             {/*    <span className="h2 blue">{hunterModBtn}</span>*/}
