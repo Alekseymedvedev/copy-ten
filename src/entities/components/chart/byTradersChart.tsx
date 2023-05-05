@@ -85,7 +85,7 @@ const ByTradersChart: FC<IType> = ({data}) => {
                             <CartesianGrid stroke="#252525"/>
                             {/*<YAxis  stroke="#252525" tick={<CustomAxisTick rotate={-35}/>}/>*/}
                             <Tooltip content={<CustomTooltip byTradersChart={ traderArr.map((item, index) =>
-                                HSLToRGB(index * 24, 50, 62)
+                                index > 0 ? HSLToRGB(index * 24, 50, 62) : '#56CCF2'
                             )} />}  contentStyle={contentTooltipStyle} wrapperStyle={wrapperTooltipStyle}
                                      offset={-50}/>
                             {
