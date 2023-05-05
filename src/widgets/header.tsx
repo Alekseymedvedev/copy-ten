@@ -18,7 +18,7 @@ interface T {
 
 
 const Header: FC<T> = ({heading, isSelect, accountNumber, typeAccount,isLink}) => {
-    const mediaQuery = useMediaQuery('(min-width:900px)');
+    const mediaQuery = useMediaQuery('(min-width:980px)');
     const {data, error, isLoading} = useGetProfileQuery('')
     const location = useLocation()
     const id = location?.pathname?.split('/').pop()

@@ -10,7 +10,7 @@ interface T {
 }
 
 const DashboardLabel: FC<T> = ({accountType, notifications, balance}) => {
-
+    console.log(notifications)
     return (
         <Stack spacing={7}>
             {

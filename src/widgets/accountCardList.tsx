@@ -13,7 +13,7 @@ interface T {
 const AccountCardList: FC<T> = ({}) => {
     const [accountPage, setAccountPPage] = useState(1);
     const {data, error, isLoading} = useGetAccountsQuery(accountPage)
-    const mediaQuery = useMediaQuery('(min-width:900px)');
+    const mediaQuery = useMediaQuery('(min-width:980px)');
     const [openModal, setOpenModal] = useState(false);
 
     if (error) {

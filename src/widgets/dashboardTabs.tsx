@@ -89,7 +89,7 @@ const DashboardTabs: FC<IType> = ({
     const dispatch = useAppDispatch()
     const {fetchBarChart} = barChartSlice.actions
 
-    const mediaQuery = useMediaQuery('(min-width:900px)');
+    const mediaQuery = useMediaQuery('(min-width:980px)');
     const [sidebarVisible, setSidebarVisible] = useState(true);
     const [value, setValue] = useState(0);
 
@@ -136,7 +136,7 @@ const DashboardTabs: FC<IType> = ({
                                 }
                                 <DashboardLabel
                                     accountType={dataDashboard && dataDashboard?.server.type}
-                                                notifications={dataDashboard?.server.type}
+                                                notifications={dataDashboard?.notifications}
                                                 balance={dataTrader ? dataTrader?.stats?.balance : dataDashboard?.stats?.balance}/>
                                 <TransactionsLabel
                                     data={dataTrader ? dataTrader?.stats : dataDashboard?.stats}/>

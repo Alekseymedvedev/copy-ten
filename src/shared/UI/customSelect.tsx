@@ -29,7 +29,7 @@ const CustomSelect: FC<IType> = ({
                                      isSettingsParams,
                                      isError
                                  }) => {
-    const mediaQuery = useMediaQuery('(min-width:900px)');
+    const mediaQuery = useMediaQuery('(min-width:980px)');
     const [variantName, setVariantName] = useState<any>(isSettingsParams ? isSettingsParams :[]);
     const [error, setError] = useState(false);
 

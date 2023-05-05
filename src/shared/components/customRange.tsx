@@ -59,7 +59,7 @@ const CustomRange: FC<IType> = ({
 
         <Paper
             sx={{
-                "@media (min-width:900px)": {
+                "@media (min-width:980px)": {
                     padding: `12px 8px`,
                 }, borderRadius: `5px`
             }}>

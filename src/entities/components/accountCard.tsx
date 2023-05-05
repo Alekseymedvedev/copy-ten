@@ -38,7 +38,7 @@ const AccountCard: FC<T> = ({
         deleteAccount(accountNumber)
     }
 
-    const mediaQuery = useMediaQuery('(min-width:900px)');
+    const mediaQuery = useMediaQuery('(min-width:980px)');
 
     return (
         <Stack sx={{height:mediaQuery ? 400: 'unset', border: ` 0.5px solid #3C3C3C`,background: `linear-gradient(180deg, rgba(31, 31, 31, 0) 0%, #1F1F1F 100%)`, borderRadius: 2.5, overflow: 'hidden'}}>

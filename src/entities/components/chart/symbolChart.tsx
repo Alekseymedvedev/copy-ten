@@ -25,7 +25,7 @@ interface IType {
 }
 
 const SymbolChart: FC<IType> = ({data}) => {
-    const mediaQuery = useMediaQuery('(min-width:900px)');
+    const mediaQuery = useMediaQuery('(min-width:980px)');
     const [barData, setBarData] = useState<any>([])
     useEffect(() => {
         if (data) setBarData(data)
@@ -45,7 +45,7 @@ const SymbolChart: FC<IType> = ({data}) => {
                justifyContent="space-between">
 
             <Paper sx={{
-                flexGrow: 1, "@media (min-width:900px)": {
+                flexGrow: 1, "@media (min-width:980px)": {
                     padding: `14px 4px`,
                 }
             }}>

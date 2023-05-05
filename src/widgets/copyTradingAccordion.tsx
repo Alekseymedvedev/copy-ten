@@ -28,7 +28,7 @@ interface IType {
 }
 
 const CopyTradingAccordion: FC<IType> = ({children}) => {
-    const mediaQuery = useMediaQuery('(min-width:900px)');
+    const mediaQuery = useMediaQuery('(min-width:980px)');
     const [page, setPage] = useState(1);
     const {data, isLoading, error} = useGetAllUserTradersQuery(page)
     const {accountId} = useAppSelector(state => state.accountIdReducer)

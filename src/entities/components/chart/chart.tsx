@@ -25,7 +25,7 @@ const Chart: FC<T> = ({
                           icon
                       }) => {
     return (
-        <Paper sx={{flexGrow :1,"@media (min-width:900px)":{
+        <Paper sx={{flexGrow :1,"@media (min-width:980px)":{
                 padding: `14px 4px`,
                 minHeight:300
             }}}>
