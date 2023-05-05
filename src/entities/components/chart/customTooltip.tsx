@@ -1,4 +1,5 @@
 import React, {FC} from 'react';
+import {Stack} from "@mui/material";
 
 interface IType {
     active?: any;
@@ -6,16 +7,30 @@ interface IType {
     label?: any;
 }
 
-const CustomTooltip = ({ active, payload, label }:any) => {
+const CustomTooltip = ({ active, payload, byTradersChart,label,barChart }:any) => {
     if (active && payload && payload.length) {
         return (
             <div className="custom-tooltip">
-                <p className="blue">${payload[0].value}</p>
+
                 {
-                    payload.length >1 &&
-                    <p className="green">${payload[1].value}</p>
+                    !byTradersChart &&
+                    <Stack className="blue">${payload[0].value}</Stack>
                 }
 
+                {
+                    (payload.length >1 && !byTradersChart) &&
+                    <Stack className="green">${payload[1].value}</Stack>
+                }
+                {
+                    byTradersChart &&
+                    byTradersChart.map((item:any,index:any)=>
+                        <Stack sx={{color:item}}>${payload[index].value}</Stack>
+                    )
+                }
+                {
+                    barChart &&
+                    <Stack>{label}</Stack>
+                }
             </div>
         );
     }

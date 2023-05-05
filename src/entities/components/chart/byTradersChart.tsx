@@ -3,6 +3,7 @@ import {alpha, Stack, styled, Switch} from "@mui/material";
 import {CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, YAxis} from "recharts";
 import CustomAxisTick from "./customAxisTick";
 import {pink} from "@mui/material/colors";
+import CustomTooltip from "./customTooltip";
 
 
 const wrapperTooltipStyle = {
@@ -83,7 +84,9 @@ const ByTradersChart: FC<IType> = ({data}) => {
 
                             <CartesianGrid stroke="#252525"/>
                             {/*<YAxis  stroke="#252525" tick={<CustomAxisTick rotate={-35}/>}/>*/}
-                            <Tooltip contentStyle={contentTooltipStyle} wrapperStyle={wrapperTooltipStyle}
+                            <Tooltip content={<CustomTooltip byTradersChart={ traderArr.map((item, index) =>
+                                HSLToRGB(index * 24, 50, 62)
+                            )} />}  contentStyle={contentTooltipStyle} wrapperStyle={wrapperTooltipStyle}
                                      offset={-50}/>
                             {
                                 traderArr &&

@@ -6,6 +6,7 @@ import Chart from "./chart";
 import SwitchList from "../switchList";
 import HeaderChart from "../../../shared/components/headerChart";
 import Paper from "@mui/material/Paper";
+import CustomTooltip from "./customTooltip";
 
 const wrapperTooltipStyle = {
     padding: `8px 14px`,
@@ -69,8 +70,8 @@ const SymbolChart: FC<IType> = ({data}) => {
                             <CartesianGrid strokeDasharray="3 3" stroke="#3c3c3c"/>
                             <XAxis dataKey="name" tick={<CustomAxisTick textAnchor="middle"/>}  interval={0}/>
                             <YAxis tick={<CustomAxisTick rotate={-30}/>}/>
-                            <Tooltip contentStyle={contentTooltipStyle} wrapperStyle={wrapperTooltipStyle}
-                                     offset={-60}/>
+                            <Tooltip content={<CustomTooltip barChart />}  contentStyle={contentTooltipStyle} wrapperStyle={wrapperTooltipStyle}
+                                     offset={-50}/>
                             <ReferenceLine y={0} stroke="#3c3c3c" alwaysShow={true} isFront={true}/>
                             <Bar dataKey="pv" stackId={1} fill="#6FCF97" isAnimationActive={false}/>
                             <Bar dataKey="uv" stackId={1} fill="#FF8888"/>
