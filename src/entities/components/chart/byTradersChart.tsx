@@ -53,20 +53,20 @@ const ByTradersChart: FC<IType> = ({data}) => {
             l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
         return `rgb(${255 * f(0)}, ${255 * f(8)}, ${255 * f(4)})`;
     };
-    const handleChangeTrader = (e: any,item:any,index:any) => {
+    const handleChangeTrader = (e: any, item: any, index: any) => {
         let arr = [...traderArr]
         if (!e.target.checked) {
             arr[index] = ''
             setTraderArr(arr)
         }
         if (e.target.checked && item) {
-            arr[index] =item
+            arr[index] = item
             setTraderArr(arr)
         }
     }
 
     return (
-        <Stack sx={{width: '100%',pr:14,pl:14}}>
+        <Stack sx={{width: '100%', pr: 14, pl: 14}}>
             {
                 (data && data?.graph?.length > 0) &&
 
@@ -84,10 +84,14 @@ const ByTradersChart: FC<IType> = ({data}) => {
 
                             <CartesianGrid stroke="#252525"/>
                             {/*<YAxis  stroke="#252525" tick={<CustomAxisTick rotate={-35}/>}/>*/}
-                            <Tooltip content={<CustomTooltip byTradersChart={ traderArr.map((item, index) =>
-                                index > 0 ? HSLToRGB(index * 24, 50, 62) : '#56CCF2'
-                            )} />}  contentStyle={contentTooltipStyle} wrapperStyle={wrapperTooltipStyle}
-                                     offset={-50}/>
+                            <Tooltip
+                                content={<CustomTooltip
+                                    byTradersChart={traderArr.map((item, index) =>
+                                        index > 0 ? HSLToRGB(index * 24, 50, 62) : '#56CCF2'
+                                    )}/>}
+                                contentStyle={contentTooltipStyle}
+                                wrapperStyle={wrapperTooltipStyle}
+                                offset={-30}/>
                             {
                                 traderArr &&
                                 traderArr.map((item, index) =>
@@ -116,8 +120,8 @@ const ByTradersChart: FC<IType> = ({data}) => {
                                 </Stack>
                                 <CustomSwitch
                                     onChange={
-                                    (e) => handleChangeTrader(e, item, index)
-                                }
+                                        (e) => handleChangeTrader(e, item, index)
+                                    }
                                     defaultChecked
                                     itemProp={index > 0 ? HSLToRGB(index * 24, 50, 62) : '#56CCF2'}/>
                             </Stack>

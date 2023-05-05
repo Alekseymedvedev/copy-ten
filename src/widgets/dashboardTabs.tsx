@@ -168,7 +168,7 @@ const DashboardTabs: FC<IType> = ({
                                 {
                                     dataChartDrawdownAndGain &&
                                     <Chart title="Прирост-просадка ($)" changeTime={drawdownAndGainChartUrl}>
-                                        <BalanceChart data={dataChartDrawdownAndGain}/>
+                                        <BalanceChart drawdownAndGain data={dataChartDrawdownAndGain}/>
                                     </Chart>
                                 }
 

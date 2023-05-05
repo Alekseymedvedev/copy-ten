@@ -10,12 +10,14 @@ interface IType {
     additionLabel?: boolean;
     removeLabel?: boolean;
     transactionLabel?: boolean;
+    drawdownAndGain?: boolean;
 }
 
 const BalanceChart: FC<IType> = ({
                                      data,
                                      description,
                                      isTrader,
+                                     drawdownAndGain,
                                      additionLabel,
                                      removeLabel,
                                      transactionLabel
@@ -30,7 +32,7 @@ const BalanceChart: FC<IType> = ({
     return (
         <Stack sx={{width: '100%'}}>
             {
-                (data && data?.length > 0) && <CustomLineChart data={data} traderName={traderArr}/>
+                (data && data?.length > 0) && <CustomLineChart drawdownAndGain={drawdownAndGain} data={data} traderName={traderArr}/>
             }
 
             {

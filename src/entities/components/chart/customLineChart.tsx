@@ -13,6 +13,7 @@ interface T {
     colorXAxis?: string;
     height?: number;
     referenceLineData?: number;
+    drawdownAndGain?: boolean;
 }
 
 const wrapperTooltipStyle = {
@@ -32,6 +33,7 @@ const CustomLineChart: FC<T> = ({
                                     data,
                                     colorYAxis,
                                     traderName,
+                                    drawdownAndGain,
                                     height,
                                     referenceLineData
                                 }) => {
@@ -53,7 +55,12 @@ const CustomLineChart: FC<T> = ({
                     <CartesianGrid stroke="#252525"/>
                     <YAxis dataKey="uv" stroke="#252525" tick={<CustomAxisTick color={colorYAxis} rotate={-35}/>}/>
                     <YAxis dataKey="uv" stroke="#252525" orientation="right"/>
-                    <Tooltip content={<CustomTooltip />}  contentStyle={contentTooltipStyle} wrapperStyle={wrapperTooltipStyle} offset={-50}/>
+                    <Tooltip content={<CustomTooltip
+                        drawdownAndGain={drawdownAndGain} />}
+                             contentStyle={contentTooltipStyle}
+                             wrapperStyle={wrapperTooltipStyle}
+                             offset={-50}
+                    />
                     {
                         data &&
                             Object.keys(data[0]).map((item, index) =>
