@@ -54,7 +54,7 @@ const AccountType: FC<T> = ({
                 <span className="subHeaders white-80">{accountLogin}</span>
                 <Stack direction="row" spacing={4}>
                     <Stack className="h2 white-100" sx={{
-                        maxWidth: 60,
+                        maxWidth: 80,
                         display: 'inline-block',
                         whiteSpace: 'nowrap',
                         textOverflow: 'ellipsis',
