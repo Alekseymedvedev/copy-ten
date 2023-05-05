@@ -2,6 +2,7 @@ import React, {FC, useEffect, useState} from 'react';
 import {CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {Stack} from "@mui/material";
 import CustomAxisTick from "./customAxisTick";
+import CustomTooltip from "./customTooltip";
 
 
 interface T {
@@ -52,7 +53,7 @@ const CustomLineChart: FC<T> = ({
                     <CartesianGrid stroke="#252525"/>
                     <YAxis dataKey="uv" stroke="#252525" tick={<CustomAxisTick color={colorYAxis} rotate={-35}/>}/>
                     <YAxis dataKey="uv" stroke="#252525" orientation="right"/>
-                    <Tooltip  contentStyle={contentTooltipStyle} wrapperStyle={wrapperTooltipStyle} offset={-50}/>
+                    <Tooltip content={<CustomTooltip />}  contentStyle={contentTooltipStyle} wrapperStyle={wrapperTooltipStyle} offset={-50}/>
                     {
                         data &&
                             Object.keys(data[0]).map((item, index) =>

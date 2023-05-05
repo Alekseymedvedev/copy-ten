@@ -12,61 +12,27 @@ import CopyTradingModalChild from "../entities/components/modal/copyTradingModal
 import SimpleModal from "../entities/components/modal/simpleModal";
 import {useUnsubscribeTraderMutation} from "../store/API/tradersUserApi";
 import {setParametersSlice} from "../store/slice/parametersSlice";
+import SettingsSidebar from "./settingsSidebar";
 
 interface IType {
     dataTrader?: any
 }
 
 const DashboardTradersSidebar: FC<IType> = ({dataTrader}) => {
-    const {
-        addRisk,
-        addMaxLot,
-        addMinLot,
-        addExcludeDays,
-        addExcludeHours,
-        addExcludeSymbols
-    } = setParametersSlice.actions
-    const dispatch = useAppDispatch()
 
     const {accountId, accountName} = useAppSelector(state => state.accountIdReducer)
 
     const subscribe = dataTrader?.subscribed_forex_accounts.find((item: any) => item.forex_account.id === accountId)
-    const {data} = useGetSubscribesSettingsQuery(subscribe?.id)
-    const [unsubscribe] = useUnsubscribeTraderMutation()
 
-    const [connectionHunterMod, setConnectionHunterMod] = useState(false)
-    const [hunterModBtn, setHunterModBtn] = useState('Hunter Mod')
+    const [unsubscribe] = useUnsubscribeTraderMutation()
 
     const [openModal, setOpenModal] = useState(false);
     const [openModalUnsubscribe, setOpenModalUnsubscribe] = useState(false);
-    const [openModalSave, setOpenModalSave] = useState(false);
 
     const [hoverBtn, setHoverBtn] = useState(false);
 
-
-    const handleRisk = (value: any) => {
-        dispatch(addRisk(value))
-    }
-    const handleMaxLot = (value: any) => {
-        dispatch(addMaxLot(value))
-    }
-    const handleMinLot = (value: any) => {
-        dispatch(addMinLot(value))
-    }
-
-    const handlerHunterMod = () => {
-        setConnectionHunterMod(true)
-        setOpenModal(true)
-
-    }
-
-    const handlerCloseHunterMod = () => {
-        setConnectionHunterMod(false)
-        setHunterModBtn('Hunter Mod')
-    }
-
     return (
-        <Stack spacing={7}>
+        <Stack spacing={7} sx={{height:`100%`}}>
             <Paper sx={{"@media (min-width:980px)": {
                     p: 14,
                 }}}>
@@ -139,79 +105,11 @@ const DashboardTradersSidebar: FC<IType> = ({dataTrader}) => {
             }
 
             {
-                (dataTrader?.subscribed_forex_accounts.find((item: any) => item.forex_account.id === accountId) && data) ?
-                    <Paper sx={{p: 14,position: 'sticky',top:0}} >
+                (dataTrader?.subscribed_forex_accounts.find((item: any) => item.forex_account.id === accountId) ) &&
+                <Stack sx={{position: 'sticky', top: 0}}>
+                    <SettingsSidebar accountName={accountName} subscribeId={subscribe.id}/>
+                </Stack>
 
-                        <Stack spacing={7}>
-                            <span className="h2 white-90">Настройки</span>
-                            <Divider variant="fullWidth" sx={{width: `112%`}}/>
-                            {
-                                connectionHunterMod ?
-                                    <Stack spacing={7}>
-                                        <Paper sx={{p: `14px 8px`}}>
-                                            <Stack spacing={4}>
-                                                <span className="h2 blue">Включен Hunter Mod!</span>
-                                                <span className="subHeaders white-90">Чтобы перейти к обычным настройкам, необходимо отключить Hunter Mod</span>
-                                            </Stack>
-                                        </Paper>
-                                        <Paper sx={{p: `14px 8px`}}>
-                                            <Stack spacing={7}>
-                                                <Stack className="h2 blue" alignItems="center">Hunter Mod</Stack>
-                                                <Stack className="subHeaders white-90" direction="row"
-                                                       alignItems="center"
-                                                       justifyContent="space-between">
-                                                    <span>Риск</span>
-                                                    <span className="white-90">34%</span>
-                                                </Stack>
-                                                <Stack className="subHeaders white-90" direction="row"
-                                                       alignItems="center"
-                                                       justifyContent="space-between">
-                                                    <span>Мин.лот</span>
-                                                    <span className="white-90">Да</span>
-                                                </Stack>
-                                                <Stack className="subHeaders white-90" direction="row"
-                                                       alignItems="center"
-                                                       justifyContent="space-between">
-                                                    <span>Просадка</span>
-                                                    <span className="white-90">6%</span>
-                                                </Stack>
-                                                <Button fullWidth variant="contained" color="success">Настройки</Button>
-                                                <Button fullWidth variant="contained" color="error"
-                                                        onClick={handlerCloseHunterMod}>Отключить</Button>
-                                            </Stack>
-                                        </Paper>
-                                    </Stack>
-                                    :
-
-
-                                    <>
-
-                                        <CustomRange onChange={handleRisk} title="Риск" defaultValue={data?.risk}
-                                                     required
-                                                     isSwitch
-                                                     isSliderRange/>
-                                        <CustomRange onChange={handleMaxLot} title="Макс. лот"
-                                                     defaultValue={data?.max_lot}
-                                                     required isSwitch
-                                                     isSliderRange/>
-                                        <CustomRange onChangeSwift={handleMinLot} title="Мин. лот"
-                                                     isSwitchChecked={false}
-                                                     required
-                                                     isSwitch/>
-                                        <Parameters
-                                            symbolSettings={data?.exclude_symbols}
-                                            hoursSettings={data?.exclude_hours}
-                                            daySettings={data?.exclude_days}
-                                        />
-                                    </>
-                            }
-                            <Button onClick={() => setOpenModalSave(true)} fullWidth variant="contained"
-                                    color="success">Сохранить</Button>
-
-                        </Stack>
-                    </Paper>
-                    :
-                    <Skeleton variant="rounded" width={`100%`} height={433} sx={{p: 14,position: 'sticky',top:0}}/>
             }
             {/*<Button fullWidth variant="gardient" color="info" onClick={handlerHunterMod}>*/}
             {/*    <span className="h2 blue">{hunterModBtn}</span>*/}
@@ -227,11 +125,7 @@ const DashboardTradersSidebar: FC<IType> = ({dataTrader}) => {
                     openModal={openModal}
                     closeModal={setOpenModal}/>
             }
-            {
-                openModalSave &&
-                <CopyTradingModalChild idTrader={subscribe?.id} nameAccount={accountName} openModal={openModalSave}
-                                       closeModal={setOpenModalSave}/>
-            }
+
             {
                 openModalUnsubscribe &&
                 <SimpleModal title="Отключить тредера" openModal={openModalUnsubscribe}

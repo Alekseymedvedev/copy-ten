@@ -6,12 +6,16 @@ interface IType {
     label?: any;
 }
 
-const CustomTooltip: FC<IType> = ({ active, payload, label }) => {
+const CustomTooltip = ({ active, payload, label }:any) => {
     if (active && payload && payload.length) {
         return (
             <div className="custom-tooltip">
-                <p className="label">{`${label} : ${payload[0].value}`}</p>
-                <p className="desc">Anything you want can be displayed here.</p>
+                <p className="blue">${payload[0].value}</p>
+                {
+                    payload.length >1 &&
+                    <p className="green">${payload[1].value}</p>
+                }
+
             </div>
         );
     }
