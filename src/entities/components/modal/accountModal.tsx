@@ -6,30 +6,33 @@ import {Alert, Divider, MenuItem, Snackbar, Stack} from "@mui/material";
 import {FC, useEffect, useMemo, useState} from "react";
 import IconClose from "../../../shared/assets/images/icons/iconClose";
 import CustomInput from "../../../shared/UI/customInput";
-import {useAddAccountMutation, useGetAccountsQuery} from "../../../store/API/userApi";
+import {useAddAccountMutation, useGetAccountsQuery, useUpdateAccountMutation} from "../../../store/API/userApi";
 import {useInput} from "../../../hooks/useInput";
 import CustomSelect from "../../../shared/UI/customSelect";
 import {useGetServersQuery} from "../../../store/API/userApi";
 
 
 interface IType {
-    maxWidth?: number;
     openModal: boolean;
     closeModal: any;
+    account?: any;
     isOPenBtn?: boolean
     isError?: boolean
+    updateAccount?: boolean
 }
 
-const AccountModal: FC<IType> = ({maxWidth, openModal, closeModal, isError}) => {
+const AccountModal: FC<IType> = ({account, openModal, closeModal, isError, updateAccount}) => {
     const {data: isDataServer, isLoading: isLoadingDataServer} = useGetServersQuery('/servers')
     const [addAccount, {error: addError, isLoading}] = useAddAccountMutation()
+    const [update] = useUpdateAccountMutation()
+
     const [open, setOpen] = useState(false);
-    const [step, setStep] = useState(1);
-    const [serverNumber, setServerNumber] = useState('');
+    const [step, setStep] = useState(updateAccount ? 2 : 1);
+    const [serverNumber, setServerNumber] = useState(updateAccount ? account.server.id : '');
     const [errorInputLogin, setErrorInputLogin] = useState(false);
     const [errorPassword, setErrorPassword] = useState(false);
-    const login = useInput('',errorInputLogin)
-    const password = useInput('',errorPassword)
+    const login = useInput(updateAccount ? account.accountLogin : '', errorInputLogin)
+    const password = useInput(updateAccount ? account.accountPassword : '', errorPassword)
     const [errorSelect, setErrorSelect] = useState(false);
 
 
@@ -37,10 +40,10 @@ const AccountModal: FC<IType> = ({maxWidth, openModal, closeModal, isError}) => 
         setOpen(openModal)
     }), [open, openModal])
 
-    const handlerClose = (e:any) => {
+    const handlerClose = (e: any) => {
         closeModal(false)
         setOpen(false);
-         setErrorSelect(false);
+        setErrorSelect(false);
         setErrorInputLogin(false);
         setErrorPassword(false);
         setServerNumber('')
@@ -51,18 +54,29 @@ const AccountModal: FC<IType> = ({maxWidth, openModal, closeModal, isError}) => 
 
     const handlerAddAccount = () => {
         if (login.value !== '' && password.value !== '' && serverNumber !== '') {
-            addAccount({server_id: serverNumber, login: login.value, password: password.value}).then(() => {
-                setStep(step + 1)
-                }
-            )
-        }else{
-            if(serverNumber === '') {
+            if (updateAccount) {
+                update({
+                    body: {
+                        server_id: serverNumber,
+                        login: login.value,
+                        password: password.value
+                    },
+                    id: account.accountId
+                })
+            } else {
+                addAccount({server_id: serverNumber, login: login.value, password: password.value}).then(() => {
+                        setStep(step + 1)
+                    }
+                )
+            }
+        } else {
+            if (serverNumber === '') {
                 setErrorSelect(true)
             }
-            if(login.value === '') {
+            if (login.value === '') {
                 setErrorInputLogin(true)
             }
-            if(password.value === '') {
+            if (password.value === '') {
                 setErrorPassword(true)
             }
         }
@@ -84,7 +98,7 @@ const AccountModal: FC<IType> = ({maxWidth, openModal, closeModal, isError}) => 
                     <Stack onClick={handlerClose} sx={{position: "absolute", top: 14, right: 28, cursor: "pointer"}}>
                         <IconClose/>
                     </Stack>
-                    <Stack className="h2 white-90" sx={{mb: 7}}>Добавить счет</Stack>
+                    <Stack className="h2 white-90" sx={{mb: 7}}>{updateAccount ?'Поторить':'Добавить счет'}</Stack>
                     <Divider variant="fullWidth" sx={{mb: 7}}/>
                     {
                         (step === 1) ?
@@ -101,7 +115,7 @@ const AccountModal: FC<IType> = ({maxWidth, openModal, closeModal, isError}) => 
                                         <span className="subHeadersBold white-90">Сервер счета</span>
                                         <CustomSelect
                                             width={152}
-                                            defaultValue="Выбрать сервер"
+                                            defaultValue={updateAccount ? account.server.title : "Выбрать сервер"}
                                             optionValue={setServerNumber}
                                             options={isDataServer?.data}
                                             isError={errorSelect}
@@ -130,7 +144,7 @@ const AccountModal: FC<IType> = ({maxWidth, openModal, closeModal, isError}) => 
                         }
 
                         {
-                            (step === 2 ) ?
+                            (step === 2) ?
                                 <Button onClick={handlerAddAccount} color="success">Продожить</Button>
                                 :
                                 (step === 3 && !isError) ?

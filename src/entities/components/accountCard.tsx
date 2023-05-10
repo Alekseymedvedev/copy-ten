@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import AccountType from "./accountType";
 import {Button, Divider, Skeleton, Stack, Typography, useMediaQuery} from "@mui/material";
 import {Area, AreaChart, ResponsiveContainer} from "recharts";
@@ -7,30 +7,35 @@ import IconAddAccount from "../../shared/assets/images/icons/iconAddAccount";
 import {IBalance, Server} from "../../types";
 import {NavLink} from "react-router-dom";
 import {useDeleteAccountMutation, useGetAccountsQuery} from "../../store/API/userApi";
+import AccountModal from "./modal/accountModal";
 
 interface T {
     isLoading?: boolean;
+    accountId?: number | string;
+    accountPassword?: number | string;
     accountLogin?: number | string;
+    server?:any;
     status: number;
     productType?: string;
     balance?: IBalance;
     accountType?: Server;
     accountNumber?: number | string;
     accountName?: string;
-    addRepeat: (open: boolean) => void;
     depositLoad?: any
 }
 
 const AccountCard: FC<T> = ({
                                 isLoading,
+                                accountId,
+                                accountPassword,
                                 accountLogin,
+                                server,
                                 status,
                                 productType,
                                 accountNumber,
                                 balance,
                                 accountType,
                                 accountName,
-                                addRepeat,
                                 depositLoad,
                             }) => {
     const [deleteAccount] = useDeleteAccountMutation()
@@ -39,6 +44,9 @@ const AccountCard: FC<T> = ({
     }
 
     const mediaQuery = useMediaQuery('(min-width:980px)');
+    const [openModal, setOpenModal] = useState(false);
+    const [updateAccount, setUpdateAccount] = useState(false);
+    const [account, setAccount] = useState({});
 
     return (
         <Stack sx={{height:mediaQuery ? 400: 'unset', border: ` 0.5px solid #3C3C3C`,background: `linear-gradient(180deg, rgba(31, 31, 31, 0) 0%, #1F1F1F 100%)`, borderRadius: 2.5, overflow: 'hidden'}}>
@@ -64,7 +72,11 @@ const AccountCard: FC<T> = ({
                         </Stack>
                         <Stack direction="row" spacing={7} sx={{mt: 'auto', mb: 7, mr: 7, ml: 'auto'}}>
                             <Button color="error" onClick={handleDeleteAccount}>Удалить</Button>
-                            <Button color="success" onClick={() => addRepeat(true)}>Повторить</Button>
+                            <Button color="success" onClick={() => {
+                                setUpdateAccount(true)
+                                setOpenModal(true)
+                                setAccount({accountLogin,accountNumber,accountPassword,accountId,server})
+                            }}>Повторить</Button>
                         </Stack>
                     </Stack>
                     : status === 0 ?
@@ -87,7 +99,10 @@ const AccountCard: FC<T> = ({
                         </NavLink>
 
             }
-
+            {
+                openModal &&
+                <AccountModal account={account} updateAccount openModal={openModal} closeModal={setOpenModal}/>
+            }
         </Stack>
     );
 };

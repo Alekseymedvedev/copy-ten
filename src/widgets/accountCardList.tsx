@@ -58,21 +58,27 @@ const AccountCardList: FC<T> = ({}) => {
                             <Grid item xs={16} md={8} key={item.login}>
                                 <AccountCard
                                     isLoading={isLoading}
+                                    accountId={item.id}
+                                    accountPassword={item.password}
                                     accountLogin={item.login}
+                                    server={{id: item.server.id, title: item.server.title}}
                                     accountName={item.name}
                                     status={item.status}
                                     productType={item?.product?.product_data?.title}
                                     balance={item?.stats?.balance}
                                     accountNumber={item.id}
                                     accountType={item.server}
-                                    addRepeat={setOpenModal}
                                     depositLoad={item?.stats?.balance?.deposit_load}
                                 />
                             </Grid>
                         )
                 }
             </Grid>
-            <AccountModal openModal={openModal} closeModal={setOpenModal}/>
+            {
+                openModal &&
+                <AccountModal openModal={openModal} closeModal={setOpenModal}/>
+            }
+
             {
                 data?.meta?.pagination?.total_pages > 1 &&
                 <Pagination
