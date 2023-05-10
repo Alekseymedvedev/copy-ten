@@ -32,7 +32,7 @@ const AccountDashboard = () => {
     const {data: dataAccount, isLoading: isLoadingAccount, error: errorAccount} = useGetAccountDashboardQuery(id)
 
     const {data, isLoading, error} = useGetChartBalanceQuery({id: `account/${id}`, url: balanceChartUrl})
-    const {data: dataTradersChart} = useGetChartTradersQuery({id: `account/${id}`, url: balanceChartUrl})
+    const {data: dataTradersChart, isLoading:isLoadingTradersChart} = useGetChartTradersQuery({id: `account/${id}`, url: balanceChartUrl})
     const {data: dataBalanceGain, isLoading: isLoadingBalanceGain} = useGetChartBalanceGainQuery({
         id: `account/${id}`,
         url: balanceGainChartUrl
@@ -58,7 +58,7 @@ const AccountDashboard = () => {
         data: dataChartDrawdownAndGain,
         isLoading: isLoadingChartDrawdownAndGain
     } = useGetChartDrawdownAndGainQuery({id: `account/${id}`, url: drawdownAndGainChartUrl})
-    const {data: dataHistory} = useGetHistoryQuery({id:`account/${id}`,page})
+    const {data: dataHistory, isLoading:isLoadingHistory} = useGetHistoryQuery({id:`account/${id}`,page})
 
     const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
@@ -67,7 +67,19 @@ const AccountDashboard = () => {
         <MainLayout isLink={true} heading="Дашборд" accountNumber={dataAccount?.data?.login}
                     typeAccount={dataAccount?.data?.product?.product_data?.title}>
             {
-                dataAccount &&
+                (
+                    dataAccount  &&
+                    !isLoading &&
+                    !isLoadingTradersChart &&
+                    !isLoadingBalanceGain &&
+                    !isLoadingSymbol &&
+                    !isLoadingChartDay &&
+                    !isLoadingChartHours &&
+                    !isLoadingChartMonths &&
+                    !isLoadingChartDrawdown &&
+                    !isLoadingChartDrawdownAndGain &&
+                     !isLoadingHistory
+                ) &&
                 <DashboardTabs
                     dataDashboard={dataAccount?.data}
                     balanceChartData={data}

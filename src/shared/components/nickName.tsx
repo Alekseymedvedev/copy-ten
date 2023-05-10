@@ -9,12 +9,14 @@ interface IType {
     avatar?: string;
     direction?: 'row-reverse' | 'row';
     justifyContent?: string;
+    notMb?: any;
 }
 
-const NickName: FC<IType> = ({name, number, avatar, direction, justifyContent}) => {
+const NickName: FC<IType> = ({name, number, avatar, direction, justifyContent, notMb}) => {
+
     return (
         <Stack
-            mb={7}
+            mb={notMb ? 0 : 7}
             direction={direction ? direction : 'row'}
             alignItems="center"
             justifyContent={justifyContent ? justifyContent : "flex-start"}
@@ -26,23 +28,20 @@ const NickName: FC<IType> = ({name, number, avatar, direction, justifyContent}) 
             </Stack>
             {
                 avatar &&
-            <CustomTooltip title={
-                <>
-                    <span>{'Стратегия “Стопами”'}</span>
-                   <br/>
-                    <NavLink className="link" to="/">{'Что это?'}</NavLink>
-                </>
-            }
-            >
-
+                <CustomTooltip title={
+                    <>
+                        <span>{'Стратегия “Стопами”'}</span>
+                        <br/>
+                        <NavLink className="link" to="/">{'Что это?'}</NavLink>
+                    </>
+                }
+                >
                     <Avatar
                         alt={name}
                         src={avatar}
                         sx={{width: 34, height: 34}}
                     />
-
-
-            </CustomTooltip>
+                </CustomTooltip>
             }
         </Stack>
     );

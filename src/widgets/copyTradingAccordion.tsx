@@ -51,20 +51,27 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
     };
 
     return (
-        <div>
+        <>
             {
                 data &&
                 data?.data?.map((item: any, index: any) =>
                     <Accordion
                         key={item.id}
-                        sx={{p: `0 28px`, mb: 7}}
+                        sx={{
+                            mb: 7,
+                            "@media (min-width:980px)": {
+                                // p: `4px 28px 12px 28px`,
+                                p: `7px  28px`,
+                            }
+                        }}
                         expanded={mediaQuery ? expanded === `panel${index + 1}` : false}
                         onChange={handleChange(`panel${index + 1}`)}
                     >
-                        <AccordionSummary sx={{m:0}}>
+                        <AccordionSummary>
                             <Grid container spacing={10} columns={12} wrap="wrap" alignItems="center">
                                 <Grid item xs={12} md={2}>
                                     <NickName
+                                        notMb
                                         name={item.name}
                                         number={item.id}
                                         avatar={item.strategy === 'grid' ? imgStrategyGrid : imgStrategyStopLoss}
@@ -74,14 +81,7 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                                 <Grid item xs={12} md={3}>
                                     {
                                         (expanded !== `panel${index + 1}` || !mediaQuery) ?
-                                            <CustomAreaChart
-                                                height={52}
-                                                data={item.graph}
-                                                dataArea={[{
-                                                    dataKey: "uv",
-                                                    stroke: "#6FCF97",
-                                                    fill: "#29312C"
-                                                },]}/>
+                                            <CustomAreaChart height={52} data={item.graph}/>
                                             : null
                                     }
                                 </Grid>
@@ -90,8 +90,16 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                                     <Stack width='100%' direction={mediaQuery ? "row" : "column"} alignItems="center"
                                            justifyContent="flex-end" spacing={7}>
 
-                                        {(expanded !== `panel${index + 1}` || !mediaQuery) ?
-                                            <CurrentValues stats={item?.stats}/> : null}
+                                        {
+                                            (expanded !== `panel${index + 1}` || !mediaQuery) &&
+                                            <CurrentValues
+                                                dropdown={item?.stats?.dropdown}
+                                                gainAll={item?.stats?.gain?.all}
+                                                gainCurrentMonth={item?.stats?.gain?.current_month}
+                                                balance={item?.stats?.balance}
+                                                depositLoad={item?.deposit_load?.for_forex_accounts[accountId]}
+                                            />
+                                        }
                                         {
                                             (expanded === `panel${index + 1}` || !mediaQuery) ?
                                                 <Button
@@ -127,18 +135,13 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                                 <Grid item xs={4}>
                                     <Stack
                                         spacing={7}
-                                        sx={{height: '100%', border: `0.5px solid #3C3C3C`, borderRadius: 2.5}}
+                                        sx={{height: '100%', border: `0.5px solid #3C3C3C`, borderRadius: 2.5,overflow: 'hidden'}}
                                         justifyContent="space-between"
                                     >
                                         <Stack spacing={7} p={7}>
                                             <HeaderChart title="Рост баланса" number="+22.49%"/>
                                         </Stack>
-                                        <CustomAreaChart height={64} data={item.graph}
-                                                         dataArea={[{
-                                                             dataKey: "uv",
-                                                             stroke: "#6FCF97",
-                                                             fill: "#29312C"
-                                                         },]}/>
+                                        <CustomAreaChart height={64} data={item.graph}/>
                                     </Stack>
                                 </Grid>
                                 <Grid item xs={8}>
@@ -224,11 +227,12 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
             }
             {
                 openModal &&
-                <CopyTradingModalSettings idTrader={idTrader} trader={idTrader} idAccount={accountId} openModal={openModal}
+                <CopyTradingModalSettings idTrader={idTrader} trader={idTrader} idAccount={accountId}
+                                          openModal={openModal}
                                           closeModal={setOpenModal}/>
             }
 
-        </div>
+        </>
     );
 }
 

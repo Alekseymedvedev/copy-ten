@@ -139,6 +139,7 @@ const DashboardTabs: FC<IType> = ({
                                                 notifications={dataDashboard?.notifications}
                                                 balance={dataTrader ? dataTrader?.stats?.balance : dataDashboard?.stats?.balance}/>
                                 <TransactionsLabel
+                                    isTrader={dataTrader && true }
                                     data={dataTrader ? dataTrader?.stats : dataDashboard?.stats}/>
                                 {
                                     balanceChartData &&

@@ -158,7 +158,7 @@ const UserSetsList: FC<IType> = ({children}) => {
                     </Stack>
                 </Stack>
             </SimpleModal>
-            <SimpleModal maxWidth={1140} title="Подключенные трейдеры" openModal={openModal}
+            <SimpleModal maxWidth={780} title="Подключенные трейдеры" openModal={openModal}
                          closeModal={setOpenModal}>
                 <Stack spacing={7}>
 
@@ -166,6 +166,7 @@ const UserSetsList: FC<IType> = ({children}) => {
                         dataLinkedTraders?.data &&
                         dataLinkedTraders?.data.map((item: any) =>
                             <TraderItem
+                                key={item.id}
                                 id={item.id}
                                 stats={item.trader.stats}
                                 graph={item.trader.graph}

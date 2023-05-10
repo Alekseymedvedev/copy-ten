@@ -1,13 +1,16 @@
 import React, {FC} from 'react';
 import {Skeleton, Stack} from "@mui/material";
+import {useAppSelector} from "../../hooks/useRedux";
 
 interface T {
     data?: any;
+    isTrader?: any;
 }
 
 
-const TransactionsLabel: FC<T> = ({data}) => {
-    console.log(data)
+const TransactionsLabel: FC<T> = ({data,isTrader}) => {
+    const {accountId} = useAppSelector(state => state.accountIdReducer)
+
     const dataLabel = [
         {
             title: 'Всего сделок',
@@ -29,7 +32,7 @@ const TransactionsLabel: FC<T> = ({data}) => {
         },
         {
             title: 'Нагрузка депозита',
-            value: `${data?.deposit_load}%`,
+            value: isTrader ? `${data?.deposit_load.for_forex_accounts[accountId]}%` :`${data?.deposit_load}%`,
             colorText: 'blue',
             colorBg: 'blueBg',
         },

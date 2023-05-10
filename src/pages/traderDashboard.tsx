@@ -26,28 +26,43 @@ const TraderDashboard = () => {
     const {data:dataChartMonths, isLoading:isLoadingChartMonths} = useGetChartMonthsQuery({id:`trader/${id}`,url:'all'})
     const {data:dataChartDrawdown, isLoading:isLoadingChartDrawdown} = useGetChartDrawdownQuery({id:`trader/${id}`,url:'all'})
     const {data:dataChartDrawdownAndGain, isLoading:isLoadingChartDrawdownAndGain} = useGetChartDrawdownAndGainQuery({id:`trader/${id}`,url:'all'})
-    const {data: dataHistory} = useGetHistoryQuery({id:`trader/${id}`,page})
+    const {data: dataHistory, isLoading:isLoadingHistory} = useGetHistoryQuery({id:`trader/${id}`,page})
     const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
     };
     return (
         <MainLayout heading={`Трейдер ${dataTrader?.data?.name}`}>
-            <DashboardTabs
-                traderDashboard
-                dataTrader={dataTrader?.data}
-                balanceChartData={data}
-                dataSymbol={dataSymbol}
-                isLoadingSymbol={isLoadingSymbol}
-                dataChartDay={dataChartDay}
-                dataChartHours={dataChartHours}
-                dataChartDrawdown={dataChartDrawdown}
-                dataBalanceGain={dataBalanceGain}
-                dataChartDrawdownAndGain={dataChartDrawdownAndGain}
-                dataChartMonths={dataChartMonths}
-                dataHistory={dataHistory}
-                isTrader
-                changePage={handleChangePage} page={page}
-            />
+            {
+                (
+                    !isLoadingTrader  &&
+                    !isLoading &&
+                    !isLoadingBalanceGain &&
+                    !isLoadingSymbol &&
+                    !isLoadingChartDay &&
+                    !isLoadingChartHours &&
+                    !isLoadingChartMonths &&
+                    !isLoadingChartDrawdown &&
+                    !isLoadingChartDrawdownAndGain &&
+                    !isLoadingHistory
+                ) &&
+                <DashboardTabs
+                    traderDashboard
+                    dataTrader={dataTrader?.data}
+                    balanceChartData={data}
+                    dataSymbol={dataSymbol}
+                    isLoadingSymbol={isLoadingSymbol}
+                    dataChartDay={dataChartDay}
+                    dataChartHours={dataChartHours}
+                    dataChartDrawdown={dataChartDrawdown}
+                    dataBalanceGain={dataBalanceGain}
+                    dataChartDrawdownAndGain={dataChartDrawdownAndGain}
+                    dataChartMonths={dataChartMonths}
+                    dataHistory={dataHistory}
+                    isTrader
+                    changePage={handleChangePage} page={page}
+                />
+            }
+
         </MainLayout>
     );
 };

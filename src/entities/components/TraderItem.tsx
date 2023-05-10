@@ -18,7 +18,7 @@ interface IType {
     strategy: string;
     stats: any;
     graph: [];
-    linked?:boolean;
+    isSelect?:boolean;
 }
 
 const TraderItem: FC<IType> = ({
@@ -30,17 +30,23 @@ const TraderItem: FC<IType> = ({
                                    strategy,
                                    stats,
                                    graph,
-                                   linked,
+                                   isSelect,
                                }) => {
 
 
 
     return (
 
-        <Paper sx={{height: 68, alignItems: "center"}}>
+        <Paper sx={{
+            height: 68,
+            alignItems: "center",
+            "@media (min-width:980px)": {
+                // p: `4px 28px 12px 28px`,
+                p: `7px  28px`,
+            }}}>
             <Grid container spacing={10} columns={14} wrap="wrap" alignItems="center">
-                <Grid item xs={14} md={3}>
-                    <NickName name={name} number={id}
+                <Grid item xs={14} md={2}>
+                    <NickName name={name} number={id} notMb
                               direction="row-reverse"
                               avatar={strategy === 'grid' ? imgStrategyGrid : imgStrategyStopLoss}
                               justifyContent="flex-end"/>
@@ -55,32 +61,42 @@ const TraderItem: FC<IType> = ({
                             fill: "#29312C"
                         },]}/>
                 </Grid>
-                <Grid item xs={14} md={6}>
-                    {/*<CurrentValues stats={stats}/>*/}
+                <Grid item xs={14} md={isSelect ? 7 : 9}>
+                    <CurrentValues
+                        dropdown={stats?.dropdown}
+                        balance={stats?.balance?.value}
+                        depositLoad={stats?.deposit_load}
+                        gainCurrentMonth={stats?.balance?.gain?.current_month}
+                        gainAll={stats?.balance?.gain?.all}
+                    />
                 </Grid>
                 <Grid item xs={14} md={2}>
-                    <FormControl fullWidth>
-                        <InputLabel shrink={false} sx={{left: 24, top: -8,}}>
-                            Управление
-                        </InputLabel>
-                        <Select
-                            IconComponent={"select"}
-                            fullWidth
-                        >
-                            <MenuItem onClick={() => {
-                                if (idTrader) idTrader(id)
-                                openModal(true)
-                            }}>
-                                Настройки
-                            </MenuItem>
-                            <MenuItem sx={{color: '#56CCF2'}} component={Link} to={`/trader-dashboard/${id}`}>
-                                Страница
-                            </MenuItem>
-                            <MenuItem onClick={() => deleteTrader(id)} sx={{color: '#FF8888'}}>
-                                Удалить
-                            </MenuItem>
-                        </Select>
-                    </FormControl>
+                    {
+                        isSelect &&
+                        <FormControl fullWidth>
+                            <InputLabel shrink={false} sx={{left: 24, top: -8,}}>
+                                Управление
+                            </InputLabel>
+                            <Select
+                                IconComponent={"select"}
+                                fullWidth
+                            >
+                                <MenuItem onClick={() => {
+                                    if (idTrader) idTrader(id)
+                                    openModal(true)
+                                }}>
+                                    Настройки
+                                </MenuItem>
+                                <MenuItem sx={{color: '#56CCF2'}} component={Link} to={`/trader-dashboard/${id}`}>
+                                    Страница
+                                </MenuItem>
+                                <MenuItem onClick={() => deleteTrader(id)} sx={{color: '#FF8888'}}>
+                                    Удалить
+                                </MenuItem>
+                            </Select>
+                        </FormControl>
+                    }
+
                 </Grid>
             </Grid>
         </Paper>

@@ -16,24 +16,25 @@ interface IType {
 }
 
 const CustomAreaChart: FC<IType> = ({height, data, dataArea}) => {
+
     return (
         <Stack sx={{width: '100%', height: {height}}} overflow="hidden">
             <ResponsiveContainer>
                 <AreaChart
                     data={data}
                     margin={{
-                        top: -5,
-                        right: -5,
-                        left: -5,
-                        bottom: -5,
+                        right: 0,
+                        left: 0,
+                        bottom: 0,
                     }}
                 >
-                    {
-                        dataArea && dataArea.map(item =>
-                            <Area key={item.dataKey + item.dataKey} dataKey="uv" stroke={item.stroke}
-                                  fill={item.fill}/>
-                        )
-                    }
+                    <Area dataKey="uv" stroke="#6FCF97" fill="#29312C"/>
+                    {/*{*/}
+                    {/*    dataArea && dataArea.map(item =>*/}
+                    {/*        <Area key={item.dataKey + item.dataKey} dataKey="uv" stroke={item.stroke}*/}
+                    {/*              fill={item.fill}/>*/}
+                    {/*    )*/}
+                    {/*}*/}
                 </AreaChart>
             </ResponsiveContainer>
         </Stack>

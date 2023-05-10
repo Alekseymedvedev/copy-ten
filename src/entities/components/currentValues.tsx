@@ -2,32 +2,37 @@ import React, {FC} from 'react';
 import {Divider, Stack, useMediaQuery} from "@mui/material";
 
 interface IType {
-    stats?: any
+    stats?: any;
+    balance?: any;
+    dropdown?: any;
+    gainAll?: any;
+    gainCurrentMonth?: any;
+    depositLoad?: any;
 }
 
-const CurrentValues: FC<IType> = ({stats}) => {
+const CurrentValues: FC<IType> = ({balance,depositLoad,dropdown,gainAll,gainCurrentMonth}) => {
     const mediaQuery = useMediaQuery('(min-width:980px)');
 
     return (
         <Stack direction={"row"} alignItems="center" justifyContent="space-between" spacing={7}>
             <Stack alignItems="center">
                 <span className="subHeaders white-90">Просадка</span>
-                <span className={stats?.dropdown >0 ? "subHeadersBold green": "subHeadersBold red"}>{stats?.dropdown}%</span>
+                <span className={dropdown >0 ? "subHeadersBold green": "subHeadersBold red"}>{dropdown}%</span>
             </Stack>
             <Divider orientation="vertical" variant="middle" flexItem/>
             <Stack alignItems="center">
                 <span className="subHeaders white-90">Все время</span>
-                <span className= {stats?.gain?.all >0 ? "subHeadersBold green": "subHeadersBold red"}>{stats?.gain?.all}%</span>
+                <span className= {gainAll >0 ? "subHeadersBold green": "subHeadersBold red"}>{gainAll}%</span>
             </Stack>
             <Divider orientation="vertical" variant="middle" flexItem/>
             <Stack alignItems="center">
                 <span className="subHeaders white-90">Тек. месяц</span>
-                <span className={stats?.gain?.current_month >0 ? "subHeadersBold green": "subHeadersBold red"}>{stats?.gain?.current_month}%</span>
+                <span className={gainCurrentMonth >0 ? "subHeadersBold green": "subHeadersBold red"}>{gainCurrentMonth}%</span>
             </Stack>
             <Divider orientation="vertical" variant="middle" flexItem/>
             <Stack alignItems="center">
                 <span className="subHeaders white-90">Значение</span>
-                <span className={stats?.balance >0 ? "subHeadersBold green": "subHeadersBold red"}>{stats?.balance}%</span>
+                <span className={balance >0 ? "subHeadersBold green": "subHeadersBold red"}>{balance}%</span>
             </Stack>
             <Stack
                 className="subHeaders yellow"
@@ -42,7 +47,7 @@ const CurrentValues: FC<IType> = ({stats}) => {
                     right:14,
                     top:14,
                 }}
-            >{stats?.deposit_load}%</Stack>
+            >{depositLoad}%</Stack>
         </Stack>
     );
 };

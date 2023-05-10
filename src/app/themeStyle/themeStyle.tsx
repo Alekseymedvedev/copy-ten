@@ -241,6 +241,13 @@ export const darkTheme = createTheme({
                 }
             }
         },
+        MuiAccordionSummary: {
+            styleOverrides: {
+                content: {
+                    margin:0
+                }
+            }
+        },
 
     },
 });

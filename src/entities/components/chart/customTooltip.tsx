@@ -8,7 +8,6 @@ interface IType {
 }
 
 const CustomTooltip = ({ active, payload, byTradersChart,label,barChart,drawdownAndGain }:any) => {
-    console.log(drawdownAndGain)
     if (active && payload && payload?.length) {
         return (
             <div className="custom-tooltip">
