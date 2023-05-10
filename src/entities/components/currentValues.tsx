@@ -29,11 +29,11 @@ const CurrentValues: FC<IType> = ({balance,depositLoad,dropdown,gainAll,gainCurr
                 <span className="subHeaders white-90">Тек. месяц</span>
                 <span className={gainCurrentMonth >0 ? "subHeadersBold green": "subHeadersBold red"}>{gainCurrentMonth}%</span>
             </Stack>
-            <Divider orientation="vertical" variant="middle" flexItem/>
-            <Stack alignItems="center">
-                <span className="subHeaders white-90">Значение</span>
-                <span className={balance >0 ? "subHeadersBold green": "subHeadersBold red"}>{balance}%</span>
-            </Stack>
+            {/*<Divider orientation="vertical" variant="middle" flexItem/>*/}
+            {/*<Stack alignItems="center">*/}
+            {/*    <span className="subHeaders white-90">Значение</span>*/}
+            {/*    <span className={balance >0 ? "subHeadersBold green": "subHeadersBold red"}>{balance}%</span>*/}
+            {/*</Stack>*/}
             <Stack
                 className="subHeaders yellow"
                 alignItems="center"
