@@ -1,10 +1,10 @@
-import {Button, Chip, Divider, Grid, Stack, useMediaQuery} from "@mui/material";
+import {Button, Chip, Divider, Grid, Skeleton, Stack, useMediaQuery} from "@mui/material";
 import React, {FC, useState} from "react";
 import imgStrategyGrid from "../shared/assets/images/strategy.png";
 import imgStrategyStopLoss from "../shared/assets/images/strategys-stop-loss.png";
 import NickName from "../shared/components/nickName";
 import Paper from "@mui/material/Paper";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import IconSettings from "../shared/assets/images/icons/iconSettings";
 import CustomAreaChart from "../entities/components/chart/customAreaChart";
 import TabsHeader from "../entities/components/tabsHeader";
@@ -17,7 +17,11 @@ import {useAppSelector} from "../hooks/useRedux";
 import SimpleModal from "../entities/components/modal/simpleModal";
 import AccountModal from "../entities/components/modal/accountModal";
 import DeleteAccountModal from "../entities/components/modal/deleteAccountModal";
-import {useGetSubscribesSettingsQuery} from "../store/API/subscribesApi";
+import {
+    useGetAllSubscribesQuery,
+    useGetAllSubscribesSetQuery,
+    useGetSubscribesSettingsQuery
+} from "../store/API/subscribesApi";
 
 
 interface IType {
@@ -34,10 +38,11 @@ interface IType {
     }[]
 }
 
-const TradersAndSets: FC<IType> = ({data, accountId, product, login, dataSets}) => {
-    const navigate = useNavigate()
-
-
+const TradersAndSets: FC<IType> = ({product, login, dataSets}) => {
+    const location = useLocation()
+    const accountId = location?.pathname?.split('/').pop()
+    const {data, isLoading} = useGetAllSubscribesQuery(accountId)
+    const {data: dataSet} = useGetAllSubscribesSetQuery(accountId)
     const [unsubscribe] = useUnsubscribeTraderMutation()
 
     const mediaQuery = useMediaQuery('(min-width:980px)');
@@ -67,7 +72,11 @@ const TradersAndSets: FC<IType> = ({data, accountId, product, login, dataSets}) 
         setSubscribeId(id)
         setOpenModalUnsubscribe(true)
     }
-
+    if (isLoading) {
+        return (
+            <Skeleton variant="rounded" width={`100%`} height={433}/>
+        )
+    }
     return (
         <>
             <Paper
@@ -107,10 +116,10 @@ const TradersAndSets: FC<IType> = ({data, accountId, product, login, dataSets}) 
                 <Divider sx={{mb: 4, width: `105%`}}/>
 
                 <TabsItem value={value} index={0}>
-                    <Stack className="subHeadersBold white-80" sx={{mb: 4}}>{data?.length}/15</Stack>
+                    <Stack className="subHeadersBold white-80" sx={{mb: 4}}>{data?.data?.length}/15</Stack>
                     <Stack spacing={7}>
                         {
-                            data && data.map(item =>
+                            data && data?.data.map((item: any) =>
                                 <Paper
                                     key={item.trader.id}
                                     sx={{
@@ -171,7 +180,7 @@ const TradersAndSets: FC<IType> = ({data, accountId, product, login, dataSets}) 
                                                 setName('трейдера')
                                             }}
                                             color="neutral"
-                                            sx={{width: 48, height: 48, minWidth: 'unset',backgroundColor: '#1F1F1F'}}
+                                            sx={{width: 48, height: 48, minWidth: 'unset', backgroundColor: '#1F1F1F'}}
                                         >
                                             <IconSettings/>
                                         </Button>
@@ -191,10 +200,10 @@ const TradersAndSets: FC<IType> = ({data, accountId, product, login, dataSets}) 
                     </Stack>
                 </TabsItem>
                 <TabsItem value={value} index={1}>
-                    <Stack className="subHeadersBold white-80" sx={{mb: 4}}>{dataSets?.length}/1</Stack>
+                    <Stack className="subHeadersBold white-80" sx={{mb: 4}}>{dataSets?.data?.length}/1</Stack>
                     <Stack spacing={7}>
                         {
-                            dataSets && dataSets.map((item: any) =>
+                            dataSets && dataSets?.data?.map((item: any) =>
                                 <Paper
                                     key={item.set.id}
                                     sx={{
@@ -250,8 +259,8 @@ const TradersAndSets: FC<IType> = ({data, accountId, product, login, dataSets}) 
                                             setName('сет')
                                         }}
                                         fullWidth
-                                            variant="contained"
-                                            color="error">Отключить</Button>
+                                        variant="contained"
+                                        color="error">Отключить</Button>
                                 </Paper>
                             )
                         }
@@ -284,12 +293,12 @@ const TradersAndSets: FC<IType> = ({data, accountId, product, login, dataSets}) 
                 openModalUnsubscribe &&
                 <SimpleModal title="Отключить тредера" openModal={openModalUnsubscribe}
                              closeModal={setOpenModalUnsubscribe}>
-                <div className="h2">
-                    <span>Отключить {name}</span>
-                    <span className="yellow">&nbsp;{subscribeLogin}&nbsp;</span>
-                    <span>от счета</span>
-                    <span className="blue"> {login}</span>
-                </div>
+                    <div className="h2">
+                        <span>Отключить {name}</span>
+                        <span className="yellow">&nbsp;{subscribeLogin}&nbsp;</span>
+                        <span>от счета</span>
+                        <span className="blue"> {login}</span>
+                    </div>
                     <Stack direction="row" justifyContent="flex-end" spacing={7}>
                         <Button onClick={() => setOpenModalUnsubscribe(false)} color="error">Отмена</Button>
                         <Button

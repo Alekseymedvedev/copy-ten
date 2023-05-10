@@ -44,14 +44,14 @@ const CopyTradingModalSettings: FC<IType> = ({
     const [open, setOpen] = useState(false);
     const [openModalChild, setOpenModalChild] = useState(false);
     const [step, setStep] = useState(1);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState(undefined);
 
     const {addRisk, addMaxLot, addMinLot} = setParametersSlice.actions
     const dispatch = useAppDispatch()
 
     useEffect((() => {
         setOpen(openModal)
-    }), [open, openModal])
+    }), [open, openModal,error])
     const handleOpen = () => {
         setOpen(true);
     };
@@ -70,6 +70,7 @@ const CopyTradingModalSettings: FC<IType> = ({
     const handleMinLot = (value: any) => {
         dispatch(addMinLot(value))
     }
+    console.log(error)
     return (
         <>
 

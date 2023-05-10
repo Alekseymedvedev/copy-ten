@@ -14,6 +14,7 @@ import {
 } from "../store/API/chartApi";
 import React, {useState} from "react";
 import {useGetHistoryQuery} from "../store/API/tradersUserApi";
+import {Skeleton} from "@mui/material";
 
 
 const AccountDashboard = () => {
@@ -32,7 +33,7 @@ const AccountDashboard = () => {
     const {data: dataAccount, isLoading: isLoadingAccount, error: errorAccount} = useGetAccountDashboardQuery(id)
 
     const {data, isLoading, error} = useGetChartBalanceQuery({id: `account/${id}`, url: balanceChartUrl})
-    const {data: dataTradersChart, isLoading:isLoadingTradersChart} = useGetChartTradersQuery({id: `account/${id}`, url: balanceChartUrl})
+    const {data: dataTradersChart, isLoading:isLoadingTradersChart} = useGetChartTradersQuery({id: `account/${id}`, url: tradersChartUrl})
     const {data: dataBalanceGain, isLoading: isLoadingBalanceGain} = useGetChartBalanceGainQuery({
         id: `account/${id}`,
         url: balanceGainChartUrl
@@ -64,11 +65,11 @@ const AccountDashboard = () => {
         setPage(value);
     };
     return (
-        <MainLayout isLink={true} heading="Дашборд" accountNumber={dataAccount?.data?.login}
+        <MainLayout isSelect isLink={true} heading="Дашборд" accountNumber={dataAccount?.data?.login}
                     typeAccount={dataAccount?.data?.product?.product_data?.title}>
             {
                 (
-                    dataAccount  &&
+                    !isLoadingAccount  &&
                     !isLoading &&
                     !isLoadingTradersChart &&
                     !isLoadingBalanceGain &&
@@ -79,7 +80,8 @@ const AccountDashboard = () => {
                     !isLoadingChartDrawdown &&
                     !isLoadingChartDrawdownAndGain &&
                      !isLoadingHistory
-                ) &&
+                )
+                    ?
                 <DashboardTabs
                     dataDashboard={dataAccount?.data}
                     balanceChartData={data}
@@ -95,7 +97,7 @@ const AccountDashboard = () => {
                     dataHistory={dataHistory}
 
                     balanceChartUrl={setBalanceChartUrl}
-                    tradersChartUrl={tradersChartUrl}
+                    tradersChartUrl={setTradersChartUrl}
                     balanceGainChartUrl={setBalanceGainChartUrl}
                     dayChartUrl={setDayChartUrl}
                     hoursChartUrl={setHoursChartUrl}
@@ -104,6 +106,7 @@ const AccountDashboard = () => {
 
                     changePage={handleChangePage} page={page}
                 />
+                :  <Skeleton variant="rounded" width={`100%`} height={433}/>
             }
 
         </MainLayout>

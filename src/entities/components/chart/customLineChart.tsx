@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from 'react';
 import {CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
-import {Stack} from "@mui/material";
+import {Chip, Stack} from "@mui/material";
 import CustomAxisTick from "./customAxisTick";
 import CustomTooltip from "./customTooltip";
 
@@ -40,29 +40,31 @@ const CustomLineChart: FC<T> = ({
 
 
     return (
-        <Stack sx={{height: 230,mr:14}} >
-            <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                    data={data}
-                    margin={{
-                        top: 15,
-                        right: 0,
-                        left: -35,
-                        bottom: 15,
-                    }}
-                >
-                    {referenceLineData && <ReferenceLine y={referenceLineData} stroke="#828282" strokeDasharray="3 3"/>}
-                    <CartesianGrid stroke="#252525"/>
-                    <YAxis dataKey="uv" stroke="#252525" tick={<CustomAxisTick color={colorYAxis} rotate={-35}/>}/>
-                    <YAxis dataKey="uv" stroke="#252525" orientation="right"/>
-                    <Tooltip content={<CustomTooltip
-                        drawdownAndGain={drawdownAndGain} />}
-                             contentStyle={contentTooltipStyle}
-                             wrapperStyle={wrapperTooltipStyle}
-                             offset={-50}
-                    />
-                    {
-                        data &&
+        <Stack spacing={7}>
+            <Stack sx={{height: 230, mr: 14}}>
+                <ResponsiveContainer width="100%" height="100%">
+                    <LineChart
+                        data={data}
+                        margin={{
+                            top: 15,
+                            right: 0,
+                            left: -35,
+                            bottom: 15,
+                        }}
+                    >
+                        {referenceLineData &&
+                            <ReferenceLine y={referenceLineData} stroke="#828282" strokeDasharray="3 3"/>}
+                        <CartesianGrid stroke="#252525"/>
+                        <YAxis dataKey="uv" stroke="#252525" tick={<CustomAxisTick color={colorYAxis} rotate={-35}/>}/>
+                        <YAxis dataKey="uv" stroke="#252525" orientation="right"/>
+                        <Tooltip content={<CustomTooltip
+                            drawdownAndGain={drawdownAndGain}/>}
+                                 contentStyle={contentTooltipStyle}
+                                 wrapperStyle={wrapperTooltipStyle}
+                                 offset={-50}
+                        />
+                        {
+                            data &&
                             Object.keys(data[0]).map((item, index) =>
                                 <Line
                                     key={index}
@@ -70,11 +72,24 @@ const CustomLineChart: FC<T> = ({
                                     stroke={index > 0 ? '#6FCF97' : '#56CCF2'}
                                     dot={{r: 0}}/>
                             )
-
-                    }
-
-                </LineChart>
-            </ResponsiveContainer>
+                        }
+                    </LineChart>
+                </ResponsiveContainer>
+            </Stack>
+            {
+                drawdownAndGain &&
+                <Stack spacing={2} sx={{pr: 14, pl: 14}}>
+                    <Stack direction="row" alignItems="center" spacing={4}>
+                        <Chip variant="filled" color="info" sx={{padding: 0, width: 28, height: 8}}/>
+                        <span className="subHeaders white-90">Баланс</span>
+                    </Stack>
+                    <Stack direction="row" alignItems="center" spacing={4}>
+                        <Chip variant="filled" color="success"
+                              sx={{padding: 0, width: 28, height: 8, backgroundColor: '#6FCF97'}}/>
+                        <span className="subHeaders white-90">Средства</span>
+                    </Stack>
+                </Stack>
+            }
         </Stack>
     );
 };

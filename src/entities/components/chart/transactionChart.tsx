@@ -75,21 +75,7 @@ const TransactionChart: FC<IType> = ({balanceChartData}) => {
                     datasets: [{
                         data: balanceChartData?.map((item: any, index: any) => ({x: ' '.repeat(index) , type: item.type, value: item.value})
                         ),
-                        //     [
-                        //     {x: 'Октябр1111', type: -1, value: 50},
-                        //     {x: ' ', type: 0, value: 75},
-                        //     {x: '   ', type: 1, value: 105},
-                        //     {x: '    ', type: -1, value: 435},
-                        //     {x: '      ', type: -1, value: 435},
-                        //     {x: '       ', type: -1, value: 435},
-                        //     {x: '        ', type: -1, value: 2435},
-                        //     {x: '         ', type: -1, value: 1435},
-                        //     {x: '          ', type: -1, value: 3435},
-                        //     {x: '           ', type: -1, value: 4435},
-                        //     {x: '            ', type: -1, value: 5435},
-                        //     {x: '             ', type: -1, value: 6435},
-                        //     {x: 'Октябрь 2222', type: 0, value: 335},
-                        // ],
+
                         borderColor: '#FF8888',
                         pointBorderColor: 'transparent',
                         borderWidth:1,

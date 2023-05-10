@@ -84,7 +84,7 @@ const DashboardTabs: FC<IType> = ({
                                       dataHistory,
                                       isTrader,changePage,page
                                   }) => {
-
+    console.log(111)
     const {barChartData} = useAppSelector(state => state.barChartReducer)
     const dispatch = useAppDispatch()
     const {fetchBarChart} = barChartSlice.actions
@@ -93,11 +93,7 @@ const DashboardTabs: FC<IType> = ({
     const [sidebarVisible, setSidebarVisible] = useState(true);
     const [value, setValue] = useState(0);
 
-    // const [dataChart, setDataChart] = useState<any>([]);
-    const location = useLocation()
-    const id = location?.pathname?.split('/').pop()
-    const {data} = useGetAllSubscribesQuery(id)
-    const {data: dataSet} = useGetAllSubscribesSetQuery(id)
+
 
 
     useEffect((() => {
@@ -208,15 +204,16 @@ const DashboardTabs: FC<IType> = ({
                                     (traderDashboard && dataTrader) ?
                                         <DashboardTradersSidebar dataTrader={dataTrader}/>
                                         :
-                                        (!traderDashboard && data) ?
+                                        // (!traderDashboard && data) ?
                                             <TradersAndSets
-                                                dataSets={dataSet?.data}
-                                                accountId={id}
+                                                // dataSets={dataSet?.data}
+                                                // accountId={id}
                                                 product={dataDashboard?.product?.product_data?.title}
                                                 login={dataDashboard?.login}
-                                                data={data?.data}/>
-                                            :
-                                            <Skeleton variant="rounded" width={`100%`} height={433}/>
+                                                // data={data?.data}
+                                            />
+                                            // :
+                                            // <Skeleton variant="rounded" width={`100%`} height={433}/>
                                 }
 
 

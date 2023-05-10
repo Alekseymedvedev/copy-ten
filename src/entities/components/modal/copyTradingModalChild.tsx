@@ -57,6 +57,7 @@ const CopyTradingModalChild: FC<IType> = ({
     const handleClose = () => {
         closeModal(false)
         setOpen(false);
+
     };
 
     const handleSubscribe = () => {
@@ -64,7 +65,7 @@ const CopyTradingModalChild: FC<IType> = ({
         if (idAccount) {
             subscribe({
                 idTrader,
-                idAccount,
+                idAccount:0,
                 body: {
                     settings: {
                         risk: risk,
@@ -76,12 +77,13 @@ const CopyTradingModalChild: FC<IType> = ({
                     }
                 }
             }).then(() => {
-                handleClose()
+                 handleClose()
+                isError(true)
                 if (!error && !isLoading && step && setStep) {
                     setStep(step + 1)
                     setSuccess(true)
-                    isError(error)
                 }
+
             })
         } else {
             updateSettings({
@@ -98,7 +100,6 @@ const CopyTradingModalChild: FC<IType> = ({
                 handleClose()
                 if (!error && !isLoading && step && setStep) {
                     setSuccess(true)
-                    isError(error)
                 }
             })
         }

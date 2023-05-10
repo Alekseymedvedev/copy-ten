@@ -86,6 +86,8 @@ const TradersList: FC<IType> = ({children}) => {
                 data?.data.map((item: any) =>
 
                     <TraderItem
+                        key={item.id}
+                        isSelect
                         id={item.id}
                         name={item.name}
                         graph={item.graph}

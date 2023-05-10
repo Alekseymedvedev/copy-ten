@@ -75,7 +75,7 @@ const TraderItem: FC<IType> = ({
                         isSelect &&
                         <FormControl fullWidth>
                             <InputLabel shrink={false} sx={{left: 24, top: -8,}}>
-                                Управление
+                                Управ...
                             </InputLabel>
                             <Select
                                 IconComponent={"select"}

@@ -10,6 +10,7 @@ import {
     useGetChartSymbolQuery
 } from "../store/API/chartApi";
 import React, {useState} from "react";
+import {Skeleton} from "@mui/material";
 
 
 const TraderDashboard = () => {
@@ -31,7 +32,7 @@ const TraderDashboard = () => {
         setPage(value);
     };
     return (
-        <MainLayout heading={`Трейдер ${dataTrader?.data?.name}`}>
+        <MainLayout isSelect heading={`Трейдер ${dataTrader?.data?.name}`}>
             {
                 (
                     !isLoadingTrader  &&
@@ -44,7 +45,7 @@ const TraderDashboard = () => {
                     !isLoadingChartDrawdown &&
                     !isLoadingChartDrawdownAndGain &&
                     !isLoadingHistory
-                ) &&
+                ) ?
                 <DashboardTabs
                     traderDashboard
                     dataTrader={dataTrader?.data}
@@ -61,6 +62,7 @@ const TraderDashboard = () => {
                     isTrader
                     changePage={handleChangePage} page={page}
                 />
+                    :  <Skeleton variant="rounded" width={`100%`} height={433}/>
             }
 
         </MainLayout>
