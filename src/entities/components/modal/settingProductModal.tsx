@@ -38,8 +38,7 @@ const SettingProductModal: FC<IType> = ({openModal, closeModal, productId}) => {
     };
 
     const handleUpdate = () => {
-        console.log(productId)
-        console.log(forexAccountData.id)
+
         updateAccount({
             body: {forex_account_id: forexAccountData.id == 0 ? null : forexAccountData.id},
             id: productId

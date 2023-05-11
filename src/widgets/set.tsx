@@ -1,88 +1,46 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC,  useState} from 'react';
 import BalanceChart from "./balanceChart";
 import Chart from "../entities/components/chart/chart";
 import {
     Divider,
-    FormControl,
     Grid,
-    InputLabel, MenuItem,
-    Select, Skeleton,
     Stack,
     TextField,
     useMediaQuery
 } from "@mui/material";
 import Button from "@mui/material/Button";
-import IconConnected from "../shared/assets/images/icons/iconConnected";
 import SimpleModal from "../entities/components/modal/simpleModal";
 import IconTraders from "../shared/assets/images/icons/iconTraders";
 import IconSet from "../shared/assets/images/icons/iconSet";
 import Paper from "@mui/material/Paper";
-import NickName from "../shared/components/nickName";
-import {Link} from "react-router-dom";
-import CustomAreaChart from "../entities/components/chart/customAreaChart";
-import CurrentValues from "../entities/components/currentValues";
-import {
-    useDeleteSetMutation, useDeleteTraderMutation, useGetAddLinkedTradersQuery,
-    useGetAllAdminTradersQuery,
-    useGetAllLinkedTradersQuery,
-    useSettingsTraderMutation,
-    useUpdateSetMutation,
-    useUpdateSettingsTraderMutation
-} from "../store/API/tradeSetsApi";
-import IconPlus from "../shared/assets/images/icons/iconPlus";
-import imgStrategyGrid from "../shared/assets/images/strategy.png";
-import imgStrategyStopLoss from "../shared/assets/images/strategys-stop-loss.png";
-import CustomRange from "../shared/components/customRange";
-import Parameters from "../entities/components/parameters";
-import {useAppSelector} from "../hooks/useRedux";
-import TraderItem from "../entities/components/TraderItem";
+import { useDeleteSetMutation, useUpdateSetMutation,} from "../store/API/tradeSetsApi";
+import LinkedTrader from "../entities/components/modal/linkedTrader";
 
 
 interface IType {
-    adminSet?: boolean;
     data?: any;
-    isLoading?: boolean;
 }
 
-const Set: FC<IType> = ({adminSet, data, isLoading}) => {
-    const {excludeSymbols, excludeDays, excludeHours} = useAppSelector(state => state.setParametersReducer)
-
-
-    const [addSettingsTrader] = useSettingsTraderMutation()
-    const [updateSettingsTrader] = useUpdateSettingsTraderMutation()
+const Set: FC<IType> = ({ data}) => {
     const [deleteSet] = useDeleteSetMutation()
     const [updateSet] = useUpdateSetMutation()
-    const {data: dataLinkedTraders} = useGetAllLinkedTradersQuery(data?.id)
-    const {data: dataAddLinkedTraders} = useGetAddLinkedTradersQuery(data?.id)
-    const [deleteTrader] = useDeleteTraderMutation()
 
     const mediaQuery = useMediaQuery('(min-width:980px)');
 
     const [openModalSetSettings, setOpenModalSetSettings] = useState(false);
-    const [openModalSettingsTrader, setOpenModalSettingsTrader] = useState(false);
+
     const [openModalDelete, setOpenModalDelete] = useState(false);
-    const [openModalAddTrader, setOpenModalAddTrader] = useState(false);
     const [openModal, setOpenModal] = useState(false);
 
-    const [dataSet, setDataSet] = useState({id: '', name: ''})
-    const [valueRisk, setValueRisk] = useState(0);
-    const [valueMaxLot, setValueMaxLot] = useState(0);
-    const [valueMinLot, setValueMinLot] = useState(false);
     const [textValue, setTextValue] = useState(data?.description);
     const [nameAccount, setNameAccount] = useState(data?.name);
-    const [idTrader, setIdTrader] = useState('');
-
-    const [updateSettings, setUpdateSetting] = useState(false)
 
     const closeModal = () => {
         setTextValue('')
         setNameAccount('')
         setOpenModalSetSettings(false)
-        setOpenModalSettingsTrader(false)
-        setOpenModalAddTrader(false)
     }
     const handleUpdateSet = () => {
-
         updateSet({
             id: data.id,
             body: {
@@ -93,49 +51,6 @@ const Set: FC<IType> = ({adminSet, data, isLoading}) => {
             closeModal()
         })
     }
-    const handleAddSettingsTrader = () => {
-
-        if (updateSettings) {
-
-            updateSettingsTrader({
-                idTrader,
-                body: {
-                    risk: valueRisk,
-                    max_lot: valueMaxLot,
-                    min_lot: valueMinLot,
-                    exclude_symbols: excludeSymbols,
-                    exclude_days: excludeDays,
-                    exclude_hours: excludeHours
-                }
-            }).then(() => {
-                closeModal()
-            })
-        } else {
-
-            addSettingsTrader({
-                idSet: data.id,
-                idTrader,
-                body: {
-                    settings: {
-                        risk: valueRisk,
-                        max_lot: valueMaxLot,
-                        min_lot: valueMinLot,
-                        exclude_symbols: excludeSymbols,
-                        exclude_days: excludeDays,
-                        exclude_hours: excludeHours
-                    }
-                }
-            }).then(() => {
-                closeModal()
-            })
-        }
-
-    }
-    const handleAddTrader = () => {
-        setOpenModal(false)
-        setOpenModalAddTrader(true)
-    }
-
     return (
         <>
             <Paper>
@@ -171,10 +86,7 @@ const Set: FC<IType> = ({adminSet, data, isLoading}) => {
                     <Grid item xs={16} md={5}>
                         <Stack direction="row" spacing={7}>
                             <Button
-                                onClick={() => {
-                                    setOpenModalDelete(true)
-                                    setDataSet({id: '', name: ''})
-                                }}
+                                onClick={() =>  setOpenModalDelete(true)}
                                 variant="contained"
                                 color="error"
                                 sx={{minWidth: 81, height: 48}}
@@ -228,122 +140,17 @@ const Set: FC<IType> = ({adminSet, data, isLoading}) => {
 
             {
                 openModal &&
-                <SimpleModal maxWidth={1140} title="Подключенные трейдеры" openModal={openModal}
-                             closeModal={setOpenModal}>
-                    <Stack spacing={7}>
-                        <Button
-                            fullWidth
-                            onClick={handleAddTrader}
-                            startIcon={<IconPlus/>}
-                            sx={{height: 48, justifyContent: 'flex-start', color: '#BDBDBD'}}
-                        >
-                            Добавить трейдера
-                        </Button>
-                        {
-                            dataLinkedTraders?.data &&
-                            dataLinkedTraders?.data.map((item: any) =>
-                                <TraderItem
-                                    isSelect
-                                    id={item.id}
-                                    stats={item.trader.stats}
-                                    graph={item.trader.graph}
-                                    name={item.trader.name}
-                                    strategy={item.trader.strategy}
-                                    openModal={setOpenModalSettingsTrader}
-                                    deleteTrader={deleteTrader}
-                                />
-                            )
-                        }
-                    </Stack>
-                </SimpleModal>
-            }
-
-            {
-                openModalAddTrader &&
-                <SimpleModal maxWidth={1140} title="Добавить трейдера" openModal={openModalAddTrader}
-                             closeModal={setOpenModalAddTrader}>
-                    <Stack spacing={7}>
-                        {
-                            dataAddLinkedTraders?.data &&
-                            dataAddLinkedTraders?.data.map((item: any) =>
-                                <Paper key={item.id} sx={{height: 68, alignItems: "center"}}>
-                                    <Grid container spacing={10} columns={14} wrap="wrap" alignItems="center">
-                                        <Grid item xs={14} md={2}>
-                                            <NickName name={item.name} number={item.id}
-                                                      direction="row-reverse"
-                                                      avatar={item.strategy === 'grid' ? imgStrategyGrid : imgStrategyStopLoss}
-                                                      justifyContent="flex-end"/>
-                                        </Grid>
-                                        <Grid item xs={14} md={4}>
-                                            <CustomAreaChart
-                                                height={52}
-                                                data={item.graph}
-                                                dataArea={[{
-                                                    dataKey: "uv",
-                                                    stroke: "#6FCF97",
-                                                    fill: "#29312C"
-                                                },]}/>
-                                        </Grid>
-                                        <Grid item xs={14} md={6}>
-                                            <CurrentValues stats={item.stats}/>
-                                        </Grid>
-                                        <Grid item xs={14} md={2}>
-                                            {
-                                                item.already_linked ?
-                                                    <Button color="info" sx={{ml: 'auto',display:'block'}}>Уже&nbsp;подключено</Button>
-                                                    :
-                                                    <Button
-                                                        sx={{ml: 'auto',display:'block'}}
-                                                        onClick={() => {
-                                                            setIdTrader(item.id)
-                                                            setOpenModalSettingsTrader(true)
-                                                        }}
-                                                        color="success"
-                                                    >Подключить</Button>
-                                            }
-
-                                        </Grid>
-                                    </Grid>
-                                </Paper>
-                            )
-                        }
-                        <Stack direction="row" justifyContent="flex-end" spacing={7}>
-                            <Button
-                                onClick={closeModal}
-                                color="neutral">Закрыть</Button>
-                        </Stack>
-                    </Stack>
-                </SimpleModal>
-            }
-
-            {
-                openModalSettingsTrader &&
-                <SimpleModal maxWidth={620} title="Настройки трейдера" openModal={openModalSettingsTrader}
-                             closeModal={setOpenModalSettingsTrader}>
-                    <Stack spacing={7}>
-                        <CustomRange onChange={setValueRisk} step={1} minValue={0} maxValue={100}
-                                     title="Риск в процентах"
-                                     isSliderRange/>
-                        <CustomRange onChange={setValueMaxLot} minValue={0} step={1} maxValue={500} title="Макс. лот *"
-                                     isSwitch isSliderRange/>
-                        <CustomRange onChangeSwift={setValueMinLot} title="Мин. лот" required isSwitch/>
-                        <Parameters/>
-
-                        <Stack direction="row" justifyContent="flex-end" spacing={7}>
-                            <Button onClick={() => setOpenModalSettingsTrader(false)} color="error">Отмена</Button>
-                            <Button
-                                onClick={handleAddSettingsTrader}
-                                color="success">Сохранить</Button>
-                        </Stack>
-                    </Stack>
-                </SimpleModal>
+                <LinkedTrader title="Подключенные трейдеры" openModal={openModal} id={data?.id}
+                             closeModal={setOpenModal}/>
             }
 
             {
                 openModalDelete &&
                 <SimpleModal maxWidth={620} title="Подтверждение" openModal={openModalDelete}
                              closeModal={setOpenModalDelete}>
-
+                    <span className="h2" >
+                        Удалить <span className="blue">Сет {data?.name}</span>?
+                    </span>
                     <Stack direction="row" justifyContent="flex-end" spacing={7}>
                         <Button onClick={() => setOpenModalDelete(false)} color="error">Отмена</Button>
                         <Button
@@ -352,8 +159,6 @@ const Set: FC<IType> = ({adminSet, data, isLoading}) => {
                     </Stack>
                 </SimpleModal>
             }
-
-
         </>
     );
 };

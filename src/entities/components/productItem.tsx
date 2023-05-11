@@ -40,20 +40,20 @@ const state = [
     //         text: ''
     //     }
     // },
-    {
-        id: 3,
-        name: 'Робот',
-        priceTitle: 'До 50.000$',
-        image: imgRobot,
-        price: '$5000',
-        slug:null,
-        text: 'Velit nunc ultrices sit est et varius. Tellus accumsan pretium sollicitudin elit purus morbi.Euismod fames ullamcorper eget eget mi nisi aliquet tortor. Etiam aenean mauris integer maecenas et in. Volutpat dolor id vulputate non sed arcu. Justo ut nisl tincidun',
-        sale: {
-            isSale: false,
-            priceSale: '$10 000',
-            text: 'Скидка'
-        }
-    },
+    // {
+    //     id: 3,
+    //     name: 'Робот',
+    //     priceTitle: 'До 50.000$',
+    //     image: imgRobot,
+    //     price: '$5000',
+    //     slug:null,
+    //     text: 'Velit nunc ultrices sit est et varius. Tellus accumsan pretium sollicitudin elit purus morbi.Euismod fames ullamcorper eget eget mi nisi aliquet tortor. Etiam aenean mauris integer maecenas et in. Volutpat dolor id vulputate non sed arcu. Justo ut nisl tincidun',
+    //     sale: {
+    //         isSale: false,
+    //         priceSale: '$10 000',
+    //         text: 'Скидка'
+    //     }
+    // },
 ]
 
 const ProductItem: FC<IType> = ({children}) => {
@@ -62,7 +62,7 @@ const ProductItem: FC<IType> = ({children}) => {
     const [openModal, setOpenModal] = useState(false);
 
     return (
-        <Stack direction={mediaQuery ? "row" : "column"} spacing={7} justifyContent="space-between">
+        <Stack direction={mediaQuery ? "row" : "column"} spacing={7}>
             {
                 state.map(item =>
                     <Paper
@@ -72,6 +72,7 @@ const ProductItem: FC<IType> = ({children}) => {
                         }}
                         key={item.id}
                         sx={{
+                            maxWidth:300,
                             background:
                                 item.id === 3 ?
                                     `linear-gradient(180deg, #33223A 0%, rgba(51, 34, 58, 0) 93.75%)`

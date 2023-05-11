@@ -3,10 +3,8 @@ import TabsHeader from "../entities/components/tabsHeader";
 import TabsItem from "../entities/components/tabsItem";
 import Box from "@mui/material/Box";
 import CopyTradingAccordion from "./copyTradingAccordion";
-import Set from "./set";
 import IconTraders from "../shared/assets/images/icons/iconTraders";
 import IconSet from "../shared/assets/images/icons/iconSet";
-import Filter from "../entities/components/filter";
 import UserSetsList from "./userSetsList";
 
 interface IType {

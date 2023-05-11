@@ -70,7 +70,7 @@ const CopyTradingModalSettings: FC<IType> = ({
     const handleMinLot = (value: any) => {
         dispatch(addMinLot(value))
     }
-    console.log(error)
+
     return (
         <>
 

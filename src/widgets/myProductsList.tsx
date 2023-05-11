@@ -39,17 +39,16 @@ const MyProductsList: FC<IType> = ({children}) => {
                         />
                     )
                 }
+                {
+                    data?.meta?.pagination?.total_pages > 1 &&
+                    <Pagination
+                        onChange={handleChange}
+                        color="primary"
+                        count={data?.meta?.pagination?.total_pages}
+                        variant="outlined"
+                        shape="rounded"/>
+                }
             </Stack>
-            {
-                data?.meta?.pagination?.total_pages > 1 &&
-                <Pagination
-                    onChange={handleChange}
-                    color="primary"
-                    count={data?.meta?.pagination?.total_pages}
-                    variant="outlined"
-                    shape="rounded"/>
-
-            }
         </Paper>
     );
 };

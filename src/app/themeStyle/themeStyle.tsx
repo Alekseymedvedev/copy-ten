@@ -127,7 +127,7 @@ export const darkTheme = createTheme({
             fontWeight: 600,
             fontSize: 12,
             lineHeight: 15 + 'px',
-            textTransform: 'capitalize',
+            textTransform: 'initial',
             letterSpacing: 'normal',
         },
         caption: {

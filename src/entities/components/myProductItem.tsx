@@ -13,7 +13,7 @@ const MyProductItem: FC<IProducts> = ({id,status, valid_to, sub_title, title, sl
     const mediaQuery = useMediaQuery('(min-width:980px)');
     const [openModal, setOpenModal] = useState(false);
     const [openPaymentModal, setOpenPaymentModal] = useState(false)
-    const [paymentLinkId, setPaymentLinkId] = useState(-1)
+    // const [paymentLinkId, setPaymentLinkId] = useState(-1)
     return (
         <Paper>
             <Stack
@@ -47,7 +47,7 @@ const MyProductItem: FC<IProducts> = ({id,status, valid_to, sub_title, title, sl
                     </Stack>
                 </Stack>
                 <Stack direction="row" alignItems="center" spacing={7}>
-                    <Button color="neutral">Продлить</Button>
+                    <Button onClick={() => setOpenPaymentModal(true)} color="neutral">Продлить</Button>
                     <Button onClick={() => setOpenModal(true)} color="neutral">Настройки</Button>
                 </Stack>
             </Stack>
@@ -55,8 +55,8 @@ const MyProductItem: FC<IProducts> = ({id,status, valid_to, sub_title, title, sl
                 openModal && <SettingProductModal productId={id} openModal={openModal} closeModal={setOpenModal}/>
             }
             {
-                (openPaymentModal) &&
-                <PaymentModal paymentLinkId={paymentLinkId} openModal={openPaymentModal}
+                openPaymentModal &&
+                <PaymentModal paymentLinkId={id} openModal={openPaymentModal}
                               closeModal={setOpenPaymentModal}/>
             }
         </Paper>

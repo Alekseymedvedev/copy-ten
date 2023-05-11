@@ -61,7 +61,7 @@ const AdminSetsList: FC<IType> = ({children}) => {
             {
                 data &&
                 data?.data.map((item:any)=>
-                    <Set key={item.id} data={item} adminSet/>
+                    <Set key={item.id} data={item}/>
                 )
             }
             {

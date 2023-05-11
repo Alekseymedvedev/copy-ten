@@ -13,19 +13,16 @@ interface IType {
     openModal: boolean;
 }
 
-const PaymentModal: FC<IType> = ({paymentLinkId, title, openModal, closeModal,stateModal}) => {
+const PaymentModal: FC<IType> = ({paymentLinkId, title, openModal, closeModal, stateModal}) => {
 
-    const [id, setId] = useState(-1);
-    const {data: dataPaymentLink} = useGetPaymentLinkQuery(`/product/${id}/pay`)
+    const {data: dataPaymentLink} = useGetPaymentLinkQuery(`/product/${paymentLinkId}/pay`)
     const [open, setOpen] = useState(false);
 
     useEffect((() => {
-        console.log(paymentLinkId?.data?.id)
-        setId(paymentLinkId?.data?.id)
         setOpen(openModal)
-    }), [open, openModal,paymentLinkId,dataPaymentLink])
+    }), [open, openModal, paymentLinkId, dataPaymentLink])
 
-    const handleClose = (e:any) => {
+    const handleClose = (e: any) => {
         e.preventDefault()
         closeModal(false)
         setOpen(false)
@@ -34,30 +31,37 @@ const PaymentModal: FC<IType> = ({paymentLinkId, title, openModal, closeModal,st
     return (
         <>
             <Modal open={open} onClose={handleClose}>
-                <Box sx={{maxWidth:620}}>
+                <Box sx={{maxWidth: 620}}>
                     <Stack onClick={handleClose} sx={{position: "absolute", top: 14, right: 28, cursor: "pointer"}}>
                         <IconClose/>
                     </Stack>
                     <Stack className="h2 white-90" sx={{mb: 7}}>{title}</Stack>
                     <Divider variant="fullWidth" sx={{mb: 7}}/>
-                    <Stack className="h2 white-100" spacing={28}>
-                                        <span>
-                                            <span>Вы хотите подключить продукт</span>
-                                            <span
-                                                className="yellow">&nbsp;{stateModal?.name} {stateModal?.priceTitle}&nbsp;</span>
-                                            <span>на счет</span>
-                                            <span className="blue">&nbsp;</span>
-                                        </span>
-                        <span>
-                                            <span>Сумма заказа:</span>
-                                            <span className="green">&nbsp;{stateModal?.price}</span>
-                                        </span>
+                    <Stack spacing={7}>
+                        {/*<Stack className="h2 white-100" spacing={14}>*/}
+                        {/*    Вы хотите продлить продукт?*/}
+                        {/*</Stack>*/}
+                        <Stack className="h2 white-100" spacing={14}>
+                            <span>
+                                <span>Вы хотите подключить продукт</span>
+                                <span
+                                    className="yellow">&nbsp;{stateModal?.name} {stateModal?.priceTitle}&nbsp;</span>
+                                <span>на счет</span>
+                                <span className="blue">&nbsp;</span>
+                            </span>
+                            <span>
+                                <span>Сумма заказа:</span>
+                                <span className="green">&nbsp;{stateModal?.price}</span>
+                            </span>
+                        </Stack>
+                        <Stack justifyContent="flex-end">
+                            <Button
+                                sx={{ ml:'auto', maxWidth:268}}
+                                color="success"
+                                component={Link} target="_blank" to={dataPaymentLink?.payment_url}
+                            >Подтвердить и оплатить</Button>
+                        </Stack>
                     </Stack>
-                    <Button
-
-                        color="success"
-                        component={Link} target="_blank" to={dataPaymentLink?.payment_url}
-                    >Подтвердить и оплатить</Button>
                 </Box>
             </Modal>
         </>
