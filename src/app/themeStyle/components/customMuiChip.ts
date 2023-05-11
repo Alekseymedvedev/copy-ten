@@ -8,7 +8,7 @@ const settingsChip = (colorBtn: string, variantBtn?: string) => {
                 (variantBtn === 'outlined') ? 'transparent' :
                     (variantBtn === 'filled' && colorBtn === 'success') ? theme.palette.success.dark :
                     (variantBtn === 'filled' && colorBtn === 'warning') ? theme.palette.warning.dark :
-                        (variantBtn === 'filled' && colorBtn === 'info') ? theme.palette.info.main :
+                        (variantBtn === 'filled' && colorBtn === 'info') ? theme.palette.info.dark :
                         (variantBtn === 'filled' && colorBtn === 'error') ? theme.palette.error.main :
                             (variantBtn === 'filled' && colorBtn === 'neutral') ? theme.palette.neutral.dark :
                                 null,
@@ -42,7 +42,7 @@ export const customMuiChip = {
             backgroundColor: themeColors.black80,
             borderRadius: 5,
             border: `0.5px solid #3C3C3C`,
-            textTransform: 'capitalize',
+            // textTransform: 'capitalize',
         },
         icon:{
             color: 'unset'

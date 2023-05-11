@@ -110,7 +110,7 @@ const AddTraderModal: FC<IType> = ({id, maxWidth, title, openModal, closeModal})
                         }
                         <Stack direction="row" justifyContent="flex-end" spacing={7}>
                             <Button
-                                onClick={closeModal}
+                                onClick={handleClose}
                                 color="neutral">Закрыть</Button>
                         </Stack>
                     </Stack>

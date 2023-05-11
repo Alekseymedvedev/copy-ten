@@ -13,7 +13,7 @@ const MyProductItem: FC<IProducts> = ({id,status, valid_to, sub_title, title, sl
     const mediaQuery = useMediaQuery('(min-width:980px)');
     const [openModal, setOpenModal] = useState(false);
     const [openPaymentModal, setOpenPaymentModal] = useState(false)
-    // const [paymentLinkId, setPaymentLinkId] = useState(-1)
+
     return (
         <Paper>
             <Stack

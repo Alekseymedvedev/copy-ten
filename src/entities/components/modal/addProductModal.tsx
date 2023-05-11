@@ -58,7 +58,7 @@ const tariffData = [
 const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
     const [paymentLinkId, setPaymentLinkId] = useState(0)
     const [slug, setSlug] = useState('');
-    // const {data, isLoading, error} = useGetProductsBySlugQuery({slug: stateModal.slug, page: accountPage})
+
     const [createNewProduct, {
         data: dataPayLink,
         error: productError,
@@ -80,9 +80,6 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
         setOpen(openModal)
     }), [open, openModal, dataPayLink])
 
-    // const handleChangeAccountPPage = (event: React.ChangeEvent<unknown>, value: number) => {
-    //     setAccountPPage(value);
-    // };
 
     const handlerClose = () => {
         closeModal(false)

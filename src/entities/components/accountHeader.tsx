@@ -43,7 +43,7 @@ const AccountHeader: FC<T> = ({balance, accountType,depositLoad}) => {
                 </Stack>
                 <Stack direction="row" alignItems="center" spacing="auto">
                     <Stack direction="row" alignItems="center" spacing={2}>
-                        <Chip variant="filled" color="info" sx={{padding: 0, width: 28, height: 8}}/>
+                        <Chip variant="filled" color="info" sx={{padding: 0, width: 28, height: 8,backgroundColor:'#56CCF2'}}/>
                         <span className="subHeaders white-90">В процентах</span>
                     </Stack>
                     <span className="subHeaders blue">{balance && balance.gain?.percent}%</span>

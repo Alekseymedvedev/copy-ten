@@ -38,27 +38,19 @@ const SettingProductModal: FC<IType> = ({openModal, closeModal, productId}) => {
     };
 
     const handleUpdate = () => {
-
         updateAccount({
             body: {forex_account_id: forexAccountData.id == 0 ? null : forexAccountData.id},
             id: productId
         }).then(() => {
             if (!error && !isLoading) {
-                setOpen(false)
+                closeModal(false)
             }
-
         })
     };
 
     return (
         <>
-
-            <Modal
-                open={open}
-                onClose={handlerClose}
-                aria-labelledby="parent-modal-title"
-                aria-describedby="parent-modal-description"
-            >
+            <Modal open={open} onClose={handlerClose} >
 
                 <Box sx={{maxWidth: 780}}>
                     <Stack onClick={handlerClose} sx={{position: "absolute", top: 14, right: 28, cursor: "pointer"}}>
@@ -144,8 +136,11 @@ const SettingProductModal: FC<IType> = ({openModal, closeModal, productId}) => {
                                 setForexAccountData({id: 0, login: ''})
                             }}
                             fullWidth
-                            color="neutral"
-                            sx={{height: 68}}>Без счета</Button>
+                            variant={forexAccountData.id === 0 ? "contained": "outlined"}
+                            color={forexAccountData.id === 0 ? "success":"neutral"}
+                            sx={{height: 68}}>
+                            Без счета
+                        </Button>
                         <Stack direction="row" spacing={7} justifyContent="flex-end">
                             <Button onClick={handlerClose} color="error">Отмена</Button>
                             <Button onClick={handleUpdate} color="success">Сохранить</Button>

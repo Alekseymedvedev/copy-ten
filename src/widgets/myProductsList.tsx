@@ -20,11 +20,11 @@ const MyProductsList: FC<IType> = ({children}) => {
         <Paper>
             <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{mb: 7}}>
                 <span className="h2 white-90">Мои продукты</span>
-                <Stack direction="row" spacing={7}>
-                    <Chip label="Все" color="neutral"/>
-                    <Chip label="Счет 1" color="neutral"/>
-                    <Chip label="Счет 2" color="neutral"/>
-                </Stack>
+                {/*<Stack direction="row" spacing={7}>*/}
+                {/*    <Chip label="Все" color="neutral"/>*/}
+                {/*    <Chip label="Счет 1" color="neutral"/>*/}
+                {/*    <Chip label="Счет 2" color="neutral"/>*/}
+                {/*</Stack>*/}
             </Stack>
             <Stack spacing={7}>
                 {
