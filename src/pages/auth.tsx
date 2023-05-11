@@ -33,6 +33,7 @@ const Auth: FC<IType> = ({isFinish}) => {
     useEffect(() => {
         if (data) {
             if (registrationHash == '/reg' && registrationFinish){
+                console.log('регистрация')
                 localStorage.setItem('token', `${data?.accessToken}`)
                 setTimeout(() => {
                     dispatch(auth(true))
@@ -40,6 +41,7 @@ const Auth: FC<IType> = ({isFinish}) => {
                 }, 1000)
 
             }else if (registrationHash !== '/reg'){
+                console.log('авторизация')
                 localStorage.setItem('token', `${data?.accessToken}`)
                 dispatch(auth(true))
                 setTimeout(() => {
