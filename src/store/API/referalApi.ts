@@ -1,16 +1,16 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {IUserAccountsData} from "../../types";
+import {headersAccept, headersAuthorization, headersContent} from "./APIToken";
 
-const userToken = localStorage.getItem('token')
+
 
 export const referralApi = createApi({
     reducerPath: 'referralApi',
     baseQuery: fetchBaseQuery({
         baseUrl: `${process.env.REACT_APP_URL}/referral`,
         prepareHeaders: (headers, {getState}) => {
-            headers.set("Content-type", "application/json")
-            headers.set("Accept", "application/json")
-            headers.set("Authorization", `Bearer ${userToken}`)
+            headers.set("Content-type", headersContent)
+            headers.set("Accept", headersAccept)
+            headers.set("Authorization", headersAuthorization)
         },
     }),
     tagTypes: ['Referral'],

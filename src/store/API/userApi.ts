@@ -1,18 +1,16 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {IServerData, IUserAccountsData} from "../../types";
-import {useAppSelector} from "../../hooks/useRedux";
+import {headersAccept, headersAuthorization, headersContent} from "./APIToken";
 
-const userToken = localStorage.getItem('token')
-// setTimeout(()=>{
-// },3000)
+
 export const userApi = createApi({
     reducerPath: 'userApi',
     baseQuery: fetchBaseQuery({
         baseUrl: `${process.env.REACT_APP_URL}/user/forex`,
         prepareHeaders: (headers, {getState}) => {
-            headers.set("Content-type", "application/json")
-            headers.set("Accept", "application/json")
-            headers.set("Authorization", `Bearer ${userToken}`)
+            headers.set("Content-type", headersContent)
+            headers.set("Accept", headersAccept)
+            headers.set("Authorization", headersAuthorization)
         },
     }),
     tagTypes: ['Accounts'],

@@ -13,11 +13,13 @@ import AdminSets from "../../pages/adminSets";
 import AdminTraders from "../../pages/adminTraders";
 import AdminBrokerServers from "../../pages/adminBrokerServers";
 import AdminTransaction from "../../pages/adminTransaction";
+import Auth from "../../pages/auth";
 
 
 export const routes = [
     {path: "/", element: <Home/>},
     {path: "/reg", element: <Home/>},
+    {path: "/auth", element: <Auth/>},
 
     {path: "/copy-trading", element: <CopyTrading/>},
     {path: "/tariff", element: <Products/>},

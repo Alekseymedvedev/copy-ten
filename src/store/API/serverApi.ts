@@ -1,15 +1,16 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {IServerData, Server} from "../../types";
+import {headersAccept, headersAuthorization, headersContent} from "./APIToken";
 
-const userToken = localStorage.getItem('token')
+
 export const serverApi = createApi({
     reducerPath: 'serverApi',
     baseQuery: fetchBaseQuery({
         baseUrl: `${process.env.REACT_APP_URL}/admin/forex/`,
         prepareHeaders: (headers, {getState}) => {
-            headers.set("Content-type", "application/json")
-            headers.set("Accept", "application/json")
-            headers.set("Authorization", `Bearer ${userToken}`)
+            headers.set("Content-type", headersContent)
+            headers.set("Accept", headersAccept)
+            headers.set("Authorization", headersAuthorization)
         },
     }),
     tagTypes: ['Server'],

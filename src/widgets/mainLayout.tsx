@@ -1,9 +1,10 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {Container, Grid} from "@mui/material";
 import Sidebar from "./sidebar";
 import Header from "./header";
 import Footer from "./footer";
 import {useGetProfileQuery} from "../store/API/profileApi";
+import {useNavigate} from "react-router-dom";
 
 
 interface MainLayoutProps {
@@ -25,7 +26,17 @@ const MainLayout: FC<MainLayoutProps> = ({
                                              accountNumber,
                                              typeAccount
 }) => {
+    const {data, error} = useGetProfileQuery('')
+    const [customError, setCustomError] = useState<any>({})
+    const navigate = useNavigate()
 
+    useEffect(() => {
+        if (error) setCustomError({...error})
+        if (customError?.status === 401) {
+            localStorage.clear()
+            navigate('/auth')
+        }
+    }, [error,customError])
     return (
         <Container maxWidth="lg">
             <Grid container spacing={10} columns={16} wrap="wrap">

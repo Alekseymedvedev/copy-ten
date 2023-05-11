@@ -19,7 +19,7 @@ interface IType {
 const Auth: FC<IType> = ({isFinish}) => {
     const {auth} = authSlice.actions
     const dispatch = useAppDispatch()
-    const [fetchToken, {data, isLoading, error}] = useGetTokenMutation()
+    const [fetchToken, {data, isLoading, error,isSuccess}] = useGetTokenMutation()
     const location = useLocation()
     const locationHash = location?.search?.split('=').pop()
     const registrationHash = location?.pathname
@@ -32,16 +32,14 @@ const Auth: FC<IType> = ({isFinish}) => {
     }, [])
     useEffect(() => {
         if (data) {
-            if (registrationHash == '/reg' && registrationFinish){
-                console.log('регистрация')
+            if (registrationHash == '/reg' && registrationFinish && isSuccess){
                 localStorage.setItem('token', `${data?.accessToken}`)
                 setTimeout(() => {
                     dispatch(auth(true))
                     navigate('/')
                 }, 1000)
 
-            }else if (registrationHash !== '/reg'){
-                console.log('авторизация')
+            }else if (registrationHash !== '/reg' && isSuccess){
                 localStorage.setItem('token', `${data?.accessToken}`)
                 dispatch(auth(true))
                 setTimeout(() => {
