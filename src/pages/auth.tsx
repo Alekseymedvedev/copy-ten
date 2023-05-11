@@ -35,14 +35,15 @@ const Auth: FC<IType> = ({isFinish}) => {
             if (registrationHash == '/reg' && registrationFinish && isSuccess){
                 localStorage.setItem('token', `${data?.accessToken}`)
                 setTimeout(() => {
-                    dispatch(auth(true))
                     navigate('/')
+                    dispatch(auth(true))
                 }, 1000)
 
             }else if (registrationHash !== '/reg' && isSuccess){
                 localStorage.setItem('token', `${data?.accessToken}`)
-                dispatch(auth(true))
+
                 setTimeout(() => {
+                    dispatch(auth(true))
                     navigate('/')
                 }, 1000)
             }
