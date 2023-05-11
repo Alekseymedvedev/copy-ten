@@ -17,6 +17,7 @@ import AdminTransaction from "../../pages/adminTransaction";
 
 export const routes = [
     {path: "/", element: <Home/>},
+    {path: "/reg", element: <Home/>},
 
     {path: "/copy-trading", element: <CopyTrading/>},
     {path: "/tariff", element: <Products/>},
