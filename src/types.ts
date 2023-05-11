@@ -67,6 +67,8 @@ export interface IForexAccount{
     accountData:IAccountData
 }
 export interface IProducts{
+    accountData?: any;
+    forex_account?: any;
     id: string;
     object?: string;
     title?: string;

@@ -33,6 +33,7 @@ const MyProductsList: FC<IType> = ({children}) => {
                             id={item.id}
                             key={item.id}
                             slug={item.slug}
+                            accountData={item?.forex_account?.account_data}
                             sub_title={item.sub_title}
                             status={item.status}
                             valid_to={item.valid_to}

@@ -297,7 +297,7 @@ const AddProductModal: FC<IType> = ({stateModal, openModal, closeModal}) => {
 
             {
                 (openPaymentModal && dataPayLink) &&
-                <PaymentModal stateModal={stateModal} paymentLinkId={paymentLinkId} openModal={openPaymentModal}
+                <PaymentModal title="Новый заказ" stateModal={stateModal} paymentLinkId={paymentLinkId} openModal={openPaymentModal}
                               closeModal={setOpenPaymentModal}/>
             }
 
