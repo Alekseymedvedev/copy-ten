@@ -19,7 +19,9 @@ interface IType {
     openModal: boolean;
     closeModal?: any;
     isOPenBtn?: boolean;
+    skip?: boolean;
     idTrader?: any
+    idTraderSubscribe?: any
     trader?: any
     nameTrader?: any
     idAccount?: any
@@ -33,13 +35,14 @@ const CopyTradingModalSettings: FC<IType> = ({
                                                  closeModal,
                                                  isOPenBtn,
                                                  idTrader,
+                                                 idTraderSubscribe,
                                                  trader,
+                                                 skip,
                                                  nameTrader,
                                                  idAccount,
                                                  nameAccount,
                                              }) => {
-
-    const {data:dataSettings} = useGetSubscribesSettingsQuery(idTrader)
+   const {data:dataSettings, isUninitialized} = useGetSubscribesSettingsQuery(idTraderSubscribe,{skip})
 
     const [open, setOpen] = useState(false);
     const [openModalChild, setOpenModalChild] = useState(false);
@@ -51,6 +54,7 @@ const CopyTradingModalSettings: FC<IType> = ({
 
     useEffect((() => {
         setOpen(openModal)
+        // setSkip(idTraderSubscribe ? true : false)
     }), [open, openModal,error])
     const handleOpen = () => {
         setOpen(true);
@@ -99,11 +103,7 @@ const CopyTradingModalSettings: FC<IType> = ({
                             :
                             (step === 2) ?
                                 <Stack spacing={7}>
-                                    {/*<Stack className="h2 yellowBg" justifyContent="space-between"*/}
-                                    {/*       sx={{height: 122, p: 7, borderRadius: `10px`}}>*/}
-                                    {/*    <span>Используемый <br/> депозит</span>*/}
-                                    {/*    <span className="yellow">1239$</span>*/}
-                                    {/*</Stack>*/}
+
                                     <CustomRange onChange={handleRisk} title="Риск" defaultValue={dataSettings?.risk}
                                                  required
                                                  isSwitch
@@ -117,6 +117,8 @@ const CopyTradingModalSettings: FC<IType> = ({
                                                  required
                                                  isSwitch/>
                                     <Parameters
+                                        traderSymbol
+                                        traderId={idTrader}
                                         symbolSettings={dataSettings?.exclude_symbols}
                                         hoursSettings={dataSettings?.exclude_hours}
                                         daySettings={dataSettings?.exclude_days}

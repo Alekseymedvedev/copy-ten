@@ -12,9 +12,10 @@ import CopyTradingModalChild from "../entities/components/modal/copyTradingModal
 interface IType {
     accountName?: any
     subscribeId?: any
+    traderId?: any
 }
 
-const SettingsSidebar: FC<IType> = ({accountName,subscribeId}) => {
+const SettingsSidebar: FC<IType> = ({accountName,subscribeId,traderId}) => {
     const {
         addRisk,
         addMaxLot,
@@ -115,6 +116,8 @@ const SettingsSidebar: FC<IType> = ({accountName,subscribeId}) => {
                                          required
                                          isSwitch/>
                             <Parameters
+                                traderSymbol
+                                traderId={traderId}
                                 symbolSettings={data?.exclude_symbols}
                                 hoursSettings={data?.exclude_hours}
                                 daySettings={data?.exclude_days}

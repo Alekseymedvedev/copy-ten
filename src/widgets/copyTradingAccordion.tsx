@@ -105,7 +105,12 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                                                 <Button
                                                     fullWidth={!mediaQuery}
                                                     onClick={(e) => {
-                                                        handleOpenModal(e, item.id)
+                                                        e.stopPropagation()
+                                                       if(item.subscribed_forex_accounts.find((item: any) => item.forex_account.id === accountId)) {
+                                                         return
+                                                       }else{
+                                                           handleOpenModal(e, item.id)
+                                                       }
                                                     }}
                                                     variant="gardient"
                                                     color={item.subscribed_forex_accounts.find((item: any) => item.forex_account.id === accountId) ? "success" : "warning"}
@@ -227,7 +232,7 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
             }
             {
                 openModal &&
-                <CopyTradingModalSettings idTrader={idTrader} trader={idTrader} idAccount={accountId}
+                <CopyTradingModalSettings skip idTrader={idTrader} idAccount={accountId}
                                           openModal={openModal}
                                           closeModal={setOpenModal}/>
             }

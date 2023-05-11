@@ -57,15 +57,13 @@ const CopyTradingModalChild: FC<IType> = ({
     const handleClose = () => {
         closeModal(false)
         setOpen(false);
-
     };
 
     const handleSubscribe = () => {
-
         if (idAccount) {
             subscribe({
                 idTrader,
-                idAccount:0,
+                idAccount,
                 body: {
                     settings: {
                         risk: risk,

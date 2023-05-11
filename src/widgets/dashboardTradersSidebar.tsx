@@ -107,7 +107,7 @@ const DashboardTradersSidebar: FC<IType> = ({dataTrader}) => {
             {
                 (dataTrader?.subscribed_forex_accounts.find((item: any) => item.forex_account.id === accountId) ) &&
                 <Stack sx={{position: 'sticky', top: 0}}>
-                    <SettingsSidebar accountName={accountName} subscribeId={subscribe.id}/>
+                    <SettingsSidebar traderId={dataTrader.id} accountName={accountName} subscribeId={subscribe.id}/>
                 </Stack>
 
             }

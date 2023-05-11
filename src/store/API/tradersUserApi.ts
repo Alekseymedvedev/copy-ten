@@ -36,6 +36,11 @@ export const tradersUserApi = createApi({
             }),
             providesTags: ['Trader']
         }),
+        getTraderSymbol: build.query({
+            query: (id) => ({
+                url: `/trader/${id}/used-symbols`,
+            }),
+        }),
         addTrader: build.mutation({
             query: (body) => ({
                 url: `/server`,
@@ -74,6 +79,7 @@ export const {
     useGetAllUserTradersQuery,
     useGetHistoryQuery,
     useGetTraderQuery,
+    useGetTraderSymbolQuery,
     useSubscribeTraderMutation,
     useUpdateSettingsTraderMutation,
     useUnsubscribeTraderMutation
