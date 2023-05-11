@@ -43,7 +43,7 @@ const BalanceChart: FC<IType> = ({
                             <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={4}>
                                 <Stack className="subHeaders" direction="row" alignItems="center" spacing={4}>
                                     <span className="white-90">Трейдер {item.name}</span>
-                                    <span className="green">&nbsp;+{item.gain}%</span>
+                                    <span className={item.gain > 0 ?"green": "red"}>&nbsp;{item.gain}%</span>
                                 </Stack>
                                 <Switch defaultChecked color="secondary"/>
                             </Stack>

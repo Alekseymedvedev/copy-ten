@@ -127,7 +127,7 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                                         {
                                             !mediaQuery &&
                                             <Button fullWidth={!mediaQuery} color="neutral" component={Link}
-                                                    to="/trader-dashboard">
+                                                    to={`/trader-dashboard/${item.id}`}>
                                                 <span className="h2">Подробнее</span>
                                             </Button>
                                         }

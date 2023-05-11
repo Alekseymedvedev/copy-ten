@@ -101,10 +101,7 @@ const TradersAndSets: FC<IType> = ({product, login, dataSets}) => {
                         }
                 }
             >
-                {/*<Stack direction="row" justifyContent="space-between" spacing={7} sx={{mb: 4}}>*/}
-                {/*    <Chip label="Трейдеры" variant="filled" color="neutral" sx={{flexGrow: 1}}/>*/}
-                {/*    <Chip label="Сеты" variant="outlined" color="neutral" sx={{flexGrow: 1}}/>*/}
-                {/*</Stack>*/}
+
                 <TabsHeader
                     variant="fullWidth"
                     size={'sizeSmall'}
@@ -116,7 +113,7 @@ const TradersAndSets: FC<IType> = ({product, login, dataSets}) => {
                 <Divider sx={{mb: 4, width: `105%`}}/>
 
                 <TabsItem value={value} index={0}>
-                    <Stack className="subHeadersBold white-80" sx={{mb: 4}}>{data?.data?.length}/15</Stack>
+                    <Stack className="subHeadersBold white-80" sx={{mb: 4}}>{data?.data?.length ?? 0}/15</Stack>
                     <Stack spacing={7}>
                         {
                             data && data?.data.map((item: any) =>
@@ -155,13 +152,7 @@ const TradersAndSets: FC<IType> = ({product, login, dataSets}) => {
                                                 <span className="subHeadersBold green">{item.stats.dropdown}%</span>
                                             </Stack>
                                         </Grid>
-                                        {/*<Grid item xs={2}>*/}
-                                        {/*    <Stack alignItems="center" justifyContent="center" spacing={2}*/}
-                                        {/*           sx={{p: 2, borderRight: `0.5px solid #3C3C3C`}}>*/}
-                                        {/*        <span className="subHeaders white-90">Баланс</span>*/}
-                                        {/*        <span className="subHeadersBold green">+{item.stats.balance}%</span>*/}
-                                        {/*    </Stack>*/}
-                                        {/*</Grid>*/}
+
                                         <Grid item xs={4}>
                                             <Stack alignItems="center" justifyContent="center" spacing={2}
                                                    sx={{p: 2, textAlign: "center"}}>
@@ -200,7 +191,7 @@ const TradersAndSets: FC<IType> = ({product, login, dataSets}) => {
                     </Stack>
                 </TabsItem>
                 <TabsItem value={value} index={1}>
-                    <Stack className="subHeadersBold white-80" sx={{mb: 4}}>{dataSets?.data?.length}/1</Stack>
+                    <Stack className="subHeadersBold white-80" sx={{mb: 4}}>{dataSets?.data?.length ?? 0}/1</Stack>
                     <Stack spacing={7}>
                         {
                             dataSets && dataSets?.data?.map((item: any) =>
@@ -238,13 +229,7 @@ const TradersAndSets: FC<IType> = ({product, login, dataSets}) => {
                                                 <span className="subHeadersBold green">{item.stats.dropdown}%</span>
                                             </Stack>
                                         </Grid>
-                                        {/*<Grid item xs={2}>*/}
-                                        {/*    <Stack alignItems="center" justifyContent="center" spacing={2}*/}
-                                        {/*           sx={{p: 2, borderRight: `0.5px solid #3C3C3C`}}>*/}
-                                        {/*        <span className="subHeaders white-90">Баланс</span>*/}
-                                        {/*        <span className="subHeadersBold green">+{item.stats.balance}%</span>*/}
-                                        {/*    </Stack>*/}
-                                        {/*</Grid>*/}
+
                                         <Grid item xs={4}>
                                             <Stack alignItems="center" justifyContent="center" spacing={2}
                                                    sx={{p: 2, textAlign: "center"}}>
@@ -304,7 +289,6 @@ const TradersAndSets: FC<IType> = ({product, login, dataSets}) => {
                         <Button
                             onClick={() => {
                                 unsubscribe(subscribeId).then(() => setOpenModalUnsubscribe(false))
-                                // navigate(0)
                             }}
                             color="success">Сохранить</Button>
                     </Stack>

@@ -13,7 +13,8 @@ function App() {
     const [userToken ,setUserToken] = useState<any>(localStorage.getItem('token'))
     const navigate = useNavigate()
    if (isAuth) navigate(0)
-
+    console.log('токен',userToken)
+    console.log('автроризован',isAuth)
     return (
         <>
             <Routes>

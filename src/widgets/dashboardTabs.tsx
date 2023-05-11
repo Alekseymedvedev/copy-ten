@@ -204,16 +204,10 @@ const DashboardTabs: FC<IType> = ({
                                     (traderDashboard && dataTrader) ?
                                         <DashboardTradersSidebar dataTrader={dataTrader}/>
                                         :
-                                        // (!traderDashboard && data) ?
                                             <TradersAndSets
-                                                // dataSets={dataSet?.data}
-                                                // accountId={id}
                                                 product={dataDashboard?.product?.product_data?.title}
                                                 login={dataDashboard?.login}
-                                                // data={data?.data}
                                             />
-                                            // :
-                                            // <Skeleton variant="rounded" width={`100%`} height={433}/>
                                 }
 
 

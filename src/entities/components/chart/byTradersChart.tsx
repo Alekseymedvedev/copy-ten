@@ -116,7 +116,7 @@ const ByTradersChart: FC<IType> = ({data}) => {
                                    spacing={4}>
                                 <Stack className="subHeaders" direction="row" alignItems="center" spacing={4}>
                                     <span className="white-90">Трейдер {data?.traders[item].name}</span>
-                                    <span className="green">&nbsp;+{data?.traders[item].gain}%</span>
+                                    <span className={data?.traders[item].gain > 0 ?"green": "red"}>&nbsp;{data?.traders[item].gain}%</span>
                                 </Stack>
                                 <CustomSwitch
                                     onChange={
