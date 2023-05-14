@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from 'react';
 import Paper from "@mui/material/Paper";
-import {Divider, Grid, Pagination, Skeleton, Stack, TextField, useMediaQuery} from "@mui/material";
+import {Chip, Divider, Grid, Pagination, Skeleton, Stack, TextField, useMediaQuery} from "@mui/material";
 import IconSet from "../shared/assets/images/icons/iconSet";
 import Chart from "../entities/components/chart/chart";
 import BalanceChart from "./balanceChart";
@@ -21,14 +21,19 @@ interface IType {
 
 const UserSetsList: FC<IType> = ({children}) => {
     const mediaQuery = useMediaQuery('(min-width:980px)');
+    const [idSet, setIdSet] = useState('');
     const [page, setPage] = useState(1);
-    const {data, isLoading, error} = useGetSetQuery(page)
-    const [addAccountSubscribe] = useAddAccountSubscribeMutation()
-    const {accountId,accountName} = useAppSelector(state => state.accountIdReducer)
-    const {data: dataLinkedTraders} = useGetAllLinkedTradersQuery('2')
     const [openModalConnection, setOpenModalConnection] = useState(false);
     const [openModal, setOpenModal] = useState(false);
-    const [idSet, setIdSet] = useState('');
+    const {data, isLoading, error} = useGetSetQuery(page)
+    const [addAccountSubscribe] = useAddAccountSubscribeMutation()
+    const {accountId, accountName} = useAppSelector(state => state.accountIdReducer)
+    const {
+        data: dataLinkedTraders,
+        isLoading: isLoadingLinkedTraders
+    } = useGetAllLinkedTradersQuery(idSet, {skip: !openModal})
+
+
     const [nameAccount, setNameAccount] = useState('');
     const [nameSet, setNameSet] = useState('');
 
@@ -120,7 +125,10 @@ const UserSetsList: FC<IType> = ({children}) => {
                             </Grid>
                             <Grid item xs={16} md={7}>
                                 <Button fullWidth color="neutral" startIcon={<IconTraders/>} sx={{height: 48}}
-                                        onClick={() => setOpenModal(true)}>
+                                        onClick={() => {
+                                            setIdSet(item?.id)
+                                            setOpenModal(true)
+                                        }}>
                                     Подключенные трейдеры
                                 </Button>
                             </Grid>
@@ -162,18 +170,24 @@ const UserSetsList: FC<IType> = ({children}) => {
                          closeModal={setOpenModal}>
                 <Stack spacing={7}>
 
+
                     {
-                        dataLinkedTraders?.data &&
-                        dataLinkedTraders?.data.map((item: any) =>
-                            <TraderItem
-                                key={item.id}
-                                id={item.id}
-                                stats={item.trader.stats}
-                                graph={item.trader.graph}
-                                name={item.trader.name}
-                                strategy={item.trader.strategy}
-                            />
-                        )
+                        isLoadingLinkedTraders ?
+                            <Skeleton variant="rounded" width={`100%`} height={68}/>
+                            :
+                            dataLinkedTraders?.data?.length > 0 ?
+                                dataLinkedTraders?.data.map((item: any) =>
+                                    <TraderItem
+                                        key={item.id}
+                                        id={item.id}
+                                        stats={item.trader.stats}
+                                        graph={item.trader.graph}
+                                        name={item.trader.name}
+                                        strategy={item.trader.strategy}
+                                    />
+                                )
+                                :
+                                <Paper className="h2">Нет подключенных тредеров</Paper>
                     }
                 </Stack>
             </SimpleModal>

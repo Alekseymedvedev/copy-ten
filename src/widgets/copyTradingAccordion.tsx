@@ -5,7 +5,7 @@ import {
     AccordionSummary,
     Button,
     Grid,
-    Pagination,
+    Pagination, Skeleton,
     Stack,
     useMediaQuery
 } from "@mui/material";
@@ -49,7 +49,11 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
         setIdTrader(id)
 
     };
-
+    if (isLoading) {
+        return (
+            <Skeleton variant="rounded" width={`100%`} height={315}/>
+        )
+    }
     return (
         <>
             {
@@ -60,7 +64,6 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                         sx={{
                             mb: 7,
                             "@media (min-width:980px)": {
-                                // p: `4px 28px 12px 28px`,
                                 p: `7px  28px`,
                             }
                         }}
@@ -106,11 +109,11 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                                                     fullWidth={!mediaQuery}
                                                     onClick={(e) => {
                                                         e.stopPropagation()
-                                                       if(item.subscribed_forex_accounts.find((item: any) => item.forex_account.id === accountId)) {
-                                                         return
-                                                       }else{
-                                                           handleOpenModal(e, item.id)
-                                                       }
+                                                        if (item.subscribed_forex_accounts.find((item: any) => item.forex_account.id === accountId)) {
+                                                            return
+                                                        } else {
+                                                            handleOpenModal(e, item.id)
+                                                        }
                                                     }}
                                                     variant="gardient"
                                                     color={item.subscribed_forex_accounts.find((item: any) => item.forex_account.id === accountId) ? "success" : "warning"}
@@ -140,7 +143,12 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
                                 <Grid item xs={4}>
                                     <Stack
                                         spacing={7}
-                                        sx={{height: '100%', border: `0.5px solid #3C3C3C`, borderRadius: 2.5,overflow: 'hidden'}}
+                                        sx={{
+                                            height: '100%',
+                                            border: `0.5px solid #3C3C3C`,
+                                            borderRadius: 2.5,
+                                            overflow: 'hidden'
+                                        }}
                                         justifyContent="space-between"
                                     >
                                         <Stack spacing={7} p={7}>
@@ -232,7 +240,7 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
             }
             {
                 openModal &&
-                <CopyTradingModalSettings skip idTrader={idTrader} idAccount={accountId}
+                <CopyTradingModalSettings skip idTraderSubscribe={idTrader} idTrader={idTrader} idAccount={accountId}
                                           openModal={openModal}
                                           closeModal={setOpenModal}/>
             }

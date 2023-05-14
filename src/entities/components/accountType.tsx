@@ -75,11 +75,12 @@ const AccountType: FC<T> = ({
 
                     {
                         productType &&
-                        productType === "Копировальщик"
-                            ? <Chip label="Копитрейдер" variant="outlined" color="success" sx={{pr: 0, pl: 0}}/>
-                             : productType ?
-                             <Chip label="Робот" color="secondary" sx={{pr: 0, pl: 0}}/>
-                        :null
+                        // productType === "Копировальщик"
+                        //     ?
+                            <Chip label={productType} variant="outlined" color="success" sx={{pr: 0, pl: 0}}/>
+                             // : productType ==='' ?
+                             // <Chip label="Робот" color="secondary" sx={{pr: 0, pl: 0}}/>
+                        // :null
                     }
                     {
                         accountType?.type === 0 ?
