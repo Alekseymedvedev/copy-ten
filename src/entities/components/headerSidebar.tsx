@@ -38,12 +38,11 @@ const HeaderSidebar: FC<T> = ({isAdmin}) => {
                                 <div className="subHeaders white-80">@{data?.data?.telegram?.username}</div>
                                 <div className="h2">{data?.data?.telegram?.fullname}</div>
                             </Stack>
-                            <Chip label={data?.data?.accounts?.deposit_load} variant="outlined" color={"neutral"} icon={<IconAccount/>}/>
+                            <Chip label={data?.data?.accounts?.length} variant="outlined" color={"neutral"} icon={<IconAccount/>}/>
                         </Stack>
                     </>
                     : null
             }
-
         </Stack>
     );
 };

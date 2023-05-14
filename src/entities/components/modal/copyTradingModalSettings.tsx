@@ -46,7 +46,7 @@ const CopyTradingModalSettings: FC<IType> = ({
 
     const [open, setOpen] = useState(false);
     const [openModalChild, setOpenModalChild] = useState(false);
-    const [step, setStep] = useState(1);
+    const [step, setStep] = useState(2);
     const [error, setError] = useState(undefined);
 
     const {addRisk, addMaxLot, addMinLot} = setParametersSlice.actions
@@ -124,32 +124,32 @@ const CopyTradingModalSettings: FC<IType> = ({
                                         daySettings={dataSettings?.exclude_days}
                                     />
                                 </Stack>
-                                :
-                                (step === 3) ?
-                                    <div className="h2">
-                                        {
-                                            error ?
-                                                <>
-                                                    <span className="red">Ошибка!</span>
-                                                    <span>&nbsp;Трейдер
-                                                        <span className="yellow">&nbsp;{nameTrader}&nbsp;</span>
-                                                        не подключен на Ваш счет&nbsp;
-                                                    </span>
-                                                    <span className="blue">{nameAccount}</span>
-                                                    <span>!</span>
-                                                </>
-                                                :
-                                                <>
-                                                    <span className="green">Успешно!</span>
-                                                    <span>&nbsp;Трейдер
-                                                        <span className="yellow">&nbsp;{nameTrader}&nbsp;</span>
-                                                        подключен на Ваш счет&nbsp;</span>
-                                                    <span className="blue">{nameAccount}</span>
-                                                    <span>!</span>
-                                                </>
-                                        }
-
-                                    </div>
+                                // :
+                                // (step === 3) ?
+                                //     <div className="h2">
+                                //         {
+                                //             error ?
+                                //                 <>
+                                //                     <span className="red">Ошибка!</span>
+                                //                     <span>&nbsp;Трейдер
+                                //                         <span className="yellow">&nbsp;{nameTrader}&nbsp;</span>
+                                //                         не подключен на Ваш счет&nbsp;
+                                //                     </span>
+                                //                     <span className="blue">{nameAccount}</span>
+                                //                     <span>!</span>
+                                //                 </>
+                                //                 :
+                                //                 <>
+                                //                     <span className="green">Успешно!</span>
+                                //                     <span>&nbsp;Трейдер
+                                //                         <span className="yellow">&nbsp;{nameTrader}&nbsp;</span>
+                                //                         подключен на Ваш счет&nbsp;</span>
+                                //                     <span className="blue">{nameAccount}</span>
+                                //                     <span>!</span>
+                                //                 </>
+                                //         }
+                                //
+                                //     </div>
                                     : null
 
                     }

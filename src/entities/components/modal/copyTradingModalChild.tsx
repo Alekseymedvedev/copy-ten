@@ -110,7 +110,7 @@ const CopyTradingModalChild: FC<IType> = ({
                 open={success}
             >
                 <Alert severity={error ? "error" : "success"} icon={false}>
-                    {error ? "Ошибка!" : "Успешно!"}
+                    {error ? "Ошибка при подключении!" : "Успешно!"}
                 </Alert>
             </Snackbar>
             <Modal

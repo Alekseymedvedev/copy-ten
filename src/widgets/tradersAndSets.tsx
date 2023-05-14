@@ -167,7 +167,7 @@ const TradersAndSets: FC<IType> = ({product, login, dataSets}) => {
                                             onClick={() => {
                                                 handleSettingsAcc(item.id)
                                                 setNameTrader(item.trader.name)
-                                                setTrader(item.id)
+                                                setTrader(item.trader.id)
                                                 setName('трейдера')
                                             }}
                                             color="neutral"
@@ -259,7 +259,8 @@ const TradersAndSets: FC<IType> = ({product, login, dataSets}) => {
             {
                 openModal &&
                 <CopyTradingModalSettings
-                    idTrader={idTrader}
+                    idTraderSubscribe={idTrader}
+                    idTrader={trader}
                     openModal={openModal}
                     nameTrader={nameTrader}
                     trader={trader}
