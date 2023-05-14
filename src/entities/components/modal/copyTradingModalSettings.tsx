@@ -42,8 +42,8 @@ const CopyTradingModalSettings: FC<IType> = ({
                                                  idAccount,
                                                  nameAccount,
                                              }) => {
-   const {data:dataSettings, isUninitialized} = useGetSubscribesSettingsQuery(idTraderSubscribe,{skip})
-
+   const {data:dataSettings} = useGetSubscribesSettingsQuery(idTraderSubscribe,{skip})
+    console.log(idTrader)
     const [open, setOpen] = useState(false);
     const [openModalChild, setOpenModalChild] = useState(false);
     const [step, setStep] = useState(2);

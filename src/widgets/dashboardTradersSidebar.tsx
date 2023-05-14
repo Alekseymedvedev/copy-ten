@@ -119,6 +119,7 @@ const DashboardTradersSidebar: FC<IType> = ({dataTrader}) => {
                 openModal &&
                 <CopyTradingModalSettings
                     skip={!dataTrader?.subscribed_forex_accounts.find((item: any) => item.forex_account.id === accountId)}
+                    idTraderSubscribe={dataTrader.id}
                     idTrader={dataTrader.id}
                     nameTrader={dataTrader?.name}
                     nameAccount={accountName}

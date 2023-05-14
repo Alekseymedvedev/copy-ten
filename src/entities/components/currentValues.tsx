@@ -39,10 +39,11 @@ const CurrentValues: FC<IType> = ({balance,depositLoad,dropdown,gainAll,gainCurr
                 alignItems="center"
                 justifyContent="center"
                 sx={{
-                    width: 34,
+                 width: 80,
+                    padding:`8px 14px`,
                     height: 34,
                     border: ` 0.5px solid #3C3C3C`,
-                    borderRadius: `50%`,
+                    borderRadius: 2.5,
                     position: !mediaQuery ?'absolute':'static',
                     right:14,
                     top:14,
