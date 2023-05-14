@@ -174,13 +174,13 @@ const DashboardTabs: FC<IType> = ({
                                 }
                                 {
                                     dataChartDay?.length > 0 &&
-                                    <Chart title="По дням" changeTime={dayChartUrl}>
+                                    <Chart title="По дням">
                                         <CustomBarChart barChartData={dataChartDay}/>
                                     </Chart>
                                 }
                                 {
                                     dataChartHours?.length > 0 &&
-                                    <Chart title="По часам" changeTime={hoursChartUrl}>
+                                    <Chart title="По часам">
                                         <CustomBarChart barChartData={dataChartHours}/>
                                     </Chart>
                                 }
@@ -205,6 +205,7 @@ const DashboardTabs: FC<IType> = ({
                                         <DashboardTradersSidebar dataTrader={dataTrader}/>
                                         :
                                             <TradersAndSets
+                                                assigned={dataDashboard?.product?.assigned}
                                                 product={dataDashboard?.product?.product_data?.title}
                                                 login={dataDashboard?.login}
                                             />

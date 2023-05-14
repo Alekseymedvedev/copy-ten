@@ -18,10 +18,11 @@ interface IType {
     accountName?: any;
     product?: any;
     openModal: boolean;
+    assigned?: boolean;
     closeModal: any;
 }
 
-const AccountModal: FC<IType> = ({accountId, product, accountName, openModal, closeModal}) => {
+const AccountModal: FC<IType> = ({accountId, product, accountName, openModal, closeModal,assigned}) => {
     const navigate = useNavigate()
 
     const [deleteAccount, {error,isLoading}] = useDeleteAccountMutation()
@@ -47,7 +48,7 @@ const AccountModal: FC<IType> = ({accountId, product, accountName, openModal, cl
             }
 
         })
-        setStep(3)
+        setStep(1)
     }
 
 
@@ -99,7 +100,14 @@ const AccountModal: FC<IType> = ({accountId, product, accountName, openModal, cl
 
                         {
                             (step === 1) ?
-                                <Button onClick={() => setStep(step + 1)} color="success">Продожить</Button>
+                                <Button onClick={() => {
+                                    if(assigned){
+                                        setStep(step + 1)
+                                    }else{
+                                        deleteAcc()
+                                    }
+
+                                }} color="success">{assigned ? "Продожить":"Подтвердить"}</Button>
                                 :
                                 <Button onClick={deleteAcc} color="success">Подтвердить</Button>
                         }

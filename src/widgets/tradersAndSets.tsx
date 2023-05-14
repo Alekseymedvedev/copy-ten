@@ -29,6 +29,7 @@ interface IType {
     dataSets?: any;
     product?: any;
     login?: any;
+    assigned?: any;
     data?: {
 
         id: any;
@@ -38,7 +39,7 @@ interface IType {
     }[]
 }
 
-const TradersAndSets: FC<IType> = ({product, login, dataSets}) => {
+const TradersAndSets: FC<IType> = ({product, login, dataSets,assigned}) => {
     const location = useLocation()
     const accountId = location?.pathname?.split('/').pop()
     const {data, isLoading} = useGetAllSubscribesQuery(accountId, {refetchOnMountOrArgChange: true})
@@ -298,6 +299,7 @@ const TradersAndSets: FC<IType> = ({product, login, dataSets}) => {
             {
                 openModalDelete &&
                 <DeleteAccountModal
+                    assigned={assigned}
                     accountId={accountId}
                     product={product}
                     accountName={login}
