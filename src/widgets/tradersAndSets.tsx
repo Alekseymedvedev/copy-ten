@@ -41,8 +41,8 @@ interface IType {
 const TradersAndSets: FC<IType> = ({product, login, dataSets}) => {
     const location = useLocation()
     const accountId = location?.pathname?.split('/').pop()
-    const {data, isLoading} = useGetAllSubscribesQuery(accountId)
-    const {data: dataSet} = useGetAllSubscribesSetQuery(accountId)
+    const {data, isLoading} = useGetAllSubscribesQuery(accountId, {refetchOnMountOrArgChange: true})
+    const {data: dataSet} = useGetAllSubscribesSetQuery(accountId, {refetchOnMountOrArgChange: true})
     const [unsubscribe] = useUnsubscribeTraderMutation()
 
     const mediaQuery = useMediaQuery('(min-width:980px)');

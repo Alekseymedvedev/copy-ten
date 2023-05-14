@@ -183,7 +183,7 @@ const CopyTradingModalSettings: FC<IType> = ({
             <CopyTradingModalChild
                 idAccount={idAccount}
                 nameAccount={nameAccount}
-                idTrader={idTrader}
+                idTrader={idTraderSubscribe}
                 nameTrader={nameTrader}
                 step={step}
                 setStep={setStep}
