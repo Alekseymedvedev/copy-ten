@@ -66,13 +66,13 @@ const LinkedTrader: FC<IType> = ({id, title, openModal, closeModal}) => {
                                     <Stack
                                         key={item.id}
                                         onClick={() => {
-                                        setIdTraderSubscribe(item.id)
-                                        setIdTrader(item.trader.id)
-                                    }}>
+                                            setIdTraderSubscribe(item.id)
+                                            setIdTrader(item.trader.id)
+                                        }}>
                                         <TraderItem
-
+                                            idTraderSubscribe={item.id}
                                             isSelect
-                                            id={item.id}
+                                            id={item.trader.id}
                                             stats={item.trader.stats}
                                             graph={item.trader.graph}
                                             name={item.trader.name}

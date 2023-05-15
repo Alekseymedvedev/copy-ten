@@ -85,7 +85,6 @@ const TraderItem: FC<IType> = ({
                             >
                                 <MenuItem onClick={() => {
                                     if (idTrader) idTrader(id)
-                                    if (idTraderSubscribe) idTraderSubscribe(id)
                                     openModal(true)
                                 }}>
                                     Настройки
@@ -93,7 +92,7 @@ const TraderItem: FC<IType> = ({
                                 <MenuItem sx={{color: '#56CCF2'}} component={Link} to={`/trader-dashboard/${id}`}>
                                     Страница
                                 </MenuItem>
-                                <MenuItem onClick={() => deleteTrader(id)} sx={{color: '#FF8888'}}>
+                                <MenuItem onClick={() => deleteTrader(idTraderSubscribe)} sx={{color: '#FF8888'}}>
                                     Удалить
                                 </MenuItem>
                             </Select>
