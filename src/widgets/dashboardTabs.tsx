@@ -84,7 +84,7 @@ const DashboardTabs: FC<IType> = ({
                                       dataHistory,
                                       isTrader,changePage,page
                                   }) => {
-    console.log(111)
+
     const {barChartData} = useAppSelector(state => state.barChartReducer)
     const dispatch = useAppDispatch()
     const {fetchBarChart} = barChartSlice.actions
@@ -230,7 +230,7 @@ const DashboardTabs: FC<IType> = ({
                     <CustomTable
                         changePage={changePage} page={page}
                         isTrader={isTrader}
-                        data={dataHistory?.data}
+                        data={dataHistory}
                         dataTableHead={dataTrader ?
                             [
                                 'Время',  'Тип', 'Обьем', 'Символ', 'Цена', 'Время', 'Цена', 'Комиссия', 'Своп', 'Прибыль'

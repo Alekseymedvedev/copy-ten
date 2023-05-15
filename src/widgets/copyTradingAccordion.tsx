@@ -35,7 +35,7 @@ const CopyTradingAccordion: FC<IType> = ({children}) => {
     const [expanded, setExpanded] = useState<string | false>('panel1');
     const [openModal, setOpenModal] = useState(false);
     const [idTrader, setIdTrader] = useState('');
-
+    console.log(accountId)
     const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
     };

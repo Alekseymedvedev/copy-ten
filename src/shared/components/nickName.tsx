@@ -10,9 +10,10 @@ interface IType {
     direction?: 'row-reverse' | 'row';
     justifyContent?: string;
     notMb?: any;
+    strategy?: any;
 }
 
-const NickName: FC<IType> = ({name, number, avatar, direction, justifyContent, notMb}) => {
+const NickName: FC<IType> = ({strategy,name, number, avatar, direction, justifyContent, notMb}) => {
 
     return (
         <Stack
@@ -30,9 +31,8 @@ const NickName: FC<IType> = ({name, number, avatar, direction, justifyContent, n
                 avatar &&
                 <CustomTooltip title={
                     <>
-                        <span>{'Стратегия “Стопами”'}</span>
+                        <span>{`Стратегия "${strategy}"`}</span>
                         <br/>
-                        <NavLink className="link" to="/">{'Что это?'}</NavLink>
                     </>
                 }
                 >

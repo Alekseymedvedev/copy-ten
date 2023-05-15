@@ -36,7 +36,8 @@ const CustomSelect: FC<IType> = ({
 
     useEffect(() => {
         isError && setError(isError)
-    }, [isError])
+        isSettingsParams && setVariantName(isSettingsParams)
+    }, [isError,isSettingsParams])
 
     const handleChange = (e: SelectChangeEvent<typeof variantName>) => {
 

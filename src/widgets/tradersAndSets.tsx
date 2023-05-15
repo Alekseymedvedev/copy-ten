@@ -127,6 +127,7 @@ const TradersAndSets: FC<IType> = ({product, login, dataSets,assigned}) => {
                                         }
                                     }}>
                                     <NickName
+                                        strategy={item.trader.strategy === 'grid' ? "Сетка":"Стопами"}
                                         name={item.trader.name} number={item.trader.id}
                                         avatar={item.trader.strategy === 'grid' ? imgStrategyGrid : imgStrategyStopLoss}
                                         justifyContent="space-between"/>
@@ -143,14 +144,22 @@ const TradersAndSets: FC<IType> = ({product, login, dataSets,assigned}) => {
                                                        borderBottom: `0.5px solid #3C3C3C`
                                                    }}>
                                                 <span className="subHeaders white-90">Прирост</span>
-                                                <span className="subHeadersBold green">{item.stats.gain}%</span>
+                                                <span
+                                                    className={`subHeadersBold ${(item.stats.gain > 0) ? "green" :"red"} `}
+                                                >
+                                                    {item.stats.gain}%
+                                                </span>
                                             </Stack>
                                         </Grid>
                                         <Grid item xs={2}>
                                             <Stack alignItems="center" justifyContent="center" spacing={2}
                                                    sx={{p: 2, borderBottom: `0.5px solid #3C3C3C`}}>
                                                 <span className="subHeaders white-90">Просадка</span>
-                                                <span className="subHeadersBold green">{item.stats.dropdown}%</span>
+                                                <span
+                                                    className={`subHeadersBold ${(item.stats.dropdown > 0) ? "green" :"red"} `}
+                                                >
+                                                    {item.stats.dropdown}%
+                                                </span>
                                             </Stack>
                                         </Grid>
 
@@ -158,7 +167,11 @@ const TradersAndSets: FC<IType> = ({product, login, dataSets,assigned}) => {
                                             <Stack alignItems="center" justifyContent="center" spacing={2}
                                                    sx={{p: 2, textAlign: "center"}}>
                                                 <span className="subHeaders white-90">Нагр. депозита</span>
-                                                <span className="subHeadersBold green">{item.stats.deposit_load}%</span>
+                                                <span
+                                                    className={`subHeadersBold ${(item.stats.deposit_load > 0) ? "green" :"red"} `}
+                                                >
+                                                    {item.stats.deposit_load}%
+                                                </span>
                                             </Stack>
                                         </Grid>
                                     </Grid>
@@ -192,10 +205,10 @@ const TradersAndSets: FC<IType> = ({product, login, dataSets,assigned}) => {
                     </Stack>
                 </TabsItem>
                 <TabsItem value={value} index={1}>
-                    <Stack className="subHeadersBold white-80" sx={{mb: 4}}>{dataSets?.data?.length ?? 0}/1</Stack>
+                    <Stack className="subHeadersBold white-80" sx={{mb: 4}}>{dataSet?.data?.length ?? 0}/1</Stack>
                     <Stack spacing={7}>
                         {
-                            dataSets && dataSets?.data?.map((item: any) =>
+                            dataSet && dataSet?.data?.map((item: any) =>
                                 <Paper
                                     key={item.set.id}
                                     sx={{
@@ -260,6 +273,7 @@ const TradersAndSets: FC<IType> = ({product, login, dataSets,assigned}) => {
             {
                 openModal &&
                 <CopyTradingModalSettings
+                    skip
                     idTraderSubscribe={idTrader}
                     idTrader={trader}
                     openModal={openModal}

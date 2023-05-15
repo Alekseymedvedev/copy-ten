@@ -19,14 +19,16 @@ interface IType {
     skip?: any
 }
 
-const Parameters: FC<IType> = ({traderSymbol, traderId,symbolSettings, daySettings, hoursSettings}) => {
-   const [skip, setSkip] = useState(false)
+const Parameters: FC<IType> = ({traderSymbol, traderId, symbolSettings, daySettings, hoursSettings}) => {
+
     const {accountId, accountName} = useAppSelector(state => state.accountIdReducer)
-    const {data} = useGetAccountSymbolQuery(accountId,{skip: traderSymbol})
+    const {data} = useGetAccountSymbolQuery(accountId, {skip: traderSymbol})
     const {data: dataTraderSymbol} = useGetTraderSymbolQuery(traderId, {skip: !traderSymbol})
 
-    // useEffect(()=>{
-    // },[traderSymbol])
+    const [symbolData, setSymbolData] = useState(symbolSettings ? symbolSettings : [])
+    const [dayData, setDayData] = useState(daySettings ? daySettings : [])
+    const [hoursData, setHoursData] = useState(hoursSettings ? hoursSettings : [])
+
     const {addExcludeDays, addExcludeHours, addExcludeSymbols} = setParametersSlice.actions
     const dispatch = useAppDispatch()
 
@@ -43,7 +45,12 @@ const Parameters: FC<IType> = ({traderSymbol, traderId,symbolSettings, daySettin
         <Stack spacing={7}
                sx={{p: `12px 8px`, border: `0.5px solid #3C3C3C`, borderRadius: 2.5}}>
             <Stack direction="row" alignItems="center" justifyContent="space-between">
-                <Stack direction="row" alignItems="center" spacing={4}>
+                <Stack
+                    onClick={() =>setSymbolData([])}
+                    direction="row"
+                    alignItems="center"
+                    spacing={4}
+                >
                     <IconButton
                         className="red"
                         size="small"
@@ -54,7 +61,7 @@ const Parameters: FC<IType> = ({traderSymbol, traderId,symbolSettings, daySettin
                     <span className="subHeaders white-90">Символы</span>
                 </Stack>
                 <CustomSelect
-                    isSettingsParams={symbolSettings ? symbolSettings : null}
+                    isSettingsParams={symbolData}
                     optionValue={handleExcludeSymbols}
                     options={
                         data ?
@@ -64,7 +71,12 @@ const Parameters: FC<IType> = ({traderSymbol, traderId,symbolSettings, daySettin
                     multiple/>
             </Stack>
             <Stack direction="row" alignItems="center" justifyContent="space-between">
-                <Stack direction="row" alignItems="center" spacing={4}>
+                <Stack
+                    onClick={() =>setDayData([])}
+                    direction="row"
+                    alignItems="center"
+                    spacing={4}
+                >
                     <IconButton
                         className="red"
                         size="small"
@@ -75,7 +87,7 @@ const Parameters: FC<IType> = ({traderSymbol, traderId,symbolSettings, daySettin
                     <span className="subHeaders white-90">Дни</span>
                 </Stack>
                 <CustomSelect
-                    isSettingsParams={daySettings ? daySettings : null}
+                    isSettingsParams={dayData}
                     optionValue={handleExcludeDays}
                     options={[
                         {id: 'Пн', title: 'Пн'},
@@ -89,7 +101,12 @@ const Parameters: FC<IType> = ({traderSymbol, traderId,symbolSettings, daySettin
                     multiple/>
             </Stack>
             <Stack direction="row" alignItems="center" justifyContent="space-between">
-                <Stack direction="row" alignItems="center" spacing={4}>
+                <Stack
+                    onClick={() =>setDayData([])}
+                    direction="row"
+                    alignItems="center"
+                    spacing={4}
+                >
                     <IconButton
                         className="red"
                         size="small"
@@ -100,10 +117,10 @@ const Parameters: FC<IType> = ({traderSymbol, traderId,symbolSettings, daySettin
                     <span className="subHeaders white-90">Часы</span>
                 </Stack>
                 <CustomSelect
-                    isSettingsParams={hoursSettings ? hoursSettings : null}
+                    isSettingsParams={hoursData}
                     optionValue={handleExcludeHours}
                     options={
-                        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24].map((item: any) => ({
+                        [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23].map((item: any) => ({
                             id: item,
                             title: item
                         }))

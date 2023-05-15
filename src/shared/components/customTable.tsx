@@ -33,7 +33,7 @@ const CustomTable: FC<T> = ({data, dataTableHead,isTrader,changePage,page}) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {data?.map((item: any) => (
+                    {data?.data?.map((item: any) => (
                         <TableRow key={item?.trader?.name + item.open_at + item.profit}>
 
                             <TableCell>{item.open_at}</TableCell>
@@ -76,7 +76,7 @@ const CustomTable: FC<T> = ({data, dataTableHead,isTrader,changePage,page}) => {
                 count={data?.meta?.pagination?.total_pages}
                 variant="outlined"
                 shape="rounded"
-                sx={{mr: 'auto'}}
+                sx={{mr: 'auto',mt:7}}
             />
 
         }

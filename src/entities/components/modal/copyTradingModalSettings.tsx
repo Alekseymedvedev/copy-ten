@@ -43,7 +43,7 @@ const CopyTradingModalSettings: FC<IType> = ({
                                                  nameAccount,
                                              }) => {
    const {data:dataSettings} = useGetSubscribesSettingsQuery(idTraderSubscribe,{skip})
-    console.log(idTrader)
+
     const [open, setOpen] = useState(false);
     const [openModalChild, setOpenModalChild] = useState(false);
     const [step, setStep] = useState(2);
@@ -156,7 +156,7 @@ const CopyTradingModalSettings: FC<IType> = ({
                     <Stack direction="row" justifyContent="flex-end" spacing={7} sx={{mt: 7}}>
                         {
                             step === 2 ?
-                                <Button onClick={() => setStep(step - 1)} color="neutral">Назад</Button>
+                                <Button onClick={() => setStep(step - 1)} color="error">Отмена</Button>
                                 :
                                 step === 3 ? null
                                     :

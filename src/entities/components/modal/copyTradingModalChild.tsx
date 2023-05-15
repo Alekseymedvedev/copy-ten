@@ -78,7 +78,7 @@ const CopyTradingModalChild: FC<IType> = ({
                  handleClose()
                 isError(true)
                 if (!error && !isLoading && step && setStep) {
-                    setStep(step + 1)
+                    // setStep(step + 1)
                     setSuccess(true)
                 }
 

@@ -35,7 +35,6 @@ const AccountType: FC<T> = ({
         updateAccount({
             body: {
                 name: nameAccount.value,
-                server_id: accountType?.id
             },
             id: accountNumber
         }).then(()=>{
