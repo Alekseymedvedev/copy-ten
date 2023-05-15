@@ -88,6 +88,7 @@ const TradersList: FC<IType> = ({children}) => {
                     <TraderItem
                         key={item.id}
                         isSelect
+                        idTraderSubscribe={item.id}
                         id={item.id}
                         name={item.name}
                         graph={item.graph}
