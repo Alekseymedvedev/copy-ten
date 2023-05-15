@@ -38,7 +38,7 @@ const CustomSelect: FC<IType> = ({
         isError && setError(isError)
         isSettingsParams && setVariantName(isSettingsParams)
     }, [isError,isSettingsParams])
-
+    console.log(variantName)
     const handleChange = (e: SelectChangeEvent<typeof variantName>) => {
 
         const {target: {value}} = e;
@@ -46,14 +46,13 @@ const CustomSelect: FC<IType> = ({
             typeof value === 'string' ? value.split(',') : value,
         );
         optionValue && optionValue(value)
-
         if (value !== '') setError(false)
     };
     return (
 
         <FormControl fullWidth error={error} sx={{width: width ? width : 'unset'}}>
             <InputLabel shrink={false}
-                        sx={{left: 24, top: -8, opacity: (variantName.length ==0 || variantName == '') ? 1 : 0}}>
+                        sx={{left: 24, top: -8, opacity: (variantName.length == 0 || variantName === '') ? 1 : 0}}>
                 {defaultValue}
             </InputLabel>
             <Select

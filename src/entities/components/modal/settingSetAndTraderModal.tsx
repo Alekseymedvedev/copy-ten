@@ -5,20 +5,27 @@ import CustomRange from "../../../shared/components/customRange";
 import Parameters from "../parameters";
 import {useAppDispatch, useAppSelector} from "../../../hooks/useRedux";
 import {setParametersSlice} from "../../../store/slice/parametersSlice";
-import {useSettingsTraderMutation, useUpdateSettingsTraderMutation} from "../../../store/API/tradeSetsApi";
+import {
+    useGetAdminTradersSettingsQuery,
+    useSettingsTraderMutation,
+    useUpdateSettingsTraderMutation
+} from "../../../store/API/tradeSetsApi";
+import {useGetSubscribesSettingsQuery} from "../../../store/API/subscribesApi";
 
 
 interface IType {
     maxWidth?: number;
     title?: string;
     idTrader?: any;
+    idTraderSubscribe?: any;
     id?: any;
     closeModal?: any;
     openModal: boolean;
     updateSettings?: boolean;
+    skip?: boolean;
 }
 
-const SettingSetAndTraderModal: FC<IType> = ({id,idTrader, title, openModal, closeModal,updateSettings}) => {
+const SettingSetAndTraderModal: FC<IType> = ({id,idTrader,idTraderSubscribe, title, openModal, closeModal,updateSettings,skip}) => {
     const dispatch = useAppDispatch()
     const {addRisk, addMaxLot, addMinLot} = setParametersSlice.actions
     const {
@@ -32,6 +39,7 @@ const SettingSetAndTraderModal: FC<IType> = ({id,idTrader, title, openModal, clo
 
     const [addSettingsTrader] = useSettingsTraderMutation()
     const [updateSettingsTrader] = useUpdateSettingsTraderMutation()
+    const {data:dataSettings} = useGetAdminTradersSettingsQuery(idTraderSubscribe,{skip})
 
     const [open, setOpen] = useState(false);
 
@@ -57,7 +65,7 @@ const SettingSetAndTraderModal: FC<IType> = ({id,idTrader, title, openModal, clo
     const handleAddSettingsTrader = () => {
         if (updateSettings) {
             updateSettingsTrader({
-                idTrader,
+                idTrader:idTraderSubscribe,
                 body: {
                     risk,
                     max_lot: maxLot,
@@ -104,22 +112,38 @@ const SettingSetAndTraderModal: FC<IType> = ({id,idTrader, title, openModal, clo
                     </Stack>
                     <Stack className="h2 white-90" sx={{mb: 7}}>{title}</Stack>
                     <Divider variant="fullWidth" sx={{mb: 7}}/>
-                    <Stack spacing={7}>
-                        <CustomRange onChange={handleRisk} step={1} minValue={0} maxValue={100}
-                                     title="Риск в процентах"
-                                     isSliderRange/>
-                        <CustomRange onChange={handleMaxLot} minValue={0} step={1} maxValue={500} title="Макс. лот *"
-                                     isSwitch isSliderRange/>
-                        <CustomRange onChangeSwift={handleMinLot} title="Мин. лот" required isSwitch/>
-                        <Parameters/>
+                    {
+                        (dataSettings || skip) &&
+                        <Stack spacing={7}>
+                            <CustomRange onChange={handleRisk} title="Риск" defaultValue={dataSettings?.risk}
+                                         required
+                                         isSwitch
+                                         isSliderRange/>
+                            <CustomRange onChange={handleMaxLot} title="Макс. лот"
+                                         defaultValue={dataSettings?.max_lot}
+                                         required isSwitch
+                                         isSliderRange/>
+                            <CustomRange onChangeSwift={handleMinLot} title="Мин. лот"
+                                         isSwitchChecked={false}
+                                         required
+                                         isSwitch/>
+                            <Parameters
+                                traderSymbol
+                                traderId={idTrader}
+                                symbolSettings={dataSettings?.exclude_symbols}
+                                hoursSettings={dataSettings?.exclude_hours}
+                                daySettings={dataSettings?.exclude_days}
+                            />
 
-                        <Stack direction="row" justifyContent="flex-end" spacing={7}>
-                            <Button onClick={() => setOpen(false)} color="error">Отмена</Button>
-                            <Button
-                                onClick={handleAddSettingsTrader}
-                                color="success">Сохранить</Button>
+                            <Stack direction="row" justifyContent="flex-end" spacing={7}>
+                                <Button onClick={() => setOpen(false)} color="error">Отмена</Button>
+                                <Button
+                                    onClick={handleAddSettingsTrader}
+                                    color="success">Сохранить</Button>
+                            </Stack>
                         </Stack>
-                    </Stack>
+                    }
+
                 </Box>
             </Modal>
         </>

@@ -12,7 +12,7 @@ export const tradeSetsApi = createApi({
             headers.set("Authorization", headersAuthorization)
         },
     }),
-    tagTypes: ['Set'],
+    tagTypes: ['Set','Settings'],
     endpoints: (build) => ({
         getAllAdminSets: build.query({
             query: (page) => ({
@@ -43,6 +43,12 @@ export const tradeSetsApi = createApi({
                 }
             }),
             providesTags: ['Set'],
+        }),
+        getAdminTradersSettings: build.query({
+            query: (id) => ({
+                url: `set/${id}/settings`,
+            }),
+            providesTags: ['Settings'],
         }),
 
         addSet: build.mutation({
@@ -75,7 +81,7 @@ export const tradeSetsApi = createApi({
                 method: 'PUT',
                 body,
             }),
-            invalidatesTags: ['Set']
+            invalidatesTags: ['Set','Settings']
         }),
         deleteSet: build.mutation({
             query(id) {
@@ -100,6 +106,7 @@ export const tradeSetsApi = createApi({
 
 export const {
     useGetAllAdminSetsQuery,
+    useGetAdminTradersSettingsQuery,
     useGetAllAdminTradersQuery,
     useGetAllLinkedTradersQuery,
     useGetAddLinkedTradersQuery,

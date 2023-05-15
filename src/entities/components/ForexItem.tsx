@@ -63,7 +63,7 @@ const ForexItem: FC<IType> = ({
                     type="text"
                     InputProps={{
                         endAdornment:
-                            <IconButton size="small" sx={{height: 15, color: '#828282', fontSize: 12}}
+                            <IconButton size="small"  sx={{height: 15, color: '#828282', fontSize: 12}}
                                         onClick={() => handlerCopy(numberAccount)}
                             >
                                 {textBtn}
@@ -87,7 +87,7 @@ const ForexItem: FC<IType> = ({
                 />
                 {
                     login &&
-                    <TextField fullWidth value={login} label="Телеграм" type="text"/>
+                    <TextField sx={{color:'red'}} fullWidth value={login} label="Телеграм" type="text"/>
                 }
 
 

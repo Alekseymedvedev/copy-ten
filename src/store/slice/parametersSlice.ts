@@ -28,13 +28,13 @@ export const setParametersSlice = createSlice({
         addMinLot(state: any, action: PayloadAction<any>) {
             state.minLot = action.payload
         },
-        addExcludeSymbols(state: any, action: PayloadAction<string>) {
+        addExcludeSymbols(state: any, action: PayloadAction<any>) {
             state.excludeSymbols = action.payload
         },
-        addExcludeDays(state: any, action: PayloadAction<string>) {
+        addExcludeDays(state: any, action: PayloadAction<any>) {
             state.excludeDays = action.payload
         },
-        addExcludeHours(state: any, action: PayloadAction<string>) {
+        addExcludeHours(state: any, action: PayloadAction<any>) {
             state.excludeHours = action.payload
         },
     },

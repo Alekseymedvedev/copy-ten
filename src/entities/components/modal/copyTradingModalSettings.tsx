@@ -103,7 +103,6 @@ const CopyTradingModalSettings: FC<IType> = ({
                             :
                             (step === 2) ?
                                 <Stack spacing={7}>
-
                                     <CustomRange onChange={handleRisk} title="Риск" defaultValue={dataSettings?.risk}
                                                  required
                                                  isSwitch

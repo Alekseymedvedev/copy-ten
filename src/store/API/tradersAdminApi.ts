@@ -14,7 +14,6 @@ export const traderAdminApi = createApi({
     }),
     tagTypes: ['Trader'],
     endpoints: (build) => ({
-
         getAllAdminTraders: build.query({
             query: (page) => ({
                 url: '/traders',
@@ -34,7 +33,7 @@ export const traderAdminApi = createApi({
             invalidatesTags: ['Trader']
         }),
         updateTrader: build.mutation({
-            query: ({id,body}) => ({
+            query: ({id, body}) => ({
                 url: `/trader/${id}`,
                 method: 'PUT',
                 body,
@@ -56,10 +55,10 @@ export const traderAdminApi = createApi({
 });
 
 export const {
-useGetAllAdminTradersQuery,
+    useGetAllAdminTradersQuery,
     useDeleteTraderMutation,
     useAddTraderMutation,
     useUpdateTraderMutation
 } = traderAdminApi;
 
-export const {  } = traderAdminApi.endpoints;
+export const {} = traderAdminApi.endpoints;

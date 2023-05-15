@@ -16,14 +16,15 @@ interface IType {
     openModal: boolean;
 }
 
-const LinkedTrader: FC<IType> = ({ id, title, openModal, closeModal}) => {
-    const {data: dataLinkedTraders,isLoading} = useGetAllLinkedTradersQuery(id)
+const LinkedTrader: FC<IType> = ({id, title, openModal, closeModal}) => {
+    const {data: dataLinkedTraders, isLoading} = useGetAllLinkedTradersQuery(id)
     const [deleteTrader] = useDeleteTraderMutation()
 
     const [open, setOpen] = useState(false);
     const [openModalAddTrader, setOpenModalAddTrader] = useState(false);
     const [openModalSettingsTrader, setOpenModalSettingsTrader] = useState(false);
     const [idTrader, setIdTrader] = useState('');
+    const [idTraderSubscribe, setIdTraderSubscribe] = useState('');
 
     useEffect((() => {
         setOpen(openModal)
@@ -32,7 +33,7 @@ const LinkedTrader: FC<IType> = ({ id, title, openModal, closeModal}) => {
         // setOpenModal(false)
         setOpenModalAddTrader(true)
     }
-    const handleClose = (e:any) => {
+    const handleClose = (e: any) => {
         e.preventDefault()
         closeModal(false)
         setOpen(false)
@@ -41,7 +42,7 @@ const LinkedTrader: FC<IType> = ({ id, title, openModal, closeModal}) => {
     return (
         <>
             <Modal open={open} onClose={handleClose}>
-                <Box sx={{maxWidth:1140}}>
+                <Box sx={{maxWidth: 1140}}>
                     <Stack onClick={handleClose} sx={{position: "absolute", top: 14, right: 28, cursor: "pointer"}}>
                         <IconClose/>
                     </Stack>
@@ -58,22 +59,28 @@ const LinkedTrader: FC<IType> = ({ id, title, openModal, closeModal}) => {
                         </Button>
                         {
                             isLoading ?
-                            <Skeleton variant="rounded" width={`100%`} height={68}/>
+                                <Skeleton variant="rounded" width={`100%`} height={68}/>
                                 :
                                 dataLinkedTraders?.data &&
                                 dataLinkedTraders?.data.map((item: any) =>
-                                    <TraderItem
-                                        idTrader={setIdTrader}
+                                    <Stack
                                         key={item.id}
-                                        isSelect
-                                        id={item.id}
-                                        stats={item.trader.stats}
-                                        graph={item.trader.graph}
-                                        name={item.trader.name}
-                                        strategy={item.trader.strategy}
-                                        openModal={setOpenModalSettingsTrader}
-                                        deleteTrader={deleteTrader}
-                                    />
+                                        onClick={() => {
+                                        setIdTraderSubscribe(item.id)
+                                        setIdTrader(item.trader.id)
+                                    }}>
+                                        <TraderItem
+
+                                            isSelect
+                                            id={item.id}
+                                            stats={item.trader.stats}
+                                            graph={item.trader.graph}
+                                            name={item.trader.name}
+                                            strategy={item.trader.strategy}
+                                            openModal={setOpenModalSettingsTrader}
+                                            deleteTrader={deleteTrader}
+                                        />
+                                    </Stack>
                                 )
                         }
                     </Stack>
@@ -82,13 +89,18 @@ const LinkedTrader: FC<IType> = ({ id, title, openModal, closeModal}) => {
             {
                 openModalAddTrader &&
                 <AddTraderModal id={id} title="Добавить трейдера" openModal={openModalAddTrader}
-                             closeModal={setOpenModalAddTrader}/>
+                                closeModal={setOpenModalAddTrader}/>
             }
             {
                 openModalSettingsTrader &&
-                <SettingSetAndTraderModal updateSettings idTrader={idTrader} maxWidth={620} title="Настройки трейдера"
-                                          openModal={openModalSettingsTrader}
-                                          closeModal={setOpenModalSettingsTrader}/>
+                <SettingSetAndTraderModal
+                    idTraderSubscribe={idTraderSubscribe}
+                    updateSettings
+                    idTrader={idTrader}
+                    maxWidth={620}
+                    title="Настройки трейдера"
+                    openModal={openModalSettingsTrader}
+                    closeModal={setOpenModalSettingsTrader}/>
             }
         </>
     );

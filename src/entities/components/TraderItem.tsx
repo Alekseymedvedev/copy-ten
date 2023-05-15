@@ -11,6 +11,7 @@ import {useDeleteTraderMutation} from "../../store/API/tradeSetsApi";
 
 interface IType {
     idTrader?: any;
+    idTraderSubscribe?: any;
     openModal?: any;
     deleteTrader?: any;
     id: string | number;
@@ -23,6 +24,7 @@ interface IType {
 
 const TraderItem: FC<IType> = ({
                                    idTrader,
+                                   idTraderSubscribe,
                                    openModal,
                                    deleteTrader,
                                    id,
@@ -83,6 +85,7 @@ const TraderItem: FC<IType> = ({
                             >
                                 <MenuItem onClick={() => {
                                     if (idTrader) idTrader(id)
+                                    if (idTraderSubscribe) idTraderSubscribe(id)
                                     openModal(true)
                                 }}>
                                     Настройки

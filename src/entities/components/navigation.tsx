@@ -13,7 +13,7 @@ export const menuUserData = [
     {path: "/", name: 'Мои счета', navigateClass: 'navigationGreen', icon: IconAccount},
     {path: "/copy-trading", name: 'Копитрейдинг', navigateClass: 'navigationPurple', icon: IconCopyTrading},
     {path: "/partner", name: 'Партнерская программа', navigateClass: 'navigationRed', icon: IconPartner},
-    {path: "/settings", name: 'Настройки', navigateClass: 'navigationWhite', icon: IconSettings},
+    // {path: "/settings", name: 'Настройки', navigateClass: 'navigationWhite', icon: IconSettings},
     {path: "/support", name: 'Тех. поддержка', navigateClass: 'supportMenuItem support', icon: IconSupport},
 ]
 export const menuAdminData = [

@@ -46,7 +46,10 @@ const Parameters: FC<IType> = ({traderSymbol, traderId, symbolSettings, daySetti
                sx={{p: `12px 8px`, border: `0.5px solid #3C3C3C`, borderRadius: 2.5}}>
             <Stack direction="row" alignItems="center" justifyContent="space-between">
                 <Stack
-                    onClick={() =>setSymbolData([])}
+                    onClick={() => {
+                        dispatch(addExcludeSymbols([]))
+                        setSymbolData([])
+                    }}
                     direction="row"
                     alignItems="center"
                     spacing={4}
@@ -72,7 +75,10 @@ const Parameters: FC<IType> = ({traderSymbol, traderId, symbolSettings, daySetti
             </Stack>
             <Stack direction="row" alignItems="center" justifyContent="space-between">
                 <Stack
-                    onClick={() =>setDayData([])}
+                    onClick={() => {
+                        dispatch(addExcludeDays([]))
+                        setDayData([])
+                    }}
                     direction="row"
                     alignItems="center"
                     spacing={4}
@@ -102,7 +108,10 @@ const Parameters: FC<IType> = ({traderSymbol, traderId, symbolSettings, daySetti
             </Stack>
             <Stack direction="row" alignItems="center" justifyContent="space-between">
                 <Stack
-                    onClick={() =>setDayData([])}
+                    onClick={() => {
+                        dispatch(addExcludeHours([]))
+                        setHoursData([])
+                    }}
                     direction="row"
                     alignItems="center"
                     spacing={4}

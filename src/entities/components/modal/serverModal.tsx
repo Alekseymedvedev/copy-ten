@@ -92,11 +92,11 @@ const ServerModal: FC<IType> = ({
         }
         if (input.value === '') setErrorInput(true)
         if (serverNumber === '') setErrorSelect(true)
-
     }
-    const handlerClose = () => {
+    const handlerClose = (e:any) => {
         closeModal(false)
         setOpen(false);
+        input.onChange(e)
     };
     return (
         <>
@@ -142,7 +142,7 @@ const ServerModal: FC<IType> = ({
                             </Stack>
                     }
                     <Stack direction="row" justifyContent="flex-end" spacing={7} sx={{mt: 7}}>
-                        <Button onClick={() => setOpen(false)} color="neutral">Отмена</Button>
+                        <Button onClick={handlerClose} color="error">Отмена</Button>
                         <Button onClick={handlerAdd}
                                 color="success">{isDeleteServer ? "Подтвердить" : "Добавить"}</Button>
                     </Stack>
