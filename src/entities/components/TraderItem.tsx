@@ -1,6 +1,6 @@
 import React, {FC, useState} from 'react';
 import Paper from "@mui/material/Paper";
-import {FormControl, Grid, InputLabel, MenuItem, Select} from "@mui/material";
+import {FormControl, Grid, InputLabel, MenuItem, Select, useMediaQuery} from "@mui/material";
 import NickName from "../../shared/components/nickName";
 import imgStrategyGrid from "../../shared/assets/images/strategy.png";
 import imgStrategyStopLoss from "../../shared/assets/images/strategys-stop-loss.png";
@@ -35,12 +35,12 @@ const TraderItem: FC<IType> = ({
                                    isSelect,
                                }) => {
 
-
+    const mediaQuery = useMediaQuery('(min-width:980px)');
 
     return (
 
         <Paper sx={{
-            height: 68,
+            height:mediaQuery ? 68 : 'inherit',
             alignItems: "center",
             "@media (min-width:980px)": {
                 // p: `4px 28px 12px 28px`,

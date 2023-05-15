@@ -22,7 +22,7 @@ const MyProductItem: FC<IProducts> = ({id, status, valid_to, sub_title, accountD
                 justifyContent="space-between"
                 spacing={7}
             >
-                <Stack direction="row" alignItems="center"  spacing={7} flexGrow={1}sx={{ maxWidth: 260,width: `100%`}}>
+                <Stack direction="row" alignItems="center" spacing={7} flexGrow={1} sx={{maxWidth: 260, width: `100%`}}>
                     <IconProduct status={status}/>
                     <Stack>
                         {
@@ -43,19 +43,20 @@ const MyProductItem: FC<IProducts> = ({id, status, valid_to, sub_title, accountD
                         <span className="subHeadersBold green">{sub_title}</span>
                     </Stack>
                 </Stack>
-                <Stack direction="row" alignItems="center" spacing={7} justifyContent="center" sx={{width:`100%`}}>
+                <Stack direction="row" alignItems="center" spacing={7} justifyContent="center" sx={{width: `100%`}}>
                     <Stack
                         alignItems="center"
                         spacing={2}
                         flexGrow={1}
-                        sx={{ maxWidth: 150,width: `100%`}}
+                        sx={{maxWidth: 150, width: `100%`}}
                     >
                         <span className="subHeaders white-90">Статус</span>
                         <span className="subHeadersBold green">
                             {
                                 status === 0 ? <span className="subHeadersBold red">Не активен</span> :
                                     status === 1 ? <span className="subHeadersBold green">Активен</span> :
-                                        status === 2 ? <span className="subHeadersBold orange">Требуется продление</span>
+                                        status === 2 ?
+                                            <span className="subHeadersBold orange">Требуется продление</span>
                                             : <span className="subHeadersBold white-100">Не привязан</span>
                             }
                         </span>
@@ -65,13 +66,19 @@ const MyProductItem: FC<IProducts> = ({id, status, valid_to, sub_title, accountD
                         alignItems="center"
                         spacing={2}
                         flexGrow={1}
-                        sx={{ maxWidth: 130,width: `100%`}}
+                        sx={{maxWidth: 130, width: `100%`}}
                     >
                         <span className="subHeaders white-90">Дата валидности</span>
                         <span className="subHeadersBold">{valid_to ? valid_to : '---'}</span>
                     </Stack>
                 </Stack>
-                <Stack direction="row" alignItems="center" spacing={7} justifyContent="flex-end" flexGrow={1}>
+                <Stack
+                    direction="row"
+                    alignItems="center"
+                    spacing={7}
+                    justifyContent={mediaQuery ? "flex-end" : "space-between"}
+                    flexGrow={1}
+                    sx={{width: `100%`}}>
                     <Button onClick={() => setOpenPaymentModal(true)} color="neutral">Продлить</Button>
                     <Button onClick={() => setOpenModal(true)} color="neutral">Настройки</Button>
                 </Stack>
@@ -81,7 +88,8 @@ const MyProductItem: FC<IProducts> = ({id, status, valid_to, sub_title, accountD
             }
             {
                 openPaymentModal &&
-                <PaymentModal title="Продление продукта" text="Вы хотите продлить продукт" paymentLinkId={id} openModal={openPaymentModal}
+                <PaymentModal title="Продление продукта" text="Вы хотите продлить продукт" paymentLinkId={id}
+                              openModal={openPaymentModal}
                               closeModal={setOpenPaymentModal}/>
             }
         </Paper>
